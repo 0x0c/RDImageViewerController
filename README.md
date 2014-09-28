@@ -5,11 +5,16 @@
 [![License](https://img.shields.io/cocoapods/l/RDImageViewerController.svg?style=flat)](http://cocoadocs.org/docsets/RDImageViewerController)
 [![Platform](https://img.shields.io/cocoapods/p/RDImageViewerController.svg?style=flat)](http://cocoadocs.org/docsets/RDImageViewerController)
 
+![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/1.png)
+![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/2.png)
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+
+- Runs on iOS 7.0 or later.
 
 ## Installation
 
@@ -17,6 +22,10 @@ RDImageViewerController is available through [CocoaPods](http://cocoapods.org). 
 it, simply add the following line to your Podfile:
 
     pod "RDImageViewerController"
+
+## Usage
+
+
 
 ## Author
 
