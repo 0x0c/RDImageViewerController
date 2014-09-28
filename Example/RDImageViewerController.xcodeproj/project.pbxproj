@@ -23,18 +23,18 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		E3A3A445DE0F421C9D66D081 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADF8DB7BCBB4D47A97E8F2C /* libPods-Tests.a */; };
-		E919D28119D7EBD1003F4BD0 /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27719D7EBD1003F4BD0 /* 1.JPG */; };
-		E919D28219D7EBD1003F4BD0 /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27819D7EBD1003F4BD0 /* 2.JPG */; };
-		E919D28319D7EBD1003F4BD0 /* 3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27919D7EBD1003F4BD0 /* 3.JPG */; };
-		E919D28419D7EBD1003F4BD0 /* 4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27A19D7EBD1003F4BD0 /* 4.JPG */; };
-		E919D28519D7EBD1003F4BD0 /* 5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27B19D7EBD1003F4BD0 /* 5.JPG */; };
-		E919D28619D7EBD1003F4BD0 /* 6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27C19D7EBD1003F4BD0 /* 6.JPG */; };
-		E919D28719D7EBD1003F4BD0 /* 7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27D19D7EBD1003F4BD0 /* 7.JPG */; };
-		E919D28819D7EBD1003F4BD0 /* 8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27E19D7EBD1003F4BD0 /* 8.JPG */; };
-		E919D28919D7EBD1003F4BD0 /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D27F19D7EBD1003F4BD0 /* 9.JPG */; };
-		E919D28A19D7EBD1003F4BD0 /* 10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D28019D7EBD1003F4BD0 /* 10.JPG */; };
 		E919D29119D8005C003F4BD0 /* RDImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E919D29019D8005C003F4BD0 /* RDImageScrollView.m */; };
 		E919D29619D80683003F4BD0 /* RDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E919D29519D80683003F4BD0 /* RDPagingView.m */; };
+		E919D2A219D82F8E003F4BD0 /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29819D82F8E003F4BD0 /* 1.JPG */; };
+		E919D2A319D82F8E003F4BD0 /* 10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29919D82F8E003F4BD0 /* 10.JPG */; };
+		E919D2A419D82F8E003F4BD0 /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29A19D82F8E003F4BD0 /* 2.JPG */; };
+		E919D2A519D82F8E003F4BD0 /* 3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29B19D82F8E003F4BD0 /* 3.JPG */; };
+		E919D2A619D82F8E003F4BD0 /* 4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29C19D82F8E003F4BD0 /* 4.JPG */; };
+		E919D2A719D82F8E003F4BD0 /* 5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29D19D82F8E003F4BD0 /* 5.JPG */; };
+		E919D2A819D82F8E003F4BD0 /* 6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29E19D82F8E003F4BD0 /* 6.JPG */; };
+		E919D2A919D82F8E003F4BD0 /* 7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29F19D82F8E003F4BD0 /* 7.JPG */; };
+		E919D2AA19D82F8E003F4BD0 /* 8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A019D82F8E003F4BD0 /* 8.JPG */; };
+		E919D2AB19D82F8E003F4BD0 /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A119D82F8E003F4BD0 /* 9.JPG */; };
 		E96FFD8319CE7970008ADEDF /* RDBookmarkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E96FFD7E19CE7970008ADEDF /* RDBookmarkManager.m */; };
 		E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */; };
 /* End PBXBuildFile section */
@@ -77,20 +77,20 @@
 		89025E39FA3270FE8EDDEEB7 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RDImageViewerController.podspec; path = ../RDImageViewerController.podspec; sourceTree = "<group>"; };
 		8908584DC4E04959ABA607A8 /* libPods-RDImageViewerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RDImageViewerController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6BEC608C2E338A1EFB29850 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		E919D27719D7EBD1003F4BD0 /* 1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.JPG; sourceTree = "<group>"; };
-		E919D27819D7EBD1003F4BD0 /* 2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.JPG; sourceTree = "<group>"; };
-		E919D27919D7EBD1003F4BD0 /* 3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.JPG; sourceTree = "<group>"; };
-		E919D27A19D7EBD1003F4BD0 /* 4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.JPG; sourceTree = "<group>"; };
-		E919D27B19D7EBD1003F4BD0 /* 5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.JPG; sourceTree = "<group>"; };
-		E919D27C19D7EBD1003F4BD0 /* 6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.JPG; sourceTree = "<group>"; };
-		E919D27D19D7EBD1003F4BD0 /* 7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.JPG; sourceTree = "<group>"; };
-		E919D27E19D7EBD1003F4BD0 /* 8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.JPG; sourceTree = "<group>"; };
-		E919D27F19D7EBD1003F4BD0 /* 9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.JPG; sourceTree = "<group>"; };
-		E919D28019D7EBD1003F4BD0 /* 10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.JPG; sourceTree = "<group>"; };
 		E919D28F19D8005C003F4BD0 /* RDImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageScrollView.h; sourceTree = "<group>"; };
 		E919D29019D8005C003F4BD0 /* RDImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageScrollView.m; sourceTree = "<group>"; };
 		E919D29419D80683003F4BD0 /* RDPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDPagingView.h; sourceTree = "<group>"; };
 		E919D29519D80683003F4BD0 /* RDPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDPagingView.m; sourceTree = "<group>"; };
+		E919D29819D82F8E003F4BD0 /* 1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.JPG; sourceTree = "<group>"; };
+		E919D29919D82F8E003F4BD0 /* 10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.JPG; sourceTree = "<group>"; };
+		E919D29A19D82F8E003F4BD0 /* 2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.JPG; sourceTree = "<group>"; };
+		E919D29B19D82F8E003F4BD0 /* 3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.JPG; sourceTree = "<group>"; };
+		E919D29C19D82F8E003F4BD0 /* 4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.JPG; sourceTree = "<group>"; };
+		E919D29D19D82F8E003F4BD0 /* 5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.JPG; sourceTree = "<group>"; };
+		E919D29E19D82F8E003F4BD0 /* 6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.JPG; sourceTree = "<group>"; };
+		E919D29F19D82F8E003F4BD0 /* 7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.JPG; sourceTree = "<group>"; };
+		E919D2A019D82F8E003F4BD0 /* 8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.JPG; sourceTree = "<group>"; };
+		E919D2A119D82F8E003F4BD0 /* 9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.JPG; sourceTree = "<group>"; };
 		E96FFD7D19CE7970008ADEDF /* RDBookmarkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDBookmarkManager.h; sourceTree = "<group>"; };
 		E96FFD7E19CE7970008ADEDF /* RDBookmarkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDBookmarkManager.m; sourceTree = "<group>"; };
 		E96FFD8019CE7970008ADEDF /* RDImageViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageViewerController.h; sourceTree = "<group>"; };
@@ -161,6 +161,7 @@
 		6003F593195388D20070C39A /* RDImageViewerController */ = {
 			isa = PBXGroup;
 			children = (
+				E919D29719D82F8E003F4BD0 /* Images */,
 				E9872DC419D1435B0056611E /* Assets */,
 				E96FFD7A19CE7970008ADEDF /* Classes */,
 				6003F59C195388D20070C39A /* RDAppDelegate.h */,
@@ -214,23 +215,6 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		E919D24A19D6F6F5003F4BD0 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				E919D27719D7EBD1003F4BD0 /* 1.JPG */,
-				E919D27819D7EBD1003F4BD0 /* 2.JPG */,
-				E919D27919D7EBD1003F4BD0 /* 3.JPG */,
-				E919D27A19D7EBD1003F4BD0 /* 4.JPG */,
-				E919D27B19D7EBD1003F4BD0 /* 5.JPG */,
-				E919D27C19D7EBD1003F4BD0 /* 6.JPG */,
-				E919D27D19D7EBD1003F4BD0 /* 7.JPG */,
-				E919D27E19D7EBD1003F4BD0 /* 8.JPG */,
-				E919D27F19D7EBD1003F4BD0 /* 9.JPG */,
-				E919D28019D7EBD1003F4BD0 /* 10.JPG */,
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
 		E919D28E19D80053003F4BD0 /* RDImageScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +232,23 @@
 			);
 			path = RDPagingView;
 			sourceTree = "<group>";
+		};
+		E919D29719D82F8E003F4BD0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E919D29819D82F8E003F4BD0 /* 1.JPG */,
+				E919D29919D82F8E003F4BD0 /* 10.JPG */,
+				E919D29A19D82F8E003F4BD0 /* 2.JPG */,
+				E919D29B19D82F8E003F4BD0 /* 3.JPG */,
+				E919D29C19D82F8E003F4BD0 /* 4.JPG */,
+				E919D29D19D82F8E003F4BD0 /* 5.JPG */,
+				E919D29E19D82F8E003F4BD0 /* 6.JPG */,
+				E919D29F19D82F8E003F4BD0 /* 7.JPG */,
+				E919D2A019D82F8E003F4BD0 /* 8.JPG */,
+				E919D2A119D82F8E003F4BD0 /* 9.JPG */,
+			);
+			path = Images;
+			sourceTree = SOURCE_ROOT;
 		};
 		E96FFD7A19CE7970008ADEDF /* Classes */ = {
 			isa = PBXGroup;
@@ -282,7 +283,6 @@
 		E9872DC419D1435B0056611E /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E919D24A19D6F6F5003F4BD0 /* Images */,
 			);
 			name = Assets;
 			path = ../../Pod/Assets;
@@ -369,17 +369,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E919D28A19D7EBD1003F4BD0 /* 10.JPG in Resources */,
-				E919D28819D7EBD1003F4BD0 /* 8.JPG in Resources */,
-				E919D28219D7EBD1003F4BD0 /* 2.JPG in Resources */,
-				E919D28519D7EBD1003F4BD0 /* 5.JPG in Resources */,
+				E919D2AA19D82F8E003F4BD0 /* 8.JPG in Resources */,
+				E919D2A919D82F8E003F4BD0 /* 7.JPG in Resources */,
+				E919D2A719D82F8E003F4BD0 /* 5.JPG in Resources */,
+				E919D2A619D82F8E003F4BD0 /* 4.JPG in Resources */,
+				E919D2A819D82F8E003F4BD0 /* 6.JPG in Resources */,
+				E919D2AB19D82F8E003F4BD0 /* 9.JPG in Resources */,
+				E919D2A419D82F8E003F4BD0 /* 2.JPG in Resources */,
+				E919D2A519D82F8E003F4BD0 /* 3.JPG in Resources */,
+				E919D2A319D82F8E003F4BD0 /* 10.JPG in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
-				E919D28119D7EBD1003F4BD0 /* 1.JPG in Resources */,
-				E919D28319D7EBD1003F4BD0 /* 3.JPG in Resources */,
-				E919D28719D7EBD1003F4BD0 /* 7.JPG in Resources */,
-				E919D28419D7EBD1003F4BD0 /* 4.JPG in Resources */,
-				E919D28619D7EBD1003F4BD0 /* 6.JPG in Resources */,
-				E919D28919D7EBD1003F4BD0 /* 9.JPG in Resources */,
+				E919D2A219D82F8E003F4BD0 /* 1.JPG in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
