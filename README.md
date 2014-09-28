@@ -25,7 +25,26 @@ it, simply add the following line to your Podfile:
 
 ## Usage
 
+Initialize RDImageViewerController with number of images and image handler.
 
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
+		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
+		return [UIImage imageNamed:imageName];
+	} numberOfImage:10];
+
+or
+
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithAsynchronousImageHandler:^(RDImageScrollView *imageView, NSInteger pageIndex) {
+		// set image in another thread(not main thread)
+	} numberOfImages:array.count];
+
+You can set the number of preloading images like this.
+
+	RDImageViewerController *viewController = ...
+	viewController.preloadCount = 2;
+
+![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/3.png)
+![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/4.png)
 
 ## Author
 
