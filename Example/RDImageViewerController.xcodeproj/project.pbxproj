@@ -35,7 +35,6 @@
 		E919D2A919D82F8E003F4BD0 /* 7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29F19D82F8E003F4BD0 /* 7.JPG */; };
 		E919D2AA19D82F8E003F4BD0 /* 8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A019D82F8E003F4BD0 /* 8.JPG */; };
 		E919D2AB19D82F8E003F4BD0 /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A119D82F8E003F4BD0 /* 9.JPG */; };
-		E96FFD8319CE7970008ADEDF /* RDBookmarkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E96FFD7E19CE7970008ADEDF /* RDBookmarkManager.m */; };
 		E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */; };
 /* End PBXBuildFile section */
 
@@ -91,8 +90,6 @@
 		E919D29F19D82F8E003F4BD0 /* 7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.JPG; sourceTree = "<group>"; };
 		E919D2A019D82F8E003F4BD0 /* 8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.JPG; sourceTree = "<group>"; };
 		E919D2A119D82F8E003F4BD0 /* 9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.JPG; sourceTree = "<group>"; };
-		E96FFD7D19CE7970008ADEDF /* RDBookmarkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDBookmarkManager.h; sourceTree = "<group>"; };
-		E96FFD7E19CE7970008ADEDF /* RDBookmarkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDBookmarkManager.m; sourceTree = "<group>"; };
 		E96FFD8019CE7970008ADEDF /* RDImageViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageViewerController.h; sourceTree = "<group>"; };
 		E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageViewerController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -253,22 +250,12 @@
 		E96FFD7A19CE7970008ADEDF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E96FFD7C19CE7970008ADEDF /* RDBookmarkManager */,
 				E919D29319D80679003F4BD0 /* RDPagingView */,
 				E919D28E19D80053003F4BD0 /* RDImageScrollView */,
 				E96FFD7F19CE7970008ADEDF /* RDImageViewerController */,
 			);
 			name = Classes;
 			path = ../../Pod/Classes;
-			sourceTree = "<group>";
-		};
-		E96FFD7C19CE7970008ADEDF /* RDBookmarkManager */ = {
-			isa = PBXGroup;
-			children = (
-				E96FFD7D19CE7970008ADEDF /* RDBookmarkManager.h */,
-				E96FFD7E19CE7970008ADEDF /* RDBookmarkManager.m */,
-			);
-			path = RDBookmarkManager;
 			sourceTree = "<group>";
 		};
 		E96FFD7F19CE7970008ADEDF /* RDImageViewerController */ = {
@@ -465,7 +452,6 @@
 			files = (
 				E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */,
 				6003F59E195388D20070C39A /* RDAppDelegate.m in Sources */,
-				E96FFD8319CE7970008ADEDF /* RDBookmarkManager.m in Sources */,
 				E919D29119D8005C003F4BD0 /* RDImageScrollView.m in Sources */,
 				6003F5A7195388D20070C39A /* RDViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

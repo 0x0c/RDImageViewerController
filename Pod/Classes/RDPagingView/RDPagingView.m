@@ -104,14 +104,7 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (UIView *)dequeueView
 {
-	UIView *view = [preparedViews_ anyObject];
-	if (view == nil) {
-		NSLog(@"\tnew view");
-	}
-	else {
-		NSLog(@"\treuse:%ld", view.tag);
-	}
-	return view;
+	return [preparedViews_ anyObject];
 }
 
 - (NSInteger)currentPageIndex
@@ -135,9 +128,6 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (void)pageIndexWillChangeToIndex:(NSInteger)index
 {
-	NSLog(@"--");
-	NSLog(@"\twill change to %ld", index);
-	
 	NSInteger direction = index - self.currentPageIndex > 0 ? RDPagingViewMovingDirectionForward : (index - self.currentPageIndex < 0 ? RDPagingViewMovingDirectionBackward : 0);
 	NSInteger offset = index - (direction * (_preloadCount + 1)) + kSubViewTagOffset;
 	
@@ -147,7 +137,6 @@ static NSInteger kPreloadDefaultCount = 1;
 		[usingViews_ enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
 			UIView *view = obj;
 			if (view.tag < minimumIndex || view.tag > maximumIndex) {
-				NSLog(@"\t\tremoved view tag: %ld", view.tag);
 				[self setViewPrepared:view];
 			}
 		}];
@@ -164,7 +153,6 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (void)preloadWithNumberOfViews:(NSInteger)num fromIndex:(NSInteger)index
 {
-	NSLog(@"preload:%ld - %ld", MAX(index - num, 0) + kSubViewTagOffset, MIN(index + num + 1, self.numberOfPages - 1) - 1 + kSubViewTagOffset);
 	for (NSInteger i = MAX(index - num, 0); i < MIN(index + num + 1, self.numberOfPages); i++) {
 		if ([self viewWithTag:i + kSubViewTagOffset] == nil) {
 			[self loadViewAtIndex:i];
@@ -179,8 +167,6 @@ static NSInteger kPreloadDefaultCount = 1;
 	view.tag = index + kSubViewTagOffset;
 	[self setViewUsing:view];
 	[self addSubview:view];
-	
-	NSLog(@"load view tag: %ld", view.tag);
 }
 
 #pragma mark UIScrollViewDelegate
@@ -220,13 +206,6 @@ static NSInteger kPreloadDefaultCount = 1;
 	if (flag_.pagingViewDidEndDecelerating) {
 		[self.pagingDelegate pagingViewDidEndDecelerating:self];
 	}
-//	CGFloat page = self.contentOffset.x / CGRectGetWidth(pagingView_.frame);
-//	[self.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//		UIScrollView *pageView = (UIScrollView *)obj;
-//		if (page != CGRectGetMinX(pageView.frame) / CGRectGetWidth(pagingView_.frame)) {
-//			pageView.zoomScale = 1.0;
-//		}
-//	}];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
