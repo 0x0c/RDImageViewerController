@@ -10,4 +10,7 @@
 
 @interface RDViewController : UIViewController
 
+- (IBAction)showImageViewController:(id)sender;
+- (IBAction)showAsyncImageViewController:(id)sender;
+
 @end
