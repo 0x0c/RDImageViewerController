@@ -91,15 +91,19 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (void)setViewPrepared:(UIView *)view
 {
-	[view removeFromSuperview];
-	[usingViews_ removeObject:view];
-	[preparedViews_ addObject:view];
+	if (view) {
+		[view removeFromSuperview];
+		[usingViews_ removeObject:view];
+		[preparedViews_ addObject:view];
+	}
 }
 
 - (void)setViewUsing:(UIView *)view
 {
-	[preparedViews_ removeObject:view];
-	[usingViews_ addObject:view];
+	if (view) {
+		[preparedViews_ removeObject:view];
+		[usingViews_ addObject:view];
+	}
 }
 
 - (UIView *)dequeueView
