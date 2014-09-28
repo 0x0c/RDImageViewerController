@@ -43,9 +43,7 @@
 		return [UIImage imageNamed:imageName];
 	} numberOfImage:10];
 	viewController.preloadCount = 2;
-	UINavigationController *navigationViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	[self presentViewController:navigationViewController animated:YES completion:^{
-	}];
+	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 
@@ -53,6 +51,7 @@
 {
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithAsynchronousImageHandler:^(RDImageScrollView *imageView, NSInteger pageIndex) {
 		__block __weak RDImageScrollView *bimageView = imageView;
+		NSLog(@"downloading...:%@", [array[pageIndex] absoluteString]);
 		[NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:array[pageIndex]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 			UIImage *image = [UIImage imageWithData:data];
 			if (image == nil) {
@@ -66,9 +65,7 @@
 			}
 		}];
 	} numberOfImage:array.count];
-	UINavigationController *navigationViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	[self presentViewController:navigationViewController animated:YES completion:^{
-	}];
+	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark -
