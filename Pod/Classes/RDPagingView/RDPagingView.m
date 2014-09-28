@@ -41,6 +41,7 @@ static NSInteger kPreloadDefaultCount = 1;
 	if (self) {
 		self.delegate = self;
 		self.pagingEnabled = YES;
+		self.direction = RDPagingViewDirectionRight;
 		_numberOfPages = 0;
 		_preloadCount = kPreloadDefaultCount;
 		
