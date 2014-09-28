@@ -46,6 +46,8 @@ You can set the number of preloading images like this.
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/3.png)
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/4.png)
 
+The image view will be reused when scrolled.
+
 ## Author
 
 Akira Matsuda, akira.m.itachi@gmail.com

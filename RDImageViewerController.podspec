@@ -10,7 +10,7 @@
 Pod::Spec.new do |s|
   s.name             = "RDImageViewerController"
   s.version          = "0.1.0"
-  s.summary          = "A short description of RDImageViewerController."
+  s.summary          = "Simple but powerful image viewer."
   s.homepage         = "https://github.com/0x0c/RDImageViewerController"
   # s.screenshots     = "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/1.png", "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/2.png"
   s.license          = 'MIT'
@@ -20,9 +20,8 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes'
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
+  s.source_files = 'Pod/Classes/**/*.{h,m}'
+  s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
