@@ -8,10 +8,6 @@
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/1.png)
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/2.png)
 
-## Usage
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
 ## Requirements
 
 - Runs on iOS 7.0 or later.
@@ -24,6 +20,8 @@ it, simply add the following line to your Podfile:
     pod "RDImageViewerController"
 
 ## Usage
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 Initialize RDImageViewerController with number of images and image handler.
 
