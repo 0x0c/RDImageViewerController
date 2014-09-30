@@ -188,6 +188,16 @@ static NSInteger kPreloadDefaultCount = 1;
 	return pagingView_.preloadCount;
 }
 
+- (void)setPagingEnabled:(BOOL)paging
+{
+	pagingView_.pagingEnabled = paging;
+}
+
+- (BOOL)pagingEnabled
+{
+	return pagingView_.pagingEnabled;
+}
+
 #pragma mark -
 
 - (void)hideBars
