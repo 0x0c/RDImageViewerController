@@ -28,13 +28,13 @@ Initialize RDImageViewerController with number of images and image handler.
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
-	} numberOfImage:10];
+	} numberOfImage:10 direction:RDPagingViewDirectionRight];
 
 or
 
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithAsynchronousImageHandler:^(RDImageScrollView *imageView, NSInteger pageIndex) {
-		// set image in another thread(not main thread)
-	} numberOfImages:array.count];
+		// download and set image
+	} numberOfImages:array.count direction:RDPagingViewDirectionRight];
 
 You can set the number of preloading images like this.
 
