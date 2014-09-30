@@ -41,7 +41,7 @@
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
-	} numberOfImages:10];
+	} numberOfImages:10 direction:RDPagingViewDirectionRight];
 	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -64,7 +64,7 @@
 				});
 			}
 		}];
-	} numberOfImages:array.count];
+	} numberOfImages:array.count direction:RDPagingViewDirectionRight];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
