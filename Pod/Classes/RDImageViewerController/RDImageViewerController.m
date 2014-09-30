@@ -92,7 +92,9 @@ static NSInteger kPreloadDefaultCount = 1;
 		else {
 			[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
 		}
-	} completion: nil];
+	} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+		
+	}];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -335,7 +337,8 @@ static NSInteger kPreloadDefaultCount = 1;
 - (void)pagingView:(RDPagingView *)pagingView willChangeViewSize:(CGSize)size duration:(NSTimeInterval)duration visibleViews:(NSArray *)views
 {
 	[views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		__block UIView<RDPagingViewProtocol> *v = obj;
+		__block RDImageScrollView<RDPagingViewProtocol> *v = obj;
+		[v setZoomScale:1.0];
 		if (v.indexOfPage != pagingView.currentPageIndex) {
 			v.hidden = YES;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
