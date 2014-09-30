@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RDPagingView.h"
 
-@interface RDImageScrollView : UIScrollView <UIScrollViewDelegate>
+@interface RDImageScrollView : UIScrollView <UIScrollViewDelegate, RDPagingViewProtocol>
 
 @property (nonatomic, getter=image, setter=setImage:) UIImage *image;
 

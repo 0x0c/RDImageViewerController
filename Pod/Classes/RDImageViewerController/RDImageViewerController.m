@@ -11,7 +11,6 @@
 typedef NS_ENUM(NSInteger, ViewTag) {
 	MainScrollView = 1,
 	PageScrollView,
-	ImageView,
 	CurrentPageLabel
 };
 
@@ -58,14 +57,34 @@ static NSInteger kPreloadDefaultCount = 1;
 	return UIInterfaceOrientationPortrait;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+	if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+		if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) duration:duration];
+		}
+		else {
+			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
+		}
+	}
+	else {
+		[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
+	}
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[self reloadPageHud];
+}
+
 - (instancetype)initWithNumberOfPages:(NSInteger)num
 {
 	self = [super init];
 	if (self) {
 		pagingView_ = [[RDPagingView alloc] initWithFrame:self.view.bounds];
-		pagingView_.pagingDelegate = self;
-		pagingView_.direction = RDPagingViewDirectionLeft;
 		pagingView_.backgroundColor = [UIColor blackColor];
+		pagingView_.pagingDelegate = self;
+		pagingView_.direction = RDPagingViewDirectionRight;
 		pagingView_.directionalLockEnabled = YES;
 		pagingView_.tag = MainScrollView;
 		pagingView_.showsHorizontalScrollIndicator = NO;
@@ -117,6 +136,7 @@ static NSInteger kPreloadDefaultCount = 1;
 	
 	if (currentPageHud_ == nil) {
 		currentPageHud_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+		currentPageHud_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
 		currentPageHud_.backgroundColor = [UIColor blackColor];
 		currentPageHud_.layer.cornerRadius = 10;
 		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
@@ -138,13 +158,16 @@ static NSInteger kPreloadDefaultCount = 1;
 		[self.view addSubview:currentPageHud_];
 		
 		UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width * 0.8, 20)];
-		slider.value = 1.0;
+		slider.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 		[slider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
 		[slider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 		slider.maximumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] : [UIColor whiteColor];
 		slider.minimumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? [UIColor whiteColor] : [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
 		if (pagingView_.direction == RDPagingViewDirectionRight) {
 			slider.value = 0;
+		}
+		else {
+			slider.value = 1.0;
 		}
 		UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 		UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:slider];
@@ -284,6 +307,20 @@ static NSInteger kPreloadDefaultCount = 1;
 	}
 	
 	return imageScrollView;
+}
+
+- (void)pagingView:(RDPagingView *)pagingView willChangeViewSize:(CGSize)size duration:(NSTimeInterval)duration visibleViews:(NSArray *)views
+{
+	[views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		__block UIView<RDPagingViewProtocol> *v = obj;
+		v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
+		if (v.indexOfPage != pagingView.currentPageIndex) {
+			v.hidden = YES;
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				v.hidden = NO;
+			});
+		}
+	}];
 }
 
 - (void)pagingView:(RDPagingView *)pagingView willChangeIndexTo:(NSInteger)index

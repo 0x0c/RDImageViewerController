@@ -10,6 +10,7 @@
 
 
 typedef struct {
+	BOOL pagingViewWillChangeViewSize;
 	BOOL pagingViewWillViewEnqueue;
 	BOOL pagingViewWillChangeIndexTo;
 	BOOL pagingViewDidScrollToPosition;
@@ -32,18 +33,20 @@ typedef struct {
 
 @implementation RDPagingView
 
-static NSInteger kSubViewTagOffset = 3;
+NSInteger const RDSubViewTagOffset = 3;
 static NSInteger kPreloadDefaultCount = 1;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
 	if (self) {
+		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		self.delegate = self;
 		self.pagingEnabled = YES;
+//		self.backgroundColor = [UIColor redColor];
 		self.direction = RDPagingViewDirectionRight;
-		_numberOfPages = 0;
 		_preloadCount = kPreloadDefaultCount;
+		_numberOfPages = 0;
 		
 		usingViews_ = [NSMutableSet new];
 		preparedViews_ = [NSMutableSet new];
@@ -67,6 +70,7 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	_pagingDelegate = pagingDelegate;
 	
+	flag_.pagingViewWillChangeViewSize = [pagingDelegate respondsToSelector:@selector(pagingView:willChangeViewSize:duration:visibleViews:)];
 	flag_.pagingViewWillViewEnqueue = [pagingDelegate respondsToSelector:@selector(pagingView:willViewEnqueue:)];
 	flag_.pagingViewWillChangeIndexTo = [pagingDelegate respondsToSelector:@selector(pagingView:willChangeIndexTo:)];
 	flag_.pagingViewDidScrollToPosition = [pagingDelegate respondsToSelector:@selector(pagingView:didScrollToPosition:)];
@@ -111,6 +115,20 @@ static NSInteger kPreloadDefaultCount = 1;
 	return [preparedViews_ anyObject];
 }
 
+- (void)resizeWithFrame:(CGRect)frame duration:(NSTimeInterval)duration
+{
+	CGSize newSize = frame.size;
+	if (flag_.pagingViewWillChangeViewSize) {
+		[self.pagingDelegate pagingView:self willChangeViewSize:CGSizeMake(newSize.width, newSize.height) duration:duration visibleViews:[usingViews_ allObjects]];
+	}
+	self.contentSize = CGSizeMake(self.numberOfPages * newSize.width, newSize.height);
+//	[self scrollAtPage:self.currentPageIndex];
+	id delegate = self.delegate;
+	self.delegate = nil;
+	[self setContentOffset:CGPointMake([self indexInScrollView:self.currentPageIndex] * newSize.width, 0)];
+	self.delegate = delegate;
+}
+
 - (NSInteger)currentPageIndex
 {
 	return pageIndex_;
@@ -133,11 +151,11 @@ static NSInteger kPreloadDefaultCount = 1;
 - (void)pageIndexWillChangeToIndex:(NSInteger)index
 {
 	NSInteger direction = index - self.currentPageIndex > 0 ? RDPagingViewMovingDirectionForward : (index - self.currentPageIndex < 0 ? RDPagingViewMovingDirectionBackward : 0);
-	NSInteger offset = index - (direction * (_preloadCount + 1)) + kSubViewTagOffset;
+	NSInteger offset = index - (direction * (_preloadCount + 1)) + RDSubViewTagOffset;
 	
 	if (offset > 0) {
-		NSInteger maximumIndex = index + _preloadCount + kSubViewTagOffset;
-		NSInteger minimumIndex = index - (NSInteger)_preloadCount + kSubViewTagOffset;
+		NSInteger maximumIndex = index + _preloadCount + RDSubViewTagOffset;
+		NSInteger minimumIndex = index - (NSInteger)_preloadCount + RDSubViewTagOffset;
 		[usingViews_ enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
 			UIView *view = obj;
 			if (view.tag < minimumIndex || view.tag > maximumIndex) {
@@ -158,7 +176,7 @@ static NSInteger kPreloadDefaultCount = 1;
 - (void)preloadWithNumberOfViews:(NSInteger)num fromIndex:(NSInteger)index
 {
 	for (NSInteger i = MAX(index - num, 0); i < MIN(index + num + 1, self.numberOfPages); i++) {
-		if ([self viewWithTag:i + kSubViewTagOffset] == nil) {
+		if ([self viewWithTag:i + RDSubViewTagOffset] == nil) {
 			[self loadViewAtIndex:i];
 		}
 	}
@@ -168,7 +186,7 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	UIView *view = [self.pagingDelegate pagingView:self viewForIndex:index];
 	view.frame = CGRectMake([self indexInScrollView:index] * CGRectGetWidth(self.frame), 0, CGRectGetWidth(self.frame) ,CGRectGetHeight(self.frame));
-	view.tag = index + kSubViewTagOffset;
+	view.tag = index + RDSubViewTagOffset;
 	[self setViewUsing:view];
 	[self addSubview:view];
 }

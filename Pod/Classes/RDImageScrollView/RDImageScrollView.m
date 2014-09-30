@@ -12,13 +12,13 @@ static CGSize kZoomRect = {100, 100};
 
 @interface UIImage (RDImageView)
 
-- (CGSize)rd_displayScaleSize;
+- (CGSize)rd_displayScaledSize;
 
 @end
 
 @implementation UIImage (RDImageView)
 
-- (CGSize)rd_displayScaleSize
+- (CGSize)rd_displayScaledSize
 {
 	CGFloat scale = [UIScreen mainScreen].bounds.size.width / self.size.width;
 	CGSize size = CGSizeMake(self.size.width * scale, self.size.height * scale);
@@ -104,6 +104,7 @@ static CGSize kZoomRect = {100, 100};
 		imageView_ = [[RDImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 		imageView_.layer.borderColor = [UIColor blackColor].CGColor;
 		imageView_.layer.borderWidth = 1.0;
+		imageView_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		imageView_.contentMode = UIViewContentModeScaleAspectFit;
 		[self addSubview:imageView_];
 		
@@ -124,8 +125,6 @@ static CGSize kZoomRect = {100, 100};
 - (void)setImage:(UIImage *)image
 {
 	imageView_.image = image;
-	CGSize size = [image rd_displayScaleSize];
-	imageView_.frame = CGRectMake(imageView_.frame.origin.x, imageView_.frame.origin.y, size.width, size.height);
 	imageView_.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 }
 
@@ -136,7 +135,7 @@ static CGSize kZoomRect = {100, 100};
 	[self addSubview:imageView];
 }
 
-#pragma mark - 
+#pragma mark -
 
 - (void)zoomeImageView:(UIGestureRecognizer *)gesture
 {
@@ -168,6 +167,13 @@ static CGSize kZoomRect = {100, 100};
 	CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width) ? (scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5 : 0.0;
 	CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height) ? (scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5 : 0.0;
 	subView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX, scrollView.contentSize.height * 0.5 + offsetY);
+}
+
+#pragma mark - RDPagingViewProtocol
+
+- (NSInteger)indexOfPage
+{
+	return self.tag - RDSubViewTagOffset;
 }
 
 @end

@@ -42,7 +42,7 @@
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
 	} numberOfImages:10];
-	viewController.preloadCount = 2;
+	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

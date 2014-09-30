@@ -20,12 +20,22 @@ typedef NS_ENUM(NSInteger, RDPagingViewMovingDirection) {
 
 @class RDPagingView;
 
+extern NSInteger const RDSubViewTagOffset;
+
+@protocol RDPagingViewProtocol <NSObject>
+
+@required
+- (NSInteger)indexOfPage;
+
+@end
+
 @protocol RDPagingViewDelegate <NSObject>
 
 @required
 - (UIView *)pagingView:(RDPagingView *)pageView viewForIndex:(NSInteger)index;
 
 @optional
+- (void)pagingView:(RDPagingView *)pagingView willChangeViewSize:(CGSize)size duration:(NSTimeInterval)duration visibleViews:(NSArray *)views;
 - (void)pagingView:(RDPagingView *)pagingView willViewEnqueue:(UIView *)view;
 - (void)pagingView:(RDPagingView *)pagingView willChangeIndexTo:(NSInteger)index;
 - (void)pagingView:(RDPagingView *)pagingView didScrollToPosition:(CGFloat)position;
@@ -48,5 +58,6 @@ typedef NS_ENUM(NSInteger, RDPagingViewMovingDirection) {
 - (NSInteger)indexInScrollView:(NSInteger)index;
 - (void)scrollAtPage:(NSInteger)page;
 - (UIView *)dequeueView;
+- (void)resizeWithFrame:(CGRect)frame duration:(NSTimeInterval)duration;
 
 @end

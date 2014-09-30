@@ -20,8 +20,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xU8-LQ-9m6">
                                 <rect key="frame" x="137" y="269" width="46" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="1bq-6D-4in"/>
-                                    <constraint firstAttribute="height" constant="30" id="2Jy-H6-7aU"/>
+                                    <constraint firstAttribute="width" constant="46" id="RmX-ww-AJQ"/>
                                 </constraints>
                                 <state key="normal" title="show">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,9 +42,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="xU8-LQ-9m6" secondAttribute="centerX" id="EHv-Z8-NfY"/>
-                            <constraint firstAttribute="centerY" secondItem="xU8-LQ-9m6" secondAttribute="centerY" id="Sqz-Hl-8oT"/>
-                            <constraint firstItem="V0N-Cd-BkJ" firstAttribute="top" secondItem="xU8-LQ-9m6" secondAttribute="bottom" constant="8" id="j36-bu-eTR"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="V0N-Cd-BkJ" secondAttribute="bottom" constant="231" id="nVe-kr-Wfl"/>
+                            <constraint firstItem="xU8-LQ-9m6" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="WNq-Pz-y3H"/>
+                            <constraint firstItem="V0N-Cd-BkJ" firstAttribute="top" secondItem="xU8-LQ-9m6" secondAttribute="bottom" constant="8" symbolic="YES" id="sRu-5b-EDp"/>
                             <constraint firstAttribute="centerX" secondItem="V0N-Cd-BkJ" secondAttribute="centerX" id="vHO-ak-Kw4"/>
                         </constraints>
                     </view>
