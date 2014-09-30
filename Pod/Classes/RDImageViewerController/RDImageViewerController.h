@@ -22,7 +22,7 @@
 @property (nonatomic) NSUInteger preloadCount;
 @property (nonatomic, assign) BOOL pagingEnabled;
 
-- (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount;
-- (instancetype)initWithAsynchronousImageHandler:(void (^)(RDImageScrollView *imageView, NSInteger pageIndex))asyncHandler numberOfImages:(NSInteger)pageCount;
+- (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
+- (instancetype)initWithAsynchronousImageHandler:(void (^)(RDImageScrollView *imageView, NSInteger pageIndex))asyncHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
 
 @end

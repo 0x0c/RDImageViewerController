@@ -78,8 +78,8 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	[super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 	[coordinator animateAlongsideTransition: ^(id<UIViewControllerTransitionCoordinatorContext> context) {
-		UIViewController *fromViewController = [context viewControllerForKey: UITransitionContextFromViewControllerKey]; // 変更前画面取得（回転時は当画面）
-		UIInterfaceOrientation toInterfaceOrientation = fromViewController.interfaceOrientation; // この時点で取得すると変更後の画面の向きが返ってくる
+		UIViewController *fromViewController = [context viewControllerForKey: UITransitionContextFromViewControllerKey];
+		UIInterfaceOrientation toInterfaceOrientation = fromViewController.interfaceOrientation;
 		NSTimeInterval duration = [context transitionDuration];
 		if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
 			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
@@ -100,14 +100,14 @@ static NSInteger kPreloadDefaultCount = 1;
 	[self reloadPageHud];
 }
 
-- (instancetype)initWithNumberOfPages:(NSInteger)num
+- (instancetype)initWithNumberOfPages:(NSInteger)num direction:(RDPagingViewForwardDirection)direction
 {
 	self = [super init];
 	if (self) {
 		pagingView_ = [[RDPagingView alloc] initWithFrame:self.view.bounds];
 		pagingView_.backgroundColor = [UIColor blackColor];
 		pagingView_.pagingDelegate = self;
-		pagingView_.direction = RDPagingViewDirectionRight;
+		pagingView_.direction = direction;
 		pagingView_.directionalLockEnabled = YES;
 		pagingView_.tag = MainScrollView;
 		pagingView_.showsHorizontalScrollIndicator = NO;
@@ -123,9 +123,9 @@ static NSInteger kPreloadDefaultCount = 1;
 	return self;
 }
 
-- (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount
+- (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction
 {
-	self = [self initWithNumberOfPages:pageCount];
+	self = [self initWithNumberOfPages:pageCount direction:direction];
 	if (self) {
 		imageHandler_ = [imageHandler copy];
 	}
@@ -133,9 +133,9 @@ static NSInteger kPreloadDefaultCount = 1;
 	return self;
 }
 
-- (instancetype)initWithAsynchronousImageHandler:(void (^)(RDImageScrollView *imageView, NSInteger pageIndex))asyncHandler numberOfImages:(NSInteger)pageCount
+- (instancetype)initWithAsynchronousImageHandler:(void (^)(RDImageScrollView *imageView, NSInteger pageIndex))asyncHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction
 {
-	self = [self initWithNumberOfPages:pageCount];
+	self = [self initWithNumberOfPages:pageCount direction:direction];
 	if (self) {
 		asyncImageHandler_ = [asyncHandler copy];
 	}
