@@ -59,17 +59,40 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-		if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) duration:duration];
+	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+		if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+				[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) duration:duration];
+			}
+			else {
+				[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
+			}
 		}
 		else {
 			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
 		}
 	}
-	else {
-		[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
-	}
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+	[super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
+	[coordinator animateAlongsideTransition: ^(id<UIViewControllerTransitionCoordinatorContext> context) {
+		UIViewController *fromViewController = [context viewControllerForKey: UITransitionContextFromViewControllerKey]; // 変更前画面取得（回転時は当画面）
+		UIInterfaceOrientation toInterfaceOrientation = fromViewController.interfaceOrientation; // この時点で取得すると変更後の画面の向きが返ってくる
+		NSTimeInterval duration = [context transitionDuration];
+		if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+				[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
+			}
+			else {
+				[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.height, size.width) duration:duration];
+			}
+		}
+		else {
+			[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
+		}
+	} completion: nil];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -313,13 +336,15 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	[views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		__block UIView<RDPagingViewProtocol> *v = obj;
-		v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
 		if (v.indexOfPage != pagingView.currentPageIndex) {
 			v.hidden = YES;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 				v.hidden = NO;
 			});
 		}
+		[UIView animateWithDuration:duration animations:^{
+			v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
+		}];
 	}];
 }
 

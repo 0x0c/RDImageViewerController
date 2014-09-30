@@ -43,7 +43,6 @@ static NSInteger kPreloadDefaultCount = 1;
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		self.delegate = self;
 		self.pagingEnabled = YES;
-//		self.backgroundColor = [UIColor redColor];
 		self.direction = RDPagingViewDirectionRight;
 		_preloadCount = kPreloadDefaultCount;
 		_numberOfPages = 0;
@@ -122,7 +121,6 @@ static NSInteger kPreloadDefaultCount = 1;
 		[self.pagingDelegate pagingView:self willChangeViewSize:CGSizeMake(newSize.width, newSize.height) duration:duration visibleViews:[usingViews_ allObjects]];
 	}
 	self.contentSize = CGSizeMake(self.numberOfPages * newSize.width, newSize.height);
-//	[self scrollAtPage:self.currentPageIndex];
 	id delegate = self.delegate;
 	self.delegate = nil;
 	[self setContentOffset:CGPointMake([self indexInScrollView:self.currentPageIndex] * newSize.width, 0)];
