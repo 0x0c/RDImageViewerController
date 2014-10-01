@@ -345,6 +345,7 @@ static NSInteger kPreloadDefaultCount = 1;
 				v.hidden = NO;
 			});
 		}
+		v.contentSize = CGSizeMake(size.width, size.height);
 		[UIView animateWithDuration:duration animations:^{
 			v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
 		}];
