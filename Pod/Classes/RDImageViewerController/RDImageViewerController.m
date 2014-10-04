@@ -36,6 +36,7 @@ static const NSInteger PageLabelFontSize = 17;
 @implementation RDImageViewerController
 
 static NSInteger kPreloadDefaultCount = 1;
+static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
 {
@@ -112,6 +113,7 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	self = [super init];
 	if (self) {
+		self.maximumZoomScale = kDefaultMaximumZoomScale;
 		_landscapeMode = RDImageViewControllerLandscapeModeAspectFit;
 		pagingView_ = [[RDPagingView alloc] initWithFrame:self.view.bounds];
 		pagingView_.backgroundColor = [UIColor blackColor];
@@ -307,7 +309,7 @@ static NSInteger kPreloadDefaultCount = 1;
 	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueView];
 	if (imageScrollView == nil) {
 		imageScrollView = [[RDImageScrollView alloc] initWithFrame:self.view.bounds];
-		imageScrollView.maximumZoomScale = 2.5;
+		imageScrollView.maximumZoomScale = self.maximumZoomScale;
 		[pagingView_.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 			UIGestureRecognizer *gesture = obj;
 			if ([gesture isMemberOfClass:[UITapGestureRecognizer class]]) {
