@@ -30,11 +30,17 @@ Initialize RDImageViewerController with number of images and image handler.
 		return [UIImage imageNamed:imageName];
 	} numberOfImage:10 direction:RDPagingViewDirectionRight];
 
-or
+To load asynchronous, do this
 
-	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithAsynchronousImageHandler:^(RDImageScrollView *imageView, NSInteger pageIndex) {
-		// download and set image
-	} numberOfImages:array.count direction:RDPagingViewDirectionRight];
+	RDImageViewerController *viewController = ...
+	viewController.loadAsync = YES;
+
+The property of 'landscapeMode' is meaning zooming style in landscape.
+If it is setted RDImageViewControllerLandscapeModeAspectFit
+![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/aspect.png)
+
+The other side it is setted RDImageViewControllerLandscapeModeDisplayFit
+![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/display.png)
 
 You can set the number of preloading images like this.
 
