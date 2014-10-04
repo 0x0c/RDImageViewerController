@@ -224,9 +224,6 @@ static NSInteger kPreloadDefaultCount = 1;
 	[super viewWillDisappear:animated];
 	pagingView_.pagingDelegate = nil;
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBars) object:self];
-	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-	[self.navigationController setNavigationBarHidden:NO animated:animated];
-	[self.navigationController setToolbarHidden:YES animated:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -280,10 +277,14 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (void)setBarHidden:(BOOL)hidden animated:(BOOL)animated
 {
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		[self.navigationController setToolbarHidden:hidden animated:animated];
+		[self.navigationController setNavigationBarHidden:hidden animated:animated];
+		[self setHudHidden:hidden animated:animated];
+	});
+	[[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
+	
 	statusBarHidden_ = hidden;
-	[self.navigationController setNavigationBarHidden:hidden animated:animated];
-	[self.navigationController setToolbarHidden:hidden animated:animated];
-	[self setHudHidden:hidden animated:animated];
 }
 
 - (void)setHudHidden:(BOOL)hidden animated:(BOOL)animated
@@ -317,6 +318,7 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueView];
 	if (imageScrollView == nil) {
+		NSLog(@"image scroll view size:%@", NSStringFromCGSize(self.view.bounds.size));
 		imageScrollView = [[RDImageScrollView alloc] initWithFrame:self.view.bounds];
 		imageScrollView.maximumZoomScale = 2.5;
 		[pagingView_.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
