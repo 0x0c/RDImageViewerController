@@ -68,7 +68,7 @@
 		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:array[pageIndex]] returningResponse:&response error:&error];
 		UIImage *image = [UIImage imageWithData:data];
 		if (image == nil) {
-			NSLog(@"error:%@", response.URL.absoluteString);
+			NSLog(@"error:%@", [error localizedDescription]);
 		}
 		else {
 			NSLog(@"done:%@", response.URL.absoluteString);
