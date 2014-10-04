@@ -21,11 +21,6 @@ static CGSize kZoomRect = {100, 100};
 	return newSize;
 }
 
-- (CGSize)rd_displayScaledSize
-{
-	return [self rd_scaledSize:[UIScreen mainScreen].bounds.size];
-}
-
 @end
 
 @interface RDImageView : UIImageView
@@ -124,32 +119,49 @@ static CGSize kZoomRect = {100, 100};
 	return imageView_.image;
 }
 
-- (void)setFrame:(CGRect)frame
+- (void)setImage:(UIImage *)image
 {
-	[super setFrame:frame];
+	imageView_.image = image;
+}
+
+#pragma mark -
+
+- (void)setImageFrame:(CGRect)frame
+{
+	imageView_.frame = frame;
+}
+
+- (void)setImageSizeAspectFit
+{
+	CGRect frame = imageView_.frame;
 	CGSize size = [imageView_.image rd_scaledSize:frame.size];
 	CGFloat scale = 0;
 	if (size.width > 0 && size.height > 0) {
 		scale = size.height > CGRectGetHeight(self.frame) ? CGRectGetHeight(self.frame) / size.height : CGRectGetWidth(self.frame) / size.width;
 	}
 	imageView_.bounds = CGRectMake(0, 0, size.width * scale, size.height * scale);
+	imageView_.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
 	self.contentSize = CGSizeMake(size.width * scale, size.height * scale);
 	[self setZoomScale:1.0];
 }
 
-- (void)setImage:(UIImage *)image
+- (void)setImageSizeDisplayFit
 {
-	imageView_.image = image;
-	CGSize size = [imageView_.image rd_scaledSize:self.frame.size];
+	CGRect frame = imageView_.frame;
+	CGSize size = [imageView_.image rd_scaledSize:frame.size];
 	CGFloat scale = 0;
 	if (size.width > 0 && size.height > 0) {
-		scale = size.height > CGRectGetHeight(self.frame) ? CGRectGetHeight(self.frame) / size.height : CGRectGetWidth(self.frame) / size.width;
+		scale = size.width < CGRectGetWidth(self.frame) ? CGRectGetHeight(self.frame) / size.height : CGRectGetWidth(self.frame) / size.width;
 	}
-	imageView_.bounds = CGRectMake(0, 0, size.width * scale, size.height * scale);
+	imageView_.frame = CGRectMake(0, 0, size.width * scale, size.height * scale);
 	self.contentSize = CGSizeMake(size.width * scale, size.height * scale);
+	[self setZoomScale:1.0];
 }
 
-#pragma mark -
+- (void)setImageSize:(CGSize)size
+{
+	imageView_.bounds = CGRectMake(0, 0, size.width, size.height);
+}
 
 - (void)zoomeImageView:(UIGestureRecognizer *)gesture
 {

@@ -29,7 +29,6 @@ static const NSInteger PageLabelFontSize = 17;
 	UILabel *currentPageHudLabel_;
 	BOOL statusBarHidden_;
 	UIImage *(^imageHandler_)(NSInteger pageIndex);
-	void (^asyncImageHandler_)(RDImageScrollView *imageView, NSInteger pageIndex);
 }
 
 @end
@@ -113,6 +112,7 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	self = [super init];
 	if (self) {
+		_landscapeMode = RDImageViewControllerLandscapeModeAspectFit;
 		pagingView_ = [[RDPagingView alloc] initWithFrame:self.view.bounds];
 		pagingView_.backgroundColor = [UIColor blackColor];
 		pagingView_.pagingDelegate = self;
@@ -137,16 +137,6 @@ static NSInteger kPreloadDefaultCount = 1;
 	self = [self initWithNumberOfPages:pageCount direction:direction];
 	if (self) {
 		imageHandler_ = [imageHandler copy];
-	}
-	
-	return self;
-}
-
-- (instancetype)initWithAsynchronousImageHandler:(void (^)(RDImageScrollView *imageView, NSInteger pageIndex))asyncHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction
-{
-	self = [self initWithNumberOfPages:pageCount direction:direction];
-	if (self) {
-		asyncImageHandler_ = [asyncHandler copy];
 	}
 	
 	return self;
@@ -330,13 +320,41 @@ static NSInteger kPreloadDefaultCount = 1;
 	imageScrollView.image = nil;
 	__weak RDImageScrollView *scrollView = imageScrollView;
 	if (imageHandler_) {
-		scrollView.image = imageHandler_(index);
-	}
-	else {
-		__weak void (^asyncImageHandler)(RDImageScrollView *imageView, NSInteger pageIndex) = asyncImageHandler_;
-		[queue_ addOperationWithBlock:^{
-			asyncImageHandler(scrollView, index);
-		}];
+		if (self.loadAsync) {
+			[queue_ addOperationWithBlock:^{
+				UIImage *image = imageHandler_(index);
+				dispatch_async(dispatch_get_main_queue(), ^{
+					scrollView.image = image;
+					if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+						if (_landscapeMode == RDImageViewControllerLandscapeModeAspectFit) {
+							[scrollView setImageSizeAspectFit];
+						}
+						else {
+							[scrollView setImageSizeDisplayFit];
+							[scrollView setContentOffset:CGPointMake(0, 0)];
+						}
+					}
+					else {
+						[scrollView setImageSizeAspectFit];
+					}
+				});
+			}];
+		}
+		else {
+			scrollView.image = imageHandler_(index);
+			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+				if (_landscapeMode == RDImageViewControllerLandscapeModeAspectFit) {
+					[scrollView setImageSizeAspectFit];
+				}
+				else {
+					[scrollView setImageSizeDisplayFit];
+					[scrollView setContentOffset:CGPointMake(0, 0)];
+				}
+			}
+			else {
+				[scrollView setImageSizeAspectFit];
+			}
+		}
 	}
 	
 	return imageScrollView;
@@ -354,6 +372,18 @@ static NSInteger kPreloadDefaultCount = 1;
 		}
 		[UIView animateWithDuration:duration animations:^{
 			v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
+			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+				if (_landscapeMode == RDImageViewControllerLandscapeModeAspectFit) {
+					[v setImageSizeAspectFit];
+				}
+				else {
+					[v setImageSizeDisplayFit];
+					[v setContentOffset:CGPointMake(0, 0)];
+				}
+			}
+			else {
+				[v setImageSizeAspectFit];
+			}
   		}];
 	}];
 }

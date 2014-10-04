@@ -36,12 +36,24 @@
 
 #pragma mark -
 
-- (IBAction)showImageViewController:(id)sender
+- (IBAction)showImageViewControllerAspectFit:(id)sender
 {
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
 	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	viewController.landscapeMode = RDImageViewControllerLandscapeModeAspectFit;
+	viewController.preloadCount = 1;
+	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (IBAction)showImageViewControllerDisplayFit:(id)sender
+{
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
+		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
+		return [UIImage imageNamed:imageName];
+	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	viewController.landscapeMode = RDImageViewControllerLandscapeModeDisplayFit;
 	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -49,23 +61,26 @@
 
 - (IBAction)showAsyncImageViewController:(id)sender
 {
-	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithAsynchronousImageHandler:^(RDImageScrollView *imageView, NSInteger pageIndex) {
-		__block __weak RDImageScrollView *bimageView = imageView;
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 		NSLog(@"downloading...:%@", [array[pageIndex] absoluteString]);
-		[NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:array[pageIndex]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-			UIImage *image = [UIImage imageWithData:data];
-			if (image == nil) {
-				NSLog(@"error:%@", response.URL.absoluteString);
-			}
-			else {
-				NSLog(@"done:%@", response.URL.absoluteString);
-				dispatch_async(dispatch_get_main_queue(), ^{
-					bimageView.image = image;
-				});
-			}
-		}];
-	} numberOfImages:array.count direction:RDPagingViewDirectionRight];
+		NSURLResponse *response = nil;
+		NSError *error = nil;
+		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:array[pageIndex]] returningResponse:&response error:&error];
+		UIImage *image = [UIImage imageWithData:data];
+		if (image == nil) {
+			NSLog(@"error:%@", response.URL.absoluteString);
+		}
+		else {
+			NSLog(@"done:%@", response.URL.absoluteString);
+		}
+		
+		return image;
+	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	viewController.landscapeMode = RDImageViewControllerLandscapeModeAspectFit;
+	viewController.loadAsync = YES;
+	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
+
 }
 
 #pragma mark -

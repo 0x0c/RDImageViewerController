@@ -12,7 +12,6 @@
 @interface UIImage (RDImageView)
 
 - (CGSize)rd_scaledSize:(CGSize)size;
-- (CGSize)rd_displayScaledSize;
 
 @end
 
@@ -21,5 +20,9 @@
 @property (nonatomic, getter=image, setter=setImage:) UIImage *image;
 
 - (void)addGestureRecognizerPriorityHigherThanZoomGestureRecogniser:(UIGestureRecognizer *)gesture;
+- (void)setImageFrame:(CGRect)frame;
+- (void)setImageSizeAspectFit;
+- (void)setImageSizeDisplayFit;
+- (void)setImageSize:(CGSize)size;
 
 @end

@@ -9,12 +9,18 @@
 #import "RDPagingView.h"
 #import "RDImageScrollView.h"
 
+typedef NS_ENUM(NSUInteger, RDImageViewControllerLandscapeMode) {
+	RDImageViewControllerLandscapeModeAspectFit,
+	RDImageViewControllerLandscapeModeDisplayFit,
+};
+
 @interface RDImageViewerController : UIViewController <RDPagingViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) NSUInteger preloadCount;
 @property (nonatomic, assign) BOOL pagingEnabled;
+@property (nonatomic, assign) RDImageViewControllerLandscapeMode landscapeMode;
+@property (nonatomic, assign) BOOL loadAsync;
 
 - (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
-- (instancetype)initWithAsynchronousImageHandler:(void (^)(RDImageScrollView *imageView, NSInteger pageIndex))asyncHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
 
 @end
