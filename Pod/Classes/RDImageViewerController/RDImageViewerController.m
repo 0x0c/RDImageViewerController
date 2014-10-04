@@ -66,18 +66,16 @@ static NSInteger kPreloadDefaultCount = 1;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	[pagingView_ startRotation];
-	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-		if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-				[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) duration:duration];
-			}
-			else {
-				[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
-			}
+	if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+		if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) duration:duration];
 		}
 		else {
 			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
 		}
+	}
+	else {
+		[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
 	}
 	[pagingView_ endRotation];
 }
@@ -318,7 +316,6 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueView];
 	if (imageScrollView == nil) {
-		NSLog(@"image scroll view size:%@", NSStringFromCGSize(self.view.bounds.size));
 		imageScrollView = [[RDImageScrollView alloc] initWithFrame:self.view.bounds];
 		imageScrollView.maximumZoomScale = 2.5;
 		[pagingView_.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

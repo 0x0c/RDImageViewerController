@@ -12,12 +12,18 @@ static CGSize kZoomRect = {100, 100};
 
 @implementation UIImage (RDImageView)
 
+- (CGSize)rd_scaledSize:(CGSize)size
+{
+	CGSize newSize = CGSizeZero;
+	CGFloat scale = size.width / self.size.width;
+	newSize = CGSizeMake(self.size.width * scale, self.size.height * scale);
+	
+	return newSize;
+}
+
 - (CGSize)rd_displayScaledSize
 {
-	CGFloat scale = [UIScreen mainScreen].bounds.size.width / self.size.width;
-	CGSize size = CGSizeMake(self.size.width * scale, self.size.height * scale);
-	
-	return size;
+	return [self rd_scaledSize:[UIScreen mainScreen].bounds.size];
 }
 
 @end
@@ -95,6 +101,7 @@ static CGSize kZoomRect = {100, 100};
 		self.delegate = self;
 		self.showsHorizontalScrollIndicator = NO;
 		self.showsVerticalScrollIndicator = NO;
+		
 		imageView_ = [[RDImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 		imageView_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		imageView_.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
@@ -117,29 +124,29 @@ static CGSize kZoomRect = {100, 100};
 	return imageView_.image;
 }
 
-//- (void)setFrame:(CGRect)frame
-//{
-//	[super setFrame:frame];
-//	CGSize size = [imageView_.image rd_displayScaledSize];
-//	CGFloat scale = size.height > CGRectGetHeight(self.frame) ? CGRectGetHeight(self.frame) / size.height : CGRectGetWidth(self.frame) / size.width;
-//	imageView_.bounds = CGRectMake(0, 0, size.width * scale, size.height * scale);
-//	self.contentSize = CGSizeMake(size.width * scale, size.height * scale);
-//	[self setZoomScale:1.0];
-//}
+- (void)setFrame:(CGRect)frame
+{
+	[super setFrame:frame];
+	CGSize size = [imageView_.image rd_scaledSize:frame.size];
+	CGFloat scale = 0;
+	if (size.width > 0 && size.height > 0) {
+		scale = size.height > CGRectGetHeight(self.frame) ? CGRectGetHeight(self.frame) / size.height : CGRectGetWidth(self.frame) / size.width;
+	}
+	imageView_.bounds = CGRectMake(0, 0, size.width * scale, size.height * scale);
+	self.contentSize = CGSizeMake(size.width * scale, size.height * scale);
+	[self setZoomScale:1.0];
+}
 
 - (void)setImage:(UIImage *)image
 {
 	imageView_.image = image;
-//	CGSize size = [imageView_.image rd_displayScaledSize];
-//	imageView_.bounds = CGRectMake(0, 0, size.width, size.height);
-}
-
-- (void)setImageView:(RDImageView *)imageView
-{
-	imageView_ = imageView;
-//	CGSize size = [imageView_.image rd_displayScaledSize];
-//	imageView_.bounds = CGRectMake(0, 0, size.width, size.height);
-	[self addSubview:imageView];
+	CGSize size = [imageView_.image rd_scaledSize:self.frame.size];
+	CGFloat scale = 0;
+	if (size.width > 0 && size.height > 0) {
+		scale = size.height > CGRectGetHeight(self.frame) ? CGRectGetHeight(self.frame) / size.height : CGRectGetWidth(self.frame) / size.width;
+	}
+	imageView_.bounds = CGRectMake(0, 0, size.width * scale, size.height * scale);
+	self.contentSize = CGSizeMake(size.width * scale, size.height * scale);
 }
 
 #pragma mark -

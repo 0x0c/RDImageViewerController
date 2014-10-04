@@ -11,6 +11,7 @@
 
 @interface UIImage (RDImageView)
 
+- (CGSize)rd_scaledSize:(CGSize)size;
 - (CGSize)rd_displayScaledSize;
 
 @end
