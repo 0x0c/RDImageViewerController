@@ -24,6 +24,12 @@ static const NSInteger PageLabelFontSize = 17;
 @interface RDImageViewerController ()
 {
 	NSOperationQueue *queue_;
+	RDPagingView *pagingView_;
+	UIView *currentPageHud_;
+	UILabel *currentPageHudLabel_;
+	BOOL statusBarHidden_;
+	UIImage *(^imageHandler_)(NSInteger pageIndex);
+	void (^asyncImageHandler_)(RDImageScrollView *imageView, NSInteger pageIndex);
 }
 
 @end
@@ -34,7 +40,7 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
 {
-	return UIStatusBarAnimationSlide;
+	return UIStatusBarAnimationFade;
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -59,6 +65,7 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+	[pagingView_ startRotation];
 	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
 		if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
 			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
@@ -72,10 +79,17 @@ static NSInteger kPreloadDefaultCount = 1;
 			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
 		}
 	}
+	[pagingView_ endRotation];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[self reloadPageHud];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+	[pagingView_ startRotation];
 	[super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
 	[coordinator animateAlongsideTransition: ^(id<UIViewControllerTransitionCoordinatorContext> context) {
 		UIViewController *fromViewController = [context viewControllerForKey: UITransitionContextFromViewControllerKey];
@@ -93,13 +107,8 @@ static NSInteger kPreloadDefaultCount = 1;
 			[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
 		}
 	} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-		
+		[pagingView_ endRotation];
 	}];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-	[self reloadPageHud];
 }
 
 - (instancetype)initWithNumberOfPages:(NSInteger)num direction:(RDPagingViewForwardDirection)direction
@@ -318,8 +327,8 @@ static NSInteger kPreloadDefaultCount = 1;
 			}
 		}];
 	}
+	[imageScrollView setZoomScale:1.0];
 	imageScrollView.image = nil;
-	
 	__weak RDImageScrollView *scrollView = imageScrollView;
 	if (imageHandler_) {
 		scrollView.image = imageHandler_(index);
@@ -338,23 +347,16 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	[views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		__block RDImageScrollView<RDPagingViewProtocol> *v = obj;
-		[v setZoomScale:1.0];
 		if (v.indexOfPage != pagingView.currentPageIndex) {
 			v.hidden = YES;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 				v.hidden = NO;
 			});
 		}
-		v.contentSize = CGSizeMake(size.width, size.height);
 		[UIView animateWithDuration:duration animations:^{
 			v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
-		}];
+  		}];
 	}];
-}
-
-- (void)pagingView:(RDPagingView *)pagingView willChangeIndexTo:(NSInteger)index
-{
-	
 }
 
 - (void)pagingView:(RDPagingView *)pagingView didScrollToPosition:(CGFloat)position

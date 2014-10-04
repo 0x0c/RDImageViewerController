@@ -10,14 +10,6 @@
 #import "RDImageScrollView.h"
 
 @interface RDImageViewerController : UIViewController <RDPagingViewDelegate, UIScrollViewDelegate>
-{
-	RDPagingView *pagingView_;
-	UIView *currentPageHud_;
-	UILabel *currentPageHudLabel_;
-	BOOL statusBarHidden_;
-	UIImage *(^imageHandler_)(NSInteger pageIndex);
-	void (^asyncImageHandler_)(RDImageScrollView *imageView, NSInteger pageIndex);
-}
 
 @property (nonatomic) NSUInteger preloadCount;
 @property (nonatomic, assign) BOOL pagingEnabled;

@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "RDPagingView.h"
 
+@interface UIImage (RDImageView)
+
+- (CGSize)rd_displayScaledSize;
+
+@end
+
 @interface RDImageScrollView : UIScrollView <UIScrollViewDelegate, RDPagingViewProtocol>
 
 @property (nonatomic, getter=image, setter=setImage:) UIImage *image;

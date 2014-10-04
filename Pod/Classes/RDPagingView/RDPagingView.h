@@ -10,7 +10,9 @@
 
 typedef NS_ENUM(NSInteger, RDPagingViewForwardDirection) {
 	RDPagingViewDirectionRight,
-	RDPagingViewDirectionLeft
+	RDPagingViewDirectionLeft,
+//	RDPagingViewDirectionUp,
+//	RDPagingViewDirectionDown
 };
 
 typedef NS_ENUM(NSInteger, RDPagingViewMovingDirection) {
@@ -55,6 +57,8 @@ extern NSInteger const RDSubViewTagOffset;
 @property (nonatomic, readonly) NSInteger currentPageIndex;
 @property (nonatomic, assign) NSInteger preloadCount;
 
+- (void)startRotation;
+- (void)endRotation;
 - (NSInteger)indexInScrollView:(NSInteger)index;
 - (void)scrollAtPage:(NSInteger)page;
 - (UIView *)dequeueView;

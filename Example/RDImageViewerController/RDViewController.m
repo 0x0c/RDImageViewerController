@@ -24,7 +24,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
 	array = [NSMutableArray new];
 	for (NSInteger i = 1; i <= 10; i++) {
-		[array addObject:[NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/%ld.JPG", i]]];
+		[array addObject:[NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/%ld.JPG", (long)i]]];
 	}
 }
 

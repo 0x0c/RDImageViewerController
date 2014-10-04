@@ -27,6 +27,7 @@ typedef struct {
 	NSMutableSet *preparedViews_;
 	NSInteger pageIndex_;
 	RDPagingViewDelegateFlag flag_;
+	id<UIScrollViewDelegate> delegate_;
 }
 
 @end
@@ -34,7 +35,7 @@ typedef struct {
 @implementation RDPagingView
 
 NSInteger const RDSubViewTagOffset = 3;
-static NSInteger kPreloadDefaultCount = 1;
+static NSInteger const kPreloadDefaultCount = 1;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -82,6 +83,18 @@ static NSInteger kPreloadDefaultCount = 1;
 
 #pragma mark -
 
+- (void)startRotation
+{
+	delegate_ = self.delegate;
+	self.delegate = nil;
+}
+
+- (void)endRotation
+{
+	self.delegate = delegate_;
+	delegate_ = nil;
+}
+
 - (NSInteger)indexInScrollView:(NSInteger)index
 {
 	NSInteger trueIndex = index;
@@ -120,10 +133,11 @@ static NSInteger kPreloadDefaultCount = 1;
 	if (flag_.pagingViewWillChangeViewSize) {
 		[self.pagingDelegate pagingView:self willChangeViewSize:CGSizeMake(newSize.width, newSize.height) duration:duration visibleViews:[usingViews_ allObjects]];
 	}
+	NSInteger currentPageIndex = [self indexInScrollView:self.currentPageIndex];
 	self.contentSize = CGSizeMake(self.numberOfPages * newSize.width, newSize.height);
 	id delegate = self.delegate;
 	self.delegate = nil;
-	[self setContentOffset:CGPointMake([self indexInScrollView:self.currentPageIndex] * newSize.width, 0)];
+	[self setContentOffset:CGPointMake(currentPageIndex * newSize.width, 0)];
 	self.delegate = delegate;
 }
 
