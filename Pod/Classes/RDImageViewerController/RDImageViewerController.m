@@ -114,7 +114,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	self = [super init];
 	if (self) {
 		self.maximumZoomScale = kDefaultMaximumZoomScale;
-		_landscapeMode = RDImageViewControllerLandscapeModeAspectFit;
+		_landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
 		pagingView_ = [[RDPagingView alloc] initWithFrame:self.view.bounds];
 		pagingView_.backgroundColor = [UIColor blackColor];
 		pagingView_.pagingDelegate = self;
@@ -328,7 +328,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 				dispatch_async(dispatch_get_main_queue(), ^{
 					scrollView.image = image;
 					if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-						if (_landscapeMode == RDImageViewControllerLandscapeModeAspectFit) {
+						if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
 							[scrollView setImageSizeAspectFit];
 						}
 						else {
@@ -345,7 +345,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		else {
 			scrollView.image = imageHandler_(index);
 			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-				if (_landscapeMode == RDImageViewControllerLandscapeModeAspectFit) {
+				if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
 					[scrollView setImageSizeAspectFit];
 				}
 				else {
@@ -375,7 +375,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		[UIView animateWithDuration:duration animations:^{
 			v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
 			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-				if (_landscapeMode == RDImageViewControllerLandscapeModeAspectFit) {
+				if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
 					[v setImageSizeAspectFit];
 				}
 				else {

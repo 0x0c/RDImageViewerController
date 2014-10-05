@@ -36,10 +36,10 @@ To load asynchronous, do this
 	viewController.loadAsync = YES;
 
 The property of 'landscapeMode' is meaning zooming style in landscape.
-If it is setted RDImageViewControllerLandscapeModeAspectFit
+If it is setted RDImageViewerControllerLandscapeModeAspectFit
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/aspect.png)
 
-The other side it is setted RDImageViewControllerLandscapeModeDisplayFit
+The other side it is setted RDImageViewerControllerLandscapeModeDisplayFit
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/display.png)
 
 You can set the number of preloading images like this.

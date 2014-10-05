@@ -9,16 +9,16 @@
 #import "RDPagingView.h"
 #import "RDImageScrollView.h"
 
-typedef NS_ENUM(NSUInteger, RDImageViewControllerLandscapeMode) {
-	RDImageViewControllerLandscapeModeAspectFit,
-	RDImageViewControllerLandscapeModeDisplayFit,
+typedef NS_ENUM(NSUInteger, RDImageViewerControllerLandscapeMode) {
+	RDImageViewerControllerLandscapeModeAspectFit,
+	RDImageViewerControllerLandscapeModeDisplayFit,
 };
 
 @interface RDImageViewerController : UIViewController <RDPagingViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) NSUInteger preloadCount;
 @property (nonatomic, assign) BOOL pagingEnabled;
-@property (nonatomic, assign) RDImageViewControllerLandscapeMode landscapeMode;
+@property (nonatomic, assign) RDImageViewerControllerLandscapeMode landscapeMode;
 @property (nonatomic, assign) BOOL loadAsync;
 @property (nonatomic, assign) CGFloat maximumZoomScale;
 

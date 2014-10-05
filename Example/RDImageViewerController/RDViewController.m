@@ -42,7 +42,7 @@
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
 	} numberOfImages:10 direction:RDPagingViewDirectionRight];
-	viewController.landscapeMode = RDImageViewControllerLandscapeModeAspectFit;
+	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
 	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -53,7 +53,7 @@
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
 	} numberOfImages:10 direction:RDPagingViewDirectionRight];
-	viewController.landscapeMode = RDImageViewControllerLandscapeModeDisplayFit;
+	viewController.landscapeMode = RDImageViewerControllerLandscapeModeDisplayFit;
 	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -76,7 +76,7 @@
 		
 		return image;
 	} numberOfImages:10 direction:RDPagingViewDirectionRight];
-	viewController.landscapeMode = RDImageViewControllerLandscapeModeAspectFit;
+	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
 	viewController.loadAsync = YES;
 	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
