@@ -147,6 +147,24 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
+	currentPageHud_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+	currentPageHud_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+	currentPageHud_.backgroundColor = [UIColor blackColor];
+	currentPageHud_.layer.cornerRadius = 10;
+	currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
+	currentPageHud_.alpha = 0;
+	currentPageHud_.layer.borderColor = [UIColor whiteColor].CGColor;
+	currentPageHud_.layer.borderWidth = 1;
+	
+	currentPageHudLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, PageLabelFontSize)];
+	currentPageHudLabel_.backgroundColor = [UIColor clearColor];
+	currentPageHudLabel_.font = [UIFont systemFontOfSize:PageLabelFontSize];
+	currentPageHudLabel_.textColor = [UIColor whiteColor];
+	currentPageHudLabel_.textAlignment = NSTextAlignmentCenter;
+	currentPageHudLabel_.center = CGPointMake(CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(currentPageHud_.frame) / 2);
+	currentPageHudLabel_.tag = CurrentPageLabel;
+	[currentPageHud_ addSubview:currentPageHudLabel_];
+	
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
 		self.automaticallyAdjustsScrollViewInsets = NO;
 	}
@@ -157,29 +175,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[super viewWillAppear:animated];
 	[self setBarHidden:NO animated:YES];
 	
-	if (currentPageHud_ == nil) {
-		currentPageHud_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-		currentPageHud_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-		currentPageHud_.backgroundColor = [UIColor blackColor];
-		currentPageHud_.layer.cornerRadius = 10;
-		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
-		currentPageHud_.alpha = 0;
-		currentPageHud_.layer.borderColor = [UIColor whiteColor].CGColor;
-		currentPageHud_.layer.borderWidth = 1;
-		
-		currentPageHudLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, PageLabelFontSize)];
-		currentPageHudLabel_.backgroundColor = [UIColor clearColor];
-		currentPageHudLabel_.font = [UIFont systemFontOfSize:PageLabelFontSize];
-		currentPageHudLabel_.textColor = [UIColor whiteColor];
-		currentPageHudLabel_.textAlignment = NSTextAlignmentCenter;
-		currentPageHudLabel_.text = [NSString stringWithFormat:@"%d/%ld", 1, (long)pagingView_.numberOfPages];
-		currentPageHudLabel_.center = CGPointMake(CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(currentPageHud_.frame) / 2);
-		currentPageHudLabel_.tag = CurrentPageLabel;
-		[currentPageHud_ addSubview:currentPageHudLabel_];
-		
-		[self.view addSubview:pagingView_];
-		[self.view addSubview:currentPageHud_];
-		
+	[self.view addSubview:pagingView_];
+	if (self.showSlider == YES) {
 		UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
 		[slider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
 		[slider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -194,6 +191,11 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 		UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:slider];
 		self.toolbarItems = @[flexibleSpace, sliderItem, flexibleSpace];
+		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
+	}
+	if (self.showPageNumberHud == YES) {
+		currentPageHudLabel_.text = [NSString stringWithFormat:@"%d/%ld", 1, (long)pagingView_.numberOfPages];
+		[self.view addSubview:currentPageHud_];
 	}
 	
 	[pagingView_ scrollAtPage:0];
@@ -218,6 +220,23 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewDidDisappear:animated];
 	[self setBarHidden:NO animated:NO];
+}
+
+- (void)setShowPageNumberHud:(BOOL)showPageNumberHud
+{
+	_showPageNumberHud = showPageNumberHud;
+	if (showPageNumberHud == YES) {
+		[self.view addSubview:currentPageHud_];
+	}
+	else {
+		[currentPageHud_ removeFromSuperview];
+	}
+}
+
+- (void)setShowSlider:(BOOL)showSlider
+{
+	_showSlider = showSlider;
+	currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
 }
 
 - (void)setPreloadCount:(NSUInteger)preloadCount
@@ -266,7 +285,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)setBarHidden:(BOOL)hidden animated:(BOOL)animated
 {
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		[self.navigationController setToolbarHidden:hidden animated:animated];
+		if (self.toolbarItems.count > 0) {
+			[self.navigationController setToolbarHidden:hidden animated:animated];
+		}
+		else {
+			[self.navigationController setToolbarHidden:YES animated:animated];
+		}
 		[self.navigationController setNavigationBarHidden:hidden animated:animated];
 		[self setHudHidden:hidden animated:animated];
 	});

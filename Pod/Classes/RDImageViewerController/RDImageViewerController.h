@@ -18,8 +18,10 @@ typedef NS_ENUM(NSUInteger, RDImageViewerControllerLandscapeMode) {
 
 @property (nonatomic) NSUInteger preloadCount;
 @property (nonatomic, assign) BOOL pagingEnabled;
-@property (nonatomic, assign) RDImageViewerControllerLandscapeMode landscapeMode;
 @property (nonatomic, assign) BOOL loadAsync;
+@property (nonatomic, assign) BOOL showSlider;
+@property (nonatomic, assign) BOOL showPageNumberHud;
+@property (nonatomic, assign) RDImageViewerControllerLandscapeMode landscapeMode;
 @property (nonatomic, assign) CGFloat maximumZoomScale;
 @property (nonatomic, copy) UIImage *(^imageHandler)(NSInteger pageIndex);
 
