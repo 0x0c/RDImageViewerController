@@ -28,7 +28,6 @@ static const NSInteger PageLabelFontSize = 17;
 	UIView *currentPageHud_;
 	UILabel *currentPageHudLabel_;
 	BOOL statusBarHidden_;
-	UIImage *(^imageHandler_)(NSInteger pageIndex);
 }
 
 @end
@@ -138,7 +137,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	self = [self initWithNumberOfPages:pageCount direction:direction];
 	if (self) {
-		imageHandler_ = [imageHandler copy];
+		self.imageHandler = imageHandler;
 	}
 	
 	return self;
@@ -320,10 +319,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[imageScrollView setZoomScale:1.0];
 	imageScrollView.image = nil;
 	__weak RDImageScrollView *scrollView = imageScrollView;
-	if (imageHandler_) {
+	if (_imageHandler) {
 		if (self.loadAsync) {
 			[queue_ addOperationWithBlock:^{
-				UIImage *image = imageHandler_(index);
+				UIImage *image = _imageHandler(index);
 				dispatch_async(dispatch_get_main_queue(), ^{
 					scrollView.image = image;
 					if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
@@ -342,7 +341,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			}];
 		}
 		else {
-			scrollView.image = imageHandler_(index);
+			scrollView.image = _imageHandler(index);
 			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
 				if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
 					[scrollView setImageSizeAspectFit];
