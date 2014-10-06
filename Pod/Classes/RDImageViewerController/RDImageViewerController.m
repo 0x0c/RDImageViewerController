@@ -181,8 +181,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		[self.view addSubview:pagingView_];
 		[self.view addSubview:currentPageHud_];
 		
-		UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width * 0.8, 20)];
-		slider.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+		UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
 		[slider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
 		[slider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 		slider.maximumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] : [UIColor whiteColor];
