@@ -87,6 +87,7 @@ static CGSize kZoomRect = {100, 100};
 {
 	RDImageView *imageView_;
 	UITapGestureRecognizer *zoomGesture_;
+	UIActivityIndicatorView *indicator_;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -105,6 +106,11 @@ static CGSize kZoomRect = {100, 100};
 		imageView_.contentMode = UIViewContentModeScaleAspectFit;
 		[self addSubview:imageView_];
 		
+		indicator_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		indicator_.center = imageView_.center;
+		[indicator_ startAnimating];
+		[self addSubview:indicator_];
+		
 		zoomGesture_ = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomeImageView:)];
 		zoomGesture_.numberOfTapsRequired = 2;
 		zoomGesture_.numberOfTouchesRequired = 1;
@@ -122,6 +128,12 @@ static CGSize kZoomRect = {100, 100};
 - (void)setImage:(UIImage *)image
 {
 	imageView_.image = image;
+	if (image == nil) {
+		[indicator_ startAnimating];
+	}
+	else {
+		[indicator_ stopAnimating];
+	}
 }
 
 #pragma mark -
