@@ -12,6 +12,8 @@
 @interface RDViewController ()
 {
 	NSMutableArray *array;
+	__weak IBOutlet UISwitch *sliderSwitch;
+	__weak IBOutlet UISwitch *hudSwitch;
 }
 
 @end
@@ -21,6 +23,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	sliderSwitch.on = NO;
+	hudSwitch.on = NO;
+	
 	// Do any additional setup after loading the view, typically from a nib.
 	array = [NSMutableArray new];
 	for (NSInteger i = 1; i <= 10; i++) {
@@ -34,6 +40,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	[self.navigationController setToolbarHidden:YES animated:YES];
+}
+
 #pragma mark -
 
 - (IBAction)showImageViewControllerAspectFit:(id)sender
@@ -42,8 +54,11 @@
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
 	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	viewController.showSlider = sliderSwitch.on;
+	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
 	viewController.preloadCount = 1;
+	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -53,6 +68,8 @@
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
 	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	viewController.showSlider = sliderSwitch.on;
+	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeDisplayFit;
 	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
@@ -76,6 +93,8 @@
 		
 		return image;
 	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	viewController.showSlider = sliderSwitch.on;
+	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
 	viewController.loadAsync = YES;
 	viewController.preloadCount = 1;
