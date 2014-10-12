@@ -9,6 +9,7 @@ Simple image or custom view viewer.
 
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/1.png)
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/2.png)
+![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/view_and_image.png)
 
 ## Requirements
 

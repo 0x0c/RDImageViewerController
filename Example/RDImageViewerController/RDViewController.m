@@ -179,7 +179,7 @@
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
 	viewController.loadAsync = YES;
-	viewController.preloadCount = 1;
+	viewController.preloadCount = 3;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
