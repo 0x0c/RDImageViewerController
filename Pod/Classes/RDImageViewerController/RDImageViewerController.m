@@ -236,7 +236,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)setShowSlider:(BOOL)showSlider
 {
 	_showSlider = showSlider;
-	currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
+	CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
+	currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, toolBarPositionY - CGRectGetHeight(currentPageHud_.frame) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
 }
 
 - (void)setPreloadCount:(NSUInteger)preloadCount
@@ -302,6 +303,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)setHudHidden:(BOOL)hidden animated:(BOOL)animated
 {
 	[UIView animateWithDuration:UINavigationControllerHideShowBarDuration * animated animations:^{
+		CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
+		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, toolBarPositionY - CGRectGetHeight(currentPageHud_.frame) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
 		currentPageHud_.alpha = !hidden * 0.8;
 	} completion:^(BOOL finished) {
 	}];
@@ -347,21 +350,23 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		if (self.loadAsync) {
 			[queue_ addOperationWithBlock:^{
 				UIImage *image = _imageHandler(index);
-				dispatch_async(dispatch_get_main_queue(), ^{
-					scrollView.image = image;
-					if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-						if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
-							[scrollView setImageSizeAspectFit];
+				if (scrollView.indexOfPage == index) {
+					dispatch_async(dispatch_get_main_queue(), ^{
+						scrollView.image = image;
+						if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+							if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
+								[scrollView setImageSizeAspectFit];
+							}
+							else {
+								[scrollView setImageSizeDisplayFit];
+								[scrollView setContentOffset:CGPointMake(0, 0)];
+							}
 						}
 						else {
-							[scrollView setImageSizeDisplayFit];
-							[scrollView setContentOffset:CGPointMake(0, 0)];
+							[scrollView setImageSizeAspectFit];
 						}
-					}
-					else {
-						[scrollView setImageSizeAspectFit];
-					}
-				});
+					});
+				}
 			}];
 		}
 		else {
