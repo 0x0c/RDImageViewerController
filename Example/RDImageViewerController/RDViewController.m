@@ -82,7 +82,6 @@
 		if (reusedView == nil) {
 			UIView *view = [[UIView alloc] initWithFrame:frame];
 			UILabel *label = [[UILabel alloc] initWithFrame:frame];
-			label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
 			label.textAlignment = NSTextAlignmentCenter;
 			label.font = [UIFont systemFontOfSize:50];
 			label.tag = 100;
@@ -90,10 +89,9 @@
 			view.backgroundColor = [UIColor whiteColor];
 			reusedView = view;
 		}
-		else {
-			UILabel *label = (UILabel *)[reusedView viewWithTag:100];
-			label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
-		}
+
+		UILabel *label = (UILabel *)[reusedView viewWithTag:100];
+		label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
 		
 		return reusedView;
 	} reuseIdentifier:^NSString *(NSInteger pageIndex) {
@@ -154,7 +152,6 @@
 		if (reusedView == nil) {
 			UIView *view = [[UIView alloc] initWithFrame:frame];
 			UILabel *label = [[UILabel alloc] initWithFrame:frame];
-			label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
 			label.textAlignment = NSTextAlignmentCenter;
 			label.font = [UIFont systemFontOfSize:50];
 			label.tag = 100;
@@ -162,10 +159,9 @@
 			view.backgroundColor = [UIColor whiteColor];
 			reusedView = view;
 		}
-		else {
-			UILabel *label = (UILabel *)[reusedView viewWithTag:100];
-			label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
-		}
+		
+		UILabel *label = (UILabel *)[reusedView viewWithTag:100];
+		label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
 		
 		return reusedView;
 	}];
