@@ -340,7 +340,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (RDImageScrollView *)imageScrollViewForIndex:(NSInteger)index
 {
-	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueViewWithReuseIdentifier:@"image"];
+	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueViewWithReuseIdentifier:@"RDImageViewerControllerReuseIdentifierImage"];
 	if (imageScrollView == nil) {
 		imageScrollView = [[RDImageScrollView alloc] initWithFrame:self.view.bounds];
 		imageScrollView.maximumZoomScale = self.maximumZoomScale;
