@@ -129,7 +129,60 @@
 	viewController.loadAsync = YES;
 	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
+}
 
+
+- (IBAction)showImageAndView:(id)sender
+{
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
+		NSLog(@"downloading...:%@", [array[pageIndex] absoluteString]);
+		NSURLResponse *response = nil;
+		NSError *error = nil;
+		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:array[pageIndex]] returningResponse:&response error:&error];
+		UIImage *image = [UIImage imageWithData:data];
+		if (image == nil) {
+			NSLog(@"error:%@", [error localizedDescription]);
+		}
+		else {
+			NSLog(@"done:%@", response.URL.absoluteString);
+		}
+		
+		return image;
+	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	CGRect frame = self.view.bounds;
+	[viewController setViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
+		if (reusedView == nil) {
+			UIView *view = [[UIView alloc] initWithFrame:frame];
+			UILabel *label = [[UILabel alloc] initWithFrame:frame];
+			label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
+			label.textAlignment = NSTextAlignmentCenter;
+			label.font = [UIFont systemFontOfSize:50];
+			label.tag = 100;
+			[view addSubview:label];
+			view.backgroundColor = [UIColor whiteColor];
+			reusedView = view;
+		}
+		else {
+			UILabel *label = (UILabel *)[reusedView viewWithTag:100];
+			label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
+		}
+		
+		return reusedView;
+	}];
+	[viewController setReuseIdentifierHandler:^NSString *(NSInteger index) {
+		if (index % 2 == 0) {
+			return @"view";
+		}
+		
+		return RDImageViewerControllerReuseIdentifierImage;
+	}];
+	
+	viewController.showSlider = sliderSwitch.on;
+	viewController.showPageNumberHud = hudSwitch.on;
+	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
+	viewController.loadAsync = YES;
+	viewController.preloadCount = 1;
+	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark -

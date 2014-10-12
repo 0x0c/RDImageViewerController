@@ -34,6 +34,8 @@ static const NSInteger PageLabelFontSize = 17;
 
 @implementation RDImageViewerController
 
+NSString *const RDImageViewerControllerReuseIdentifierImage = @"RDImageViewerControllerReuseIdentifierImage";
+
 static NSInteger kPreloadDefaultCount = 1;
 static CGFloat kDefaultMaximumZoomScale = 2.5;
 
@@ -340,7 +342,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (RDImageScrollView *)imageScrollViewForIndex:(NSInteger)index
 {
-	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueViewWithReuseIdentifier:@"RDImageViewerControllerReuseIdentifierImage"];
+	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueViewWithReuseIdentifier:RDImageViewerControllerReuseIdentifierImage];
 	if (imageScrollView == nil) {
 		imageScrollView = [[RDImageScrollView alloc] initWithFrame:self.view.bounds];
 		imageScrollView.maximumZoomScale = self.maximumZoomScale;
@@ -406,11 +408,22 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (UIView *)pagingView:(RDPagingView *)pageView viewForIndex:(NSInteger)index
 {
 	UIView *view = nil;
-	if (self.imageHandler) {
-		view = [self imageScrollViewForIndex:index];
+	if (self.reuseIdentifierHandler) {
+		NSString *reuseIdentifier = self.reuseIdentifierHandler(index);
+		if ([reuseIdentifier isEqualToString:RDImageViewerControllerReuseIdentifierImage]) {
+			view = [self imageScrollViewForIndex:index];
+		}
+		else {
+			view = [self contentViewForIndex:index];
+		}
 	}
 	else {
-		view = [self contentViewForIndex:index];
+		if (self.imageHandler) {
+			view = [self imageScrollViewForIndex:index];
+		}
+		else {
+			view = [self contentViewForIndex:index];
+		}
 	}
 	
 	return view;

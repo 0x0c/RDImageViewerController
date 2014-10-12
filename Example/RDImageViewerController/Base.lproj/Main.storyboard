@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9UA-CQ-rNO">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -98,6 +97,19 @@
                                     <action selector="showViewController:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tUz-Ph-ANQ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LpB-ja-NAH">
+                                <rect key="frame" x="86" y="425" width="148" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="148" id="3jv-JA-wyN"/>
+                                    <constraint firstAttribute="height" constant="30" id="Y60-9y-i34"/>
+                                </constraints>
+                                <state key="normal" title="show view and image">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showImageAndView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7JG-Gb-WfI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -105,9 +117,11 @@
                             <constraint firstAttribute="centerX" secondItem="IRP-gu-FWZ" secondAttribute="centerX" constant="-31.5" id="D6Z-zw-V29"/>
                             <constraint firstAttribute="centerX" secondItem="xU8-LQ-9m6" secondAttribute="centerX" id="EHv-Z8-NfY"/>
                             <constraint firstItem="WpC-0B-eM5" firstAttribute="leading" secondItem="xU8-LQ-9m6" secondAttribute="leading" id="HfR-d0-Dqc"/>
+                            <constraint firstItem="LpB-ja-NAH" firstAttribute="top" secondItem="V0N-Cd-BkJ" secondAttribute="bottom" constant="2" id="IGO-gO-jxx"/>
                             <constraint firstItem="xU8-LQ-9m6" firstAttribute="top" secondItem="WpC-0B-eM5" secondAttribute="bottom" constant="8" symbolic="YES" id="Iog-CP-afc"/>
                             <constraint firstAttribute="centerX" secondItem="5DC-Ly-RK6" secondAttribute="centerX" constant="-29" id="LDn-Cc-Rff"/>
                             <constraint firstAttribute="centerX" secondItem="Grl-1v-f4t" secondAttribute="centerX" constant="60.5" id="LXv-Uz-0Sf"/>
+                            <constraint firstAttribute="centerX" secondItem="LpB-ja-NAH" secondAttribute="centerX" id="MKh-MP-kQe"/>
                             <constraint firstItem="onp-uW-Dll" firstAttribute="top" secondItem="Grl-1v-f4t" secondAttribute="bottom" constant="27" id="TAE-Av-Fte"/>
                             <constraint firstItem="xU8-LQ-9m6" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="86" id="WNq-Pz-y3H"/>
                             <constraint firstAttribute="centerX" secondItem="An7-HO-nQL" secondAttribute="centerX" id="XpU-9w-rdA"/>
