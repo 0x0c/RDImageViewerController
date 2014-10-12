@@ -143,6 +143,17 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	return self;
 }
 
+- (instancetype)initWithViewHandler:(UIView *(^)(NSInteger pageIndex, UIView *reusedView))viewHandler reuseIdentifier:(NSString *(^)(NSInteger pageIndex))reuseIdentifierHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction
+{
+	self = [self initWithNumberOfPages:pageCount direction:direction];
+	if (self) {
+		self.viewHandler = viewHandler;
+		self.reuseIdentifierHandler = reuseIdentifierHandler;
+	}
+	
+	return self;
+}
+
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
@@ -327,11 +338,9 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[slider setValue:trueValue animated:YES];
 }
 
-#pragma mark - RDPagingViewDelegate
-
-- (UIView *)pagingView:(RDPagingView *)pageView viewForIndex:(NSInteger)index
+- (RDImageScrollView *)imageScrollViewForIndex:(NSInteger)index
 {
-	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueView];
+	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueViewWithReuseIdentifier:@"image"];
 	if (imageScrollView == nil) {
 		imageScrollView = [[RDImageScrollView alloc] initWithFrame:self.view.bounds];
 		imageScrollView.maximumZoomScale = self.maximumZoomScale;
@@ -353,40 +362,58 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 				if (scrollView.indexOfPage == index) {
 					dispatch_async(dispatch_get_main_queue(), ^{
 						scrollView.image = image;
-						if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-							if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
-								[scrollView setImageSizeAspectFit];
-							}
-							else {
-								[scrollView setImageSizeDisplayFit];
-								[scrollView setContentOffset:CGPointMake(0, 0)];
-							}
-						}
-						else {
-							[scrollView setImageSizeAspectFit];
-						}
+						[self adjustContentAspect:scrollView];
 					});
 				}
 			}];
 		}
 		else {
 			scrollView.image = _imageHandler(index);
-			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-				if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
-					[scrollView setImageSizeAspectFit];
-				}
-				else {
-					[scrollView setImageSizeDisplayFit];
-					[scrollView setContentOffset:CGPointMake(0, 0)];
-				}
-			}
-			else {
-				[scrollView setImageSizeAspectFit];
-			}
+			[self adjustContentAspect:scrollView];
 		}
 	}
-	
 	return imageScrollView;
+}
+
+- (UIView *)contentViewForIndex:(NSInteger)index
+{
+	UIView *view = [pagingView_ dequeueViewWithReuseIdentifier:self.reuseIdentifierHandler(index)];
+	
+	return self.viewHandler(index, view);
+}
+
+- (void)adjustContentAspect:(UIView *)view
+{
+	if ([view isKindOfClass:[RDImageScrollView class]]) {
+		RDImageScrollView *v = (RDImageScrollView *)view;
+		if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+			if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
+				[v setImageSizeAspectFit];
+			}
+			else {
+				[v setImageSizeDisplayFit];
+				[v setContentOffset:CGPointMake(0, 0)];
+			}
+		}
+		else {
+			[v setImageSizeAspectFit];
+		}
+	}
+}
+
+#pragma mark - RDPagingViewDelegate
+
+- (UIView *)pagingView:(RDPagingView *)pageView viewForIndex:(NSInteger)index
+{
+	UIView *view = nil;
+	if (self.imageHandler) {
+		view = [self imageScrollViewForIndex:index];
+	}
+	else {
+		view = [self contentViewForIndex:index];
+	}
+	
+	return view;
 }
 
 - (void)pagingView:(RDPagingView *)pagingView willChangeViewSize:(CGSize)size duration:(NSTimeInterval)duration visibleViews:(NSArray *)views
@@ -401,18 +428,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		}
 		[UIView animateWithDuration:duration animations:^{
 			v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
-			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-				if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
-					[v setImageSizeAspectFit];
-				}
-				else {
-					[v setImageSizeDisplayFit];
-					[v setContentOffset:CGPointMake(0, 0)];
-				}
-			}
-			else {
-				[v setImageSizeAspectFit];
-			}
+			[self adjustContentAspect:v];
   		}];
 	}];
 }
@@ -430,9 +446,11 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	CGFloat page = pagingView_.contentOffset.x / CGRectGetWidth(pagingView_.frame);
 	[pagingView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		UIScrollView *pageView = (UIScrollView *)obj;
-		if (page != CGRectGetMinX(pageView.frame) / CGRectGetWidth(pagingView_.frame)) {
-			pageView.zoomScale = 1.0;
+		if ([obj isKindOfClass:[UIScrollView class]]) {
+			UIScrollView *pageView = (UIScrollView *)obj;
+			if (page != CGRectGetMinX(pageView.frame) / CGRectGetWidth(pagingView_.frame)) {
+				pageView.zoomScale = 1.0;
+			}			
 		}
 	}];
 }

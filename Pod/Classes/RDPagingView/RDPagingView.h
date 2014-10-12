@@ -61,7 +61,7 @@ extern NSInteger const RDSubViewTagOffset;
 - (void)endRotation;
 - (NSInteger)indexInScrollView:(NSInteger)index;
 - (void)scrollAtPage:(NSInteger)page;
-- (UIView *)dequeueView;
+- (UIView *)dequeueViewWithReuseIdentifier:(NSString *)identifier;
 - (void)resizeWithFrame:(CGRect)frame duration:(NSTimeInterval)duration;
 
 @end

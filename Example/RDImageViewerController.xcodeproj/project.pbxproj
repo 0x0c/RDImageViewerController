@@ -163,7 +163,6 @@
 				E96FFD7A19CE7970008ADEDF /* Classes */,
 				6003F59C195388D20070C39A /* RDAppDelegate.h */,
 				6003F59D195388D20070C39A /* RDAppDelegate.m */,
-				6003F59F195388D20070C39A /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* RDViewController.h */,
 				6003F5A6195388D20070C39A /* RDViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -175,6 +174,7 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6003F59F195388D20070C39A /* Main.storyboard */,
 				6003F595195388D20070C39A /* RDImageViewerController-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,

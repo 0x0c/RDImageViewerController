@@ -75,6 +75,36 @@
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (IBAction)showViewController:(id)sender
+{
+	CGRect frame = self.view.bounds;
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
+		if (reusedView == nil) {
+			UIView *view = [[UIView alloc] initWithFrame:frame];
+			UILabel *label = [[UILabel alloc] initWithFrame:frame];
+			label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
+			label.textAlignment = NSTextAlignmentCenter;
+			label.font = [UIFont systemFontOfSize:50];
+			label.tag = 100;
+			[view addSubview:label];
+			view.backgroundColor = [UIColor whiteColor];
+			reusedView = view;
+		}
+		else {
+			UILabel *label = (UILabel *)[reusedView viewWithTag:100];
+			label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
+		}
+		
+		return reusedView;
+	} reuseIdentifier:^NSString *(NSInteger pageIndex) {
+		return @"view";
+	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	viewController.showSlider = sliderSwitch.on;
+	viewController.showPageNumberHud = hudSwitch.on;
+	viewController.landscapeMode = RDImageViewerControllerLandscapeModeDisplayFit;
+	viewController.preloadCount = 1;
+	[self.navigationController pushViewController:viewController animated:YES];
+}
 
 - (IBAction)showAsyncImageViewController:(id)sender
 {

@@ -8,7 +8,6 @@
 
 #import "RDPagingView.h"
 
-
 typedef struct {
 	BOOL pagingViewWillChangeViewSize;
 	BOOL pagingViewWillViewEnqueue;
@@ -23,6 +22,7 @@ typedef struct {
 
 @interface RDPagingView () <UIScrollViewDelegate>
 {
+	NSMutableDictionary *queueDictionary_;
 	NSMutableSet *usingViews_;
 	NSMutableSet *preparedViews_;
 	NSInteger pageIndex_;
@@ -48,6 +48,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 		_preloadCount = kPreloadDefaultCount;
 		_numberOfPages = 0;
 		
+		queueDictionary_ = [NSMutableDictionary new];
 		usingViews_ = [NSMutableSet new];
 		preparedViews_ = [NSMutableSet new];
 	}
@@ -122,9 +123,15 @@ static NSInteger const kPreloadDefaultCount = 1;
 	}
 }
 
-- (UIView *)dequeueView
+- (UIView *)dequeueViewWithReuseIdentifier:(NSString *)identifier
 {
-	return [preparedViews_ anyObject];
+	NSMutableSet *set = queueDictionary_[identifier];
+	if (set == nil) {
+		set = [NSMutableSet new];
+		queueDictionary_[identifier] = set;
+	}
+	
+	return [set anyObject];
 }
 
 - (void)resizeWithFrame:(CGRect)frame duration:(NSTimeInterval)duration
