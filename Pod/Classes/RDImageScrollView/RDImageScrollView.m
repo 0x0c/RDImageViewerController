@@ -207,11 +207,4 @@ static CGSize kZoomRect = {100, 100};
 	subView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX, scrollView.contentSize.height * 0.5 + offsetY);
 }
 
-#pragma mark - RDPagingViewProtocol
-
-- (NSInteger)indexOfPage
-{
-	return self.tag - RDSubViewTagOffset;
-}
-
 @end

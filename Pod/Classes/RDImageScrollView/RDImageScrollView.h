@@ -15,7 +15,7 @@
 
 @end
 
-@interface RDImageScrollView : UIScrollView <UIScrollViewDelegate, RDPagingViewProtocol>
+@interface RDImageScrollView : UIScrollView <UIScrollViewDelegate>
 
 @property (nonatomic, getter=image, setter=setImage:) UIImage *image;
 

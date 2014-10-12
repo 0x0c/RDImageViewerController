@@ -20,21 +20,19 @@ typedef NS_ENUM(NSInteger, RDPagingViewMovingDirection) {
 	RDPagingViewMovingDirectionBackward = -1
 };
 
-@class RDPagingView;
+@interface UIView (RDPagingView)
 
-extern NSInteger const RDSubViewTagOffset;
-
-@protocol RDPagingViewProtocol <NSObject>
-
-@required
-- (NSInteger)indexOfPage;
+@property (nonatomic, readonly) NSInteger indexOfPage;
 
 @end
+
+@class RDPagingView;
 
 @protocol RDPagingViewDelegate <NSObject>
 
 @required
 - (UIView *)pagingView:(RDPagingView *)pageView viewForIndex:(NSInteger)index;
+- (NSString *)paginView:(RDPagingView *)paginView reuseIdentifierForIndex:(NSInteger)index;
 
 @optional
 - (void)pagingView:(RDPagingView *)pagingView willChangeViewSize:(CGSize)size duration:(NSTimeInterval)duration visibleViews:(NSArray *)views;

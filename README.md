@@ -1,5 +1,7 @@
 # RDImageViewerController
 
+Simple image or custom view viewer.
+
 [![CI Status](http://img.shields.io/travis/Akira Matsuda/RDImageViewerController.svg?style=flat)](https://travis-ci.org/Akira Matsuda/RDImageViewerController)
 [![Version](https://img.shields.io/cocoapods/v/RDImageViewerController.svg?style=flat)](http://cocoadocs.org/docsets/RDImageViewerController)
 [![License](https://img.shields.io/cocoapods/l/RDImageViewerController.svg?style=flat)](http://cocoadocs.org/docsets/RDImageViewerController)
@@ -30,6 +32,20 @@ Initialize RDImageViewerController with number of images and image handler.
 		return [UIImage imageNamed:imageName];
 	} numberOfImage:10 direction:RDPagingViewDirectionRight];
 
+You can show a custom view like this.
+
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
+		if (reusedView == nil) {
+			// create new view
+		}
+		// customize view
+		return reusedView;
+	} reuseIdentifier:^NSString *(NSInteger pageIndex) {
+		return @"view";
+	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+
+Please check the sample code to know how to use.
+
 To load asynchronous, do this
 
 	RDImageViewerController *viewController = ...
@@ -50,7 +66,7 @@ You can set the number of preloading images like this.
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/3.png)
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/4.png)
 
-The image view will be reused when scrolled.
+The view will be reused when scrolled.
 
 ## Author
 

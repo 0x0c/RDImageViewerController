@@ -429,10 +429,20 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	return view;
 }
 
+- (NSString *)paginView:(RDPagingView *)paginView reuseIdentifierForIndex:(NSInteger)index
+{
+	NSString *identifier = RDImageViewerControllerReuseIdentifierImage;
+	if (self.reuseIdentifierHandler) {
+		identifier = self.reuseIdentifierHandler(index);
+	}
+	
+	return identifier;
+}
+
 - (void)pagingView:(RDPagingView *)pagingView willChangeViewSize:(CGSize)size duration:(NSTimeInterval)duration visibleViews:(NSArray *)views
 {
 	[views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		__block RDImageScrollView<RDPagingViewProtocol> *v = obj;
+		__block RDImageScrollView *v = obj;
 		if (v.indexOfPage != pagingView.currentPageIndex) {
 			v.hidden = YES;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

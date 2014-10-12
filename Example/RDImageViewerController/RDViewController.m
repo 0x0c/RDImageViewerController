@@ -84,6 +84,7 @@
 			UILabel *label = [[UILabel alloc] initWithFrame:frame];
 			label.textAlignment = NSTextAlignmentCenter;
 			label.font = [UIFont systemFontOfSize:50];
+			label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			label.tag = 100;
 			[view addSubview:label];
 			view.backgroundColor = [UIColor whiteColor];
@@ -154,6 +155,7 @@
 			UILabel *label = [[UILabel alloc] initWithFrame:frame];
 			label.textAlignment = NSTextAlignmentCenter;
 			label.font = [UIFont systemFontOfSize:50];
+			label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			label.tag = 100;
 			[view addSubview:label];
 			view.backgroundColor = [UIColor whiteColor];

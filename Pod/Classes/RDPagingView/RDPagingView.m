@@ -7,6 +7,7 @@
 //
 
 #import "RDPagingView.h"
+#import <objc/runtime.h>
 
 typedef struct {
 	BOOL pagingViewWillChangeViewSize;
@@ -20,11 +21,27 @@ typedef struct {
 	BOOL pagingViewDidEndScrollingAnimation;
 } RDPagingViewDelegateFlag;
 
+@implementation UIView (RDPagingView)
+
+static NSString *const kRDPagingViewIndexOfPage = @"RDPagingViewIndexOfPage";
+@dynamic indexOfPage;
+
+- (NSInteger)indexOfPage
+{
+	return [(NSNumber *)objc_getAssociatedObject(self, (__bridge const void *)(kRDPagingViewIndexOfPage)) integerValue];
+}
+
+- (void)setIndexOfPage:(NSInteger)indexOfPage
+{
+	objc_setAssociatedObject(self, (__bridge const void *)(kRDPagingViewIndexOfPage), @(indexOfPage), OBJC_ASSOCIATION_RETAIN);
+}
+
+@end
+
 @interface RDPagingView () <UIScrollViewDelegate>
 {
 	NSMutableDictionary *queueDictionary_;
 	NSMutableSet *usingViews_;
-	NSMutableSet *preparedViews_;
 	NSInteger pageIndex_;
 	RDPagingViewDelegateFlag flag_;
 	id<UIScrollViewDelegate> delegate_;
@@ -34,7 +51,6 @@ typedef struct {
 
 @implementation RDPagingView
 
-NSInteger const RDSubViewTagOffset = 3;
 static NSInteger const kPreloadDefaultCount = 1;
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -50,7 +66,6 @@ static NSInteger const kPreloadDefaultCount = 1;
 		
 		queueDictionary_ = [NSMutableDictionary new];
 		usingViews_ = [NSMutableSet new];
-		preparedViews_ = [NSMutableSet new];
 	}
 	
 	return self;
@@ -106,19 +121,19 @@ static NSInteger const kPreloadDefaultCount = 1;
 	return trueIndex;
 }
 
-- (void)setViewPrepared:(UIView *)view
+- (void)setViewPrepared:(UIView *)view reuseIdentifier:(NSString *)identifier
 {
 	if (view) {
 		[view removeFromSuperview];
 		[usingViews_ removeObject:view];
-		[preparedViews_ addObject:view];
+		[queueDictionary_[identifier] addObject:view];
 	}
 }
 
-- (void)setViewUsing:(UIView *)view
+- (void)setViewUsing:(UIView *)view reuseIdentifier:(NSString *)identifier
 {
 	if (view) {
-		[preparedViews_ removeObject:view];
+		[queueDictionary_[identifier] removeObject:view];
 		[usingViews_ addObject:view];
 	}
 }
@@ -170,21 +185,18 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)pageIndexWillChangeToIndex:(NSInteger)index
 {
 	NSInteger direction = index - self.currentPageIndex > 0 ? RDPagingViewMovingDirectionForward : (index - self.currentPageIndex < 0 ? RDPagingViewMovingDirectionBackward : 0);
-	NSInteger offset = index - (direction * (_preloadCount + 1)) + RDSubViewTagOffset;
 	
-	if (offset > 0) {
-		NSInteger maximumIndex = index + _preloadCount + RDSubViewTagOffset;
-		NSInteger minimumIndex = index - (NSInteger)_preloadCount + RDSubViewTagOffset;
-		[usingViews_ enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-			UIView *view = obj;
-			if (view.tag < minimumIndex || view.tag > maximumIndex) {
-				[self setViewPrepared:view];
-			}
-		}];
-		
-		if (direction != 0) {
-			[self preloadWithNumberOfViews:_preloadCount fromIndex:index];
+	NSInteger maximumIndex = index + _preloadCount;
+	NSInteger minimumIndex = index - _preloadCount;
+	[usingViews_ enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+		UIView *view = obj;
+		if (view.indexOfPage < minimumIndex || view.indexOfPage > maximumIndex) {
+			[self setViewPrepared:view reuseIdentifier:[self.pagingDelegate paginView:self reuseIdentifierForIndex:view.indexOfPage]];
 		}
+	}];
+	
+	if (direction != 0) {
+		[self preloadWithNumberOfViews:_preloadCount fromIndex:index];
 	}
 	
 	if (flag_.pagingViewWillChangeIndexTo) {
@@ -195,7 +207,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)preloadWithNumberOfViews:(NSInteger)num fromIndex:(NSInteger)index
 {
 	for (NSInteger i = MAX(index - num, 0); i < MIN(index + num + 1, self.numberOfPages); i++) {
-		if ([self viewWithTag:i + RDSubViewTagOffset] == nil) {
+		if ([self viewForIndex:i] == nil) {
 			[self loadViewAtIndex:i];
 		}
 	}
@@ -205,9 +217,22 @@ static NSInteger const kPreloadDefaultCount = 1;
 {
 	UIView *view = [self.pagingDelegate pagingView:self viewForIndex:index];
 	view.frame = CGRectMake([self indexInScrollView:index] * CGRectGetWidth(self.frame), 0, CGRectGetWidth(self.frame) ,CGRectGetHeight(self.frame));
-	view.tag = index + RDSubViewTagOffset;
-	[self setViewUsing:view];
+	[view setIndexOfPage:index];
+	[self setViewUsing:view reuseIdentifier:[self.pagingDelegate paginView:self reuseIdentifierForIndex:index]];
 	[self addSubview:view];
+}
+
+- (UIView *)viewForIndex:(NSInteger)index
+{
+	UIView *result = nil;
+	for (UIView *view in usingViews_) {
+		if (view.indexOfPage == index) {
+			result = view;
+			break;
+		}
+	}
+	
+	return result;
 }
 
 #pragma mark UIScrollViewDelegate
