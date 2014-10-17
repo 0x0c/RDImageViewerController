@@ -72,6 +72,7 @@
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeDisplayFit;
 	viewController.preloadCount = 1;
+	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -102,6 +103,7 @@
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeDisplayFit;
 	viewController.preloadCount = 1;
+	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -180,6 +182,7 @@
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
 	viewController.loadAsync = YES;
 	viewController.preloadCount = 3;
+	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
