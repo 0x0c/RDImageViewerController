@@ -187,8 +187,13 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewWillAppear:animated];
 	[self setBarHidden:NO animated:YES];
+	[self setHudHidden:NO animated:animated];
 	
-	[self.view addSubview:pagingView_];
+	if (pagingView_.superview == nil) {
+		[self.view addSubview:pagingView_];
+		[pagingView_ scrollAtPage:0];
+	}
+	
 	if (self.showSlider == YES) {
 		UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
 		[slider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
@@ -210,10 +215,6 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		currentPageHudLabel_.text = [NSString stringWithFormat:@"%d/%ld", 1, (long)pagingView_.numberOfPages];
 		[self.view addSubview:currentPageHud_];
 	}
-	
-	[pagingView_ scrollAtPage:0];
-	
-	[self setHudHidden:NO animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
