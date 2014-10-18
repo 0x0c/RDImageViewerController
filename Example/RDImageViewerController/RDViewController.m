@@ -53,7 +53,7 @@
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
-	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
@@ -67,7 +67,7 @@
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
-	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeDisplayFit;
@@ -98,7 +98,7 @@
 		return reusedView;
 	} reuseIdentifier:^NSString *(NSInteger pageIndex) {
 		return @"view";
-	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeDisplayFit;
@@ -123,7 +123,7 @@
 		}
 		
 		return image;
-	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
@@ -131,7 +131,6 @@
 	viewController.preloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
-
 
 - (IBAction)showImageAndView:(id)sender
 {
@@ -149,7 +148,7 @@
 		}
 		
 		return image;
-	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	CGRect frame = self.view.bounds;
 	[viewController setViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
 		if (reusedView == nil) {

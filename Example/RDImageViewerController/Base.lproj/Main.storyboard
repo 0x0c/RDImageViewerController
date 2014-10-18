@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9UA-CQ-rNO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9UA-CQ-rNO">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -50,7 +51,7 @@
                                     <action selector="showImageViewControllerAspectFit:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rZp-iT-o8i"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Grl-1v-f4t">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Grl-1v-f4t">
                                 <rect key="frame" x="75" y="104" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="WTP-tK-qkQ"/>
@@ -67,7 +68,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="onp-uW-Dll">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="onp-uW-Dll">
                                 <rect key="frame" x="75" y="162" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="7gj-zS-iYZ"/>
@@ -110,21 +111,38 @@
                                     <action selector="showImageAndView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7JG-Gb-WfI"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rLe-HB-VkL">
+                                <rect key="frame" x="75" y="219" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="direction left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUy-Zz-Pdx">
+                                <rect key="frame" x="132" y="224" width="119" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ZuK-8L-hTd"/>
+                                    <constraint firstAttribute="width" constant="119" id="kch-W2-5zG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="oUy-Zz-Pdx" firstAttribute="leading" secondItem="rLe-HB-VkL" secondAttribute="trailing" constant="8" symbolic="YES" id="CV9-3O-cbI"/>
                             <constraint firstItem="IRP-gu-FWZ" firstAttribute="top" secondItem="5DC-Ly-RK6" secondAttribute="bottom" constant="37" id="CbH-dq-Nbh"/>
                             <constraint firstAttribute="centerX" secondItem="IRP-gu-FWZ" secondAttribute="centerX" constant="-31.5" id="D6Z-zw-V29"/>
                             <constraint firstAttribute="centerX" secondItem="xU8-LQ-9m6" secondAttribute="centerX" id="EHv-Z8-NfY"/>
                             <constraint firstItem="WpC-0B-eM5" firstAttribute="leading" secondItem="xU8-LQ-9m6" secondAttribute="leading" id="HfR-d0-Dqc"/>
                             <constraint firstItem="LpB-ja-NAH" firstAttribute="top" secondItem="V0N-Cd-BkJ" secondAttribute="bottom" constant="2" id="IGO-gO-jxx"/>
                             <constraint firstItem="xU8-LQ-9m6" firstAttribute="top" secondItem="WpC-0B-eM5" secondAttribute="bottom" constant="8" symbolic="YES" id="Iog-CP-afc"/>
+                            <constraint firstItem="oUy-Zz-Pdx" firstAttribute="centerY" secondItem="rLe-HB-VkL" secondAttribute="centerY" id="Jgm-7k-8fr"/>
                             <constraint firstAttribute="centerX" secondItem="5DC-Ly-RK6" secondAttribute="centerX" constant="-29" id="LDn-Cc-Rff"/>
                             <constraint firstAttribute="centerX" secondItem="Grl-1v-f4t" secondAttribute="centerX" constant="60.5" id="LXv-Uz-0Sf"/>
                             <constraint firstAttribute="centerX" secondItem="LpB-ja-NAH" secondAttribute="centerX" id="MKh-MP-kQe"/>
+                            <constraint firstItem="oUy-Zz-Pdx" firstAttribute="leading" secondItem="IRP-gu-FWZ" secondAttribute="leading" id="S6X-G2-1D6"/>
                             <constraint firstItem="onp-uW-Dll" firstAttribute="top" secondItem="Grl-1v-f4t" secondAttribute="bottom" constant="27" id="TAE-Av-Fte"/>
                             <constraint firstItem="xU8-LQ-9m6" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="86" id="WNq-Pz-y3H"/>
                             <constraint firstAttribute="centerX" secondItem="An7-HO-nQL" secondAttribute="centerX" id="XpU-9w-rdA"/>
+                            <constraint firstItem="oUy-Zz-Pdx" firstAttribute="top" secondItem="IRP-gu-FWZ" secondAttribute="bottom" constant="36" id="XqQ-yE-xVQ"/>
                             <constraint firstItem="5DC-Ly-RK6" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="45" id="fpV-Vo-mfy"/>
                             <constraint firstItem="Grl-1v-f4t" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="40" id="l2f-KK-q3X"/>
                             <constraint firstItem="WpC-0B-eM5" firstAttribute="top" secondItem="An7-HO-nQL" secondAttribute="bottom" constant="8" id="oPr-bC-Fkd"/>
@@ -135,6 +153,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="vhs-i7-6Ti"/>
                     <connections>
+                        <outlet property="directionSwitch" destination="rLe-HB-VkL" id="Zpz-LQ-FdK"/>
                         <outlet property="hudSwitch" destination="onp-uW-Dll" id="MjS-eq-p6d"/>
                         <outlet property="sliderSwitch" destination="Grl-1v-f4t" id="32E-8D-FfP"/>
                     </connections>
