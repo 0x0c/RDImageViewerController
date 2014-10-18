@@ -68,10 +68,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[pagingView_ startRotation];
 	if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-		if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) duration:duration];
-		}
-		else {
+		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+		if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
 			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
 		}
 	}
@@ -88,21 +86,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 	[pagingView_ startRotation];
-	[super viewWillTransitionToSize: size withTransitionCoordinator: coordinator];
-	[coordinator animateAlongsideTransition: ^(id<UIViewControllerTransitionCoordinatorContext> context) {
-		UIViewController *fromViewController = [context viewControllerForKey: UITransitionContextFromViewControllerKey];
-		UIInterfaceOrientation toInterfaceOrientation = fromViewController.interfaceOrientation;
-		NSTimeInterval duration = [context transitionDuration];
-		if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-			if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-				[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
-			}
-			else {
-				[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.height, size.width) duration:duration];
-			}
-		}
-		else {
+	UIUserInterfaceSizeClass sizeClass = self.traitCollection.verticalSizeClass;
+	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+		if (self.traitCollection.verticalSizeClass != sizeClass) {
+			NSTimeInterval duration = [context transitionDuration];
 			[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
 		}
 	} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
@@ -389,17 +378,34 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	if ([view isKindOfClass:[RDImageScrollView class]]) {
 		RDImageScrollView *v = (RDImageScrollView *)view;
-		if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-			if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
-				[v setImageSizeAspectFit];
+		if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+			UIInterfaceOrientation orientation = (UIInterfaceOrientation)[UIDevice currentDevice].orientation;
+			if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+				if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
+					[v setImageSizeAspectFit];
+				}
+				else {
+					[v setImageSizeDisplayFit];
+					[v setContentOffset:CGPointMake(0, 0)];
+				}
 			}
 			else {
-				[v setImageSizeDisplayFit];
-				[v setContentOffset:CGPointMake(0, 0)];
+				[v setImageSizeAspectFit];
 			}
 		}
 		else {
-			[v setImageSizeAspectFit];
+			if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+				if (_landscapeMode == RDImageViewerControllerLandscapeModeAspectFit) {
+					[v setImageSizeAspectFit];
+				}
+				else {
+					[v setImageSizeDisplayFit];
+					[v setContentOffset:CGPointMake(0, 0)];
+				}
+			}
+			else {
+				[v setImageSizeAspectFit];
+			}
 		}
 	}
 }
