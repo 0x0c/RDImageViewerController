@@ -25,6 +25,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierImage;
 @property (nonatomic, assign) BOOL showPageNumberHud;
 @property (nonatomic, assign) RDImageViewerControllerLandscapeMode landscapeMode;
 @property (nonatomic, assign) CGFloat maximumZoomScale;
+@property (nonatomic, readonly) UISlider *pageSlider;
 @property (nonatomic, copy) UIImage *(^imageHandler)(NSInteger pageIndex);
 @property (nonatomic, copy) UIView *(^viewHandler)(NSInteger pageIndex, UIView *reusedView);
 @property (nonatomic, copy) NSString *(^reuseIdentifierHandler)(NSInteger pageIndex);

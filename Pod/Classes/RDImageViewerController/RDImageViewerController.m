@@ -170,6 +170,11 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
 		self.automaticallyAdjustsScrollViewInsets = NO;
 	}
+	_pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
+	[_pageSlider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
+	[_pageSlider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+	_pageSlider.maximumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] : [UIColor whiteColor];
+	_pageSlider.minimumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? [UIColor whiteColor] : [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -184,19 +189,14 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	}
 	
 	if (self.showSlider == YES) {
-		UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
-		[slider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
-		[slider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-		slider.maximumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] : [UIColor whiteColor];
-		slider.minimumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? [UIColor whiteColor] : [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
 		if (pagingView_.direction == RDPagingViewDirectionRight) {
-			slider.value = 0;
+			_pageSlider.value = 0;
 		}
 		else {
-			slider.value = 1.0;
+			_pageSlider.value = 1.0;
 		}
 		UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-		UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:slider];
+		UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:_pageSlider];
 		self.toolbarItems = @[flexibleSpace, sliderItem, flexibleSpace];
 		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
 	}
