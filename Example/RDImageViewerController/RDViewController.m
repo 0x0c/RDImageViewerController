@@ -58,6 +58,7 @@
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageViewerControllerLandscapeModeAspectFit;
 	viewController.preloadCount = 1;
+	viewController.pageIndex = 5;
 	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }

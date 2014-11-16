@@ -185,23 +185,18 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	
 	if (pagingView_.superview == nil) {
 		[self.view addSubview:pagingView_];
-		[pagingView_ scrollAtPage:0];
+		[pagingView_ scrollAtPage:pagingView_.currentPageIndex];
 	}
 	
 	if (self.showSlider == YES) {
-		if (pagingView_.direction == RDPagingViewDirectionRight) {
-			_pageSlider.value = 0;
-		}
-		else {
-			_pageSlider.value = 1.0;
-		}
+		_pageSlider.value = (CGFloat)pagingView_.currentPageIndex / pagingView_.numberOfPages;
 		UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 		UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:_pageSlider];
 		self.toolbarItems = @[flexibleSpace, sliderItem, flexibleSpace];
 		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
 	}
 	if (self.showPageNumberHud == YES) {
-		currentPageHudLabel_.text = [NSString stringWithFormat:@"%d/%ld", 1, (long)pagingView_.numberOfPages];
+		currentPageHudLabel_.text = [NSString stringWithFormat:@"%d/%ld", pagingView_.currentPageIndex, (long)pagingView_.numberOfPages];
 		[self.view addSubview:currentPageHud_];
 	}
 }
@@ -224,6 +219,20 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[super viewDidDisappear:animated];
 	[self setBarHidden:NO animated:NO];
 }
+
+- (NSInteger)pageIndex
+{
+	return pagingView_.currentPageIndex;
+}
+
+- (void)setPageIndex:(NSInteger)pageIndex
+{
+	self.pageSlider.value = (CGFloat)pageIndex / pagingView_.numberOfPages;
+	
+	[pagingView_ scrollAtPage:pageIndex];
+}
+
+#pragma mark -
 
 - (void)setShowPageNumberHud:(BOOL)showPageNumberHud
 {

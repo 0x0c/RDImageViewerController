@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, RDImageViewerControllerLandscapeMode) {
 extern NSString *const RDImageViewerControllerReuseIdentifierImage;
 
 @property (nonatomic) NSUInteger preloadCount;
+@property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, assign) BOOL pagingEnabled;
 @property (nonatomic, assign) BOOL loadAsync;
 @property (nonatomic, assign) BOOL showSlider;
