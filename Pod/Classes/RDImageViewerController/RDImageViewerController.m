@@ -200,7 +200,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
 	}
 	if (self.showPageNumberHud == YES) {
-		currentPageHudLabel_.text = [NSString stringWithFormat:@"%d/%ld", pagingView_.currentPageIndex+1, (long)pagingView_.numberOfPages];
+		currentPageHudLabel_.text = [NSString stringWithFormat:@"%ld/%ld", (long)(pagingView_.currentPageIndex+1), (long)pagingView_.numberOfPages];
 		[self.view addSubview:currentPageHud_];
 	}
 }
