@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wiQ-uc-LAI">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
@@ -23,7 +22,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showImageViewControllerDisplayFit:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Sm7-bT-DbA"/>
+                                    <action selector="showImageAsDisplayFit:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="gqe-Ae-FZY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0N-Cd-BkJ">
@@ -32,7 +31,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showAsyncImageViewController:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="AlL-yP-0bV"/>
+                                    <action selector="showImageAsync:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Nnw-dm-nAq"/>
                                 </connections>
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Grl-1v-f4t">
@@ -59,7 +58,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showViewController:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tUz-Ph-ANQ"/>
+                                    <action selector="showView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="X9D-88-YSq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LpB-ja-NAH">
@@ -86,7 +85,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showImageViewControllerAspectFit:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rZp-iT-o8i"/>
+                                    <action selector="showImageAsAspectFit:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="TPR-1z-qSy"/>
                                 </connections>
                             </button>
                         </subviews>
