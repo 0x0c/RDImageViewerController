@@ -69,6 +69,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	return UIInterfaceOrientationPortrait;
 }
 
+// iOS7
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	[pagingView_ startRotation];
@@ -89,6 +90,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[self reloadPageHud];
 }
 
+// iOS8
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
 	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
