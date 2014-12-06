@@ -14,10 +14,18 @@ typedef NS_ENUM(NSUInteger, RDImageViewerControllerLandscapeMode) {
 	RDImageViewerControllerLandscapeModeDisplayFit,
 };
 
+@class RDImageViewerController;
+@protocol RDImageViewerControllerDelegate <NSObject>
+@optional
+- (void)imageViewerController:(RDImageViewerController *)viewController willChangeIndexTo:(NSInteger)index;
+
+@end
+
 @interface RDImageViewerController : UIViewController <RDPagingViewDelegate, UIScrollViewDelegate>
 
 extern NSString *const RDImageViewerControllerReuseIdentifierImage;
 
+@property (nonatomic, assign) id<RDImageViewerControllerDelegate>delegate;
 @property (nonatomic) NSUInteger preloadCount;
 @property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, assign) BOOL pagingEnabled;

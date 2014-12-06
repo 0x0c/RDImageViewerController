@@ -19,10 +19,15 @@ typedef NS_ENUM(NSInteger, Direction) {
 	RDImageViewMoveDirectionBackward = -1
 };
 
+typedef struct {
+	BOOL willChangeIndexTo;
+} RDImageViewerControllerDelegateFlag;
+
 static const NSInteger PageLabelFontSize = 17;
 
 @interface RDImageViewerController ()
 {
+	RDImageViewerControllerDelegateFlag delegateFlag;
 	NSOperationQueue *queue_;
 	RDPagingView *pagingView_;
 	UIView *currentPageHud_;
@@ -222,6 +227,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewDidDisappear:animated];
 	[self setBarHidden:NO animated:NO];
+}
+
+- (void)setDelegate:(id<RDImageViewerControllerDelegate>)delegate
+{
+	_delegate = delegate;
+	delegateFlag.willChangeIndexTo = [_delegate respondsToSelector:@selector(imageViewerController:willChangeIndexTo:)];
 }
 
 - (NSInteger)pageIndex
@@ -428,6 +439,13 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 }
 
 #pragma mark - RDPagingViewDelegate
+
+- (void)pagingView:(RDPagingView *)pagingView willChangeIndexTo:(NSInteger)index
+{
+	if (delegateFlag.willChangeIndexTo) {
+		[self.delegate imageViewerController:self willChangeIndexTo:index];
+	}
+}
 
 - (UIView *)pagingView:(RDPagingView *)pageView viewForIndex:(NSInteger)index
 {
