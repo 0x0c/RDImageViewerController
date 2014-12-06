@@ -108,6 +108,7 @@ static CGSize kZoomRect = {100, 100};
 		
 		indicator_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		indicator_.center = imageView_.center;
+		indicator_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
 		[indicator_ startAnimating];
 		[self addSubview:indicator_];
 		
