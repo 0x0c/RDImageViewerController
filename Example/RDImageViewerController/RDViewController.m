@@ -9,6 +9,8 @@
 #import "RDViewController.h"
 #import "RDImageViewerController.h"
 
+const NSInteger kPreloadCount = 1;
+
 @interface RDViewController ()
 {
 	NSMutableArray *array;
@@ -57,8 +59,7 @@
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeAspectFit;
-	viewController.preloadCount = 1;
-	viewController.pageIndex = 5;
+	viewController.preloadCount = kPreloadCount;
 	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -72,7 +73,7 @@
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeDisplayFit;
-	viewController.preloadCount = 1;
+	viewController.preloadCount = kPreloadCount;
 	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -103,7 +104,7 @@
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeDisplayFit;
-	viewController.preloadCount = 1;
+	viewController.preloadCount = kPreloadCount;
 	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -129,7 +130,7 @@
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeAspectFit;
 	viewController.loadAsync = YES;
-	viewController.preloadCount = 1;
+	viewController.preloadCount = kPreloadCount;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -181,7 +182,7 @@
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeAspectFit;
 	viewController.loadAsync = YES;
-	viewController.preloadCount = 3;
+	viewController.preloadCount = kPreloadCount;
 	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
