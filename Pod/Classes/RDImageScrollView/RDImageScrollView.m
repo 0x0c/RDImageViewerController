@@ -94,6 +94,8 @@ static CGSize kZoomRect = {100, 100};
 {
 	self = [super initWithFrame:frame];
 	if (self) {
+		self.mode = RDImageScrollViewResizeModeAspectFit;
+		
 		self.delegate = self;
 		self.showsHorizontalScrollIndicator = NO;
 		self.showsVerticalScrollIndicator = NO;
@@ -134,6 +136,21 @@ static CGSize kZoomRect = {100, 100};
 	}
 	else {
 		[indicator_ stopAnimating];
+	}
+}
+
+- (void)setMode:(RDImageScrollViewResizeMode)mode
+{
+	_mode = mode;
+	switch (_mode) {
+		case RDImageScrollViewResizeModeAspectFit:
+			[self setImageSizeAspectFit];
+			break;
+		case RDImageScrollViewResizeModeDisplayFit:
+			[self setImageSizeDisplayFit];
+			break;
+	default:
+			break;
 	}
 }
 

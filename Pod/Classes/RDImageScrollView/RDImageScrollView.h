@@ -15,9 +15,15 @@
 
 @end
 
+typedef NS_ENUM(NSUInteger, RDImageScrollViewResizeMode) {
+	RDImageScrollViewResizeModeAspectFit,
+	RDImageScrollViewResizeModeDisplayFit,
+};
+
 @interface RDImageScrollView : UIScrollView <UIScrollViewDelegate>
 
 @property (nonatomic, getter=image, setter=setImage:) UIImage *image;
+@property (nonatomic, assign) RDImageScrollViewResizeMode mode;
 
 - (void)addGestureRecognizerPriorityHigherThanZoomGestureRecogniser:(UIGestureRecognizer *)gesture;
 - (void)setImageFrame:(CGRect)frame;

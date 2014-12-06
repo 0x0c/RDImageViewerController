@@ -9,11 +9,6 @@
 #import "RDPagingView.h"
 #import "RDImageScrollView.h"
 
-typedef NS_ENUM(NSUInteger, RDImageViewerControllerLandscapeMode) {
-	RDImageViewerControllerLandscapeModeAspectFit,
-	RDImageViewerControllerLandscapeModeDisplayFit,
-};
-
 @class RDImageViewerController;
 @protocol RDImageViewerControllerDelegate <NSObject>
 @optional
@@ -32,7 +27,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierImage;
 @property (nonatomic, assign) BOOL loadAsync;
 @property (nonatomic, assign) BOOL showSlider;
 @property (nonatomic, assign) BOOL showPageNumberHud;
-@property (nonatomic, assign) RDImageViewerControllerLandscapeMode landscapeMode;
+@property (nonatomic, assign) RDImageScrollViewResizeMode landscapeMode;
 @property (nonatomic, assign) CGFloat maximumZoomScale;
 @property (nonatomic, readonly) UISlider *pageSlider;
 @property (nonatomic, copy) UIImage *(^imageHandler)(NSInteger pageIndex);
