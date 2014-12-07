@@ -9,12 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "RDPagingView.h"
 
-@interface UIImage (RDImageView)
-
-- (CGSize)rd_scaledSize:(CGSize)size;
-
-@end
-
 typedef NS_ENUM(NSUInteger, RDImageScrollViewResizeMode) {
 	RDImageScrollViewResizeModeAspectFit,
 	RDImageScrollViewResizeModeDisplayFit,
@@ -26,9 +20,8 @@ typedef NS_ENUM(NSUInteger, RDImageScrollViewResizeMode) {
 @property (nonatomic, assign) RDImageScrollViewResizeMode mode;
 
 - (void)addGestureRecognizerPriorityHigherThanZoomGestureRecogniser:(UIGestureRecognizer *)gesture;
-- (void)setImageFrame:(CGRect)frame;
+- (void)adjustContentAspect;
 - (void)setImageSizeAspectFit;
 - (void)setImageSizeDisplayFit;
-- (void)setImageSize:(CGSize)size;
 
 @end
