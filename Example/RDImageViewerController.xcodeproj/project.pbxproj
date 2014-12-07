@@ -23,6 +23,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		E3A3A445DE0F421C9D66D081 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADF8DB7BCBB4D47A97E8F2C /* libPods-Tests.a */; };
+		E90E268A1A34981000F1F54A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90E26881A34981000F1F54A /* LaunchScreen.xib */; };
 		E919D29119D8005C003F4BD0 /* RDImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E919D29019D8005C003F4BD0 /* RDImageScrollView.m */; };
 		E919D29619D80683003F4BD0 /* RDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E919D29519D80683003F4BD0 /* RDPagingView.m */; };
 		E919D2A219D82F8E003F4BD0 /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29819D82F8E003F4BD0 /* 1.JPG */; };
@@ -76,6 +77,7 @@
 		89025E39FA3270FE8EDDEEB7 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RDImageViewerController.podspec; path = ../RDImageViewerController.podspec; sourceTree = "<group>"; };
 		8908584DC4E04959ABA607A8 /* libPods-RDImageViewerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RDImageViewerController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6BEC608C2E338A1EFB29850 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		E90E26891A34981000F1F54A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E919D28F19D8005C003F4BD0 /* RDImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageScrollView.h; sourceTree = "<group>"; };
 		E919D29019D8005C003F4BD0 /* RDImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageScrollView.m; sourceTree = "<group>"; };
 		E919D29419D80683003F4BD0 /* RDPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDPagingView.h; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				6003F59F195388D20070C39A /* Main.storyboard */,
+				E90E26881A34981000F1F54A /* LaunchScreen.xib */,
 				6003F595195388D20070C39A /* RDImageViewerController-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
@@ -369,6 +372,7 @@
 				E919D2A519D82F8E003F4BD0 /* 3.JPG in Resources */,
 				E919D2A319D82F8E003F4BD0 /* 10.JPG in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				E90E268A1A34981000F1F54A /* LaunchScreen.xib in Resources */,
 				E919D2A219D82F8E003F4BD0 /* 1.JPG in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -505,6 +509,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		E90E26881A34981000F1F54A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E90E26891A34981000F1F54A /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -594,7 +606,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -613,7 +625,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

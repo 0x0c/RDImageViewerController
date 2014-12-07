@@ -12,7 +12,4 @@
 
 @property (weak, nonatomic) IBOutlet UISwitch *directionSwitch;
 
-- (IBAction)showImageAsDisplayFit:(id)sender;
-- (IBAction)showImageAsync:(id)sender;
-
 @end

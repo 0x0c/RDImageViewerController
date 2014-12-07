@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wiQ-uc-LAI">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
@@ -17,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xU8-LQ-9m6">
-                                <rect key="frame" x="220" y="269" width="66" height="30"/>
+                                <rect key="frame" x="220" y="284" width="66" height="30"/>
                                 <state key="normal" title="display fit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -26,7 +27,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0N-Cd-BkJ">
-                                <rect key="frame" x="233" y="307" width="41" height="30"/>
+                                <rect key="frame" x="233" y="322" width="41" height="30"/>
                                 <state key="normal" title="async">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -53,7 +54,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="An7-HO-nQL">
-                                <rect key="frame" x="237" y="193" width="31" height="30"/>
+                                <rect key="frame" x="237" y="208" width="31" height="30"/>
                                 <state key="normal" title="view">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -62,7 +63,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LpB-ja-NAH">
-                                <rect key="frame" x="199" y="345" width="107" height="30"/>
+                                <rect key="frame" x="199" y="360" width="107" height="30"/>
                                 <state key="normal" title="view and image">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -80,12 +81,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WpC-0B-eM5">
-                                <rect key="frame" x="221" y="231" width="64" height="30"/>
+                                <rect key="frame" x="221" y="246" width="64" height="30"/>
                                 <state key="normal" title="aspect fit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="showImageAsAspectFit:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="TPR-1z-qSy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCt-Jo-Lwm">
+                                <rect key="frame" x="219" y="177" width="68" height="30"/>
+                                <state key="normal" title="scrollview">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showScrollView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="s6U-zj-aDY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -99,18 +109,20 @@
                             <constraint firstAttribute="centerY" secondItem="Grl-1v-f4t" secondAttribute="centerY" constant="58.5" id="9Eb-vn-r5r"/>
                             <constraint firstAttribute="centerX" secondItem="WpC-0B-eM5" secondAttribute="centerX" constant="-93" id="ALD-e8-FV0"/>
                             <constraint firstAttribute="centerY" secondItem="onp-uW-Dll" secondAttribute="centerY" id="CN1-cM-JKi"/>
-                            <constraint firstAttribute="centerY" secondItem="xU8-LQ-9m6" secondAttribute="centerY" id="Diz-zJ-pVu"/>
-                            <constraint firstAttribute="centerY" secondItem="LpB-ja-NAH" secondAttribute="centerY" constant="-76" id="EO8-Pa-sw6"/>
+                            <constraint firstAttribute="centerY" secondItem="xU8-LQ-9m6" secondAttribute="centerY" constant="-15" id="Diz-zJ-pVu"/>
+                            <constraint firstAttribute="centerY" secondItem="LpB-ja-NAH" secondAttribute="centerY" constant="-91" id="EO8-Pa-sw6"/>
                             <constraint firstAttribute="centerX" secondItem="An7-HO-nQL" secondAttribute="centerX" constant="-92.5" id="FcJ-yR-fe8"/>
+                            <constraint firstAttribute="centerY" secondItem="KCt-Jo-Lwm" secondAttribute="centerY" constant="92" id="Hvf-qg-bpe"/>
                             <constraint firstAttribute="centerX" secondItem="5DC-Ly-RK6" secondAttribute="centerX" constant="31" id="IYS-9Y-l2z"/>
                             <constraint firstAttribute="centerX" secondItem="Grl-1v-f4t" secondAttribute="centerX" constant="120.5" id="MWa-V1-Zbz"/>
-                            <constraint firstAttribute="centerY" secondItem="V0N-Cd-BkJ" secondAttribute="centerY" constant="-38" id="OMg-em-Ktx"/>
+                            <constraint firstAttribute="centerY" secondItem="V0N-Cd-BkJ" secondAttribute="centerY" constant="-53" id="OMg-em-Ktx"/>
+                            <constraint firstAttribute="centerX" secondItem="KCt-Jo-Lwm" secondAttribute="centerX" constant="-93" id="U1A-lm-6tT"/>
                             <constraint firstAttribute="centerX" secondItem="LpB-ja-NAH" secondAttribute="centerX" constant="-92.5" id="U44-v3-SRz"/>
-                            <constraint firstAttribute="centerY" secondItem="An7-HO-nQL" secondAttribute="centerY" constant="76" id="Wbw-gW-Dei"/>
+                            <constraint firstAttribute="centerY" secondItem="An7-HO-nQL" secondAttribute="centerY" constant="61" id="Wbw-gW-Dei"/>
                             <constraint firstAttribute="centerX" secondItem="IRP-gu-FWZ" secondAttribute="centerX" constant="28.5" id="aJ2-AW-sqj"/>
                             <constraint firstAttribute="centerY" secondItem="rLe-HB-VkL" secondAttribute="centerY" constant="-56.5" id="bFR-PH-9z1"/>
                             <constraint firstAttribute="centerY" secondItem="5DC-Ly-RK6" secondAttribute="centerY" constant="58.5" id="bRx-25-xEJ"/>
-                            <constraint firstAttribute="centerY" secondItem="WpC-0B-eM5" secondAttribute="centerY" constant="38" id="cNX-RV-2U7"/>
+                            <constraint firstAttribute="centerY" secondItem="WpC-0B-eM5" secondAttribute="centerY" constant="23" id="cNX-RV-2U7"/>
                             <constraint firstAttribute="centerX" secondItem="oUy-Zz-Pdx" secondAttribute="centerX" constant="28.5" id="n1I-Vj-n7R"/>
                             <constraint firstAttribute="centerX" secondItem="V0N-Cd-BkJ" secondAttribute="centerX" constant="-93.5" id="nue-I3-hvd"/>
                         </constraints>

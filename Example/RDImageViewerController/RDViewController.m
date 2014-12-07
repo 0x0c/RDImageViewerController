@@ -187,6 +187,37 @@ const NSInteger kPreloadCount = 1;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (IBAction)showScrollView:(id)sender
+{
+	CGRect frame = self.view.bounds;
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
+		if (reusedView == nil) {
+			UIScrollView *view = [[UIScrollView alloc] initWithFrame:frame];
+			UILabel *label = [[UILabel alloc] initWithFrame:frame];
+			label.textAlignment = NSTextAlignmentCenter;
+			label.font = [UIFont systemFontOfSize:50];
+			label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+			label.tag = 100;
+			[view addSubview:label];
+			view.backgroundColor = [UIColor whiteColor];
+			view.contentSize = CGSizeMake(1000, 1000);
+			reusedView = view;
+		}
+		
+		UILabel *label = (UILabel *)[reusedView viewWithTag:100];
+		label.text = [NSString stringWithFormat:@"%ld", (long)pageIndex];
+		
+		return reusedView;
+	} reuseIdentifier:^NSString *(NSInteger pageIndex) {
+		return @"view";
+	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	viewController.showSlider = sliderSwitch.on;
+	viewController.showPageNumberHud = hudSwitch.on;
+	viewController.landscapeMode = RDImageScrollViewResizeModeDisplayFit;
+	viewController.preloadCount = kPreloadCount;
+	viewController.hidesBottomBarWhenPushed = YES;
+	[self.navigationController pushViewController:viewController animated:YES];
+}
 #pragma mark -
 
 @end
