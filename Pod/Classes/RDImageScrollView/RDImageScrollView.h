@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, RDImageScrollViewResizeMode) {
 
 - (void)addGestureRecognizerPriorityHigherThanZoomGestureRecogniser:(UIGestureRecognizer *)gesture;
 - (void)adjustContentAspect;
-- (void)setImageSizeAspectFit;
-- (void)setImageSizeDisplayFit;
+- (void)setImageSizeAsAspectFit;
+- (void)setImageSizeAsDisplayFit;
 
 @end

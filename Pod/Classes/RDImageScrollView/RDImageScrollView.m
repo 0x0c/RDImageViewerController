@@ -29,6 +29,7 @@ static CGSize kZoomRect = {100, 100};
 		
 		imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 		imageView_.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
+		imageView_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		imageView_.layer.borderColor = [UIColor blackColor].CGColor;
 		imageView_.layer.borderWidth = 1.0;
 		[self addSubview:imageView_];
@@ -77,10 +78,10 @@ static CGSize kZoomRect = {100, 100};
 {
 	switch (_mode) {
 		case RDImageScrollViewResizeModeAspectFit:
-			[self setImageSizeAspectFit];
+			[self setImageSizeAsAspectFit];
 			break;
 		case RDImageScrollViewResizeModeDisplayFit:
-			[self setImageSizeDisplayFit];
+			[self setImageSizeAsDisplayFit];
 			break;
 		default:
 			break;
@@ -88,7 +89,7 @@ static CGSize kZoomRect = {100, 100};
 	[self setContentOffset:CGPointMake(0, 0)];
 }
 
-- (void)setImageSizeAspectFit
+- (void)setImageSizeAsAspectFit
 {
 	[imageView_ sizeToFit];
 	CGFloat height = CGRectGetHeight(self.frame);
@@ -100,16 +101,21 @@ static CGSize kZoomRect = {100, 100};
 	[self setZoomScale:1.0];
 }
 
-- (void)setImageSizeDisplayFit
+- (void)setImageSizeAsDisplayFit
 {
 	[imageView_ sizeToFit];
 	CGFloat height = CGRectGetHeight(self.frame);
 	CGFloat width = CGRectGetWidth(self.frame);
-	CGFloat scale = width > height ? width / MAX(CGRectGetWidth(imageView_.frame), 1) : height / MAX(CGRectGetHeight(imageView_.frame), 1);
-	imageView_.frame = CGRectMake(0, 0, CGRectGetWidth(imageView_.frame) * scale , CGRectGetHeight(imageView_.frame) * scale);
-	imageView_.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
-	self.contentSize = imageView_.frame.size;
-	[self setZoomScale:1.0];
+	if (height > width) {
+		// when devicec orientation is portrait
+		[self setImageSizeAsAspectFit];
+	}
+	else {
+		CGFloat scale = width > height ? width / MAX(CGRectGetWidth(imageView_.frame), 1) : height / MAX(CGRectGetHeight(imageView_.frame), 1);
+		imageView_.frame = CGRectMake(0, 0, CGRectGetWidth(imageView_.frame) * scale , CGRectGetHeight(imageView_.frame) * scale);
+		self.contentSize = imageView_.frame.size;
+		[self setZoomScale:1.0];
+	}
 }
 
 - (void)zoomeImageView:(UIGestureRecognizer *)gesture

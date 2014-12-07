@@ -462,10 +462,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 				v.hidden = NO;
 			});
 		}
-		[UIView animateWithDuration:duration animations:^{
-			v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
-			[v adjustContentAspect];
-  		}];
+		v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
+		[v adjustContentAspect];
 	}];
 }
 

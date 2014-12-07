@@ -153,7 +153,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 {
 	CGSize newSize = frame.size;
 	if (flag_.pagingViewWillChangeViewSize) {
-		[self.pagingDelegate pagingView:self willChangeViewSize:CGSizeMake(newSize.width, newSize.height) duration:duration visibleViews:[usingViews_ allObjects]];
+		[self.pagingDelegate pagingView:self willChangeViewSize:newSize duration:duration visibleViews:[usingViews_ allObjects]];
 	}
 	NSInteger currentPageIndex = [self indexInScrollView:self.currentPageIndex];
 	self.contentSize = CGSizeMake(self.numberOfPages * newSize.width, newSize.height);
