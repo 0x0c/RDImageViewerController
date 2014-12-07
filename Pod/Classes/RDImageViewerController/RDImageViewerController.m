@@ -113,6 +113,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		self.maximumZoomScale = kDefaultMaximumZoomScale;
 		_landscapeMode = RDImageScrollViewResizeModeAspectFit;
 		pagingView_ = [[RDPagingView alloc] initWithFrame:self.view.bounds];
+		pagingView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		pagingView_.backgroundColor = [UIColor blackColor];
 		pagingView_.pagingDelegate = self;
 		pagingView_.direction = direction;
@@ -454,6 +455,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		__block RDImageScrollView *v = obj;
+		[v setZoomScale:1.0];
 		if (v.indexOfPage != pagingView.currentPageIndex) {
 			v.hidden = YES;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
