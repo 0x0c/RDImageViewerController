@@ -453,17 +453,20 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)pagingView:(RDPagingView *)pagingView willChangeViewSize:(CGSize)size duration:(NSTimeInterval)duration visibleViews:(NSArray *)views
 {
-	[views enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		__block RDImageScrollView *v = obj;
-		[v setZoomScale:1.0];
-		if (v.indexOfPage != pagingView.currentPageIndex) {
-			v.hidden = YES;
+	[views enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+		if (view.indexOfPage != pagingView.currentPageIndex) {
+			view.hidden = YES;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				v.hidden = NO;
+				view.hidden = NO;
 			});
 		}
-		v.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? v.indexOfPage : (pagingView.numberOfPages - v.indexOfPage - 1)) * size.width, 0, size.width, size.height);
-		[v adjustContentAspect];
+		view.frame = CGRectMake((pagingView.direction == RDPagingViewDirectionRight ? view.indexOfPage : (pagingView.numberOfPages - view.indexOfPage - 1)) * size.width, 0, size.width, size.height);
+		if ([view isKindOfClass:[UIScrollView class]]) {
+			[(UIScrollView *)view setZoomScale:1.0];
+			if ([view isKindOfClass:[RDImageScrollView class]]) {
+				[(RDImageScrollView *)view adjustContentAspect];
+			}
+		}
 	}];
 }
 
