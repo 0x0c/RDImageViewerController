@@ -82,6 +82,9 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	else {
 		[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
 	}
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration - 0.5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		[self setHudHidden:NO animated:NO];
+	});
 	[pagingView_ endRotation];
 }
 
@@ -101,6 +104,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			NSTimeInterval duration = [context transitionDuration];
 			[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
 		}
+		[self setHudHidden:NO animated:NO];
 	} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
 		[pagingView_ endRotation];
 	}];
@@ -186,6 +190,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	pagingView_.frame = self.view.bounds;
+	
 	[self setBarHidden:NO animated:YES];
 	[self setHudHidden:NO animated:animated];
 	
