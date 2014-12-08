@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RDImageViewerController"
-  s.version          = "0.2.8"
+  s.version          = "0.2.9"
   s.summary          = "Simple but powerful image viewer."
   s.homepage         = "https://github.com/0x0c/RDImageViewerController"
   # s.screenshots     = "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/1.png", "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/2.png", "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/view_and_image.png"
