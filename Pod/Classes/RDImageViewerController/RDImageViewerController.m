@@ -219,7 +219,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		[self applySliderTintColor];
 	}
 	if (self.showPageNumberHud == YES) {
-		self.currentPageHudLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)(pagingView_.currentPageIndex + 1), (long)pagingView_.numberOfPages];
+		[self setPageHudNumberWithPageIndex:(pagingView_.currentPageIndex + 1)];
 		[self.view addSubview:currentPageHud_];
 	}
 }
