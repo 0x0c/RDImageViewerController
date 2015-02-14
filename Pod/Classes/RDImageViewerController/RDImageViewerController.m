@@ -31,7 +31,6 @@ static const NSInteger PageLabelFontSize = 17;
 	NSOperationQueue *queue_;
 	RDPagingView *pagingView_;
 	UIView *currentPageHud_;
-	UILabel *currentPageHudLabel_;
 	BOOL statusBarHidden_;
 	NSArray *toolbarItems_;
 }
@@ -131,7 +130,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		pagingView_.showsHorizontalScrollIndicator = NO;
 		pagingView_.showsVerticalScrollIndicator = NO;
 		pagingView_.numberOfPages = num;
-		UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setBarHiddenUsingTapGesture)];
+		UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setBarHiddenByTapGesture)];
 		[pagingView_ addGestureRecognizer:gesture];
 
 		queue_ = [NSOperationQueue new];
@@ -175,14 +174,14 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	currentPageHud_.layer.borderColor = [UIColor whiteColor].CGColor;
 	currentPageHud_.layer.borderWidth = 1;
 	
-	currentPageHudLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, PageLabelFontSize)];
-	currentPageHudLabel_.backgroundColor = [UIColor clearColor];
-	currentPageHudLabel_.font = [UIFont systemFontOfSize:PageLabelFontSize];
-	currentPageHudLabel_.textColor = [UIColor whiteColor];
-	currentPageHudLabel_.textAlignment = NSTextAlignmentCenter;
-	currentPageHudLabel_.center = CGPointMake(CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(currentPageHud_.frame) / 2);
-	currentPageHudLabel_.tag = CurrentPageLabel;
-	[currentPageHud_ addSubview:currentPageHudLabel_];
+	_currentPageHudLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, PageLabelFontSize)];
+	self.currentPageHudLabel.backgroundColor = [UIColor clearColor];
+	self.currentPageHudLabel.font = [UIFont systemFontOfSize:PageLabelFontSize];
+	self.currentPageHudLabel.textColor = [UIColor whiteColor];
+	self.currentPageHudLabel.textAlignment = NSTextAlignmentCenter;
+	self.currentPageHudLabel.center = CGPointMake(CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(currentPageHud_.frame) / 2);
+	self.currentPageHudLabel.tag = CurrentPageLabel;
+	[currentPageHud_ addSubview:self.currentPageHudLabel];
 	
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
 		self.automaticallyAdjustsScrollViewInsets = NO;
@@ -194,7 +193,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[super viewWillAppear:animated];
 	pagingView_.frame = self.view.bounds;
 	
-	[self setBarHidden:NO animated:YES];
+	[self setBarsHidden:NO animated:YES];
 	[self setHudHidden:NO animated:animated];
 	
 	if (pagingView_.superview == nil) {
@@ -220,7 +219,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		[self applySliderTintColor];
 	}
 	if (self.showPageNumberHud == YES) {
-		currentPageHudLabel_.text = [NSString stringWithFormat:@"%ld/%ld", (long)(pagingView_.currentPageIndex + 1), (long)pagingView_.numberOfPages];
+		self.currentPageHudLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)(pagingView_.currentPageIndex + 1), (long)pagingView_.numberOfPages];
 		[self.view addSubview:currentPageHud_];
 	}
 }
@@ -241,7 +240,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewDidDisappear:animated];
 	pagingView_.pagingDelegate = nil;
-	[self setBarHidden:NO animated:NO];
+	[self setBarsHidden:NO animated:NO];
 }
 
 - (void)setDelegate:(id<RDImageViewerControllerDelegate>)delegate
@@ -250,12 +249,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	delegateFlag.willChangeIndexTo = [_delegate respondsToSelector:@selector(imageViewerController:willChangeIndexTo:)];
 }
 
-- (NSInteger)pageIndex
+- (NSInteger)currentPageIndex
 {
 	return pagingView_.currentPageIndex;
 }
 
-- (void)setPageIndex:(NSInteger)pageIndex
+- (void)setCurrentPageIndex:(NSInteger)pageIndex
 {
     if (pagingView_.direction == RDPagingViewDirectionRight) {
         _pageSlider.value = (CGFloat)pagingView_.currentPageIndex / (pagingView_.numberOfPages - 1);
@@ -264,6 +263,11 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
     }
 	
 	[pagingView_ scrollAtPage:pageIndex];
+}
+
+- (NSInteger)numberOfPages
+{
+	return pagingView_.numberOfPages;
 }
 
 #pragma mark -
@@ -319,12 +323,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)hideBars
 {
-	[self setBarHidden:YES animated:YES];
+	[self setBarsHidden:YES animated:YES];
 }
 
 - (void)setPageHudNumberWithPageIndex:(NSInteger)pageIndex
 {
-	currentPageHudLabel_.text = [NSString stringWithFormat:@"%ld/%ld", (long)pageIndex + 1, (long)pagingView_.numberOfPages];
+	self.currentPageHudLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)pageIndex + 1, (long)pagingView_.numberOfPages];
 }
 
 - (void)reloadPageHud
@@ -332,13 +336,13 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[self setPageHudNumberWithPageIndex:pagingView_.currentPageIndex];
 }
 
-- (void)setBarHiddenUsingTapGesture
+- (void)setBarHiddenByTapGesture
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBars) object:self];
-	[self setBarHidden:!statusBarHidden_ animated:YES];
+	[self setBarsHidden:!statusBarHidden_ animated:YES];
 }
 
-- (void)setBarHidden:(BOOL)hidden animated:(BOOL)animated
+- (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated
 {
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		if (self.toolbarItems.count > 0) {
