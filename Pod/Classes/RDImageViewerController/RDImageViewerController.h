@@ -41,6 +41,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierImage;
 - (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
 - (instancetype)initWithViewHandler:(UIView *(^)(NSInteger pageIndex, UIView *reusedView))viewHandler reuseIdentifier:(NSString *(^)(NSInteger pageIndex))reuseIdentifierHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)setHudHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)setPageHudNumberWithPageIndex:(NSInteger)pageIndex;
 
 @end
