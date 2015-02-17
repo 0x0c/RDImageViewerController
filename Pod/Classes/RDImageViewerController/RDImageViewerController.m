@@ -204,12 +204,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	}
 	
 	if (self.showSlider == YES && _pageSlider == nil) {
-		_pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
+		_pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame) - 30, 20)];
+		_pageSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		[_pageSlider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
 		[_pageSlider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-		UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 		UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:_pageSlider];
-		toolbarItems_ = @[flexibleSpace, sliderItem, flexibleSpace];
+		toolbarItems_ = @[sliderItem];//@[flexibleSpace, sliderItem, flexibleSpace];
 		self.toolbarItems = toolbarItems_;
         if (pagingView_.direction == RDPagingViewDirectionRight) {
             _pageSlider.value = (CGFloat)pagingView_.currentPageIndex / (pagingView_.numberOfPages - 1);
@@ -500,7 +500,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)pagingView:(RDPagingView *)pagingView didScrollToPosition:(CGFloat)position
 {
-	UISlider *slider = (UISlider *)[self.toolbarItems[1] customView];
+	UISlider *slider = (UISlider *)[self.toolbarItems.firstObject customView];
 	if (slider.state == UIControlStateNormal) {
 		[slider setValue:position / (pagingView.numberOfPages - 1) animated:NO];
 	}
