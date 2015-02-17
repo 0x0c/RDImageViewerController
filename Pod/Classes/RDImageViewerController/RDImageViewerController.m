@@ -376,8 +376,9 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)sliderValueDidChange:(id)sender
 {
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBars) object:self];
+
 	UISlider *slider = sender;
-	
 	CGFloat trueValue = pagingView_.direction == RDPagingViewDirectionRight ? slider.value : 1 - slider.value;
 	CGFloat page = trueValue * (pagingView_.numberOfPages - 1);
 	[pagingView_ scrollAtPage:page];
