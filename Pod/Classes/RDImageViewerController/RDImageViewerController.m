@@ -203,7 +203,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		[pagingView_ scrollAtPage:pagingView_.currentPageIndex];
 	}
 	
-	if (self.showSlider == YES) {
+	if (self.showSlider == YES && _pageSlider == nil) {
 		_pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 280, 20)];
 		[_pageSlider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
 		[_pageSlider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -232,6 +232,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	pagingView_.pagingDelegate = self;
 	if (self.autoBarsHiddenDuration > 0) {
 		[self performSelector:@selector(hideBars) withObject:nil afterDelay:self.autoBarsHiddenDuration];
+		self.autoBarsHiddenDuration = 0;
 	}
 }
 
@@ -245,7 +246,6 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewDidDisappear:animated];
 	pagingView_.pagingDelegate = nil;
-	[self setBarsHidden:NO animated:NO];
 }
 
 - (void)setDelegate:(id<RDImageViewerControllerDelegate>)delegate
