@@ -209,7 +209,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		[_pageSlider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
 		[_pageSlider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 		UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:_pageSlider];
-		toolbarItems_ = @[sliderItem];//@[flexibleSpace, sliderItem, flexibleSpace];
+		toolbarItems_ = @[sliderItem];
 		self.toolbarItems = toolbarItems_;
         if (pagingView_.direction == RDPagingViewDirectionRight) {
             _pageSlider.value = (CGFloat)pagingView_.currentPageIndex / (pagingView_.numberOfPages - 1);
@@ -372,6 +372,11 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		currentPageHud_.alpha = !hidden * 0.8;
 	} completion:^(BOOL finished) {
 	}];
+}
+
+- (void)cancelAutoBarHidden
+{
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBars) object:self];
 }
 
 - (void)sliderValueDidChange:(id)sender

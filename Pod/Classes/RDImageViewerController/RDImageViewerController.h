@@ -46,5 +46,6 @@ extern NSString *const RDImageViewerControllerReuseIdentifierImage;
 - (void)setHudHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)setPageHudNumberWithPageIndex:(NSInteger)pageIndex;
 - (void)setBarHiddenByTapGesture;
+- (void)cancelAutoBarHidden;
 
 @end
