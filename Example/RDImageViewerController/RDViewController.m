@@ -126,6 +126,7 @@ const NSInteger kPreloadCount = 1;
 		
 		return image;
 	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	viewController.autoBarsHiddenDuration = 1;
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeAspectFit;

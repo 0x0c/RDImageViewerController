@@ -193,8 +193,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[super viewWillAppear:animated];
 	pagingView_.frame = self.view.bounds;
 	
-	[self setBarsHidden:NO animated:YES];
-	[self setHudHidden:NO animated:animated];
+	if (self.restoreBarsState == NO) {
+		[self setBarsHidden:NO animated:YES];
+		[self setHudHidden:NO animated:animated];		
+	}
 	
 	if (pagingView_.superview == nil) {
 		[self.view addSubview:pagingView_];
@@ -228,6 +230,9 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewDidAppear:animated];
 	pagingView_.pagingDelegate = self;
+	if (self.autoBarsHiddenDuration > 0) {
+		[self performSelector:@selector(hideBars) withObject:nil afterDelay:self.autoBarsHiddenDuration];
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated
