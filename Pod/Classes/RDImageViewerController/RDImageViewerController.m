@@ -7,6 +7,7 @@
 
 #import "RDImageViewerController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "rd_M2DURLConnectionOperation.h"
 
 typedef NS_ENUM(NSInteger, ViewTag) {
 	MainScrollView = 1,
@@ -28,13 +29,14 @@ static const NSInteger PageLabelFontSize = 17;
 @interface RDImageViewerController ()
 {
 	RDImageViewerControllerDelegateFlag delegateFlag;
-	NSOperationQueue *queue_;
 	RDPagingView *pagingView_;
 	UIView *currentPageHud_;
 	BOOL statusBarHidden_;
 	NSArray *toolbarItems_;
+	NSMutableArray *remoteImageRequestArray_;
 }
 
+@property (nonatomic, readonly) NSOperationQueue *asynchronousImageHandlerQueue;
 @property (nonatomic, readonly) UISlider *pageSlider;
 
 @end
@@ -42,6 +44,7 @@ static const NSInteger PageLabelFontSize = 17;
 @implementation RDImageViewerController
 
 NSString *const RDImageViewerControllerReuseIdentifierImage = @"RDImageViewerControllerReuseIdentifierImage";
+NSString *const RDImageViewerControllerReuseIdentifierRemoteImage = @"RDImageViewerControllerReuseIdentifierRemoteImage";
 
 static NSInteger kPreloadDefaultCount = 1;
 static CGFloat kDefaultMaximumZoomScale = 2.5;
@@ -119,7 +122,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	self = [super init];
 	if (self) {
 		self.maximumZoomScale = kDefaultMaximumZoomScale;
-		_landscapeMode = RDImageScrollViewResizeModeAspectFit;
+		self.landscapeMode = RDImageScrollViewResizeModeAspectFit;
 		pagingView_ = [[RDPagingView alloc] initWithFrame:self.view.bounds];
 		pagingView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		pagingView_.backgroundColor = [UIColor blackColor];
@@ -132,8 +135,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		pagingView_.numberOfPages = num;
 		UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setBarHiddenByTapGesture)];
 		[pagingView_ addGestureRecognizer:gesture];
-
-		queue_ = [NSOperationQueue new];
+		remoteImageRequestArray_ = [NSMutableArray new];
+		_asynchronousImageHandlerQueue = [NSOperationQueue new];
 		self.preloadCount = kPreloadDefaultCount;
 	}
 	
@@ -145,6 +148,16 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	self = [self initWithNumberOfPages:pageCount direction:direction];
 	if (self) {
 		self.imageHandler = imageHandler;
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction
+{
+	self = [self initWithNumberOfPages:pageCount direction:direction];
+	if (self) {
+		self.remoteImageHandler = remoteImageHandler;
 	}
 	
 	return self;
@@ -326,6 +339,13 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 #pragma mark -
 
+- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger))remoteImageHandler completionHandler:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data))decodeHandler
+{
+	self.remoteImageHandler = remoteImageHandler;
+	self.requestCompletionHandler = completionHandler;
+	self.imageDecodeHandler = decodeHandler;
+}
+
 - (void)hideBars
 {
 	[self setBarsHidden:YES animated:YES];
@@ -396,9 +416,9 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[slider setValue:trueValue animated:YES];
 }
 
-- (RDImageScrollView *)imageScrollViewForIndex:(NSInteger)index
+- (RDImageScrollView *)imageScrollViewForIndex:(NSInteger)index reuseIdentifier:(NSString *)identifier
 {
-	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueViewWithReuseIdentifier:RDImageViewerControllerReuseIdentifierImage];
+	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueViewWithReuseIdentifier:identifier];
 	if (imageScrollView == nil) {
 		imageScrollView = [[RDImageScrollView alloc] initWithFrame:self.view.bounds];
 		imageScrollView.maximumZoomScale = self.maximumZoomScale;
@@ -413,23 +433,62 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	imageScrollView.mode = self.landscapeMode;
 	[imageScrollView setZoomScale:1.0];
 	imageScrollView.image = nil;
-	__weak RDImageScrollView *scrollView = imageScrollView;
-	if (_imageHandler) {
+	__weak RDImageScrollView *bimagescrollView = imageScrollView;
+	if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierImage] && self.imageHandler) {
 		if (self.loadAsync) {
-			[queue_ addOperationWithBlock:^{
-				UIImage *image = _imageHandler(index);
-				if (scrollView.indexOfPage == index) {
+			NSBlockOperation *op = [[NSBlockOperation alloc] init];
+			op.name = [NSString stringWithFormat:@"RDImageViewerControllerAsynchImageHanderOperation-PageIndex(%ld)", (long)index];
+			[op addExecutionBlock:^{
+				UIImage *image = self.imageHandler(index);
+				if (bimagescrollView.indexOfPage == index) {
 					dispatch_async(dispatch_get_main_queue(), ^{
-						scrollView.image = image;
+						bimagescrollView.image = image;
 					});
 				}
 			}];
+			[self.asynchronousImageHandlerQueue addOperation:op];
 		}
 		else {
-			scrollView.image = _imageHandler(index);
+			bimagescrollView.image = _imageHandler(index);
 		}
 	}
-	[scrollView adjustContentAspect];
+	else if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierRemoteImage] && self.remoteImageHandler) {
+		NSInteger waitingOperationCount = remoteImageRequestArray_.count - self.preloadCount;
+		if (waitingOperationCount > 0) {
+			for (NSInteger i = 0; i < waitingOperationCount; i++) {
+				rd_M2DURLConnectionOperation *op = remoteImageRequestArray_[i];
+				[op stop];
+				[remoteImageRequestArray_ removeObject:op];
+			}
+		}
+		__weak typeof(self) bself = self;
+		NSURLRequest *request = self.remoteImageHandler(index);
+		rd_M2DURLConnectionOperation *op = [[rd_M2DURLConnectionOperation alloc] initWithRequest:request];
+		[remoteImageRequestArray_ addObject:op];
+		__weak typeof(op) bop = op;
+		__weak NSMutableArray *bremoteImageRequestArray = remoteImageRequestArray_;
+		[op sendRequestWithCompleteBlock:^(NSURLResponse *response, NSData *data, NSError *error) {
+			if (bself.requestCompletionHandler) {
+				bself.requestCompletionHandler(response, data, error);
+			}
+			if (error == nil) {
+				UIImage *image = nil;
+				if (bself.imageDecodeHandler) {
+					image = bself.imageDecodeHandler(data);
+				}
+				else {
+					image = [[UIImage alloc] initWithData:data];
+				}
+				if (bimagescrollView.indexOfPage == index) {
+					dispatch_async(dispatch_get_main_queue(), ^{
+						bimagescrollView.image = image;
+					});
+				}
+			}
+			[bremoteImageRequestArray removeObject:bop];
+		}];
+	}
+	[bimagescrollView adjustContentAspect];
 	
 	return imageScrollView;
 }
@@ -455,8 +514,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	UIView *view = nil;
 	if (self.reuseIdentifierHandler) {
 		NSString *reuseIdentifier = self.reuseIdentifierHandler(index);
-		if ([reuseIdentifier isEqualToString:RDImageViewerControllerReuseIdentifierImage]) {
-			view = [self imageScrollViewForIndex:index];
+		if ([reuseIdentifier isEqualToString:RDImageViewerControllerReuseIdentifierImage] || [reuseIdentifier isEqualToString:RDImageViewerControllerReuseIdentifierRemoteImage]) {
+			view = [self imageScrollViewForIndex:index reuseIdentifier:reuseIdentifier];
 		}
 		else {
 			view = [self contentViewForIndex:index];
@@ -464,7 +523,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	}
 	else {
 		if (self.imageHandler) {
-			view = [self imageScrollViewForIndex:index];
+			view = [self imageScrollViewForIndex:index reuseIdentifier:RDImageViewerControllerReuseIdentifierImage];
+		}
+		else if (self.remoteImageHandler) {
+			view = [self imageScrollViewForIndex:index reuseIdentifier:RDImageViewerControllerReuseIdentifierRemoteImage];
 		}
 		else {
 			view = [self contentViewForIndex:index];

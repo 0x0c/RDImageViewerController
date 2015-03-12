@@ -36,6 +36,7 @@
 		E919D2A919D82F8E003F4BD0 /* 7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29F19D82F8E003F4BD0 /* 7.JPG */; };
 		E919D2AA19D82F8E003F4BD0 /* 8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A019D82F8E003F4BD0 /* 8.JPG */; };
 		E919D2AB19D82F8E003F4BD0 /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A119D82F8E003F4BD0 /* 9.JPG */; };
+		E928DBE01AB2011C00594AAD /* rd_M2DURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E928DBDF1AB2011C00594AAD /* rd_M2DURLConnectionOperation.m */; };
 		E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +93,8 @@
 		E919D29F19D82F8E003F4BD0 /* 7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.JPG; sourceTree = "<group>"; };
 		E919D2A019D82F8E003F4BD0 /* 8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.JPG; sourceTree = "<group>"; };
 		E919D2A119D82F8E003F4BD0 /* 9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.JPG; sourceTree = "<group>"; };
+		E928DBDE1AB2011C00594AAD /* rd_M2DURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rd_M2DURLConnectionOperation.h; sourceTree = "<group>"; };
+		E928DBDF1AB2011C00594AAD /* rd_M2DURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rd_M2DURLConnectionOperation.m; sourceTree = "<group>"; };
 		E96FFD8019CE7970008ADEDF /* RDImageViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageViewerController.h; sourceTree = "<group>"; };
 		E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageViewerController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,9 +253,19 @@
 			path = Images;
 			sourceTree = SOURCE_ROOT;
 		};
+		E928DBDD1AB2011C00594AAD /* M2DURLConnectionOperation */ = {
+			isa = PBXGroup;
+			children = (
+				E928DBDE1AB2011C00594AAD /* rd_M2DURLConnectionOperation.h */,
+				E928DBDF1AB2011C00594AAD /* rd_M2DURLConnectionOperation.m */,
+			);
+			path = M2DURLConnectionOperation;
+			sourceTree = "<group>";
+		};
 		E96FFD7A19CE7970008ADEDF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E928DBDD1AB2011C00594AAD /* M2DURLConnectionOperation */,
 				E919D29319D80679003F4BD0 /* RDPagingView */,
 				E919D28E19D80053003F4BD0 /* RDImageScrollView */,
 				E96FFD7F19CE7970008ADEDF /* RDImageViewerController */,
@@ -463,6 +476,7 @@
 				6003F5A7195388D20070C39A /* RDViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				E919D29619D80683003F4BD0 /* RDPagingView.m in Sources */,
+				E928DBE01AB2011C00594AAD /* rd_M2DURLConnectionOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

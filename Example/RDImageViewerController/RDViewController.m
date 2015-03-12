@@ -9,7 +9,7 @@
 #import "RDViewController.h"
 #import "RDImageViewerController.h"
 
-const NSInteger kPreloadCount = 1;
+const NSInteger kPreloadCount = 3;
 
 @interface RDViewController ()
 {
@@ -111,21 +111,26 @@ const NSInteger kPreloadCount = 1;
 
 - (IBAction)showImageAsync:(id)sender
 {
-	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
-		NSLog(@"downloading...:%@", [array[pageIndex] absoluteString]);
-		NSURLResponse *response = nil;
-		NSError *error = nil;
-		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:array[pageIndex]] returningResponse:&response error:&error];
-		UIImage *image = [UIImage imageWithData:data];
-		if (image == nil) {
-			NSLog(@"error:%@", [error localizedDescription]);
-		}
-		else {
-			NSLog(@"done:%@", response.URL.absoluteString);
-		}
-		
-		return image;
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithRemoteImageHandler:^NSURLRequest *(NSInteger pageIndex) {
+		return [NSURLRequest requestWithURL:array[pageIndex]];
 	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	
+//	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
+//		NSLog(@"downloading...:%@", [array[pageIndex] absoluteString]);
+//		NSURLResponse *response = nil;
+//		NSError *error = nil;
+//		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:array[pageIndex]] returningResponse:&response error:&error];
+//		UIImage *image = [UIImage imageWithData:data];
+//		if (image == nil) {
+//			NSLog(@"error:%@", [error localizedDescription]);
+//		}
+//		else {
+//			NSLog(@"done:%@", response.URL.absoluteString);
+//		}
+//		
+//		return image;
+//	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	
 	viewController.autoBarsHiddenDuration = 1;
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;

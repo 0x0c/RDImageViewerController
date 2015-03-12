@@ -31,7 +31,7 @@ static CGSize kZoomRect = {100, 100};
 		imageView_.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
 		imageView_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		imageView_.layer.borderColor = [UIColor blackColor].CGColor;
-		imageView_.layer.borderWidth = 1.0;
+		imageView_.layer.borderWidth = 0.5;
 		[self addSubview:imageView_];
 		
 		indicator_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
