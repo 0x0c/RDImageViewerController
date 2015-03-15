@@ -253,6 +253,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewWillDisappear:animated];
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBars) object:self];
+	[[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
