@@ -32,6 +32,7 @@ static CGSize kZoomRect = {100, 100};
 		imageView_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		imageView_.layer.borderColor = [UIColor blackColor].CGColor;
 		imageView_.layer.borderWidth = 0.5;
+
 		[self addSubview:imageView_];
 		
 		indicator_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -94,8 +95,26 @@ static CGSize kZoomRect = {100, 100};
 	[imageView_ sizeToFit];
 	CGFloat height = CGRectGetHeight(self.frame);
 	CGFloat width = CGRectGetWidth(self.frame);
-	CGFloat scale = width < height ? width / MAX(CGRectGetWidth(imageView_.frame), 1) : height / MAX(CGRectGetHeight(imageView_.frame), 1);
+	CGFloat scale = 1;
+	
+	BOOL fitWidth = NO;
+	if (width < height) {
+		scale = width / MAX(CGRectGetWidth(imageView_.frame), 1);
+		fitWidth = YES;
+	}
+	else {
+		scale = height / MAX(CGRectGetHeight(imageView_.frame), 1);
+	}
 	imageView_.frame = CGRectMake(0, 0, CGRectGetWidth(imageView_.frame) * scale , CGRectGetHeight(imageView_.frame) * scale);
+	
+	CGFloat imageEdgeLength = fitWidth ? CGRectGetHeight(imageView_.frame) : CGRectGetWidth(imageView_.frame);
+	CGFloat viewEdgeLength = fitWidth ? height : width;
+	
+	if (imageEdgeLength > viewEdgeLength) {
+		scale = viewEdgeLength / MAX(imageEdgeLength, 1);
+		imageView_.frame = CGRectMake(0, 0, CGRectGetWidth(imageView_.frame) * scale , CGRectGetHeight(imageView_.frame) * scale);
+	}
+	
 	imageView_.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
 	self.contentSize = imageView_.frame.size;
 	[self setZoomScale:1.0];
