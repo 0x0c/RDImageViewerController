@@ -38,6 +38,8 @@
 		E919D2AB19D82F8E003F4BD0 /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A119D82F8E003F4BD0 /* 9.JPG */; };
 		E928DBE01AB2011C00594AAD /* rd_M2DURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E928DBDF1AB2011C00594AAD /* rd_M2DURLConnectionOperation.m */; };
 		E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */; };
+		E9B106601AB760DA000DEEE4 /* 11.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9B1065F1AB760DA000DEEE4 /* 11.JPG */; };
+		E9B106621AB76127000DEEE4 /* 12.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9B106611AB76127000DEEE4 /* 12.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		E928DBDF1AB2011C00594AAD /* rd_M2DURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rd_M2DURLConnectionOperation.m; sourceTree = "<group>"; };
 		E96FFD8019CE7970008ADEDF /* RDImageViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageViewerController.h; sourceTree = "<group>"; };
 		E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageViewerController.m; sourceTree = "<group>"; };
+		E9B1065F1AB760DA000DEEE4 /* 11.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 11.JPG; sourceTree = "<group>"; };
+		E9B106611AB76127000DEEE4 /* 12.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 12.JPG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +245,8 @@
 			children = (
 				E919D29819D82F8E003F4BD0 /* 1.JPG */,
 				E919D29919D82F8E003F4BD0 /* 10.JPG */,
+				E9B1065F1AB760DA000DEEE4 /* 11.JPG */,
+				E9B106611AB76127000DEEE4 /* 12.JPG */,
 				E919D29A19D82F8E003F4BD0 /* 2.JPG */,
 				E919D29B19D82F8E003F4BD0 /* 3.JPG */,
 				E919D29C19D82F8E003F4BD0 /* 4.JPG */,
@@ -380,8 +386,10 @@
 				E919D2A719D82F8E003F4BD0 /* 5.JPG in Resources */,
 				E919D2A619D82F8E003F4BD0 /* 4.JPG in Resources */,
 				E919D2A819D82F8E003F4BD0 /* 6.JPG in Resources */,
+				E9B106601AB760DA000DEEE4 /* 11.JPG in Resources */,
 				E919D2AB19D82F8E003F4BD0 /* 9.JPG in Resources */,
 				E919D2A419D82F8E003F4BD0 /* 2.JPG in Resources */,
+				E9B106621AB76127000DEEE4 /* 12.JPG in Resources */,
 				E919D2A519D82F8E003F4BD0 /* 3.JPG in Resources */,
 				E919D2A319D82F8E003F4BD0 /* 10.JPG in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,

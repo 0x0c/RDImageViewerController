@@ -10,6 +10,7 @@
 #import "RDImageViewerController.h"
 
 const NSInteger kPreloadCount = 3;
+const NSInteger kNumberOfImages = 12;
 
 @interface RDViewController ()
 {
@@ -55,7 +56,7 @@ const NSInteger kPreloadCount = 3;
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
-	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeAspectFit;
@@ -69,7 +70,7 @@ const NSInteger kPreloadCount = 3;
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
-	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeDisplayFit;
@@ -100,7 +101,7 @@ const NSInteger kPreloadCount = 3;
 		return reusedView;
 	} reuseIdentifier:^NSString *(NSInteger pageIndex) {
 		return @"view";
-	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeDisplayFit;
@@ -113,7 +114,7 @@ const NSInteger kPreloadCount = 3;
 {
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithRemoteImageHandler:^NSURLRequest *(NSInteger pageIndex) {
 		return [NSURLRequest requestWithURL:array[pageIndex]];
-	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	
 //	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 //		NSLog(@"downloading...:%@", [array[pageIndex] absoluteString]);
@@ -156,7 +157,7 @@ const NSInteger kPreloadCount = 3;
 		}
 		
 		return image;
-	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	CGRect frame = self.view.bounds;
 	[viewController setViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
 		if (reusedView == nil) {
@@ -216,7 +217,7 @@ const NSInteger kPreloadCount = 3;
 		return reusedView;
 	} reuseIdentifier:^NSString *(NSInteger pageIndex) {
 		return @"view";
-	} numberOfImages:10 direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeDisplayFit;
