@@ -40,7 +40,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
 @property (nonatomic, copy) UIImage *(^imageHandler)(NSInteger pageIndex);
 @property (nonatomic, copy) NSURLRequest *(^remoteImageHandler)(NSInteger pageIndex);
 @property (nonatomic, copy) void (^requestCompletionHandler)(NSURLResponse *response, NSData *data, NSError *connectionError);
-@property (nonatomic, copy) UIImage *(^imageDecodeHandler)(NSData *date);
+@property (nonatomic, copy) UIImage *(^imageDecodeHandler)(NSData *data, NSInteger pageIndex);
 @property (nonatomic, copy) UIView *(^viewHandler)(NSInteger pageIndex, UIView *reusedView);
 @property (nonatomic, copy) NSString *(^reuseIdentifierHandler)(NSInteger pageIndex);
 
@@ -48,7 +48,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
 - (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
 - (instancetype)initWithViewHandler:(UIView *(^)(NSInteger pageIndex, UIView *reusedView))viewHandler reuseIdentifier:(NSString *(^)(NSInteger pageIndex))reuseIdentifierHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
 - (instancetype)initWithRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
-- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger))remoteImageHandler completionHandler:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data))decodeHandler;
+- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler completionHandler:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data, NSInteger pageIndex))decodeHandler;
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)setHudHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)setPageHudNumberWithPageIndex:(NSInteger)pageIndex;

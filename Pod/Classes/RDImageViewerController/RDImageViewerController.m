@@ -340,7 +340,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 #pragma mark -
 
-- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger))remoteImageHandler completionHandler:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data))decodeHandler
+- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler completionHandler:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data, NSInteger pageIndex))decodeHandler
 {
 	self.remoteImageHandler = remoteImageHandler;
 	self.requestCompletionHandler = completionHandler;
@@ -475,7 +475,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			if (error == nil) {
 				UIImage *image = nil;
 				if (bself.imageDecodeHandler) {
-					image = bself.imageDecodeHandler(data);
+					image = bself.imageDecodeHandler(data, index);
 				}
 				else {
 					image = [[UIImage alloc] initWithData:data];
