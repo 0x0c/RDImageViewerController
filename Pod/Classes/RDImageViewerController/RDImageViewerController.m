@@ -438,7 +438,6 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierImage] && self.imageHandler) {
 		if (self.loadAsync) {
 			NSBlockOperation *op = [[NSBlockOperation alloc] init];
-			op.name = [NSString stringWithFormat:@"RDImageViewerControllerAsynchImageHanderOperation-PageIndex(%ld)", (long)index];
 			[op addExecutionBlock:^{
 				UIImage *image = self.imageHandler(index);
 				if (bimagescrollView.indexOfPage == index) {
