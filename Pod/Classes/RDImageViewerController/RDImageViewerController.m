@@ -495,7 +495,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (UIView *)contentViewForIndex:(NSInteger)index
 {
-	UIView *view = [pagingView_ dequeueViewWithReuseIdentifier:self.reuseIdentifierHandler(index)];
+	UIView *view = nil;
+	if (self.reuseIdentifierHandler) {
+		view = [pagingView_ dequeueViewWithReuseIdentifier:self.reuseIdentifierHandler(index)];
+	}
 	
 	return self.viewHandler(index, view);
 }
