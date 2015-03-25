@@ -203,6 +203,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:_pageSlider];
 	toolbarItems_ = @[sliderItem];
 	
+	
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
 		self.automaticallyAdjustsScrollViewInsets = NO;
 	}
@@ -314,6 +315,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)setShowSlider:(BOOL)showSlider
 {
 	_showSlider = showSlider;
+	if (_showSlider) {
+		self.toolbarItems = toolbarItems_;
+	}
+	else {
+		self.toolbarItems = nil;
+	}
 	CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
 	currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, toolBarPositionY - CGRectGetHeight(currentPageHud_.frame) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
 	[self applySliderTintColor];
