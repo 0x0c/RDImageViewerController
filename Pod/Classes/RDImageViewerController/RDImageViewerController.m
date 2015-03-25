@@ -29,15 +29,15 @@ static const NSInteger PageLabelFontSize = 17;
 @interface RDImageViewerController ()
 {
 	RDImageViewerControllerDelegateFlag delegateFlag;
-	RDPagingView *pagingView_;
-	UIView *currentPageHud_;
 	BOOL statusBarHidden_;
-	NSArray *toolbarItems_;
-	NSMutableArray *remoteImageRequestArray_;
 }
 
+@property (nonatomic, strong) RDPagingView *pagingView;
+@property (nonatomic, strong) UIView *currentPageHud;
 @property (nonatomic, readonly) NSOperationQueue *asynchronousImageHandlerQueue;
 @property (nonatomic, strong) UISlider *pageSlider;
+@property (nonatomic, strong) NSArray *sliderToolbarItems;
+@property (nonatomic, strong) NSMutableArray *remoteImageRequestArray;
 
 @end
 
@@ -77,21 +77,21 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 // iOS7
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	[pagingView_ startRotation];
+	[self.pagingView startRotation];
 	if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight || toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
 		UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
 		if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
-			[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
+			[self.pagingView resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
 		}
 	}
 	else {
-		[pagingView_ resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
+		[self.pagingView resizeWithFrame:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetWidth(self.view.frame)) duration:duration];
 	}
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration - 0.5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
-		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, toolBarPositionY - CGRectGetHeight(currentPageHud_.frame) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
+		self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, toolBarPositionY - CGRectGetHeight(self.currentPageHud.frame) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
 	});
-	[pagingView_ endRotation];
+	[self.pagingView endRotation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -103,17 +103,17 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
 	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-	[pagingView_ startRotation];
+	[self.pagingView startRotation];
 	UIUserInterfaceSizeClass sizeClass = self.traitCollection.verticalSizeClass;
 	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
 		if (self.traitCollection.verticalSizeClass != sizeClass) {
 			NSTimeInterval duration = [context transitionDuration];
-			[pagingView_ resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
+			[self.pagingView resizeWithFrame:CGRectMake(0, 0, size.width, size.height) duration:duration];
 		}
 		CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
-		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, toolBarPositionY - CGRectGetHeight(currentPageHud_.frame) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
+		self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, toolBarPositionY - CGRectGetHeight(self.currentPageHud.frame) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
 	} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-		[pagingView_ endRotation];
+		[self.pagingView endRotation];
 	}];
 }
 
@@ -123,19 +123,19 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	if (self) {
 		self.maximumZoomScale = kDefaultMaximumZoomScale;
 		self.landscapeMode = RDImageScrollViewResizeModeAspectFit;
-		pagingView_ = [[RDPagingView alloc] initWithFrame:self.view.bounds];
-		pagingView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		pagingView_.backgroundColor = [UIColor blackColor];
-		pagingView_.pagingDelegate = self;
-		pagingView_.direction = direction;
-		pagingView_.directionalLockEnabled = YES;
-		pagingView_.tag = MainScrollView;
-		pagingView_.showsHorizontalScrollIndicator = NO;
-		pagingView_.showsVerticalScrollIndicator = NO;
-		pagingView_.numberOfPages = num;
+		self.pagingView = [[RDPagingView alloc] initWithFrame:self.view.bounds];
+		self.pagingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		self.pagingView.backgroundColor = [UIColor blackColor];
+		self.pagingView.pagingDelegate = self;
+		self.pagingView.direction = direction;
+		self.pagingView.directionalLockEnabled = YES;
+		self.pagingView.tag = MainScrollView;
+		self.pagingView.showsHorizontalScrollIndicator = NO;
+		self.pagingView.showsVerticalScrollIndicator = NO;
+		self.pagingView.numberOfPages = num;
 		UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setBarHiddenByTapGesture)];
-		[pagingView_ addGestureRecognizer:gesture];
-		remoteImageRequestArray_ = [NSMutableArray new];
+		[self.pagingView addGestureRecognizer:gesture];
+		self.remoteImageRequestArray = [NSMutableArray new];
 		_asynchronousImageHandlerQueue = [NSOperationQueue new];
 		self.preloadCount = kPreloadDefaultCount;
 	}
@@ -178,30 +178,30 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
-	currentPageHud_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-	currentPageHud_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-	currentPageHud_.backgroundColor = [UIColor blackColor];
-	currentPageHud_.layer.cornerRadius = 10;
-	currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
-	currentPageHud_.alpha = 0;
-	currentPageHud_.layer.borderColor = [UIColor whiteColor].CGColor;
-	currentPageHud_.layer.borderWidth = 1;
+	self.currentPageHud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+	self.currentPageHud.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+	self.currentPageHud.backgroundColor = [UIColor blackColor];
+	self.currentPageHud.layer.cornerRadius = 10;
+	self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.currentPageHud.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
+	self.currentPageHud.alpha = 0;
+	self.currentPageHud.layer.borderColor = [UIColor whiteColor].CGColor;
+	self.currentPageHud.layer.borderWidth = 1;
 	
 	_currentPageHudLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, PageLabelFontSize)];
 	self.currentPageHudLabel.backgroundColor = [UIColor clearColor];
 	self.currentPageHudLabel.font = [UIFont systemFontOfSize:PageLabelFontSize];
 	self.currentPageHudLabel.textColor = [UIColor whiteColor];
 	self.currentPageHudLabel.textAlignment = NSTextAlignmentCenter;
-	self.currentPageHudLabel.center = CGPointMake(CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(currentPageHud_.frame) / 2);
+	self.currentPageHudLabel.center = CGPointMake(CGRectGetWidth(self.currentPageHud.frame) / 2, CGRectGetHeight(self.currentPageHud.frame) / 2);
 	self.currentPageHudLabel.tag = CurrentPageLabel;
-	[currentPageHud_ addSubview:self.currentPageHudLabel];
+	[self.currentPageHud addSubview:self.currentPageHudLabel];
 	
 	self.pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame) - 30, 20)];
 	self.pageSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[self.pageSlider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
 	[self.pageSlider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
 	UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:self.pageSlider];
-	toolbarItems_ = @[sliderItem];
+	self.sliderToolbarItems = @[sliderItem];
 	
 	
 	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
@@ -212,39 +212,39 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	pagingView_.frame = self.view.bounds;
+	self.pagingView.frame = self.view.bounds;
 	
 	if (self.restoreBarsState == NO) {
 		[self setBarsHidden:NO animated:YES];
 		[self setHudHidden:NO animated:animated];		
 	}
 	
-	if (pagingView_.superview == nil) {
-		[self.view addSubview:pagingView_];
-		[pagingView_ scrollAtPage:pagingView_.currentPageIndex];
+	if (self.pagingView.superview == nil) {
+		[self.view addSubview:self.pagingView];
+		[self.pagingView scrollAtPage:self.pagingView.currentPageIndex];
 	}
 	
 	if (self.showSlider == YES) {
-		self.toolbarItems = toolbarItems_;
-        if (pagingView_.direction == RDPagingViewDirectionRight) {
-            self.pageSlider.value = (CGFloat)pagingView_.currentPageIndex / (pagingView_.numberOfPages - 1);
+		self.toolbarItems = self.sliderToolbarItems;
+        if (self.pagingView.direction == RDPagingViewDirectionRight) {
+            self.pageSlider.value = (CGFloat)self.pagingView.currentPageIndex / (self.pagingView.numberOfPages - 1);
         }
 		else {
-            self.pageSlider.value = 1 - (CGFloat)pagingView_.currentPageIndex / (pagingView_.numberOfPages - 1);
+            self.pageSlider.value = 1 - (CGFloat)self.pagingView.currentPageIndex / (self.pagingView.numberOfPages - 1);
         }
-		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(currentPageHud_.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
+		self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.currentPageHud.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
 		[self applySliderTintColor];
 	}
 	if (self.showPageNumberHud == YES) {
-		[self setPageHudNumberWithPageIndex:pagingView_.currentPageIndex];
-		[self.view addSubview:currentPageHud_];
+		[self setPageHudNumberWithPageIndex:self.pagingView.currentPageIndex];
+		[self.view addSubview:self.currentPageHud];
 	}
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	pagingView_.pagingDelegate = self;
+	self.pagingView.pagingDelegate = self;
 	if (self.autoBarsHiddenDuration > 0) {
 		[self performSelector:@selector(hideBars) withObject:self afterDelay:self.autoBarsHiddenDuration];
 		self.autoBarsHiddenDuration = 0;
@@ -261,7 +261,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
-	pagingView_.pagingDelegate = nil;
+	self.pagingView.pagingDelegate = nil;
 }
 
 - (void)setDelegate:(id<RDImageViewerControllerDelegate>)delegate
@@ -272,23 +272,23 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (NSInteger)currentPageIndex
 {
-	return pagingView_.currentPageIndex;
+	return self.pagingView.currentPageIndex;
 }
 
 - (void)setCurrentPageIndex:(NSInteger)pageIndex
 {
-    if (pagingView_.direction == RDPagingViewDirectionRight) {
-        self.pageSlider.value = (CGFloat)pagingView_.currentPageIndex / (pagingView_.numberOfPages - 1);
+    if (self.pagingView.direction == RDPagingViewDirectionRight) {
+        self.pageSlider.value = (CGFloat)self.pagingView.currentPageIndex / (self.pagingView.numberOfPages - 1);
     } else {
-        self.pageSlider.value = 1 - (CGFloat)pagingView_.currentPageIndex / (pagingView_.numberOfPages - 1);
+        self.pageSlider.value = 1 - (CGFloat)self.pagingView.currentPageIndex / (self.pagingView.numberOfPages - 1);
     }
 	
-	[pagingView_ scrollAtPage:pageIndex];
+	[self.pagingView scrollAtPage:pageIndex];
 }
 
 - (NSInteger)numberOfPages
 {
-	return pagingView_.numberOfPages;
+	return self.pagingView.numberOfPages;
 }
 
 #pragma mark -
@@ -297,18 +297,18 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	UIColor *maximumTintColor =  self.pageSliderMaximumTrackTintColor ?: [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
 	UIColor *minimumTintColor = self.pageSliderMinimumTrackTintColor ?: [UIColor whiteColor];
-	self.pageSlider.maximumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? maximumTintColor : minimumTintColor;
-	self.pageSlider.minimumTrackTintColor = pagingView_.direction == RDPagingViewDirectionLeft ? minimumTintColor : maximumTintColor;
+	self.pageSlider.maximumTrackTintColor = self.pagingView.direction == RDPagingViewDirectionLeft ? maximumTintColor : minimumTintColor;
+	self.pageSlider.minimumTrackTintColor = self.pagingView.direction == RDPagingViewDirectionLeft ? minimumTintColor : maximumTintColor;
 }
 
 - (void)setShowPageNumberHud:(BOOL)showPageNumberHud
 {
 	_showPageNumberHud = showPageNumberHud;
 	if (showPageNumberHud == YES) {
-		[self.view addSubview:currentPageHud_];
+		[self.view addSubview:self.currentPageHud];
 	}
 	else {
-		[currentPageHud_ removeFromSuperview];
+		[self.currentPageHud removeFromSuperview];
 	}
 }
 
@@ -316,34 +316,34 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	_showSlider = showSlider;
 	if (_showSlider) {
-		self.toolbarItems = toolbarItems_;
+		self.toolbarItems = self.sliderToolbarItems;
 	}
 	else {
 		self.toolbarItems = nil;
 	}
 	CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
-	currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, toolBarPositionY - CGRectGetHeight(currentPageHud_.frame) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
+	self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, toolBarPositionY - CGRectGetHeight(self.currentPageHud.frame) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
 	[self applySliderTintColor];
 }
 
 - (void)setPreloadCount:(NSUInteger)preloadCount
 {
-	pagingView_.preloadCount = preloadCount;
+	self.pagingView.preloadCount = preloadCount;
 }
 
 - (NSUInteger)preloadCount
 {
-	return pagingView_.preloadCount;
+	return self.pagingView.preloadCount;
 }
 
 - (void)setPagingEnabled:(BOOL)paging
 {
-	pagingView_.pagingEnabled = paging;
+	self.pagingView.pagingEnabled = paging;
 }
 
 - (BOOL)pagingEnabled
 {
-	return pagingView_.pagingEnabled;
+	return self.pagingView.pagingEnabled;
 }
 
 #pragma mark -
@@ -362,12 +362,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)setPageHudNumberWithPageIndex:(NSInteger)pageIndex
 {
-	self.currentPageHudLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)pageIndex + 1, (long)pagingView_.numberOfPages];
+	self.currentPageHudLabel.text = [NSString stringWithFormat:@"%ld/%ld", (long)pageIndex + 1, (long)self.pagingView.numberOfPages];
 }
 
 - (void)reloadPageHud
 {
-	[self setPageHudNumberWithPageIndex:pagingView_.currentPageIndex];
+	[self setPageHudNumberWithPageIndex:self.pagingView.currentPageIndex];
 }
 
 - (void)setBarHiddenByTapGesture
@@ -397,8 +397,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[UIView animateWithDuration:UINavigationControllerHideShowBarDuration * animated animations:^{
 		CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
-		currentPageHud_.frame = CGRectMake(self.view.center.x - CGRectGetWidth(currentPageHud_.frame) / 2, toolBarPositionY - CGRectGetHeight(currentPageHud_.frame) - 10, CGRectGetWidth(currentPageHud_.frame), CGRectGetHeight(currentPageHud_.frame));
-		currentPageHud_.alpha = !hidden * 0.8;
+		self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, toolBarPositionY - CGRectGetHeight(self.currentPageHud.frame) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
+		self.currentPageHud.alpha = !hidden * 0.8;
 	} completion:^(BOOL finished) {
 	}];
 }
@@ -412,26 +412,26 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBars) object:self];
 	UISlider *slider = sender;
-	CGFloat trueValue = pagingView_.direction == RDPagingViewDirectionRight ? slider.value : 1 - slider.value;
-	CGFloat page = trueValue * (pagingView_.numberOfPages - 1);
-	[pagingView_ scrollAtPage:page];
+	CGFloat trueValue = self.pagingView.direction == RDPagingViewDirectionRight ? slider.value : 1 - slider.value;
+	CGFloat page = trueValue * (self.pagingView.numberOfPages - 1);
+	[self.pagingView scrollAtPage:page];
 }
 
 - (void)sliderDidTouchUpInside:(id)sender
 {
 	UISlider *slider = sender;
-	CGFloat value = pagingView_.currentPageIndex / (CGFloat)(pagingView_.numberOfPages - 1);;
-	CGFloat trueValue = pagingView_.direction == RDPagingViewDirectionRight ? value : 1 - value;
+	CGFloat value = self.pagingView.currentPageIndex / (CGFloat)(self.pagingView.numberOfPages - 1);;
+	CGFloat trueValue = self.pagingView.direction == RDPagingViewDirectionRight ? value : 1 - value;
 	[slider setValue:trueValue animated:YES];
 }
 
 - (RDImageScrollView *)imageScrollViewForIndex:(NSInteger)index reuseIdentifier:(NSString *)identifier
 {
-	RDImageScrollView *imageScrollView = (RDImageScrollView *)[pagingView_ dequeueViewWithReuseIdentifier:identifier];
+	RDImageScrollView *imageScrollView = (RDImageScrollView *)[self.pagingView dequeueViewWithReuseIdentifier:identifier];
 	if (imageScrollView == nil) {
 		imageScrollView = [[RDImageScrollView alloc] initWithFrame:self.view.bounds];
 		imageScrollView.maximumZoomScale = self.maximumZoomScale;
-		[pagingView_.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		[self.pagingView.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 			UIGestureRecognizer *gesture = obj;
 			if ([gesture isMemberOfClass:[UITapGestureRecognizer class]]) {
 				[imageScrollView addGestureRecognizerPriorityHigherThanZoomGestureRecogniser:gesture];
@@ -461,20 +461,20 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		}
 	}
 	else if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierRemoteImage] && self.remoteImageHandler) {
-		NSInteger waitingOperationCount = remoteImageRequestArray_.count - self.preloadCount;
+		NSInteger waitingOperationCount = self.remoteImageRequestArray.count - self.preloadCount;
 		if (waitingOperationCount > 0) {
 			for (NSInteger i = 0; i < waitingOperationCount; i++) {
-				rd_M2DURLConnectionOperation *op = remoteImageRequestArray_[i];
+				rd_M2DURLConnectionOperation *op = self.remoteImageRequestArray[i];
 				[op stop];
-				[remoteImageRequestArray_ removeObject:op];
+				[self.remoteImageRequestArray removeObject:op];
 			}
 		}
 		__weak typeof(self) bself = self;
 		NSURLRequest *request = self.remoteImageHandler(index);
 		rd_M2DURLConnectionOperation *op = [[rd_M2DURLConnectionOperation alloc] initWithRequest:request];
-		[remoteImageRequestArray_ addObject:op];
+		[self.remoteImageRequestArray addObject:op];
 		__weak typeof(op) bop = op;
-		__weak NSMutableArray *bremoteImageRequestArray = remoteImageRequestArray_;
+		__weak NSMutableArray *bremoteImageRequestArray = self.remoteImageRequestArray;
 		[op sendRequestWithCompleteBlock:^(NSURLResponse *response, NSData *data, NSError *error) {
 			if (bself.requestCompletionHandler) {
 				bself.requestCompletionHandler(response, data, error);
@@ -505,7 +505,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	UIView *view = nil;
 	if (self.reuseIdentifierHandler) {
-		view = [pagingView_ dequeueViewWithReuseIdentifier:self.reuseIdentifierHandler(index)];
+		view = [self.pagingView dequeueViewWithReuseIdentifier:self.reuseIdentifierHandler(index)];
 	}
 	
 	return self.viewHandler(index, view);
@@ -587,11 +587,11 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)pagingViewDidEndDecelerating:(RDPagingView *)pagingView
 {
-	CGFloat page = pagingView_.contentOffset.x / CGRectGetWidth(pagingView_.frame);
+	CGFloat page = self.pagingView.contentOffset.x / CGRectGetWidth(self.pagingView.frame);
 	[pagingView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if ([obj isKindOfClass:[UIScrollView class]]) {
 			UIScrollView *pageView = (UIScrollView *)obj;
-			if (page != CGRectGetMinX(pageView.frame) / CGRectGetWidth(pagingView_.frame)) {
+			if (page != CGRectGetMinX(pageView.frame) / CGRectGetWidth(self.pagingView.frame)) {
 				pageView.zoomScale = 1.0;
 			}
 		}
