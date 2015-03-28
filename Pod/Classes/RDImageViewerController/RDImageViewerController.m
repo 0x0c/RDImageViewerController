@@ -437,6 +437,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)loadImageAtIndex:(NSInteger)index imageScrollView:(RDImageScrollView *)imageScrollView reuseIdentifier:(NSString *)identifier
 {
+	imageScrollView.image = nil;
 	__weak typeof(self) bself = self;
 	__weak RDImageScrollView *bimagescrollView = imageScrollView;
 	if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierImage] && self.imageHandler) {
