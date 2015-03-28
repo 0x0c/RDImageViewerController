@@ -446,10 +446,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 				UIImage *image = self.imageHandler(index);
 				if (bimagescrollView.indexOfPage == index) {
 					dispatch_async(dispatch_get_main_queue(), ^{
+						bimagescrollView.image = image;
 						if (bself.imageViewConfigurationHandler) {
 							bself.imageViewConfigurationHandler(index, bimagescrollView);
 						}
-						bimagescrollView.image = image;
 					});
 				}
 			}];
@@ -488,10 +488,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			}
 			if (bimagescrollView.indexOfPage == index) {
 				dispatch_async(dispatch_get_main_queue(), ^{
+					bimagescrollView.image = image;
 					if (bself.imageViewConfigurationHandler) {
 						bself.imageViewConfigurationHandler(index, bimagescrollView);
 					}
-					bimagescrollView.image = image;
 				});
 			}
 			
