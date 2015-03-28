@@ -466,20 +466,20 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			if (bself.requestCompletionHandler) {
 				bself.requestCompletionHandler(response, data, error);
 			}
-			if (error == nil) {
-				UIImage *image = nil;
-				if (bself.imageDecodeHandler) {
-					image = bself.imageDecodeHandler(data, index);
-				}
-				else {
-					image = [[UIImage alloc] initWithData:data];
-				}
-				if (bimagescrollView.indexOfPage == index) {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						bimagescrollView.image = image;
-					});
-				}
+			
+			UIImage *image = nil;
+			if (bself.imageDecodeHandler) {
+				image = bself.imageDecodeHandler(data, index);
 			}
+			else {
+				image = [[UIImage alloc] initWithData:data];
+			}
+			if (bimagescrollView.indexOfPage == index) {
+				dispatch_async(dispatch_get_main_queue(), ^{
+					bimagescrollView.image = image;
+				});
+			}
+
 			[bremoteImageRequestArray removeObject:bop];
 		}];
 	}
