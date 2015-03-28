@@ -44,6 +44,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
 @property (nonatomic, copy) void(^imageViewConfigurationHandler)(NSInteger pageIndex, RDImageScrollView *imageView);
 @property (nonatomic, copy) UIView *(^viewHandler)(NSInteger pageIndex, UIView *reusedView);
 @property (nonatomic, copy) NSString *(^reuseIdentifierHandler)(NSInteger pageIndex);
+@property (nonatomic, copy) void(^reloadViewHandler)(NSInteger pageIndex, UIView *view);
 
 - (instancetype)initWithNumberOfPages:(NSInteger)num direction:(RDPagingViewForwardDirection)direction;
 - (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
@@ -55,5 +56,6 @@ extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
 - (void)setPageHudNumberWithPageIndex:(NSInteger)pageIndex;
 - (void)setBarHiddenByTapGesture;
 - (void)cancelAutoBarHidden;
+- (void)reloadViewAtIndex:(NSInteger)index;
 
 @end

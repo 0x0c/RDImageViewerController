@@ -429,6 +429,14 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	imageScrollView.mode = self.landscapeMode;
 	[imageScrollView setZoomScale:1.0];
 	imageScrollView.image = nil;
+	
+	[self loadImageAtIndex:index imageScrollView:imageScrollView reuseIdentifier:identifier];
+	
+	return imageScrollView;
+}
+
+- (void)loadImageAtIndex:(NSInteger)index imageScrollView:(RDImageScrollView *)imageScrollView reuseIdentifier:(NSString *)identifier
+{
 	__weak typeof(self) bself = self;
 	__weak RDImageScrollView *bimagescrollView = imageScrollView;
 	if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierImage] && self.imageHandler) {
@@ -486,13 +494,11 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 					bimagescrollView.image = image;
 				});
 			}
-
+			
 			[bremoteImageRequestArray removeObject:bop];
 		}];
 	}
 	[bimagescrollView adjustContentAspect];
-	
-	return imageScrollView;
 }
 
 - (UIView *)contentViewForIndex:(NSInteger)index
@@ -500,6 +506,33 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	UIView *view = [self.pagingView dequeueViewWithReuseIdentifier:self.reuseIdentifierHandler(index)];
 	
 	return self.viewHandler(index, view);
+}
+
+- (void)reloadViewAtIndex:(NSInteger)index
+{
+	UIView *view = [self.pagingView viewForIndex:index];
+	if (self.reuseIdentifierHandler) {
+		NSString *reuseIdentifier = self.reuseIdentifierHandler(index);
+		if ([reuseIdentifier isEqualToString:RDImageViewerControllerReuseIdentifierImage] || [reuseIdentifier isEqualToString:RDImageViewerControllerReuseIdentifierRemoteImage]) {
+			[self loadImageAtIndex:index imageScrollView:(RDImageScrollView *)view reuseIdentifier:reuseIdentifier];
+		}
+	}
+	else {
+		NSString *reuseIdentifier = nil;
+		if (self.imageHandler) {
+			reuseIdentifier = RDImageViewerControllerReuseIdentifierImage;
+		}
+		else if (self.remoteImageHandler) {
+			reuseIdentifier = RDImageViewerControllerReuseIdentifierRemoteImage;
+		}
+		
+		if (reuseIdentifier != nil) {
+			[self loadImageAtIndex:index imageScrollView:(RDImageScrollView *)view reuseIdentifier:reuseIdentifier];
+		}
+		else {
+			self.reloadViewHandler(index, view);
+		}
+	}
 }
 
 #pragma mark - RDPagingViewDelegate
