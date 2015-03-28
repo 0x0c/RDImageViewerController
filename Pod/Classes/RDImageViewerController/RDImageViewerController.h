@@ -41,6 +41,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
 @property (nonatomic, copy) NSURLRequest *(^remoteImageHandler)(NSInteger pageIndex);
 @property (nonatomic, copy) void (^requestCompletionHandler)(NSURLResponse *response, NSData *data, NSError *connectionError);
 @property (nonatomic, copy) UIImage *(^imageDecodeHandler)(NSData *data, NSInteger pageIndex);
+@property (nonatomic, copy) void(^imageViewConfigurationHandler)(NSInteger pageIndex, UIImage *image);
 @property (nonatomic, copy) UIView *(^viewHandler)(NSInteger pageIndex, UIView *reusedView);
 @property (nonatomic, copy) NSString *(^reuseIdentifierHandler)(NSInteger pageIndex);
 

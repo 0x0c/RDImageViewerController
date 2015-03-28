@@ -429,6 +429,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	imageScrollView.mode = self.landscapeMode;
 	[imageScrollView setZoomScale:1.0];
 	imageScrollView.image = nil;
+	__weak typeof(self) bself = self;
 	__weak RDImageScrollView *bimagescrollView = imageScrollView;
 	if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierImage] && self.imageHandler) {
 		if (self.loadAsync) {
@@ -437,6 +438,9 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 				UIImage *image = self.imageHandler(index);
 				if (bimagescrollView.indexOfPage == index) {
 					dispatch_async(dispatch_get_main_queue(), ^{
+						if (bself.imageViewConfigurationHandler) {
+							bself.imageViewConfigurationHandler(index, image);
+						}
 						bimagescrollView.image = image;
 					});
 				}
@@ -476,6 +480,9 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			}
 			if (bimagescrollView.indexOfPage == index) {
 				dispatch_async(dispatch_get_main_queue(), ^{
+					if (bself.imageViewConfigurationHandler) {
+						bself.imageViewConfigurationHandler(index, image);
+					}
 					bimagescrollView.image = image;
 				});
 			}
