@@ -569,6 +569,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		}
 	}
 	
+	if (self.contentViewWillAppearHandler) {
+		self.contentViewWillAppearHandler(index, view);
+	}
+	
 	return view;
 }
 
