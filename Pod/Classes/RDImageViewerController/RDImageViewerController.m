@@ -506,7 +506,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			}
 		}
 		[self.remoteImageRequestArray addObject:op];
-		if (self.remoteImageRequestArray.count == 0) {
+		if (self.remoteImageRequestArray.count <= self.preloadCount) {
 			[self popImageOperation];
 		}
 	}
