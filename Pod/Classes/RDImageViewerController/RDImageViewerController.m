@@ -37,6 +37,7 @@ static const NSInteger PageLabelFontSize = 17;
 @property (nonatomic, strong) NSOperationQueue *asynchronousImageHandlerQueue;
 @property (nonatomic, readonly) UISlider *pageSlider;
 @property (nonatomic, strong) NSMutableArray *remoteImageRequestArray;
+@property (nonatomic, strong) NSMutableArray *remoteImageRequestRunnintArray;
 
 @end
 
@@ -135,6 +136,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setBarHiddenByTapGesture)];
 		[self.pagingView addGestureRecognizer:gesture];
 		self.remoteImageRequestArray = [NSMutableArray new];
+		self.remoteImageRequestRunnintArray = [NSMutableArray new];
 		self.asynchronousImageHandlerQueue = [NSOperationQueue new];
 		self.preloadCount = kPreloadDefaultCount;
 	}
@@ -462,7 +464,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	}
 	else if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierRemoteImage] && self.remoteImageHandler) {
 		__weak typeof(self) bself = self;
-		__weak NSMutableArray *bremoteImageRequestArray = self.remoteImageRequestArray;
+		__weak NSMutableArray *bremoteImageRequestRunnintArray = self.remoteImageRequestRunnintArray;
 		NSURLRequest *request = self.remoteImageHandler(index);
 		rd_M2DURLConnectionOperation *op = [[rd_M2DURLConnectionOperation alloc] initWithRequest:request completeBlock:^(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error) {
 			if (bself.requestCompletionHandler) {
@@ -485,7 +487,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 				});
 			}
 			@synchronized (bself) {
-				[bremoteImageRequestArray removeObject:operation];
+				[bremoteImageRequestRunnintArray removeObject:operation];
 				[bself popImageOperation];
 			}
 		}];
@@ -506,7 +508,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			}
 		}
 		[self.remoteImageRequestArray addObject:op];
-		if (self.remoteImageRequestArray.count <= self.preloadCount) {
+		if (self.remoteImageRequestRunnintArray.count <= self.preloadCount * 2) {
 			[self popImageOperation];
 		}
 	}
@@ -516,6 +518,8 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	@synchronized (self) {
 		rd_M2DURLConnectionOperation *op = self.remoteImageRequestArray.firstObject;
+		[self.remoteImageRequestArray removeObject:op];
+		[self.remoteImageRequestRunnintArray addObject:op];
 		[op sendRequest];
 	}
 }
