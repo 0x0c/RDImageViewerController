@@ -519,8 +519,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	@synchronized (self) {
 		rd_M2DURLConnectionOperation *op = self.remoteImageRequestArray.firstObject;
 		[self.remoteImageRequestArray removeObject:op];
-		[self.remoteImageRequestRunnintArray addObject:op];
-		[op sendRequest];
+		if (op) {
+			[self.remoteImageRequestRunnintArray addObject:op];
+			[op sendRequest];
+		}
 	}
 }
 
