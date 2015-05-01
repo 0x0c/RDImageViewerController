@@ -461,21 +461,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		}
 	}
 	else if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierRemoteImage] && self.remoteImageHandler) {
-		NSInteger waitingOperationCount = self.remoteImageRequestArray.count - self.preloadCount;
-		if (waitingOperationCount > 0) {
-			for (NSInteger i = 0; i < waitingOperationCount; i++) {
-				rd_M2DURLConnectionOperation *op = self.remoteImageRequestArray[i];
-				[op stop];
-				[self.remoteImageRequestArray removeObject:op];
-			}
-		}
 		__weak typeof(self) bself = self;
-		NSURLRequest *request = self.remoteImageHandler(index);
-		rd_M2DURLConnectionOperation *op = [[rd_M2DURLConnectionOperation alloc] initWithRequest:request];
-		[self.remoteImageRequestArray addObject:op];
-		__weak typeof(op) bop = op;
 		__weak NSMutableArray *bremoteImageRequestArray = self.remoteImageRequestArray;
-		[op sendRequestWithCompleteBlock:^(NSURLResponse *response, NSData *data, NSError *error) {
+		NSURLRequest *request = self.remoteImageHandler(index);
+		rd_M2DURLConnectionOperation *op = [[rd_M2DURLConnectionOperation alloc] initWithRequest:request completeBlock:^(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error) {
 			if (bself.requestCompletionHandler) {
 				bself.requestCompletionHandler(response, data, error);
 			}
@@ -495,11 +484,40 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 					}
 				});
 			}
-			
-			[bremoteImageRequestArray removeObject:bop];
+			@synchronized (bself) {
+				[bremoteImageRequestArray removeObject:operation];
+				[bself popImageOperation];
+			}
 		}];
+		[self pushImageOperation:op];
 	}
 	[bimagescrollView adjustContentAspect];
+}
+
+- (void)pushImageOperation:(rd_M2DURLConnectionOperation *)op
+{
+	@synchronized (self) {
+		NSInteger waitingOperationCount = self.remoteImageRequestArray.count - self.preloadCount;
+		if (waitingOperationCount > 0) {
+			for (NSInteger i = 0; i < waitingOperationCount; i++) {
+				rd_M2DURLConnectionOperation *op = self.remoteImageRequestArray[i];
+				[op stop];
+				[self.remoteImageRequestArray removeObject:op];
+			}
+		}
+		[self.remoteImageRequestArray addObject:op];
+		if (self.remoteImageRequestArray.count == 0) {
+			[self popImageOperation];
+		}
+	}
+}
+
+- (void)popImageOperation
+{
+	@synchronized (self) {
+		rd_M2DURLConnectionOperation *op = self.remoteImageRequestArray.firstObject;
+		[op sendRequest];
+	}
 }
 
 - (UIView *)contentViewForIndex:(NSInteger)index

@@ -19,7 +19,7 @@
 
 @interface rd_M2DURLConnectionOperation : NSObject <NSURLConnectionDataDelegate>
 {
-	void (^completeBlock_)(NSURLResponse *response, NSData *data, NSError *error);
+	void (^completeBlock_)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error);
 	void (^progressBlock_)(CGFloat progress);
 	CGFloat dataLength_;
 	NSMutableData *data_;
@@ -35,10 +35,10 @@
 + (void)globalStop:(NSString *)identifier;
 - (void)stop;
 - (id)initWithRequest:(NSURLRequest *)request;
-- (id)initWithRequest:(NSURLRequest *)request completeBlock:(void (^)(NSURLResponse *response, NSData *data, NSError *error))completeBlock;
+- (id)initWithRequest:(NSURLRequest *)request completeBlock:(void (^)(rd_M2DURLConnectionOperation *operation,NSURLResponse *response, NSData *data, NSError *error))completeBlock;
 - (void)setProgressBlock:(void (^)(CGFloat progress))progressBlock;
 - (NSString *)sendRequest;
-- (NSString *)sendRequestWithCompleteBlock:(void (^)(NSURLResponse *response, NSData *data, NSError *error))completeBlock;
-- (NSString *)sendRequest:(NSURLRequest *)request completeBlock:(void (^)(NSURLResponse *response, NSData *data, NSError *error))completeBlock;
+- (NSString *)sendRequestWithCompleteBlock:(void (^)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error))completeBlock;
+- (NSString *)sendRequest:(NSURLRequest *)request completeBlock:(void (^)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error))completeBlock;
 
 @end

@@ -48,7 +48,7 @@ static dispatch_queue_t globalConnectionQueue;
 	return self;
 }
 
-- (id)initWithRequest:(NSURLRequest *)request completeBlock:(void (^)(NSURLResponse *response, NSData *data, NSError *error))completeBlock
+- (id)initWithRequest:(NSURLRequest *)request completeBlock:(void (^)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error))completeBlock
 {
 	self = [self initWithRequest:request];
 	if (self) {
@@ -83,7 +83,7 @@ static dispatch_queue_t globalConnectionQueue;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	if (completeBlock_) {
-		completeBlock_(response_, data_, nil);
+		completeBlock_(self, response_, data_, nil);
 	}
 	if ([self.delegate respondsToSelector:@selector(connectionOperationDidComplete:connection:)]) {
 		[self.delegate connectionOperationDidComplete:self connection:(NSURLConnection *)connection];
@@ -93,7 +93,7 @@ static dispatch_queue_t globalConnectionQueue;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-	completeBlock_(response_, nil, error);
+	completeBlock_(self, response_, nil, error);
 	[self finish];
 }
 
@@ -115,12 +115,12 @@ static dispatch_queue_t globalConnectionQueue;
 	return [self sendRequestWithCompleteBlock:completeBlock_];
 }
 
-- (NSString *)sendRequestWithCompleteBlock:(void (^)(NSURLResponse *response, NSData *data, NSError *error))completeBlock
+- (NSString *)sendRequestWithCompleteBlock:(void (^)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error))completeBlock
 {
 	return [self sendRequest:_request completeBlock:completeBlock];
 }
 
-- (NSString *)sendRequest:(NSURLRequest *)request completeBlock:(void (^)(NSURLResponse *response, NSData *data, NSError *error))completeBlock
+- (NSString *)sendRequest:(NSURLRequest *)request completeBlock:(void (^)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error))completeBlock
 {
 	completeBlock_ = [completeBlock copy];
 	connection_ = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
