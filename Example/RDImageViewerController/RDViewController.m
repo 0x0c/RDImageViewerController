@@ -71,6 +71,9 @@ const NSInteger kNumberOfImages = 12;
 		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
 		return [UIImage imageNamed:imageName];
 	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
+	[viewController setImageViewConfigurationHandler:^(NSInteger pageIndex, RDImageScrollView *imageView) {
+		imageView.borderColor = [UIColor redColor];
+	}];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;
 	viewController.landscapeMode = RDImageScrollViewResizeModeDisplayFit;

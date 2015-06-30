@@ -18,6 +18,8 @@ typedef NS_ENUM(NSUInteger, RDImageScrollViewResizeMode) {
 
 @property (nonatomic, getter=image, setter=setImage:) UIImage *image;
 @property (nonatomic, assign) RDImageScrollViewResizeMode mode;
+@property (nonatomic, strong) UIColor *borderColor;
+@property (nonatomic, assign) CGFloat borderWidth;
 
 - (void)addGestureRecognizerPriorityHigherThanZoomGestureRecogniser:(UIGestureRecognizer *)gesture;
 - (void)adjustContentAspect;

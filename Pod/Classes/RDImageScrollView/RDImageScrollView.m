@@ -73,6 +73,26 @@ static CGSize kZoomRect = {100, 100};
 	[self adjustContentAspect];
 }
 
+- (void)setBorderColor:(UIColor *)borderColor
+{
+	imageView_.layer.borderColor = borderColor.CGColor;
+}
+
+- (UIColor *)borderColor
+{
+	return [UIColor colorWithCGColor:imageView_.layer.borderColor];
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth
+{
+	imageView_.layer.borderWidth = borderWidth;
+}
+
+- (CGFloat)borderWidth
+{
+	return imageView_.layer.borderWidth;
+}
+
 #pragma mark -
 
 - (void)adjustContentAspect
