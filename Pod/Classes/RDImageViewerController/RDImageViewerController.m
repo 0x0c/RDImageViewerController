@@ -431,10 +431,12 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	imageScrollView.mode = self.landscapeMode;
 	[imageScrollView setZoomScale:1.0];
 	imageScrollView.image = nil;
+
+	[self loadImageAtIndex:index imageScrollView:imageScrollView reuseIdentifier:identifier];
+	
 	if (self.imageViewConfigurationHandler) {
 		self.imageViewConfigurationHandler(index, imageScrollView);
 	}
-	[self loadImageAtIndex:index imageScrollView:imageScrollView reuseIdentifier:identifier];
 	
 	return imageScrollView;
 }
