@@ -433,11 +433,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	imageScrollView.image = nil;
 
 	[self loadImageAtIndex:index imageScrollView:imageScrollView reuseIdentifier:identifier];
-	
-	if (self.imageViewConfigurationHandler) {
-		self.imageViewConfigurationHandler(index, imageScrollView);
-	}
-	
+
 	return imageScrollView;
 }
 
@@ -464,6 +460,9 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		}
 		else {
 			bimagescrollView.image = _imageHandler(index);
+			if (self.imageViewConfigurationHandler) {
+				self.imageViewConfigurationHandler(index, imageScrollView);
+			}
 		}
 	}
 	else if ([identifier isEqualToString:RDImageViewerControllerReuseIdentifierRemoteImage] && self.remoteImageHandler) {
