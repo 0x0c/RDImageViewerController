@@ -42,14 +42,14 @@ extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
 @property (nonatomic, copy) void (^requestCompletionHandler)(NSURLResponse *response, NSData *data, NSError *connectionError);
 @property (nonatomic, copy) UIImage *(^imageDecodeHandler)(NSData *data, NSInteger pageIndex);
 @property (nonatomic, copy) void(^imageViewConfigurationHandler)(NSInteger pageIndex, RDImageScrollView *imageView);
-@property (nonatomic, copy) UIView *(^viewHandler)(NSInteger pageIndex, UIView *reusedView);
+@property (nonatomic, copy) UIView *(^viewHandler)(NSString *identifier, NSInteger pageIndex, UIView *reusedView);
 @property (nonatomic, copy) NSString *(^reuseIdentifierHandler)(NSInteger pageIndex);
-@property (nonatomic, copy) void(^reloadViewHandler)(NSInteger pageIndex, UIView *view);
+@property (nonatomic, copy) void(^reloadViewHandler)(NSString *identifier, NSInteger pageIndex, UIView *view);
 @property (nonatomic, copy) void(^contentViewWillAppearHandler)(NSInteger pageIndex, UIView *view);
 
 - (instancetype)initWithNumberOfPages:(NSInteger)num direction:(RDPagingViewForwardDirection)direction;
 - (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
-- (instancetype)initWithViewHandler:(UIView *(^)(NSInteger pageIndex, UIView *reusedView))viewHandler reuseIdentifier:(NSString *(^)(NSInteger pageIndex))reuseIdentifierHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
+- (instancetype)initWithViewHandler:(UIView *(^)(NSString *reuseIdentifier, NSInteger pageIndex, UIView *reusedView))viewHandler reuseIdentifier:(NSString *(^)(NSInteger pageIndex))reuseIdentifierHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
 - (instancetype)initWithRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
 - (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler completionHandler:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data, NSInteger pageIndex))decodeHandler;
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;

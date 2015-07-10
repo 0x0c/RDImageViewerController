@@ -164,7 +164,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	return self;
 }
 
-- (instancetype)initWithViewHandler:(UIView *(^)(NSInteger pageIndex, UIView *reusedView))viewHandler reuseIdentifier:(NSString *(^)(NSInteger pageIndex))reuseIdentifierHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction
+- (instancetype)initWithViewHandler:(UIView *(^)(NSString *reuseIdentifier, NSInteger pageIndex, UIView *reusedView))viewHandler reuseIdentifier:(NSString *(^)(NSInteger pageIndex))reuseIdentifierHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction
 {
 	self = [self initWithNumberOfPages:pageCount direction:direction];
 	if (self) {
@@ -531,9 +531,10 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (UIView *)contentViewForIndex:(NSInteger)index
 {
-	UIView *view = [self.pagingView dequeueViewWithReuseIdentifier:self.reuseIdentifierHandler(index)];
+	NSString *identifier = self.reuseIdentifierHandler(index);
+	UIView *view = [self.pagingView dequeueViewWithReuseIdentifier:identifier];
 	
-	return self.viewHandler(index, view);
+	return self.viewHandler(identifier, index, view);
 }
 
 - (void)reloadViewAtIndex:(NSInteger)index
@@ -558,7 +559,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 			[self loadImageAtIndex:index imageScrollView:(RDImageScrollView *)view reuseIdentifier:reuseIdentifier];
 		}
 		else {
-			self.reloadViewHandler(index, view);
+			self.reloadViewHandler(reuseIdentifier, index, view);
 		}
 	}
 }

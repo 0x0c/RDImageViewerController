@@ -85,7 +85,7 @@ const NSInteger kNumberOfImages = 12;
 - (IBAction)showView:(id)sender
 {
 	CGRect frame = self.view.bounds;
-	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithViewHandler:^UIView *(NSString *reuseIdentifier, NSInteger pageIndex, UIView *reusedView) {
 		if (reusedView == nil) {
 			UIView *view = [[UIView alloc] initWithFrame:frame];
 			UILabel *label = [[UILabel alloc] initWithFrame:frame];
@@ -162,7 +162,7 @@ const NSInteger kNumberOfImages = 12;
 		return image;
 	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewDirectionLeft : RDPagingViewDirectionRight];
 	CGRect frame = self.view.bounds;
-	[viewController setViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
+	[viewController setViewHandler:^UIView *(NSString *reuseIdentifier, NSInteger pageIndex, UIView *reusedView) {
 		if (reusedView == nil) {
 			UIView *view = [[UIView alloc] initWithFrame:frame];
 			UILabel *label = [[UILabel alloc] initWithFrame:frame];
@@ -202,7 +202,7 @@ const NSInteger kNumberOfImages = 12;
 - (IBAction)showScrollView:(id)sender
 {
 	CGRect frame = self.view.bounds;
-	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithViewHandler:^UIView *(NSString *reuseIdentifier, NSInteger pageIndex, UIView *reusedView) {
 		if (reusedView == nil) {
 			UIScrollView *view = [[UIScrollView alloc] initWithFrame:frame];
 			UILabel *label = [[UILabel alloc] initWithFrame:frame];
