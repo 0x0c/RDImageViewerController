@@ -180,13 +180,22 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
 	self.currentPageHud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-	self.currentPageHud.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-	self.currentPageHud.backgroundColor = [UIColor blackColor];
-	self.currentPageHud.layer.cornerRadius = 10;
-	self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.currentPageHud.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
-	self.currentPageHud.alpha = 0;
+	if (NSFoundationVersionNumber_iOS_7_1 < floor(NSFoundationVersionNumber)) {
+		UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+		blurView.frame = self.currentPageHud.bounds;
+		[self.currentPageHud addSubview:blurView];
+		self.currentPageHud.clipsToBounds = YES;
+		self.currentPageHud.layer.cornerRadius = 15;
+	}
+	else {
+		self.currentPageHud.layer.cornerRadius = 10;
+		self.currentPageHud.backgroundColor = [UIColor blackColor];
+	}
 	self.currentPageHud.layer.borderColor = [UIColor whiteColor].CGColor;
 	self.currentPageHud.layer.borderWidth = 1;
+	self.currentPageHud.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+	self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.currentPageHud.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
+	self.currentPageHud.alpha = 0;
 	
 	_currentPageHudLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, PageLabelFontSize)];
 	self.currentPageHudLabel.backgroundColor = [UIColor clearColor];
@@ -387,7 +396,13 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[UIView animateWithDuration:UINavigationControllerHideShowBarDuration * animated animations:^{
 		CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
 		self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, toolBarPositionY - CGRectGetHeight(self.currentPageHud.frame) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
-		self.currentPageHud.alpha = !hidden * 0.8;
+		if (NSFoundationVersionNumber_iOS_7_1 < floor(NSFoundationVersionNumber)) {
+			self.currentPageHud.alpha = !hidden;
+		}
+		else {
+			self.currentPageHud.alpha = !hidden * 0.8;
+		}
+		
 	} completion:^(BOOL finished) {
 	}];
 }
