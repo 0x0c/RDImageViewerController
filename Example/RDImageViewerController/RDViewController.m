@@ -188,7 +188,7 @@ const NSInteger kNumberOfImages = 12;
 		return RDImageViewerControllerReuseIdentifierImage;
 	}];
 	[viewController setContentViewWillAppearHandler:^(NSInteger index, UIView *view) {
-		NSLog(@"%ld %@", index, [view description]);
+		NSLog(@"%ld %@", (long)index, [view description]);
 	}];
 	viewController.showSlider = sliderSwitch.on;
 	viewController.showPageNumberHud = hudSwitch.on;

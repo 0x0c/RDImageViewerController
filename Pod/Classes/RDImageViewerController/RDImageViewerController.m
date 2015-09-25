@@ -64,7 +64,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
 	return UIInterfaceOrientationMaskAllButUpsideDown;
 }
@@ -180,6 +180,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
 	self.currentPageHud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+	// TODO: use NSFoundationVersionNumber_iOS_9_0
 	if (NSFoundationVersionNumber_iOS_7_1 < floor(NSFoundationVersionNumber)) {
 		UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
 		blurView.frame = self.currentPageHud.bounds;
@@ -396,6 +397,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[UIView animateWithDuration:UINavigationControllerHideShowBarDuration * animated animations:^{
 		CGFloat toolBarPositionY = (self.toolbarItems.count > 0) ? CGRectGetMinY(self.navigationController.toolbar.frame) : CGRectGetHeight(self.view.frame);
 		self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, toolBarPositionY - CGRectGetHeight(self.currentPageHud.frame) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
+		// TODO: use NSFoundationVersionNumber_iOS_9_0
 		if (NSFoundationVersionNumber_iOS_7_1 < floor(NSFoundationVersionNumber)) {
 			self.currentPageHud.alpha = !hidden;
 		}
