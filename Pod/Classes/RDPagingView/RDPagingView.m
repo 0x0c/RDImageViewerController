@@ -78,7 +78,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 
 - (void)setNumberOfPages:(NSInteger)numberOfPages
 {
-	if (RDPagingViewForwardDirectionVertical(self)) {
+	if (RDPagingViewForwardDirectionVertical(self.direction)) {
 		self.contentSize = CGSizeMake(self.bounds.size.width * numberOfPages, self.bounds.size.height);
 	}
 	else {
@@ -161,7 +161,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 		[self.pagingDelegate pagingView:self willChangeViewSize:newSize duration:duration visibleViews:[usingViews_ allObjects]];
 	}
 	NSInteger currentPageIndex = [self indexInScrollView:self.currentPageIndex];
-	if (RDPagingViewForwardDirectionVertical(self)) {
+	if (RDPagingViewForwardDirectionVertical(self.direction)) {
 		self.contentSize = CGSizeMake(self.numberOfPages * newSize.width, newSize.height);
 	}
 	else {
@@ -189,7 +189,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)scrollAtPage:(NSInteger)page
 {
 	self.currentPageIndex = page;
-	if (RDPagingViewForwardDirectionVertical(self)) {
+	if (RDPagingViewForwardDirectionVertical(self.direction)) {
 		[self setContentOffset:CGPointMake([self indexInScrollView:self.currentPageIndex] * self.frame.size.width, 0)];
 	}
 	else {
@@ -231,7 +231,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)loadViewAtIndex:(NSInteger)index
 {
 	UIView *view = [self.pagingDelegate pagingView:self viewForIndex:index];
-	if (RDPagingViewForwardDirectionVertical(self)) {
+	if (RDPagingViewForwardDirectionVertical(self.direction)) {
 		view.frame = CGRectMake([self indexInScrollView:index] * CGRectGetWidth(self.frame), 0, CGRectGetWidth(self.frame) ,CGRectGetHeight(self.frame));
 	}
 	else {
@@ -260,7 +260,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 	CGFloat position = 0;
-	if (RDPagingViewForwardDirectionVertical(self)) {
+	if (RDPagingViewForwardDirectionVertical(self.direction)) {
 		position = scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame);
 	}
 	else {
@@ -269,7 +269,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 
 	self.currentPageIndex = [self indexInScrollView:position + 0.5];
 	if (flag_.pagingViewDidScrollToPosition) {
-		if (RDPagingViewForwardDirectionVertical(self)) {
+		if (RDPagingViewForwardDirectionVertical(self.direction)) {
 			[self.pagingDelegate pagingView:self didScrollToPosition:scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame)];
 		}
 		else {

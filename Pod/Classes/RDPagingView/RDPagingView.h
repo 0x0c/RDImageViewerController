@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define RDPagingViewForwardDirectionVertical(x) (x.direction == RDPagingViewForwardDirectionLeft || x.direction == RDPagingViewForwardDirectionRight)
+#define RDPagingViewForwardDirectionVertical(x) (x == RDPagingViewForwardDirectionLeft || x == RDPagingViewForwardDirectionRight)
 
 typedef NS_ENUM(NSInteger, RDPagingViewForwardDirection) {
 	RDPagingViewForwardDirectionRight,
