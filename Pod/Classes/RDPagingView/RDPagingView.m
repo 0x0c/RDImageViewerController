@@ -169,7 +169,12 @@ static NSInteger const kPreloadDefaultCount = 1;
 	}
 	id delegate = self.delegate;
 	self.delegate = nil;
-	[self setContentOffset:CGPointMake(currentPageIndex * newSize.width, 0)];
+	if (RDPagingViewForwardDirectionVertical(self.direction)) {
+		[self setContentOffset:CGPointMake(currentPageIndex * newSize.width, 0)];
+	}
+	else {
+			[self setContentOffset:CGPointMake(0, currentPageIndex * newSize.height)];
+	}
 	self.delegate = delegate;
 }
 
