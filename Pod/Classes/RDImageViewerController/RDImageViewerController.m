@@ -227,7 +227,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		[self.pagingView scrollAtPage:self.pagingView.currentPageIndex];
 	}
 	
-	if ((self.showSlider == YES || RDPagingViewForwardDirectionVertical(self.pagingView.direction)) && _pageSlider == nil) {
+	if ((self.showSlider == YES && RDPagingViewForwardDirectionVertical(self.pagingView.direction)) && _pageSlider == nil) {
 		_pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame) - 30, 31)];
 		_pageSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		[_pageSlider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
@@ -383,7 +383,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated
 {
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		if (self.toolbarItems.count > 0 || self.showSlider) {
+		if ((self.toolbarItems.count > 0 || self.showSlider) && RDPagingViewForwardDirectionVertical(self.pagingView.direction)) {
 			[self.navigationController setToolbarHidden:hidden animated:animated];
 		}
 		[self.navigationController setNavigationBarHidden:hidden animated:animated];

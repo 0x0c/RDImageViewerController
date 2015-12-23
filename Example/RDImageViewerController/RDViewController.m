@@ -118,7 +118,7 @@ const NSInteger kNumberOfImages = 12;
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithRemoteImageHandler:^NSURLRequest *(NSInteger pageIndex) {
 		NSLog(@"downloading...:%@", [array[pageIndex] absoluteString]);
 		return [NSURLRequest requestWithURL:array[pageIndex]];
-	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewForwardDirectionUp : RDPagingViewForwardDirectionDown];
+	} numberOfImages:kNumberOfImages direction:self.directionSwitch.on ? RDPagingViewForwardDirectionLeft : RDPagingViewForwardDirectionRight];
 	
 //	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
 //		NSLog(@"downloading...:%@", [array[pageIndex] absoluteString]);
