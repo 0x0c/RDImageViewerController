@@ -8,11 +8,21 @@
 
 #import "RDAppDelegate.h"
 
+void uncaughtExceptionHandler(NSException *exception)
+{
+	NSLog(@"### uncaught exception ###");
+	NSLog(@"%@", exception.name);
+	NSLog(@"%@", exception.reason);
+	NSLog(@"%@", exception.callStackSymbols);
+}
+
 @implementation RDAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+
     return YES;
 }
 							

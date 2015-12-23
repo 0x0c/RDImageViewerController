@@ -60,7 +60,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		self.delegate = self;
 		self.pagingEnabled = YES;
-		self.direction = RDPagingViewDirectionRight;
+		self.direction = RDPagingViewForwardDirectionRight;
 		_preloadCount = kPreloadDefaultCount;
 		_numberOfPages = 0;
 		
@@ -78,7 +78,12 @@ static NSInteger const kPreloadDefaultCount = 1;
 
 - (void)setNumberOfPages:(NSInteger)numberOfPages
 {
-	self.contentSize = CGSizeMake(self.bounds.size.width * numberOfPages, self.bounds.size.height);
+	if (RDPagingViewForwardDirectionVertical(self)) {
+		self.contentSize = CGSizeMake(self.bounds.size.width * numberOfPages, self.bounds.size.height);
+	}
+	else {
+		self.contentSize = CGSizeMake(self.bounds.size.width, self.bounds.size.height * numberOfPages);
+	}
 	_numberOfPages = numberOfPages;
 }
 
@@ -114,7 +119,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (NSInteger)indexInScrollView:(NSInteger)index
 {
 	NSInteger trueIndex = index;
-	if (self.direction == RDPagingViewDirectionLeft) {
+	if (self.direction == RDPagingViewForwardDirectionLeft || self.direction == RDPagingViewForwardDirectionUp) {
 		trueIndex = self.numberOfPages - index - 1;
 	}
 	
@@ -130,7 +135,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 	}
 }
 
-- (void)setViewAsUsing:(UIView *)view reuseIdentifier:(NSString *)identifier
+- (void)setViewAsUsingView:(UIView *)view reuseIdentifier:(NSString *)identifier
 {
 	if (view) {
 		[queueDictionary_[identifier] removeObject:view];
@@ -156,7 +161,12 @@ static NSInteger const kPreloadDefaultCount = 1;
 		[self.pagingDelegate pagingView:self willChangeViewSize:newSize duration:duration visibleViews:[usingViews_ allObjects]];
 	}
 	NSInteger currentPageIndex = [self indexInScrollView:self.currentPageIndex];
-	self.contentSize = CGSizeMake(self.numberOfPages * newSize.width, newSize.height);
+	if (RDPagingViewForwardDirectionVertical(self)) {
+		self.contentSize = CGSizeMake(self.numberOfPages * newSize.width, newSize.height);
+	}
+	else {
+		self.contentSize = CGSizeMake(newSize.width, self.numberOfPages * newSize.height);
+	}
 	id delegate = self.delegate;
 	self.delegate = nil;
 	[self setContentOffset:CGPointMake(currentPageIndex * newSize.width, 0)];
@@ -179,12 +189,17 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)scrollAtPage:(NSInteger)page
 {
 	self.currentPageIndex = page;
-	[self setContentOffset:CGPointMake([self indexInScrollView:self.currentPageIndex] * self.frame.size.width, 0)];
+	if (RDPagingViewForwardDirectionVertical(self)) {
+		[self setContentOffset:CGPointMake([self indexInScrollView:self.currentPageIndex] * self.frame.size.width, 0)];
+	}
+	else {
+		[self setContentOffset:CGPointMake(0, [self indexInScrollView:self.currentPageIndex] * self.frame.size.height)];
+	}
 }
 
 - (void)pageIndexWillChangeToIndex:(NSInteger)index
 {
-	NSInteger direction = index - self.currentPageIndex > 0 ? RDPagingViewMovingDirectionForward : (index - self.currentPageIndex < 0 ? RDPagingViewMovingDirectionBackward : 0);
+	RDPagingViewMovingDirection direction = index - self.currentPageIndex > 0 ? RDPagingViewMovingDirectionForward : (index - self.currentPageIndex < 0 ? RDPagingViewMovingDirectionBackward : 0);
 	
 	NSInteger maximumIndex = index + _preloadCount;
 	NSInteger minimumIndex = index - _preloadCount;
@@ -216,9 +231,14 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)loadViewAtIndex:(NSInteger)index
 {
 	UIView *view = [self.pagingDelegate pagingView:self viewForIndex:index];
-	view.frame = CGRectMake([self indexInScrollView:index] * CGRectGetWidth(self.frame), 0, CGRectGetWidth(self.frame) ,CGRectGetHeight(self.frame));
+	if (RDPagingViewForwardDirectionVertical(self)) {
+		view.frame = CGRectMake([self indexInScrollView:index] * CGRectGetWidth(self.frame), 0, CGRectGetWidth(self.frame) ,CGRectGetHeight(self.frame));
+	}
+	else {
+		view.frame = CGRectMake(0, [self indexInScrollView:index] * CGRectGetHeight(self.frame), CGRectGetWidth(self.frame) ,CGRectGetHeight(self.frame));
+	}
 	[view setIndexOfPage:index];
-	[self setViewAsUsing:view reuseIdentifier:[self.pagingDelegate paginView:self reuseIdentifierForIndex:index]];
+	[self setViewAsUsingView:view reuseIdentifier:[self.pagingDelegate paginView:self reuseIdentifierForIndex:index]];
 	[self addSubview:view];
 }
 
@@ -239,10 +259,22 @@ static NSInteger const kPreloadDefaultCount = 1;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat position = scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame);
+	CGFloat position = 0;
+	if (RDPagingViewForwardDirectionVertical(self)) {
+		position = scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame);
+	}
+	else {
+		position = scrollView.contentOffset.y / CGRectGetHeight(scrollView.frame);
+	}
+
 	self.currentPageIndex = [self indexInScrollView:position + 0.5];
 	if (flag_.pagingViewDidScrollToPosition) {
-		[self.pagingDelegate pagingView:self didScrollToPosition:scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame)];
+		if (RDPagingViewForwardDirectionVertical(self)) {
+			[self.pagingDelegate pagingView:self didScrollToPosition:scrollView.contentOffset.x / CGRectGetWidth(scrollView.frame)];
+		}
+		else {
+			[self.pagingDelegate pagingView:self didScrollToPosition:scrollView.contentOffset.y / CGRectGetHeight(scrollView.frame)];
+		}
 	}
 }
 
