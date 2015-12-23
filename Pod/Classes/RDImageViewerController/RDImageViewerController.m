@@ -673,7 +673,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 - (void)pagingViewDidEndDecelerating:(RDPagingView *)pagingView
 {
-	CGFloat page = 0;
+	NSInteger page = 0;
 	if (RDPagingViewForwardDirectionVertical(pagingView.direction)) {
 		page = self.pagingView.contentOffset.x / CGRectGetWidth(self.pagingView.frame);
 	}
@@ -683,13 +683,20 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[pagingView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if ([obj isKindOfClass:[UIScrollView class]]) {
 			UIScrollView *pageView = (UIScrollView *)obj;
+			NSInteger pageIndex = CGRectGetMinY(pageView.frame) / CGRectGetHeight(self.pagingView.frame);
 			if (RDPagingViewForwardDirectionVertical(pagingView.direction)) {
-				if (page != CGRectGetMinX(pageView.frame) / CGRectGetWidth(self.pagingView.frame)) {
+				if (pagingView.pagingEnabled == YES && page != pageIndex) {
+					pageView.zoomScale = 1.0;
+				}
+				else if (pageIndex == pagingView.currentPageIndex - 2 || pageIndex == pagingView.currentPageIndex + 2) {
 					pageView.zoomScale = 1.0;
 				}
 			}
 			else {
-				if (page != CGRectGetMinY(pageView.frame) / CGRectGetHeight(self.pagingView.frame)) {
+				if (pagingView.pagingEnabled == YES && page != pageIndex) {
+					pageView.zoomScale = 1.0;
+				}
+				else if (pageIndex == pagingView.currentPageIndex - 2 || pageIndex == pagingView.currentPageIndex + 2) {
 					pageView.zoomScale = 1.0;
 				}
 			}

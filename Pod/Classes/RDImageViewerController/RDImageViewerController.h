@@ -26,6 +26,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
 @property (nonatomic, assign) NSInteger currentPageIndex;
 @property (nonatomic, readonly) NSInteger numberOfPages;
 @property (nonatomic, assign) NSTimeInterval autoBarsHiddenDuration;
+@property (nonatomic, assign) CGSize contentMergin;
 @property (nonatomic, assign) BOOL restoreBarsState;
 @property (nonatomic, assign) BOOL pagingEnabled;
 @property (nonatomic, assign) BOOL loadAsync;

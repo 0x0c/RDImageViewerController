@@ -63,7 +63,6 @@ static NSInteger const kPreloadDefaultCount = 1;
 		self.direction = RDPagingViewForwardDirectionRight;
 		_preloadCount = kPreloadDefaultCount;
 		_numberOfPages = 0;
-		
 		queueDictionary_ = [NSMutableDictionary new];
 		usingViews_ = [NSMutableSet new];
 	}
@@ -173,7 +172,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 		[self setContentOffset:CGPointMake(currentPageIndex * newSize.width, 0)];
 	}
 	else {
-			[self setContentOffset:CGPointMake(0, currentPageIndex * newSize.height)];
+		[self setContentOffset:CGPointMake(0, currentPageIndex * newSize.height)];
 	}
 	self.delegate = delegate;
 }
@@ -237,10 +236,10 @@ static NSInteger const kPreloadDefaultCount = 1;
 {
 	UIView *view = [self.pagingDelegate pagingView:self viewForIndex:index];
 	if (RDPagingViewForwardDirectionVertical(self.direction)) {
-		view.frame = CGRectMake([self indexInScrollView:index] * CGRectGetWidth(self.frame), 0, CGRectGetWidth(self.frame) ,CGRectGetHeight(self.frame));
+		view.frame = CGRectMake([self indexInScrollView:index] * CGRectGetWidth(self.frame), 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
 	}
 	else {
-		view.frame = CGRectMake(0, [self indexInScrollView:index] * CGRectGetHeight(self.frame), CGRectGetWidth(self.frame) ,CGRectGetHeight(self.frame));
+		view.frame = CGRectMake(0, [self indexInScrollView:index] * CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
 	}
 	[view setIndexOfPage:index];
 	[self setViewAsUsingView:view reuseIdentifier:[self.pagingDelegate paginView:self reuseIdentifierForIndex:index]];
