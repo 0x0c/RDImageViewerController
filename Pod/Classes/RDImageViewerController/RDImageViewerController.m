@@ -352,7 +352,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 #pragma mark -
 
-- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler completionHandler:(void (^)(NSInteger index, NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data, NSInteger pageIndex))decodeHandler
+- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler completionHandler:(void (^)(NSInteger pageIndex, NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data, NSInteger pageIndex))decodeHandler
 {
 	self.remoteImageHandler = remoteImageHandler;
 	self.requestCompletionHandler = completionHandler;
