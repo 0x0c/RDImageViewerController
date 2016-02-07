@@ -352,7 +352,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 #pragma mark -
 
-- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler completionHandler:(void (^)(NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data, NSInteger pageIndex))decodeHandler
+- (void)setRemoteImageHandler:(NSURLRequest *(^)(NSInteger pageIndex))remoteImageHandler completionHandler:(void (^)(NSInteger index, NSURLResponse *response, NSData *data, NSError *connectionError))completionHandler decodeHandler:(UIImage *(^)(NSData *data, NSInteger pageIndex))decodeHandler
 {
 	self.remoteImageHandler = remoteImageHandler;
 	self.requestCompletionHandler = completionHandler;
@@ -490,7 +490,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 		NSURLRequest *request = self.remoteImageHandler(index);
 		rd_M2DURLConnectionOperation *op = [[rd_M2DURLConnectionOperation alloc] initWithRequest:request completeBlock:^(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error) {
 			if (bself.requestCompletionHandler) {
-				bself.requestCompletionHandler(response, data, error);
+				bself.requestCompletionHandler(index, response, data, error);
 			}
 			
 			UIImage *image = nil;
