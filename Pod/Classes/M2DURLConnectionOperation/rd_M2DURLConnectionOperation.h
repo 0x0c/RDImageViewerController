@@ -13,32 +13,24 @@
 
 @protocol rd_M2DURLConnectionOperationDelegate <NSObject>
 
-- (void)connectionOperationDidComplete:(rd_M2DURLConnectionOperation *)operation connection:(NSURLConnection *)connection;
+- (void)connectionOperationDidComplete:(rd_M2DURLConnectionOperation *)operation session:(NSURLSession *)session task:(NSURLSessionTask *)task error:(NSError *)error;
 
 @end
 
-@interface rd_M2DURLConnectionOperation : NSObject <NSURLConnectionDataDelegate>
-{
-	void (^completeBlock_)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error);
-	void (^progressBlock_)(CGFloat progress);
-	CGFloat dataLength_;
-	NSMutableData *data_;
-	NSURLConnection *connection_;
-	NSURLResponse *response_;
-	BOOL executing_;
-}
+@interface rd_M2DURLConnectionOperation : NSObject <NSURLSessionDataDelegate>
 
 @property id<rd_M2DURLConnectionOperationDelegate> delegate;
 @property (nonatomic, readonly) NSURLRequest *request;
 @property (nonatomic, readonly) NSString *identifier;
+@property (nonatomic, strong) NSURLSessionConfiguration *configuration;
 
 + (void)globalStop:(NSString *)identifier;
 - (void)stop;
-- (id)initWithRequest:(NSURLRequest *)request;
-- (id)initWithRequest:(NSURLRequest *)request completeBlock:(void (^)(rd_M2DURLConnectionOperation *operation,NSURLResponse *response, NSData *data, NSError *error))completeBlock;
+- (instancetype)initWithRequest:(NSURLRequest *)request;
+- (instancetype)initWithRequest:(NSURLRequest *)request completeBlock:(void (^)(rd_M2DURLConnectionOperation *op, NSURLResponse *response, NSData *data, NSError *error))completeBlock;
 - (void)setProgressBlock:(void (^)(CGFloat progress))progressBlock;
 - (NSString *)sendRequest;
-- (NSString *)sendRequestWithCompleteBlock:(void (^)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error))completeBlock;
-- (NSString *)sendRequest:(NSURLRequest *)request completeBlock:(void (^)(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error))completeBlock;
+- (NSString *)sendRequestWithCompleteBlock:(void (^)(rd_M2DURLConnectionOperation *op, NSURLResponse *response, NSData *data, NSError *error))completeBlock;
+- (NSString *)sendRequest:(NSURLRequest *)request completeBlock:(void (^)(rd_M2DURLConnectionOperation *op, NSURLResponse *response, NSData *data, NSError *error))completeBlock;
 
 @end
