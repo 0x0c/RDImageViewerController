@@ -121,6 +121,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 {
 	self = [super init];
 	if (self) {
+		self.configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
 		self.maximumZoomScale = kDefaultMaximumZoomScale;
 		self.landscapeMode = RDImageScrollViewResizeModeAspectFit;
 		self.pagingView = [[RDPagingView alloc] initWithFrame:self.view.bounds];
@@ -513,6 +514,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 				[bself popImageOperation];
 			}
 		}];
+		op.configuration = self.configuration;
 		[self pushImageOperation:op];
 	}
 	[bimagescrollView adjustContentAspect];

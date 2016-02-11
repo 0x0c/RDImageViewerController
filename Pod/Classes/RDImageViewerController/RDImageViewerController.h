@@ -47,6 +47,7 @@ extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
 @property (nonatomic, copy) NSString *(^reuseIdentifierHandler)(NSInteger pageIndex);
 @property (nonatomic, copy) void(^reloadViewHandler)(NSString *identifier, NSInteger pageIndex, UIView *view);
 @property (nonatomic, copy) void(^contentViewWillAppearHandler)(NSInteger pageIndex, UIView *view);
+@property (nonatomic, strong) NSURLSessionConfiguration *configuration;
 
 - (instancetype)initWithNumberOfPages:(NSInteger)num direction:(RDPagingViewForwardDirection)direction;
 - (instancetype)initWithImageHandler:(UIImage *(^)(NSInteger pageIndex))imageHandler numberOfImages:(NSInteger)pageCount direction:(RDPagingViewForwardDirection)direction;
