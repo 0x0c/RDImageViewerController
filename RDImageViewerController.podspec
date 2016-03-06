@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RDImageViewerController"
-s.version          = "1.0.0"
+  s.version          = "1.0.0"
   s.summary          = "Simple but powerful image viewer."
   s.homepage         = "https://github.com/0x0c/RDImageViewerController"
   # s.screenshots     = "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/1.png", "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/2.png", "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/view_and_image.png"
@@ -17,7 +17,7 @@ s.version          = "1.0.0"
   s.author           = { "Akira Matsuda" => "akira.m.itachi@gmail.com" }
   s.source           = { :git => "https://github.com/0x0c/RDImageViewerController.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '7.1'
+  s.platform     = :ios, '7.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*.{h,m}'
