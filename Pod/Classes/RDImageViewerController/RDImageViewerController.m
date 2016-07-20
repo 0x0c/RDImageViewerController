@@ -30,6 +30,7 @@ static const NSInteger PageLabelFontSize = 17;
 {
 	RDImageViewerControllerDelegateFlag delegateFlag;
 	BOOL statusBarHidden_;
+	NSInteger previousPageIndex_;
 }
 
 @property (nonatomic, strong) RDPagingView *pagingView;
@@ -117,9 +118,19 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	}];
 }
 
-- (instancetype)initWithNumberOfPages:(NSInteger)num direction:(RDPagingViewForwardDirection)direction
+- (instancetype)init
 {
 	self = [super init];
+	if (self) {
+		previousPageIndex_ = 0;
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithNumberOfPages:(NSInteger)num direction:(RDPagingViewForwardDirection)direction
+{
+	self = [self init];
 	if (self) {
 		self.configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
 		self.maximumZoomScale = kDefaultMaximumZoomScale;
@@ -673,32 +684,32 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 	[self reloadPageHud];
 }
 
+- (void)pagingViewWillBeginDragging:(RDPagingView *)pagingView
+{
+	if (pagingView.dragging == NO) {
+		previousPageIndex_ = self.currentPageIndex;
+	}
+}
+
 - (void)pagingViewDidEndDecelerating:(RDPagingView *)pagingView
 {
-	NSInteger page = 0;
-	if (RDPagingViewForwardDirectionVertical(pagingView.direction)) {
-		page = self.pagingView.contentOffset.x / CGRectGetWidth(self.pagingView.frame);
-	}
-	else {
-		page = self.pagingView.contentOffset.y / CGRectGetHeight(self.pagingView.frame);
-	}
+	NSInteger page = self.currentPageIndex;
 	[pagingView.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if ([obj isKindOfClass:[UIScrollView class]]) {
 			UIScrollView *pageView = (UIScrollView *)obj;
-			NSInteger pageIndex = CGRectGetMinY(pageView.frame) / CGRectGetHeight(self.pagingView.frame);
 			if (RDPagingViewForwardDirectionVertical(pagingView.direction)) {
-				if (pagingView.pagingEnabled == YES && page != pageIndex) {
+				if (pagingView.pagingEnabled == YES && page != previousPageIndex_) {
 					pageView.zoomScale = 1.0;
 				}
-				else if (pageIndex == pagingView.currentPageIndex - 2 || pageIndex == pagingView.currentPageIndex + 2) {
+				else if (previousPageIndex_ == pagingView.currentPageIndex - 2 || previousPageIndex_ == pagingView.currentPageIndex + 2) {
 					pageView.zoomScale = 1.0;
 				}
 			}
 			else {
-				if (pagingView.pagingEnabled == YES && page != pageIndex) {
+				if (pagingView.pagingEnabled == YES && page != previousPageIndex_) {
 					pageView.zoomScale = 1.0;
 				}
-				else if (pageIndex == pagingView.currentPageIndex - 2 || pageIndex == pagingView.currentPageIndex + 2) {
+				else if (previousPageIndex_ == pagingView.currentPageIndex - 2 || previousPageIndex_ == pagingView.currentPageIndex + 2) {
 					pageView.zoomScale = 1.0;
 				}
 			}
