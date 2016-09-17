@@ -24,16 +24,16 @@ typedef struct {
 @implementation UIView (RDPagingView)
 
 static NSString *const kRDPagingViewIndexOfPage = @"RDPagingViewIndexOfPage";
-@dynamic indexOfPage;
+@dynamic pageIndex;
 
-- (NSInteger)indexOfPage
+- (NSInteger)pageIndex
 {
 	return [(NSNumber *)objc_getAssociatedObject(self, (__bridge const void *)(kRDPagingViewIndexOfPage)) integerValue];
 }
 
-- (void)setIndexOfPage:(NSInteger)indexOfPage
+- (void)setPageIndex:(NSInteger)pageIndex
 {
-	objc_setAssociatedObject(self, (__bridge const void *)(kRDPagingViewIndexOfPage), @(indexOfPage), OBJC_ASSOCIATION_RETAIN);
+	objc_setAssociatedObject(self, (__bridge const void *)(kRDPagingViewIndexOfPage), @(pageIndex), OBJC_ASSOCIATION_RETAIN);
 }
 
 @end
@@ -209,8 +209,8 @@ static NSInteger const kPreloadDefaultCount = 1;
 	NSInteger minimumIndex = index - _preloadCount;
 	[usingViews_ enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
 		UIView *view = obj;
-		if (view.indexOfPage < minimumIndex || view.indexOfPage > maximumIndex) {
-			[self setViewAsPrepared:view reuseIdentifier:[self.pagingDelegate paginView:self reuseIdentifierForIndex:view.indexOfPage]];
+		if (view.pageIndex < minimumIndex || view.pageIndex > maximumIndex) {
+			[self setViewAsPrepared:view reuseIdentifier:[self.pagingDelegate paginView:self reuseIdentifierForIndex:view.pageIndex]];
 		}
 	}];
 	
@@ -241,7 +241,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 	else {
 		view.frame = CGRectMake(0, [self indexInScrollView:index] * CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
 	}
-	[view setIndexOfPage:index];
+	[view setPageIndex:index];
 	[self setViewAsUsingView:view reuseIdentifier:[self.pagingDelegate paginView:self reuseIdentifierForIndex:index]];
 	[self addSubview:view];
 }
@@ -250,7 +250,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 {
 	UIView *result = nil;
 	for (UIView *view in usingViews_) {
-		if (view.indexOfPage == index) {
+		if (view.pageIndex == index) {
 			result = view;
 			break;
 		}
