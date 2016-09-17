@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, RDPagingViewMovingDirection) {
 
 @interface UIView (RDPagingView)
 
-@property (nonatomic, readonly) NSInteger indexOfPage;
+@property (nonatomic, readonly) NSInteger pageIndex;
 
 @end
 

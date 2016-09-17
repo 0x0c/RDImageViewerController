@@ -23,6 +23,8 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		E3A3A445DE0F421C9D66D081 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADF8DB7BCBB4D47A97E8F2C /* libPods-Tests.a */; };
+		E90C11501D8E022000630F12 /* RDViewPageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E90C114F1D8E022000630F12 /* RDViewPageContentData.m */; };
+		E90C11531D8E022800630F12 /* RDScrollViewPageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E90C11521D8E022800630F12 /* RDScrollViewPageContentData.m */; };
 		E90E268A1A34981000F1F54A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90E26881A34981000F1F54A /* LaunchScreen.xib */; };
 		E919D29119D8005C003F4BD0 /* RDImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E919D29019D8005C003F4BD0 /* RDImageScrollView.m */; };
 		E919D29619D80683003F4BD0 /* RDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E919D29519D80683003F4BD0 /* RDPagingView.m */; };
@@ -37,6 +39,9 @@
 		E919D2AA19D82F8E003F4BD0 /* 8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A019D82F8E003F4BD0 /* 8.JPG */; };
 		E919D2AB19D82F8E003F4BD0 /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A119D82F8E003F4BD0 /* 9.JPG */; };
 		E928DBE01AB2011C00594AAD /* rd_M2DURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E928DBDF1AB2011C00594AAD /* rd_M2DURLConnectionOperation.m */; };
+		E9437D751D8DF4BC003DC413 /* RDPageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E9437D741D8DF4BC003DC413 /* RDPageContentData.m */; };
+		E9437D781D8DF59A003DC413 /* RDRemoteImageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E9437D771D8DF59A003DC413 /* RDRemoteImageContentData.m */; };
+		E9437D7B1D8DF5A4003DC413 /* RDImageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E9437D7A1D8DF5A4003DC413 /* RDImageContentData.m */; };
 		E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */; };
 		E9B106601AB760DA000DEEE4 /* 11.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9B1065F1AB760DA000DEEE4 /* 11.JPG */; };
 		E9B106621AB76127000DEEE4 /* 12.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9B106611AB76127000DEEE4 /* 12.JPG */; };
@@ -80,6 +85,10 @@
 		89025E39FA3270FE8EDDEEB7 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RDImageViewerController.podspec; path = ../RDImageViewerController.podspec; sourceTree = "<group>"; };
 		8908584DC4E04959ABA607A8 /* libPods-RDImageViewerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RDImageViewerController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6BEC608C2E338A1EFB29850 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		E90C114E1D8E022000630F12 /* RDViewPageContentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDViewPageContentData.h; sourceTree = "<group>"; };
+		E90C114F1D8E022000630F12 /* RDViewPageContentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDViewPageContentData.m; sourceTree = "<group>"; };
+		E90C11511D8E022800630F12 /* RDScrollViewPageContentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDScrollViewPageContentData.h; sourceTree = "<group>"; };
+		E90C11521D8E022800630F12 /* RDScrollViewPageContentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDScrollViewPageContentData.m; sourceTree = "<group>"; };
 		E90E26891A34981000F1F54A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E919D28F19D8005C003F4BD0 /* RDImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageScrollView.h; sourceTree = "<group>"; };
 		E919D29019D8005C003F4BD0 /* RDImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageScrollView.m; sourceTree = "<group>"; };
@@ -97,6 +106,12 @@
 		E919D2A119D82F8E003F4BD0 /* 9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.JPG; sourceTree = "<group>"; };
 		E928DBDE1AB2011C00594AAD /* rd_M2DURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rd_M2DURLConnectionOperation.h; sourceTree = "<group>"; };
 		E928DBDF1AB2011C00594AAD /* rd_M2DURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rd_M2DURLConnectionOperation.m; sourceTree = "<group>"; };
+		E9437D731D8DF4BC003DC413 /* RDPageContentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDPageContentData.h; sourceTree = "<group>"; };
+		E9437D741D8DF4BC003DC413 /* RDPageContentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDPageContentData.m; sourceTree = "<group>"; };
+		E9437D761D8DF59A003DC413 /* RDRemoteImageContentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDRemoteImageContentData.h; sourceTree = "<group>"; };
+		E9437D771D8DF59A003DC413 /* RDRemoteImageContentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDRemoteImageContentData.m; sourceTree = "<group>"; };
+		E9437D791D8DF5A4003DC413 /* RDImageContentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageContentData.h; sourceTree = "<group>"; };
+		E9437D7A1D8DF5A4003DC413 /* RDImageContentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageContentData.m; sourceTree = "<group>"; };
 		E96FFD8019CE7970008ADEDF /* RDImageViewerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDImageViewerController.h; sourceTree = "<group>"; };
 		E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageViewerController.m; sourceTree = "<group>"; };
 		E9B1065F1AB760DA000DEEE4 /* 11.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 11.JPG; sourceTree = "<group>"; };
@@ -174,6 +189,7 @@
 				6003F59D195388D20070C39A /* RDAppDelegate.m */,
 				6003F5A5195388D20070C39A /* RDViewController.h */,
 				6003F5A6195388D20070C39A /* RDViewController.m */,
+				E90C114D1D8E020D00630F12 /* SampleDataClass */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -222,6 +238,17 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		E90C114D1D8E020D00630F12 /* SampleDataClass */ = {
+			isa = PBXGroup;
+			children = (
+				E90C114E1D8E022000630F12 /* RDViewPageContentData.h */,
+				E90C114F1D8E022000630F12 /* RDViewPageContentData.m */,
+				E90C11511D8E022800630F12 /* RDScrollViewPageContentData.h */,
+				E90C11521D8E022800630F12 /* RDScrollViewPageContentData.m */,
+			);
+			path = SampleDataClass;
+			sourceTree = "<group>";
+		};
 		E919D28E19D80053003F4BD0 /* RDImageScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,9 +295,39 @@
 			path = M2DURLConnectionOperation;
 			sourceTree = "<group>";
 		};
+		E9437D701D8DF414003DC413 /* RDPageContentData */ = {
+			isa = PBXGroup;
+			children = (
+				E9437D711D8DF414003DC413 /* RDImageContentData */,
+				E9437D721D8DF414003DC413 /* RDRemoteImageContentData */,
+				E9437D731D8DF4BC003DC413 /* RDPageContentData.h */,
+				E9437D741D8DF4BC003DC413 /* RDPageContentData.m */,
+			);
+			path = RDPageContentData;
+			sourceTree = "<group>";
+		};
+		E9437D711D8DF414003DC413 /* RDImageContentData */ = {
+			isa = PBXGroup;
+			children = (
+				E9437D791D8DF5A4003DC413 /* RDImageContentData.h */,
+				E9437D7A1D8DF5A4003DC413 /* RDImageContentData.m */,
+			);
+			path = RDImageContentData;
+			sourceTree = "<group>";
+		};
+		E9437D721D8DF414003DC413 /* RDRemoteImageContentData */ = {
+			isa = PBXGroup;
+			children = (
+				E9437D761D8DF59A003DC413 /* RDRemoteImageContentData.h */,
+				E9437D771D8DF59A003DC413 /* RDRemoteImageContentData.m */,
+			);
+			path = RDRemoteImageContentData;
+			sourceTree = "<group>";
+		};
 		E96FFD7A19CE7970008ADEDF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E9437D701D8DF414003DC413 /* RDPageContentData */,
 				E928DBDD1AB2011C00594AAD /* M2DURLConnectionOperation */,
 				E919D29319D80679003F4BD0 /* RDPagingView */,
 				E919D28E19D80053003F4BD0 /* RDImageScrollView */,
@@ -346,7 +403,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RD;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Akira Matsuda";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
@@ -480,10 +537,15 @@
 			files = (
 				E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */,
 				6003F59E195388D20070C39A /* RDAppDelegate.m in Sources */,
+				E9437D781D8DF59A003DC413 /* RDRemoteImageContentData.m in Sources */,
+				E9437D7B1D8DF5A4003DC413 /* RDImageContentData.m in Sources */,
 				E919D29119D8005C003F4BD0 /* RDImageScrollView.m in Sources */,
 				6003F5A7195388D20070C39A /* RDViewController.m in Sources */,
+				E90C11531D8E022800630F12 /* RDScrollViewPageContentData.m in Sources */,
+				E90C11501D8E022000630F12 /* RDViewPageContentData.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				E919D29619D80683003F4BD0 /* RDPagingView.m in Sources */,
+				E9437D751D8DF4BC003DC413 /* RDPageContentData.m in Sources */,
 				E928DBE01AB2011C00594AAD /* rd_M2DURLConnectionOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,14 +617,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -575,7 +642,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -595,20 +662,25 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -626,7 +698,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RDImageViewerController/RDImageViewerController-Prefix.pch";
 				INFOPLIST_FILE = "RDImageViewerController/RDImageViewerController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -646,7 +718,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RDImageViewerController/RDImageViewerController-Prefix.pch";
 				INFOPLIST_FILE = "RDImageViewerController/RDImageViewerController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
