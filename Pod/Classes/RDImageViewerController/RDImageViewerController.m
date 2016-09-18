@@ -47,9 +47,6 @@ static const NSInteger PageLabelFontSize = 17;
 
 @implementation RDImageViewerController
 
-NSString *const RDImageViewerControllerReuseIdentifierImage = @"RDImageViewerControllerReuseIdentifierImage";
-NSString *const RDImageViewerControllerReuseIdentifierRemoteImage = @"RDImageViewerControllerReuseIdentifierRemoteImage";
-
 static NSInteger kPreloadDefaultCount = 1;
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation

@@ -19,18 +19,13 @@
 
 @interface RDImageViewerController : UIViewController <RDPagingViewDelegate, UIScrollViewDelegate>
 
-extern NSString *const RDImageViewerControllerReuseIdentifierImage;
-extern NSString *const RDImageViewerControllerReuseIdentifierRemoteImage;
-
 @property (nonatomic, assign) id<RDImageViewerControllerDelegate>delegate;
 @property (nonatomic) NSUInteger preloadCount;
 @property (nonatomic, assign) NSInteger currentPageIndex;
 @property (nonatomic, readonly) NSInteger numberOfPages;
 @property (nonatomic, assign) NSTimeInterval autoBarsHiddenDuration;
-@property (nonatomic, assign) CGSize contentMergin;
 @property (nonatomic, assign) BOOL restoreBarsState;
 @property (nonatomic, assign) BOOL pagingEnabled;
-@property (nonatomic, assign) BOOL loadAsync;
 @property (nonatomic, assign) BOOL showSlider;
 @property (nonatomic, assign) BOOL showPageNumberHud;
 @property (nonatomic, copy) UIColor *pageSliderMaximumTrackTintColor;
