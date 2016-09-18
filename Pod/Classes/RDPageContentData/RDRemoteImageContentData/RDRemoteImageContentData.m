@@ -12,6 +12,7 @@
 
 @interface RDRemoteImageContentData ()
 
+@property (nonatomic, strong) RDImageScrollView *imageView;
 @property (nonatomic, strong) rd_M2DURLConnectionOperation *operation;
 @property (nonatomic, strong) NSURLRequest *request;
 @property (nonatomic, assign) NSInteger pageIndex;
@@ -49,6 +50,7 @@
 - (void)preload
 {
 	if (self.image == nil) {
+		self.imageView = nil;
 		__weak typeof(self) bself = self;
 		self.operation = [[rd_M2DURLConnectionOperation alloc] initWithRequest:self.request completeBlock:^(rd_M2DURLConnectionOperation *operation, NSURLResponse *response, NSData *data, NSError *error) {
 			if (bself.requestCompletionHandler) {
@@ -75,6 +77,7 @@
 
 - (void)reload
 {
+	self.image = nil;
 	[self preload];
 }
 
@@ -83,10 +86,11 @@
 	[super configureForView:view];
 	if (self.image == nil) {
 		RDImageScrollView *imageView = (RDImageScrollView *)view;
+		self.imageView = imageView;
 		__weak typeof(self) bself = self;
 		__weak typeof(imageView) bimageView = imageView;
 		self.lazyConfigurationHandler = ^(UIImage *image) {
-			if (bimageView.pageIndex == bself.pageIndex) {
+			if (bimageView == bself.imageView) {
 				dispatch_async(dispatch_get_main_queue(), ^{
 					bimageView.image = image;
 				});
