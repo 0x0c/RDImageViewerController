@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol RDPageContentDataDelegate <NSObject>
-
+@required
 + (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame;
 - (void)preload;
 - (void)stopPreloading;
