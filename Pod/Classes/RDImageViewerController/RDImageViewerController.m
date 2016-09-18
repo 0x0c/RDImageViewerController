@@ -217,27 +217,29 @@ static NSInteger kPreloadDefaultCount = 1;
 		[self.pagingView scrollAtPage:self.pagingView.currentPageIndex];
 	}
 	
-	if ((self.showSlider == YES && RDPagingViewForwardDirectionVertical(self.pagingView.direction)) && _pageSlider == nil) {
-		_pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame) - 30, 31)];
-		_pageSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		[_pageSlider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
-		[_pageSlider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
-		UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:_pageSlider];
-		self.toolbarItems = @[sliderItem];
-		if (RDPagingViewForwardDirectionVertical(self.pagingView.direction)) {
-			if (self.pagingView.direction == RDPagingViewForwardDirectionRight) {
-				_pageSlider.value = (CGFloat)self.pagingView.currentPageIndex / (self.pagingView.numberOfPages - 1);
+	if (self.contentData.count) {
+		if ((self.showSlider == YES && RDPagingViewForwardDirectionVertical(self.pagingView.direction)) && _pageSlider == nil) {
+			_pageSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame) - 30, 31)];
+			_pageSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+			[_pageSlider addTarget:self action:@selector(sliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
+			[_pageSlider addTarget:self action:@selector(sliderDidTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+			UIBarButtonItem *sliderItem = [[UIBarButtonItem alloc] initWithCustomView:_pageSlider];
+			self.toolbarItems = @[sliderItem];
+			if (RDPagingViewForwardDirectionVertical(self.pagingView.direction)) {
+				if (self.pagingView.direction == RDPagingViewForwardDirectionRight) {
+					_pageSlider.value = (CGFloat)self.pagingView.currentPageIndex / (self.pagingView.numberOfPages - 1);
+				}
+				else {
+					_pageSlider.value = 1 - (CGFloat)self.pagingView.currentPageIndex / (self.pagingView.numberOfPages - 1);
+				}
 			}
-			else {
-				_pageSlider.value = 1 - (CGFloat)self.pagingView.currentPageIndex / (self.pagingView.numberOfPages - 1);
-			}
+			self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.currentPageHud.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
+			[self applySliderTintColor];
 		}
-		self.currentPageHud.frame = CGRectMake(self.view.center.x - CGRectGetWidth(self.currentPageHud.frame) / 2, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.currentPageHud.frame) - 50 * (self.toolbarItems.count > 0) - 10, CGRectGetWidth(self.currentPageHud.frame), CGRectGetHeight(self.currentPageHud.frame));
-		[self applySliderTintColor];
-	}
-	if (self.showPageNumberHud == YES) {
-		[self setPageHudNumberWithPageIndex:self.pagingView.currentPageIndex];
-		[self.view addSubview:self.currentPageHud];
+		if (self.showPageNumberHud == YES) {
+			[self setPageHudNumberWithPageIndex:self.pagingView.currentPageIndex];
+			[self.view addSubview:self.currentPageHud];
+		}
 	}
 }
 
