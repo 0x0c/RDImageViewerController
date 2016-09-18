@@ -167,8 +167,7 @@ static NSInteger kPreloadDefaultCount = 1;
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
 	self.currentPageHud = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-	// TODO: use NSFoundationVersionNumber_iOS_9_0
-	if (NSFoundationVersionNumber_iOS_7_1 < floor(NSFoundationVersionNumber)) {
+	if (NSFoundationVersionNumber_iOS_8_0 <= floor(NSFoundationVersionNumber)) {
 		UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
 		blurView.frame = self.currentPageHud.bounds;
 		[self.currentPageHud addSubview:blurView];
