@@ -12,8 +12,8 @@ Simple image or custom view viewer.
 ![](https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Screenshot/view_and_image.png)
 
 ## Requirements
+- Runs on iOS 8.0 or later.
 
-- Runs on iOS 7.0 or later.
 
 ## Installation
 
@@ -26,31 +26,28 @@ it, simply add the following line to your Podfile:
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-Initialize RDImageViewerController with number of images and image handler.
+Initialize RDImageViewerController with page data.
 
-	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithImageHandler:^UIImage *(NSInteger pageIndex) {
-		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)pageIndex + 1];
-		return [UIImage imageNamed:imageName];
-	} numberOfImage:10 direction:RDPagingViewDirectionRight];
+	NSMutableArray <RDPageContentData *> *contentData = [NSMutableArray new];
+	for (NSInteger i = 0; i < kNumberOfImages; i++) {
+		NSString *imageName = [NSString stringWithFormat:@"%ld.JPG", (long)i + 1];
+		RDImageContentData *data = [[RDImageContentData alloc] initWithImageName:imageName];
+		[contentData addObject:data];
+	}
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithContentData:contentData direction:self.directionSwitch.on ? RDPagingViewForwardDirectionLeft : RDPagingViewForwardDirectionRight];
 
-You can show a custom view like this.
+You can show a custom view like this (See `RDScrollViewPageContentData` class).
 
-	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithViewHandler:^UIView *(NSInteger pageIndex, UIView *reusedView) {
-		if (reusedView == nil) {
-			// create new view
-		}
-		// customize view
-		return reusedView;
-	} reuseIdentifier:^NSString *(NSInteger pageIndex) {
-		return @"view";
-	} numberOfImages:10 direction:RDPagingViewDirectionRight];
+	NSMutableArray <RDPageContentData *> *contentData = [NSMutableArray new];
+	for (NSInteger i = 0; i < kNumberOfImages; i++) {
+		RDScrollViewPageContentData *data = [[RDScrollViewPageContentData alloc] initWithString:[NSString stringWithFormat:@"%ld", (long)i + 1]];
+		[contentData addObject:data];
+	}
+	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithContentData:contentData direction:self.directionSwitch.on ? RDPagingViewForwardDirectionLeft : RDPagingViewForwardDirectionRight];
+
+To create own page, inherit the `RDPageContentData` class and implement `RDPageContentDataDelegate` methods.
 
 Please check the sample code to know how to use.
-
-To load asynchronous, do this
-
-	RDImageViewerController *viewController = ...
-	viewController.loadAsync = YES;
 
 The property of 'landscapeMode' is meaning zooming style in landscape.
 If it is setted RDImageViewerControllerLandscapeModeAspectFit
