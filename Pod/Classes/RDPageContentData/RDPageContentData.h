@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 
 @protocol RDPageContentDataDelegate <NSObject>
+@optional
+- (BOOL)preloadable;
 @required
 + (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame;
 - (void)preload;

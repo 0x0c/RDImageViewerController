@@ -38,4 +38,9 @@
 	@throw [NSException exceptionWithName:NSGenericException reason:@"You have to override this method." userInfo:nil];
 }
 
+- (BOOL)preloadable
+{
+	return YES;
+}
+
 @end
