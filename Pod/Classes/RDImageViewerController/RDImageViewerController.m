@@ -433,7 +433,9 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	RDPageContentData *data = self.contentData[index];
 	UIView *view = [[data class] contentViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(pageView.bounds), CGRectGetHeight(pageView.bounds))];
-	[data preload];
+	if (data.preloadable) {
+		[data preload];
+	}
 	[data configureForView:view];
 	if ([view isKindOfClass:[RDImageScrollView class]]) {
 		RDImageScrollView *imageScrollView = (RDImageScrollView *)view;
