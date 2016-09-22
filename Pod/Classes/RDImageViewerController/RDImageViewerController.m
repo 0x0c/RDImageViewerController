@@ -417,7 +417,9 @@ static NSInteger kPreloadDefaultCount = 1;
 	RDPageContentData *data = self.contentData[index];
 	[data reload];
 	UIView *view = [self.pagingView viewForIndex:index];
-	[data configureForView:view];
+	if (view) {
+		[data configureForView:view];
+	}
 }
 
 #pragma mark - RDPagingViewDelegate
