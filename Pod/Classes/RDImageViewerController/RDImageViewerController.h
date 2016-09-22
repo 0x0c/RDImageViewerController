@@ -41,5 +41,6 @@
 - (void)setBarHiddenByTapGesture;
 - (void)cancelAutoBarHidden;
 - (void)reloadViewAtIndex:(NSInteger)index;
+- (void)refreshViewAtIndex:(NSInteger)index;
 
 @end
