@@ -416,6 +416,12 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	RDPageContentData *data = self.contentData[index];
 	[data reload];
+	[self refreshViewAtIndex:index];
+}
+
+- (void)refreshViewAtIndex:(NSInteger)index
+{
+	RDPageContentData *data = self.contentData[index];
 	UIView *view = [self.pagingView viewForIndex:index];
 	if (view) {
 		[data configureForView:view];
