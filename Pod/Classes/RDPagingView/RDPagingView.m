@@ -11,6 +11,7 @@
 
 typedef struct {
 	BOOL pagingViewWillChangeViewSize;
+	BOOL pagingViewWillViewDequeue;
 	BOOL pagingViewWillViewEnqueue;
 	BOOL pagingViewWillChangeIndexTo;
 	BOOL pagingViewDidScrollToPosition;
@@ -91,6 +92,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 	_pagingDelegate = pagingDelegate;
 	
 	flag_.pagingViewWillChangeViewSize = [pagingDelegate respondsToSelector:@selector(pagingView:willChangeViewSize:duration:visibleViews:)];
+	flag_.pagingViewWillViewDequeue = [pagingDelegate respondsToSelector:@selector(pagingView:willViewDequeue:)];
 	flag_.pagingViewWillViewEnqueue = [pagingDelegate respondsToSelector:@selector(pagingView:willViewEnqueue:)];
 	flag_.pagingViewWillChangeIndexTo = [pagingDelegate respondsToSelector:@selector(pagingView:willChangeIndexTo:)];
 	flag_.pagingViewDidScrollToPosition = [pagingDelegate respondsToSelector:@selector(pagingView:didScrollToPosition:)];
@@ -128,6 +130,9 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)setViewAsPrepared:(UIView *)view reuseIdentifier:(NSString *)identifier
 {
 	if (view) {
+		if (flag_.pagingViewWillViewEnqueue) {
+			[self.pagingDelegate pagingView:self willViewEnqueue:view];
+		}
 		[view removeFromSuperview];
 		[usingViews_ removeObject:view];
 		[queueDictionary_[identifier] addObject:view];
@@ -137,6 +142,9 @@ static NSInteger const kPreloadDefaultCount = 1;
 - (void)setViewAsUsingView:(UIView *)view reuseIdentifier:(NSString *)identifier
 {
 	if (view) {
+		if (flag_.pagingViewWillViewDequeue) {
+			[self.pagingDelegate pagingView:self willViewDequeue:view];
+		}
 		[queueDictionary_[identifier] removeObject:view];
 		[usingViews_ addObject:view];
 	}
