@@ -33,6 +33,7 @@ static const NSInteger PageLabelFontSize = 17;
 	NSInteger previousPageIndex_;
 }
 
+@property (nonatomic, strong) UISelectionFeedbackGenerator *feedbackGenerator;
 @property (nonatomic, assign) RDImageViewerControllerDelegateFlag delegateFlag;
 @property (nonatomic, strong) RDPagingView *pagingView;
 @property (nonatomic, strong) UIView *currentPageHud;
@@ -121,6 +122,8 @@ static NSInteger kPreloadDefaultCount = 1;
 {
 	self = [super init];
 	if (self) {
+		self.feedbackGenerator = [UISelectionFeedbackGenerator new];
+		[self.feedbackGenerator prepare];
 		previousPageIndex_ = 0;
 	}
 	
@@ -399,6 +402,9 @@ static NSInteger kPreloadDefaultCount = 1;
 	UISlider *slider = sender;
 	CGFloat trueValue = self.pagingView.direction == RDPagingViewForwardDirectionRight ? slider.value : 1 - slider.value;
 	CGFloat page = trueValue * (self.pagingView.numberOfPages - 1);
+	if (self.currentPageIndex != (NSInteger)page) {
+		[self.feedbackGenerator selectionChanged];
+	}
 	[self.pagingView scrollAtPage:page];
 }
 
