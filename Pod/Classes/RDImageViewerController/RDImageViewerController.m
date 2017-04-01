@@ -373,9 +373,11 @@ static NSInteger kPreloadDefaultCount = 1;
 		[self.navigationController setNavigationBarHidden:hidden animated:animated];
 		[self setHudHidden:hidden animated:animated];
 	});
-	[[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
-	
 	statusBarHidden_ = hidden;
+	BOOL viewBasedAppearance = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"] boolValue];
+	if (viewBasedAppearance == NO) {
+		[[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
+	}
 }
 
 - (void)setHudHidden:(BOOL)hidden animated:(BOOL)animated
