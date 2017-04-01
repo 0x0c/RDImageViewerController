@@ -366,17 +366,18 @@ static NSInteger kPreloadDefaultCount = 1;
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated
 {
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		if ((self.toolbarItems.count > 0 || self.showSlider) && RDPagingViewForwardDirectionVertical(self.pagingView.direction)) {
-			[self.navigationController setToolbarHidden:hidden animated:animated];
-		}
-		[self.navigationController setNavigationBarHidden:hidden animated:animated];
-		[self setHudHidden:hidden animated:animated];
-	});
+	if ((self.toolbarItems.count > 0 || self.showSlider) && RDPagingViewForwardDirectionVertical(self.pagingView.direction)) {
+		[self.navigationController setToolbarHidden:hidden animated:animated];
+	}
+	[self.navigationController setNavigationBarHidden:hidden animated:animated];
+	[self setHudHidden:hidden animated:animated];
 	statusBarHidden_ = hidden;
 	BOOL viewBasedAppearance = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"] boolValue];
 	if (viewBasedAppearance == NO) {
 		[[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
+	}
+	else {
+		[self setNeedsStatusBarAppearanceUpdate];
 	}
 }
 
