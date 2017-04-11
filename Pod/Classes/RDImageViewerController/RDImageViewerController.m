@@ -371,14 +371,7 @@ static NSInteger kPreloadDefaultCount = 1;
 	}
 	[self.navigationController setNavigationBarHidden:hidden animated:animated];
 	[self setHudHidden:hidden animated:animated];
-	statusBarHidden_ = hidden;
-	BOOL viewBasedAppearance = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"] boolValue];
-	if (viewBasedAppearance == NO) {
-		[[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
-	}
-	else {
-		[self setNeedsStatusBarAppearanceUpdate];
-	}
+	[self setStatusBarHidden:hidden];
 }
 
 - (void)setHudHidden:(BOOL)hidden animated:(BOOL)animated
@@ -394,6 +387,18 @@ static NSInteger kPreloadDefaultCount = 1;
 			self.currentPageHud.alpha = !hidden * 0.8;
 		}
 	} completion:nil];
+}
+
+- (void)setStatusBarHidden:(BOOL)hidden
+{
+	statusBarHidden_ = hidden;
+	BOOL viewBasedAppearance = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"] boolValue];
+	if (viewBasedAppearance == NO) {
+		[[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
+	}
+	else {
+		[self setNeedsStatusBarAppearanceUpdate];
+	}
 }
 
 - (void)cancelAutoBarHidden

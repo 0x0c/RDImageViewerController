@@ -37,6 +37,7 @@
 - (instancetype)initWithContentData:(NSArray <RDPageContentData *> *)contentData direction:(RDPagingViewForwardDirection)direction;
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)setHudHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)setStatusBarHidden:(BOOL)hidden;
 - (void)setPageHudNumberWithPageIndex:(NSInteger)pageIndex;
 - (void)setBarHiddenByTapGesture;
 - (void)cancelAutoBarHidden;
