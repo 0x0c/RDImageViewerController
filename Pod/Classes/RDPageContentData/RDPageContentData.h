@@ -13,8 +13,8 @@
 @optional
 - (BOOL)preloadable;
 + (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame;
-@required
 - (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame;
+@required
 - (void)preload;
 - (void)stopPreloading;
 - (void)reload;

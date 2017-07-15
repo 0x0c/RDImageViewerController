@@ -10,14 +10,6 @@
 
 @implementation RDPageContentData
 
-- (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame
-{
-	UIView *view = [[UIView alloc] initWithFrame:frame];
-	@throw [NSException exceptionWithName:NSGenericException reason:@"You have to override this method." userInfo:nil];
-
-	return view;
-}
-
 - (void)preload
 {
 	@throw [NSException exceptionWithName:NSGenericException reason:@"You have to override this method." userInfo:nil];

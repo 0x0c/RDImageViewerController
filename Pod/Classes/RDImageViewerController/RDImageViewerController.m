@@ -6,6 +6,7 @@
 //
 
 #import "RDImageViewerController.h"
+#import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "RDImageScrollView.h"
 #import "rd_M2DURLConnectionOperation.h"
@@ -458,10 +459,10 @@ static NSInteger kPreloadDefaultCount = 1;
 	if ([data respondsToSelector:@selector(contentViewWithFrame:)]) {
 		view = [data contentViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(pageView.bounds), CGRectGetHeight(pageView.bounds))];
 	}
-	else {
+	else if (class_getClassMethod([data class], @selector(contentViewWithFrame:))) {
 		view = [[data class] contentViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(pageView.bounds), CGRectGetHeight(pageView.bounds))];
 	}
-	NSAssert(view, @"contentViewWithFrame: must not return nil.");
+	NSAssert(view, @"contentViewWithFrame: must not return nil. Implement the method as a class method or an instance method.");
 	if (data.preloadable) {
 		[data preload];
 	}
