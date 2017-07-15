@@ -411,6 +411,7 @@
 						ProvisioningStyle = Automatic;
 					};
 					6003F5AD195388D20070C39A = {
+						DevelopmentTeam = 3VC35JGS33;
 						TestTargetID = 6003F589195388D20070C39A;
 					};
 				};
@@ -704,6 +705,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -725,6 +727,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -735,6 +738,7 @@
 			baseConfigurationReference = 6E9A42EB3E9541BF82D918F8 /* Pods-Tests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RDImageViewerController.app/RDImageViewerController";
+				DEVELOPMENT_TEAM = 3VC35JGS33;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -759,6 +763,7 @@
 			baseConfigurationReference = 6E9A42EB3E9541BF82D918F8 /* Pods-Tests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RDImageViewerController.app/RDImageViewerController";
+				DEVELOPMENT_TEAM = 3VC35JGS33;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

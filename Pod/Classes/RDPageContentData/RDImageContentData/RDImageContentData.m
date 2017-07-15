@@ -51,7 +51,7 @@ static CGFloat kDefaultMaximumZoomScale = 2.5;
 
 #pragma mark - RDPageContentDataDelegate
 
-+ (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame
+- (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame
 {
 	RDImageScrollView *view = [[RDImageScrollView alloc] initWithFrame:frame];
 	

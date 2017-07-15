@@ -12,8 +12,9 @@
 @protocol RDPageContentDataDelegate <NSObject>
 @optional
 - (BOOL)preloadable;
-@required
 + (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame;
+@required
+- (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame;
 - (void)preload;
 - (void)stopPreloading;
 - (void)reload;

@@ -22,7 +22,7 @@
 
 #pragma mark -
 
-+ (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame
+- (UIView * _Nonnull)contentViewWithFrame:(CGRect)frame
 {
 	UIView *view = [[UIView alloc] initWithFrame:frame];
 	UILabel *label = [[UILabel alloc] initWithFrame:frame];

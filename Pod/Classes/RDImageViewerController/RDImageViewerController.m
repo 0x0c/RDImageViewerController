@@ -454,7 +454,14 @@ static NSInteger kPreloadDefaultCount = 1;
 - (UIView *)pagingView:(RDPagingView *)pageView viewForIndex:(NSInteger)index
 {
 	RDPageContentData *data = self.contentData[index];
-	UIView *view = [[data class] contentViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(pageView.bounds), CGRectGetHeight(pageView.bounds))];
+	UIView *view = nil;
+	if ([data respondsToSelector:@selector(contentViewWithFrame:)]) {
+		view = [data contentViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(pageView.bounds), CGRectGetHeight(pageView.bounds))];
+	}
+	else {
+		view = [[data class] contentViewWithFrame:CGRectMake(0, 0, CGRectGetWidth(pageView.bounds), CGRectGetHeight(pageView.bounds))];
+	}
+	NSAssert(view, @"contentViewWithFrame: must not return nil.");
 	if (data.preloadable) {
 		[data preload];
 	}
