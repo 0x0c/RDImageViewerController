@@ -1,10 +1,7 @@
-target 'RDImageViewerController', :exclusive => true do
+target 'RDImageViewerController' do
   pod "RDImageViewerController", :path => "../"
 end
 
-target 'Tests', :exclusive => true do
+target 'Tests' do
   pod "RDImageViewerController", :path => "../"
-
-  pod 'Specta', '~> 0.2.1'
-  pod 'Expecta'
 end
