@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, RDImageScrollViewResizeMode) {
 
 @interface RDImageScrollView : UIScrollView <UIScrollViewDelegate>
 
+@property (nonatomic, readonly) UIImageView *imageView;
 @property (nonatomic, getter=image, setter=setImage:) UIImage *image;
 @property (nonatomic, assign) RDImageScrollViewResizeMode mode;
 @property (nonatomic, strong) UIColor *borderColor;

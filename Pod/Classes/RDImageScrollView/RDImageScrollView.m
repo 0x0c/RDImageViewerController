@@ -10,12 +10,15 @@
 
 static CGSize kZoomRect = {100, 100};
 
+@interface RDImageScrollView ()
+
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UITapGestureRecognizer *zoomGesture;
+@property (nonatomic, strong) UIActivityIndicatorView *indicator;
+
+@end
+
 @implementation RDImageScrollView
-{
-	UIImageView *imageView_;
-	UITapGestureRecognizer *zoomGesture_;
-	UIActivityIndicatorView *indicator_;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -27,24 +30,24 @@ static CGSize kZoomRect = {100, 100};
 		self.showsHorizontalScrollIndicator = NO;
 		self.showsVerticalScrollIndicator = NO;
 		
-		imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-		imageView_.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
-		imageView_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-		imageView_.layer.borderColor = [UIColor blackColor].CGColor;
-		imageView_.layer.borderWidth = 0.5;
+		self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+		self.imageView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
+		self.imageView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+		self.imageView.layer.borderColor = [UIColor blackColor].CGColor;
+		self.imageView.layer.borderWidth = 0.5;
 
-		[self addSubview:imageView_];
+		[self addSubview:self.imageView];
 		
-		indicator_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-		indicator_.center = imageView_.center;
-		indicator_.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-		[indicator_ startAnimating];
-		[self addSubview:indicator_];
+		self.indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		self.indicator.center = self.imageView.center;
+		self.indicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+		[self.indicator startAnimating];
+		[self addSubview:self.indicator];
 		
-		zoomGesture_ = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomeImageView:)];
-		zoomGesture_.numberOfTapsRequired = 2;
-		zoomGesture_.numberOfTouchesRequired = 1;
-		[self addGestureRecognizer:zoomGesture_];
+		self.zoomGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomeImageView:)];
+		self.zoomGesture.numberOfTapsRequired = 2;
+		self.zoomGesture.numberOfTouchesRequired = 1;
+		[self addGestureRecognizer:self.zoomGesture];
 	}
 	
 	return self;
@@ -52,17 +55,17 @@ static CGSize kZoomRect = {100, 100};
 
 - (UIImage *)image
 {
-	return imageView_.image;
+	return self.imageView.image;
 }
 
 - (void)setImage:(UIImage *)image
 {
-	imageView_.image = image;
+	self.imageView.image = image;
 	if (image == nil) {
-		[indicator_ startAnimating];
+		[self.indicator startAnimating];
 	}
 	else {
-		[indicator_ stopAnimating];
+		[self.indicator stopAnimating];
 	}
 	[self adjustContentAspect];
 }
@@ -75,22 +78,22 @@ static CGSize kZoomRect = {100, 100};
 
 - (void)setBorderColor:(UIColor *)borderColor
 {
-	imageView_.layer.borderColor = borderColor.CGColor;
+	self.imageView.layer.borderColor = borderColor.CGColor;
 }
 
 - (UIColor *)borderColor
 {
-	return [UIColor colorWithCGColor:imageView_.layer.borderColor];
+	return [UIColor colorWithCGColor:self.imageView.layer.borderColor];
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth
 {
-	imageView_.layer.borderWidth = borderWidth;
+	self.imageView.layer.borderWidth = borderWidth;
 }
 
 - (CGFloat)borderWidth
 {
-	return imageView_.layer.borderWidth;
+	return self.imageView.layer.borderWidth;
 }
 
 #pragma mark -
@@ -112,37 +115,37 @@ static CGSize kZoomRect = {100, 100};
 
 - (void)setImageSizeAsAspectFit
 {
-	[imageView_ sizeToFit];
+	[self.imageView sizeToFit];
 	CGFloat height = CGRectGetHeight(self.frame);
 	CGFloat width = CGRectGetWidth(self.frame);
 	CGFloat scale = 1;
 	
 	BOOL fitWidth = NO;
 	if (width < height) {
-		scale = width / MAX(CGRectGetWidth(imageView_.frame), 1);
+		scale = width / MAX(CGRectGetWidth(self.imageView.frame), 1);
 		fitWidth = YES;
 	}
 	else {
-		scale = height / MAX(CGRectGetHeight(imageView_.frame), 1);
+		scale = height / MAX(CGRectGetHeight(self.imageView.frame), 1);
 	}
-	imageView_.frame = CGRectMake(0, 0, CGRectGetWidth(imageView_.frame) * scale , CGRectGetHeight(imageView_.frame) * scale);
+	self.imageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.imageView.frame) * scale , CGRectGetHeight(self.imageView.frame) * scale);
 	
-	CGFloat imageEdgeLength = fitWidth ? CGRectGetHeight(imageView_.frame) : CGRectGetWidth(imageView_.frame);
+	CGFloat imageEdgeLength = fitWidth ? CGRectGetHeight(self.imageView.frame) : CGRectGetWidth(self.imageView.frame);
 	CGFloat viewEdgeLength = fitWidth ? height : width;
 	
 	if (imageEdgeLength > viewEdgeLength) {
 		scale = viewEdgeLength / MAX(imageEdgeLength, 1);
-		imageView_.frame = CGRectMake(0, 0, CGRectGetWidth(imageView_.frame) * scale , CGRectGetHeight(imageView_.frame) * scale);
+		self.imageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.imageView.frame) * scale , CGRectGetHeight(self.imageView.frame) * scale);
 	}
 	
-	imageView_.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
-	self.contentSize = imageView_.frame.size;
+	self.imageView.center = CGPointMake(CGRectGetWidth(self.frame) / 2, CGRectGetHeight(self.frame) / 2);
+	self.contentSize = self.imageView.frame.size;
 	[self setZoomScale:1.0];
 }
 
 - (void)setImageSizeAsDisplayFit
 {
-	[imageView_ sizeToFit];
+	[self.imageView sizeToFit];
 	CGFloat height = CGRectGetHeight(self.frame);
 	CGFloat width = CGRectGetWidth(self.frame);
 	if (height > width) {
@@ -150,9 +153,9 @@ static CGSize kZoomRect = {100, 100};
 		[self setImageSizeAsAspectFit];
 	}
 	else {
-		CGFloat scale = width > height ? width / MAX(CGRectGetWidth(imageView_.frame), 1) : height / MAX(CGRectGetHeight(imageView_.frame), 1);
-		imageView_.frame = CGRectMake(0, 0, CGRectGetWidth(imageView_.frame) * scale , CGRectGetHeight(imageView_.frame) * scale);
-		self.contentSize = imageView_.frame.size;
+		CGFloat scale = width > height ? width / MAX(CGRectGetWidth(self.imageView.frame), 1) : height / MAX(CGRectGetHeight(self.imageView.frame), 1);
+		self.imageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.imageView.frame) * scale , CGRectGetHeight(self.imageView.frame) * scale);
+		self.contentSize = self.imageView.frame.size;
 		[self setZoomScale:1.0];
 	}
 }
@@ -171,14 +174,14 @@ static CGSize kZoomRect = {100, 100};
 
 - (void)addGestureRecognizerPriorityHigherThanZoomGestureRecogniser:(UIGestureRecognizer *)gesture
 {
-	[gesture requireGestureRecognizerToFail:zoomGesture_];
+	[gesture requireGestureRecognizerToFail:self.zoomGesture];
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-	return imageView_;
+	return self.imageView;
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView

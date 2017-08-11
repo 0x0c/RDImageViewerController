@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1CB43488DB63343E514E35BA /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 819B831CFCF3D8E14A46BA30 /* libPods-Tests.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -22,7 +21,8 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		8ED66EF631173662411CC976 /* libPods-RDImageViewerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0EE321C1F361A51F889E2B /* libPods-RDImageViewerController.a */; };
+		8B7E3D8C89BA2156432EFF7D /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEDF03768976085E03802293 /* Pods_Tests.framework */; };
+		B36B72392F15B63E4E7F0D38 /* Pods_RDImageViewerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE52C4491A019B8962D50A3 /* Pods_RDImageViewerController.framework */; };
 		E90C11501D8E022000630F12 /* RDViewPageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E90C114F1D8E022000630F12 /* RDViewPageContentData.m */; };
 		E90C11531D8E022800630F12 /* RDScrollViewPageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E90C11521D8E022800630F12 /* RDScrollViewPageContentData.m */; };
 		E90E268A1A34981000F1F54A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90E26881A34981000F1F54A /* LaunchScreen.xib */; };
@@ -60,6 +60,7 @@
 /* Begin PBXFileReference section */
 		2DE53B25D765A16A87BEBC61 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		335703C1B2581FF3F13621CB /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		3BE52C4491A019B8962D50A3 /* Pods_RDImageViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* RDImageViewerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RDImageViewerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -81,11 +82,9 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		675E692188F7C03774467B87 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		819B831CFCF3D8E14A46BA30 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89025E39FA3270FE8EDDEEB7 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RDImageViewerController.podspec; path = ../RDImageViewerController.podspec; sourceTree = "<group>"; };
 		AB7D21FE10F544A30C888634 /* Pods-RDImageViewerController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RDImageViewerController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RDImageViewerController/Pods-RDImageViewerController.debug.xcconfig"; sourceTree = "<group>"; };
 		B2E7CB51CE90590648B0F8B5 /* Pods-RDImageViewerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RDImageViewerController.release.xcconfig"; path = "Pods/Target Support Files/Pods-RDImageViewerController/Pods-RDImageViewerController.release.xcconfig"; sourceTree = "<group>"; };
-		CC0EE321C1F361A51F889E2B /* libPods-RDImageViewerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RDImageViewerController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6BEC608C2E338A1EFB29850 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		E90C114E1D8E022000630F12 /* RDViewPageContentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDViewPageContentData.h; sourceTree = "<group>"; };
 		E90C114F1D8E022000630F12 /* RDViewPageContentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDViewPageContentData.m; sourceTree = "<group>"; };
@@ -118,6 +117,7 @@
 		E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDImageViewerController.m; sourceTree = "<group>"; };
 		E9B1065F1AB760DA000DEEE4 /* 11.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 11.JPG; sourceTree = "<group>"; };
 		E9B106611AB76127000DEEE4 /* 12.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 12.JPG; sourceTree = "<group>"; };
+		FEDF03768976085E03802293 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +128,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				8ED66EF631173662411CC976 /* libPods-RDImageViewerController.a in Frameworks */,
+				B36B72392F15B63E4E7F0D38 /* Pods_RDImageViewerController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +139,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				1CB43488DB63343E514E35BA /* libPods-Tests.a in Frameworks */,
+				8B7E3D8C89BA2156432EFF7D /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,8 +174,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				CC0EE321C1F361A51F889E2B /* libPods-RDImageViewerController.a */,
-				819B831CFCF3D8E14A46BA30 /* libPods-Tests.a */,
+				3BE52C4491A019B8962D50A3 /* Pods_RDImageViewerController.framework */,
+				FEDF03768976085E03802293 /* Pods_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -490,9 +490,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RDImageViewerController/RDImageViewerController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RDImageViewerController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -535,9 +538,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RDImageViewerController/Pods-RDImageViewerController-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RDImageViewerController/RDImageViewerController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RDImageViewerController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
