@@ -10,10 +10,11 @@
 
 @interface RDRemoteImageContentData : RDImageContentData
 
+@property (nonatomic, readonly) NSURLRequest *request;
 @property (nonatomic, strong) NSURLSessionConfiguration *configuration;
 @property (nonatomic, copy) void (^requestCompletionHandler)(NSURLResponse *response, NSData *data, NSError *connectionError);
 @property (nonatomic, copy) UIImage *(^imageDecodeHandler)(NSData *data);
 
-- (instancetype)initWithRequest:(NSURLRequest *)request pageIndex:(NSInteger)index;
+- (instancetype)initWithRequest:(NSURLRequest *)request;
 
 @end

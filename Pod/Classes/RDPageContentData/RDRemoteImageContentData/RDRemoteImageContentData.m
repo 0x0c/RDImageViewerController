@@ -15,19 +15,17 @@
 @property (nonatomic, strong) RDImageScrollView *imageView;
 @property (nonatomic, strong) rd_M2DURLConnectionOperation *operation;
 @property (nonatomic, strong) NSURLRequest *request;
-@property (nonatomic, assign) NSInteger pageIndex;
 @property (nonatomic, strong) void(^lazyConfigurationHandler)(UIImage *image);
 
 @end
 
 @implementation RDRemoteImageContentData
 
-- (instancetype)initWithRequest:(NSURLRequest *)request pageIndex:(NSInteger)index
+- (instancetype)initWithRequest:(NSURLRequest *)request
 {
 	self = [super init];
 	if (self) {
 		self.request = request;
-		self.pageIndex = index;
 	}
 	
 	return self;

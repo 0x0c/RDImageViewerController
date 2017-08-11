@@ -108,7 +108,7 @@ const NSInteger kNumberOfImages = 12;
 {
 	NSMutableArray <RDPageContentData *> *contentData = [NSMutableArray new];
 	for (NSInteger i = 0; i < kNumberOfImages; i++) {
-		RDRemoteImageContentData *data = [[RDRemoteImageContentData alloc] initWithRequest:[NSURLRequest requestWithURL:array[i]] pageIndex:i];
+		RDRemoteImageContentData *data = [[RDRemoteImageContentData alloc] initWithRequest:[NSURLRequest requestWithURL:array[i]]];
 		[contentData addObject:data];
 	}
 	RDImageViewerController *viewController = [[RDImageViewerController alloc] initWithContentData:contentData direction:self.directionSwitch.on ? RDPagingViewForwardDirectionLeft : RDPagingViewForwardDirectionRight];
