@@ -192,7 +192,7 @@ static NSInteger const kPreloadDefaultCount = 1;
 
 - (void)setCurrentPageIndex:(NSInteger)currentPageIndex
 {
-	if (currentPageIndex <= 0) {
+	if (currentPageIndex >= 0) {
 		if (pageIndex_ - currentPageIndex != 0) {
 			[self pageIndexWillChangeToIndex:currentPageIndex];
 		}
