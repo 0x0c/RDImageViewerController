@@ -22,12 +22,18 @@
 		D35C17F9105BD52B2D4358BD11C2E9CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		D42F4C9B0AD6C325CEBD274EAE859EDF /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
 		DDAA0C8D0E9FB71EE1E5F76A9EB5BDE6 /* Pods-RDImageViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCDEBE1DFAC168629FDBE88D3942B84 /* Pods-RDImageViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E9EE3369225A50BB00A9E29D /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */; };
-		E9EE336A225A50BB00A9E29D /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */; };
-		E9EE336B225A50BB00A9E29D /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
-		E9EE336C225A50BB00A9E29D /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */; };
-		E9EE336D225A50BB00A9E29D /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* RDPagingView.swift */; };
-		E9EE336E225A50BB00A9E29D /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
+		E9EE337B225A525300A9E29D /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */; };
+		E9EE337C225A525300A9E29D /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */; };
+		E9EE337D225A525300A9E29D /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
+		E9EE337E225A525300A9E29D /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */; };
+		E9EE337F225A525300A9E29D /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* RDPagingView.swift */; };
+		E9EE3380225A525300A9E29D /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
+		E9EE3381225A531700A9E29D /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */; };
+		E9EE3382225A531700A9E29D /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */; };
+		E9EE3383225A531700A9E29D /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
+		E9EE3384225A531700A9E29D /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */; };
+		E9EE3385225A531700A9E29D /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* RDPagingView.swift */; };
+		E9EE3386225A531700A9E29D /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,8 +223,8 @@
 		ED0A0735B3945613E0AD152162E449AF /* RDImageViewerController */ = {
 			isa = PBXGroup;
 			children = (
-				18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */,
 				5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */,
+				18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */,
 				82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */,
 				566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */,
 				2596B47787510671B7994791021BBD8B /* RDPagingView.swift */,
@@ -341,7 +347,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -393,6 +399,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				995E6C886692DD22364EA02C4E550346 /* Pods-RDImageViewerController_Tests-dummy.m in Sources */,
+				E9EE3381225A531700A9E29D /* RDImageContentData.swift in Sources */,
+				E9EE3382225A531700A9E29D /* RDImageScrollView.swift in Sources */,
+				E9EE3383225A531700A9E29D /* RDImageViewerController.swift in Sources */,
+				E9EE3384225A531700A9E29D /* RDPageContentData.swift in Sources */,
+				E9EE3385225A531700A9E29D /* RDPagingView.swift in Sources */,
+				E9EE3386225A531700A9E29D /* RDRemoteImageContentData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,12 +427,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				71F98BC5C006E8B7154E705B9644B9C2 /* Pods-RDImageViewerController_Example-dummy.m in Sources */,
-				E9EE3369225A50BB00A9E29D /* RDImageScrollView.swift in Sources */,
-				E9EE336A225A50BB00A9E29D /* RDImageContentData.swift in Sources */,
-				E9EE336B225A50BB00A9E29D /* RDImageViewerController.swift in Sources */,
-				E9EE336C225A50BB00A9E29D /* RDPageContentData.swift in Sources */,
-				E9EE336D225A50BB00A9E29D /* RDPagingView.swift in Sources */,
-				E9EE336E225A50BB00A9E29D /* RDRemoteImageContentData.swift in Sources */,
+				E9EE337B225A525300A9E29D /* RDImageContentData.swift in Sources */,
+				E9EE337C225A525300A9E29D /* RDImageScrollView.swift in Sources */,
+				E9EE337D225A525300A9E29D /* RDImageViewerController.swift in Sources */,
+				E9EE337E225A525300A9E29D /* RDPageContentData.swift in Sources */,
+				E9EE337F225A525300A9E29D /* RDPagingView.swift in Sources */,
+				E9EE3380225A525300A9E29D /* RDRemoteImageContentData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,7 +668,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -713,6 +724,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
@@ -721,7 +733,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -773,7 +784,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
