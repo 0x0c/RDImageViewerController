@@ -49,7 +49,7 @@ open class RDImageScrollView: UIScrollView {
         }
     }
     
-    var imageView = UIImageView()
+    public var imageView = UIImageView()
     var indicatorView = UIActivityIndicatorView(style: .white)
     var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
 

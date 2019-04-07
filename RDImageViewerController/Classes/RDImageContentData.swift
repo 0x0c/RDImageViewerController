@@ -13,7 +13,7 @@ open class RDImageContentData: RDPageContentData {
     public var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
     public var landscapeMode: RDImageScrollView.ResizeMode = .aspectFit
     public var image: UIImage?
-    var imageName: String?
+    public var imageName: String?
     
     public init(image: UIImage) {
         super.init()

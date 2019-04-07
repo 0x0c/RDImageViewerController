@@ -105,10 +105,11 @@ open class RDImageViewerController: UIViewController {
         }
     }
     var feedbackGenerator = UISelectionFeedbackGenerator()
-    var pagingView: RDPagingView
-    var pageSlider: UISlider
-    var currentPageHud: UIView
     var currentPageHudLabel: UILabel
+    
+    public var pagingView: RDPagingView
+    public var pageSlider: UISlider
+    public var currentPageHud: UIView
     
     public var pageSliderMaximumTrackTintColor: UIColor?
     public var pageSliderMinimumTrackTintColor: UIColor?

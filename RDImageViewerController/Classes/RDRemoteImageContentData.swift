@@ -8,7 +8,7 @@
 import UIKit
 
 open class RDRemoteImageContentData: RDImageContentData {
-    var tempolaryImageView: RDImageScrollView?
+    public var tempolaryImageView: RDImageScrollView?
     let request: URLRequest
     let session: URLSession
     var task: URLSessionTask?
