@@ -25,26 +25,26 @@ open class RDImageContentData: RDPageContentData {
         self.imageName = imageName
     }
     
-    override public func contentView(frame: CGRect) -> UIView {
+    override open func contentView(frame: CGRect) -> UIView {
         return RDImageScrollView(frame: frame)
     }
     
-    override public func preload() {
+    override open func preload() {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
         }
     }
     
-    override public func reload() {
+    override open func reload() {
         image = nil
         preload()
     }
     
-    override public func stopPreload() {
+    override open func stopPreload() {
         
     }
     
-    override public func configure(view: UIView) {
+    override open func configure(view: UIView) {
         let imageView = view as! RDImageScrollView
         imageView.maximumZoomScale = maximumZoomScale
         imageView.mode = landscapeMode

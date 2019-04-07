@@ -23,17 +23,17 @@ open class RDRemoteImageContentData: RDImageContentData {
         super.init(imageName: "")
     }
     
-    override public func stopPreload() {
+    override open func stopPreload() {
         if let task = task {
             task.cancel()
         }
     }
     
-    override public func contentView(frame: CGRect) -> UIView {
+    override open func contentView(frame: CGRect) -> UIView {
         return RDImageScrollView(frame: frame)
     }
     
-    @objc override public func preload() {
+    @objc override open func preload() {
         if image == nil {
             task = session.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
                 guard let weakSelf = self, let data = data else {
@@ -58,12 +58,12 @@ open class RDRemoteImageContentData: RDImageContentData {
         }
     }
     
-    @objc override public func reload() {
+    @objc override open func reload() {
         image = nil
         preload()
     }
     
-    @objc override public func configure(view: UIView) {
+    @objc override open func configure(view: UIView) {
         super.configure(view: view)
         if image == nil {
             let imageView = view as! RDImageScrollView
