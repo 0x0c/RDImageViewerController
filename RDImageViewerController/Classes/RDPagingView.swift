@@ -33,7 +33,7 @@ open class RDPagingView: UIScrollView {
         case up
         case down
         
-        func isVertical() -> Bool {
+        public func isVertical() -> Bool {
             return self == .right || self == .left
         }
     }
