@@ -7,33 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		064824C8096BA58C4EEDC71ACCFDB5CD /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
 		13CE962B8C7972BE77E9753C63DD411C /* RDImageViewerController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F048B42350105E2D9A23E8E30DFC684 /* RDImageViewerController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2BD38F2255FFD7EA7155C20B5831EDDF /* Pods-RDImageViewerController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 685D5C6641728F875EF78942E7295C97 /* Pods-RDImageViewerController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		32B1CF043B82C6EF1F883C81674A2E23 /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */; };
-		4D60DA0F3D15448769FF113698524E49 /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */; };
-		66A908C94896C47D70AA179020B8B479 /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */; };
 		71F98BC5C006E8B7154E705B9644B9C2 /* Pods-RDImageViewerController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B43D6A165B2FF00F9404D57FF53D0968 /* Pods-RDImageViewerController_Example-dummy.m */; };
-		7F7965CF9CFF1F28D43893737A6C7928 /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* RDPagingView.swift */; };
 		8595292DEB2DA98C85D036A5EC7E0597 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		995E6C886692DD22364EA02C4E550346 /* Pods-RDImageViewerController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797A0346425B7D5926317FD162A4D2A /* Pods-RDImageViewerController_Tests-dummy.m */; };
 		ADB8A28C7E7A0F29EA56951E4EFB50E1 /* RDImageViewerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D825DA6F6B6339B0C76AD2A87A7EE12 /* RDImageViewerController-dummy.m */; };
 		CCF812C2321EB32023B8CF4EC5BC45C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		D35C17F9105BD52B2D4358BD11C2E9CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		D42F4C9B0AD6C325CEBD274EAE859EDF /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
 		DDAA0C8D0E9FB71EE1E5F76A9EB5BDE6 /* Pods-RDImageViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCDEBE1DFAC168629FDBE88D3942B84 /* Pods-RDImageViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E9EE337B225A525300A9E29D /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */; };
-		E9EE337C225A525300A9E29D /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */; };
-		E9EE337D225A525300A9E29D /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
-		E9EE337E225A525300A9E29D /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */; };
-		E9EE337F225A525300A9E29D /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* RDPagingView.swift */; };
-		E9EE3380225A525300A9E29D /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
-		E9EE3381225A531700A9E29D /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */; };
-		E9EE3382225A531700A9E29D /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */; };
-		E9EE3383225A531700A9E29D /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
-		E9EE3384225A531700A9E29D /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */; };
-		E9EE3385225A531700A9E29D /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* RDPagingView.swift */; };
-		E9EE3386225A531700A9E29D /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
+		E9EE33A1225A5BBD00A9E29D /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339B225A5BBC00A9E29D /* RDPagingView.swift */; };
+		E9EE33A2225A5BBD00A9E29D /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339B225A5BBC00A9E29D /* RDPagingView.swift */; };
+		E9EE33A3225A5BBD00A9E29D /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339B225A5BBC00A9E29D /* RDPagingView.swift */; };
+		E9EE33A4225A5BBD00A9E29D /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339C225A5BBC00A9E29D /* RDImageScrollView.swift */; };
+		E9EE33A5225A5BBD00A9E29D /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339C225A5BBC00A9E29D /* RDImageScrollView.swift */; };
+		E9EE33A6225A5BBD00A9E29D /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339C225A5BBC00A9E29D /* RDImageScrollView.swift */; };
+		E9EE33A7225A5BBD00A9E29D /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339D225A5BBC00A9E29D /* RDRemoteImageContentData.swift */; };
+		E9EE33A8225A5BBD00A9E29D /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339D225A5BBC00A9E29D /* RDRemoteImageContentData.swift */; };
+		E9EE33A9225A5BBD00A9E29D /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339D225A5BBC00A9E29D /* RDRemoteImageContentData.swift */; };
+		E9EE33AA225A5BBD00A9E29D /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339E225A5BBC00A9E29D /* RDImageViewerController.swift */; };
+		E9EE33AB225A5BBD00A9E29D /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339E225A5BBC00A9E29D /* RDImageViewerController.swift */; };
+		E9EE33AC225A5BBD00A9E29D /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339E225A5BBC00A9E29D /* RDImageViewerController.swift */; };
+		E9EE33AD225A5BBD00A9E29D /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339F225A5BBC00A9E29D /* RDPageContentData.swift */; };
+		E9EE33AE225A5BBD00A9E29D /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339F225A5BBC00A9E29D /* RDPageContentData.swift */; };
+		E9EE33AF225A5BBD00A9E29D /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE339F225A5BBC00A9E29D /* RDPageContentData.swift */; };
+		E9EE33B0225A5BBD00A9E29D /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE33A0225A5BBD00A9E29D /* RDImageContentData.swift */; };
+		E9EE33B1225A5BBD00A9E29D /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE33A0225A5BBD00A9E29D /* RDImageContentData.swift */; };
+		E9EE33B2225A5BBD00A9E29D /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE33A0225A5BBD00A9E29D /* RDImageContentData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,22 +56,17 @@
 /* Begin PBXFileReference section */
 		0797A0346425B7D5926317FD162A4D2A /* Pods-RDImageViewerController_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RDImageViewerController_Tests-dummy.m"; sourceTree = "<group>"; };
 		083CEE947633BB84DA83524BDAFCCAF8 /* Pods-RDImageViewerController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDImageScrollView.swift; path = RDImageViewerController/Classes/RDImageScrollView.swift; sourceTree = "<group>"; };
 		1F048B42350105E2D9A23E8E30DFC684 /* RDImageViewerController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RDImageViewerController-umbrella.h"; sourceTree = "<group>"; };
 		205B5A6897C687BE3BBE2112A7000388 /* Pods-RDImageViewerController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		23B1E5A535C3AC6317ACD630AE5B10B6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24AE7954BEE250D1C66522D0D1970812 /* Pods-RDImageViewerController_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RDImageViewerController_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2596B47787510671B7994791021BBD8B /* RDPagingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDPagingView.swift; path = RDImageViewerController/Classes/RDPagingView.swift; sourceTree = "<group>"; };
 		3C6EBDC80B439CDB9DB1CE2567D01223 /* Pods_RDImageViewerController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F8E33FE439AE99E6D9FEC58928D7BF6 /* Pods-RDImageViewerController_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RDImageViewerController_Example.modulemap"; sourceTree = "<group>"; };
-		566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDPageContentData.swift; path = RDImageViewerController/Classes/RDPageContentData.swift; sourceTree = "<group>"; };
-		5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDImageContentData.swift; path = RDImageViewerController/Classes/RDImageContentData.swift; sourceTree = "<group>"; };
 		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		680756B665CBF105B9B08F85117B4605 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		685D5C6641728F875EF78942E7295C97 /* Pods-RDImageViewerController_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Tests-umbrella.h"; sourceTree = "<group>"; };
 		6A03AA9644B563707FE60A2350765424 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7D825DA6F6B6339B0C76AD2A87A7EE12 /* RDImageViewerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RDImageViewerController-dummy.m"; sourceTree = "<group>"; };
-		82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDImageViewerController.swift; path = RDImageViewerController/Classes/RDImageViewerController.swift; sourceTree = "<group>"; };
 		8CB155CE434488AC9D9B02C7794FA7F8 /* Pods-RDImageViewerController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8D20F81F296FC82C3B466186BDE88F19 /* Pods-RDImageViewerController_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Tests-resources.sh"; sourceTree = "<group>"; };
 		8FC353157A653D46F1AFC57383751650 /* RDImageViewerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RDImageViewerController-prefix.pch"; sourceTree = "<group>"; };
@@ -90,8 +85,13 @@
 		D7395D2FDA6455ECAECEA681302176F8 /* Pods_RDImageViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83A4636BEEB8FCEC6AA10930219F76E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8402227CF0E2CD718BAAF371B15CFC8 /* Pods-RDImageViewerController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Example.release.xcconfig"; sourceTree = "<group>"; };
-		D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDRemoteImageContentData.swift; path = RDImageViewerController/Classes/RDRemoteImageContentData.swift; sourceTree = "<group>"; };
 		E8B79A0AE42EA3FCE3CF24CBA1C0EEEE /* Pods-RDImageViewerController_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		E9EE339B225A5BBC00A9E29D /* RDPagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDPagingView.swift; path = Pod/Classes/RDPagingView.swift; sourceTree = "<group>"; };
+		E9EE339C225A5BBC00A9E29D /* RDImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDImageScrollView.swift; path = Pod/Classes/RDImageScrollView.swift; sourceTree = "<group>"; };
+		E9EE339D225A5BBC00A9E29D /* RDRemoteImageContentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDRemoteImageContentData.swift; path = Pod/Classes/RDRemoteImageContentData.swift; sourceTree = "<group>"; };
+		E9EE339E225A5BBC00A9E29D /* RDImageViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDImageViewerController.swift; path = Pod/Classes/RDImageViewerController.swift; sourceTree = "<group>"; };
+		E9EE339F225A5BBC00A9E29D /* RDPageContentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDPageContentData.swift; path = Pod/Classes/RDPageContentData.swift; sourceTree = "<group>"; };
+		E9EE33A0225A5BBD00A9E29D /* RDImageContentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDImageContentData.swift; path = Pod/Classes/RDImageContentData.swift; sourceTree = "<group>"; };
 		F20055BF70B762A3A319D58473545EBD /* RDImageViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RDImageViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39303BE14FE782222E15AEC0804C378 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = RDImageViewerController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
@@ -223,12 +223,12 @@
 		ED0A0735B3945613E0AD152162E449AF /* RDImageViewerController */ = {
 			isa = PBXGroup;
 			children = (
-				5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */,
-				18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */,
-				82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */,
-				566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */,
-				2596B47787510671B7994791021BBD8B /* RDPagingView.swift */,
-				D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */,
+				E9EE33A0225A5BBD00A9E29D /* RDImageContentData.swift */,
+				E9EE339C225A5BBC00A9E29D /* RDImageScrollView.swift */,
+				E9EE339E225A5BBC00A9E29D /* RDImageViewerController.swift */,
+				E9EE339F225A5BBC00A9E29D /* RDPageContentData.swift */,
+				E9EE339B225A5BBC00A9E29D /* RDPagingView.swift */,
+				E9EE339D225A5BBC00A9E29D /* RDRemoteImageContentData.swift */,
 				E7166E81D25BAF45D1AA5AADA55DB23B /* Pod */,
 				86D4353664230C1DD9E438D4B21F1969 /* Support Files */,
 			);
@@ -347,15 +347,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
+				TargetAttributes = {
+					43B09F5CFB0626E52225097B69005692 = {
+						LastSwiftMigration = 1020;
+					};
+					5258935EB5B987823F829693E11BB4BF = {
+						LastSwiftMigration = 1020;
+					};
+					C76F8262472D8477CABB5E3680EC0EBE = {
+						LastSwiftMigration = 1020;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
 			productRefGroup = B4F5C26F463FCA6333F5A6D2BBB96B11 /* Products */;
@@ -398,13 +409,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9EE33AE225A5BBD00A9E29D /* RDPageContentData.swift in Sources */,
+				E9EE33A2225A5BBD00A9E29D /* RDPagingView.swift in Sources */,
 				995E6C886692DD22364EA02C4E550346 /* Pods-RDImageViewerController_Tests-dummy.m in Sources */,
-				E9EE3381225A531700A9E29D /* RDImageContentData.swift in Sources */,
-				E9EE3382225A531700A9E29D /* RDImageScrollView.swift in Sources */,
-				E9EE3383225A531700A9E29D /* RDImageViewerController.swift in Sources */,
-				E9EE3384225A531700A9E29D /* RDPageContentData.swift in Sources */,
-				E9EE3385225A531700A9E29D /* RDPagingView.swift in Sources */,
-				E9EE3386225A531700A9E29D /* RDRemoteImageContentData.swift in Sources */,
+				E9EE33AB225A5BBD00A9E29D /* RDImageViewerController.swift in Sources */,
+				E9EE33A5225A5BBD00A9E29D /* RDImageScrollView.swift in Sources */,
+				E9EE33B1225A5BBD00A9E29D /* RDImageContentData.swift in Sources */,
+				E9EE33A8225A5BBD00A9E29D /* RDRemoteImageContentData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,13 +423,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32B1CF043B82C6EF1F883C81674A2E23 /* RDImageContentData.swift in Sources */,
-				4D60DA0F3D15448769FF113698524E49 /* RDImageScrollView.swift in Sources */,
+				E9EE33AF225A5BBD00A9E29D /* RDPageContentData.swift in Sources */,
+				E9EE33A3225A5BBD00A9E29D /* RDPagingView.swift in Sources */,
 				ADB8A28C7E7A0F29EA56951E4EFB50E1 /* RDImageViewerController-dummy.m in Sources */,
-				064824C8096BA58C4EEDC71ACCFDB5CD /* RDImageViewerController.swift in Sources */,
-				66A908C94896C47D70AA179020B8B479 /* RDPageContentData.swift in Sources */,
-				7F7965CF9CFF1F28D43893737A6C7928 /* RDPagingView.swift in Sources */,
-				D42F4C9B0AD6C325CEBD274EAE859EDF /* RDRemoteImageContentData.swift in Sources */,
+				E9EE33AC225A5BBD00A9E29D /* RDImageViewerController.swift in Sources */,
+				E9EE33A6225A5BBD00A9E29D /* RDImageScrollView.swift in Sources */,
+				E9EE33B2225A5BBD00A9E29D /* RDImageContentData.swift in Sources */,
+				E9EE33A9225A5BBD00A9E29D /* RDRemoteImageContentData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,13 +437,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9EE33AD225A5BBD00A9E29D /* RDPageContentData.swift in Sources */,
+				E9EE33A1225A5BBD00A9E29D /* RDPagingView.swift in Sources */,
 				71F98BC5C006E8B7154E705B9644B9C2 /* Pods-RDImageViewerController_Example-dummy.m in Sources */,
-				E9EE337B225A525300A9E29D /* RDImageContentData.swift in Sources */,
-				E9EE337C225A525300A9E29D /* RDImageScrollView.swift in Sources */,
-				E9EE337D225A525300A9E29D /* RDImageViewerController.swift in Sources */,
-				E9EE337E225A525300A9E29D /* RDPageContentData.swift in Sources */,
-				E9EE337F225A525300A9E29D /* RDPagingView.swift in Sources */,
-				E9EE3380225A525300A9E29D /* RDRemoteImageContentData.swift in Sources */,
+				E9EE33AA225A5BBD00A9E29D /* RDImageViewerController.swift in Sources */,
+				E9EE33A4225A5BBD00A9E29D /* RDImageScrollView.swift in Sources */,
+				E9EE33B0225A5BBD00A9E29D /* RDImageContentData.swift in Sources */,
+				E9EE33A7225A5BBD00A9E29D /* RDRemoteImageContentData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +470,7 @@
 			baseConfigurationReference = 205B5A6897C687BE3BBE2112A7000388 /* Pods-RDImageViewerController_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -482,6 +494,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -494,6 +507,7 @@
 			baseConfigurationReference = 083CEE947633BB84DA83524BDAFCCAF8 /* Pods-RDImageViewerController_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -531,6 +545,7 @@
 			baseConfigurationReference = D8402227CF0E2CD718BAAF371B15CFC8 /* Pods-RDImageViewerController_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -567,6 +582,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C02AC045DA9E1409180237EA9B9310A6 /* RDImageViewerController.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -602,6 +618,7 @@
 			baseConfigurationReference = 8CB155CE434488AC9D9B02C7794FA7F8 /* Pods-RDImageViewerController_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -625,6 +642,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -635,6 +654,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C02AC045DA9E1409180237EA9B9310A6 /* RDImageViewerController.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -668,6 +688,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -724,7 +745,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
@@ -733,6 +753,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -784,7 +805,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;

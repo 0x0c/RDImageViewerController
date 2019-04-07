@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BEB0CC8AB8350D1C652E900 /* Pods_RDImageViewerController_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD211D10975DEE89C336176 /* Pods_RDImageViewerController_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		E9EE3388225A532700A9E29D /* RDImageViewerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE3387225A532700A9E29D /* RDImageViewerController.framework */; };
+		EF452A13D53A58201EAEE812 /* Pods_RDImageViewerController_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41FEC61AEE0298263ECC27F0 /* Pods_RDImageViewerController_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +31,7 @@
 		1A34066FA533E570B3D079EF /* Pods-RDImageViewerController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RDImageViewerController_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RDImageViewerController_Tests/Pods-RDImageViewerController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		1DDF7737CB8DA505ED533B3F /* Pods-RDImageViewerController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RDImageViewerController_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RDImageViewerController_Tests/Pods-RDImageViewerController_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		40DF4F16171882C33D94871A /* RDImageViewerController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RDImageViewerController.podspec; path = ../RDImageViewerController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		41FEC61AEE0298263ECC27F0 /* Pods_RDImageViewerController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC96693E15F2E1F8DA865F7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RDImageViewerController_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RDImageViewerController_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,8 +45,8 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		9070BB5D7554227F7E541025 /* Pods-RDImageViewerController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RDImageViewerController_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		BAF3DEA09E140B584783BB2E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		CCD211D10975DEE89C336176 /* Pods_RDImageViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E538D3F86688C0E3E7E91CA5 /* Pods-RDImageViewerController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RDImageViewerController_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example.release.xcconfig"; sourceTree = "<group>"; };
-		E9EE3387225A532700A9E29D /* RDImageViewerController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RDImageViewerController.framework; path = "../../../../Library/Developer/Xcode/DerivedData/RDImageViewerController-gdtnbzytekpohybqnswqesgujvyd/Build/Products/Debug-iphonesimulator/RDImageViewerController/RDImageViewerController.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9EE3388225A532700A9E29D /* RDImageViewerController.framework in Frameworks */,
+				1BEB0CC8AB8350D1C652E900 /* Pods_RDImageViewerController_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF452A13D53A58201EAEE812 /* Pods_RDImageViewerController_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +142,8 @@
 		6A0C834D54404C9844C3F7B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E9EE3387225A532700A9E29D /* RDImageViewerController.framework */,
+				CCD211D10975DEE89C336176 /* Pods_RDImageViewerController_Example.framework */,
+				41FEC61AEE0298263ECC27F0 /* Pods_RDImageViewerController_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
