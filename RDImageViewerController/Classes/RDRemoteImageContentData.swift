@@ -13,11 +13,11 @@ open class RDRemoteImageContentData: RDImageContentData {
     private let session: URLSession
     private var task: URLSessionTask?
     private var lazyConfigurationHandler: ((UIImage?) -> Void)?
-    var configuration: URLSessionConfiguration?
-    var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
-    var imageDecodeHandler: ((Data) -> UIImage?)?
+    public var configuration: URLSessionConfiguration?
+    public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
+    public var imageDecodeHandler: ((Data) -> UIImage?)?
     
-    init(request: URLRequest, session: URLSession) {
+    public init(request: URLRequest, session: URLSession) {
         self.session = session
         self.request = request
         super.init(imageName: "")

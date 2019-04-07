@@ -11,13 +11,13 @@ open class RDImageScrollView: UIScrollView {
     
     private let zoomRect = CGSize(width: 100, height: 100)
     
-    enum ResizeMode {
+    public enum ResizeMode {
         case aspectFit
         case displayFit
     }
     
     private var _mode: ResizeMode = .aspectFit
-    var mode: ResizeMode {
+    public var mode: ResizeMode {
         set {
             _mode = newValue
             adjustContentAspect()
@@ -26,7 +26,7 @@ open class RDImageScrollView: UIScrollView {
             return _mode
         }
     }
-    var borderColor: UIColor? {
+    public var borderColor: UIColor? {
         set {
             if let color = newValue {
                 imageView.layer.borderColor = color.cgColor
@@ -40,7 +40,7 @@ open class RDImageScrollView: UIScrollView {
         }
     }
     
-    var borderWidth: CGFloat {
+    public var borderWidth: CGFloat {
         set {
             imageView.layer.borderWidth = newValue
         }
@@ -53,7 +53,7 @@ open class RDImageScrollView: UIScrollView {
     private var indicatorView = UIActivityIndicatorView(style: .white)
     private var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
 
-    var image: UIImage? {
+    public var image: UIImage? {
         set {
             imageView.image = newValue
             if imageView.image == nil {
@@ -69,7 +69,7 @@ open class RDImageScrollView: UIScrollView {
         }
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         
         self.imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
@@ -109,7 +109,7 @@ open class RDImageScrollView: UIScrollView {
         }
     }
     
-    func adjustContentAspect() {
+    public func adjustContentAspect() {
         switch mode {
         case .aspectFit:
             fitToAspect()
@@ -119,7 +119,7 @@ open class RDImageScrollView: UIScrollView {
         setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
     
-    func fitToAspect() {
+    public func fitToAspect() {
         imageView.sizeToFit()
         let height = frame.height
         let width = frame.width
@@ -146,7 +146,7 @@ open class RDImageScrollView: UIScrollView {
         setZoomScale(1.0, animated: false)
     }
     
-    func fitToDisplay() {
+    public func fitToDisplay() {
         imageView.sizeToFit()
         let height = frame.height
         let width = frame.width
@@ -162,7 +162,7 @@ open class RDImageScrollView: UIScrollView {
         }
     }
     
-    func addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: UIGestureRecognizer) {
+    public func addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: UIGestureRecognizer) {
         gesture.require(toFail: zoomGesture)
     }
 

@@ -20,8 +20,8 @@ open class RDImageViewerController: UIViewController {
         case currentPageLabel = 3
     }
 
-    var delegate: RDImageViewerControllerDelegate?
-    var preloadCount: Int {
+    public var delegate: RDImageViewerControllerDelegate?
+    public var preloadCount: Int {
         set {
             pagingView.preloadCount = newValue
         }
@@ -29,7 +29,8 @@ open class RDImageViewerController: UIViewController {
             return pagingView.preloadCount
         }
     }
-    var currentPageIndex: Int {
+    
+    public var currentPageIndex: Int {
         set {
             updateSliderValue()
             currentPageHudLabel.text = "\(newValue + 1)/\(numberOfPages)"
@@ -40,13 +41,13 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    var numberOfPages: Int {
+    public var numberOfPages: Int {
         get {
             return contents.count
         }
     }
 
-    var isPagingEnabled: Bool {
+    public var isPagingEnabled: Bool {
         set {
             pagingView.isPagingEnabled = newValue
         }
@@ -56,7 +57,7 @@ open class RDImageViewerController: UIViewController {
     }
     
     private var _showSlider: Bool = false
-    var showSlider: Bool {
+    public var showSlider: Bool {
         set {
             _showSlider = newValue
             var toolbarPositionY = view.frame.height
@@ -71,10 +72,11 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    var automaticBarsHiddenDuration: TimeInterval = 0
-    var restoreBarState: Bool = true
+    public var automaticBarsHiddenDuration: TimeInterval = 0
+    public var restoreBarState: Bool = true
+    
     private var _showPageNumberHud: Bool = false
-    var showPageNumberHud: Bool {
+    public var showPageNumberHud: Bool {
         set {
             _showPageNumberHud = newValue
             if _showPageNumberHud == true {
@@ -88,7 +90,8 @@ open class RDImageViewerController: UIViewController {
             return _showPageNumberHud
         }
     }
-    var contents: [RDPageContentData] = []
+    
+    public var contents: [RDPageContentData] = []
     
     private var previousPageIndex: Int = 0
     private var _statusBarHidden: Bool = false
@@ -129,7 +132,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    init(contents: [RDPageContentData], direction: RDPagingView.ForwardDirection) {
+    public init(contents: [RDPageContentData], direction: RDPagingView.ForwardDirection) {
         self.feedbackGenerator.prepare()
         self.contents = contents
         self.pagingView = RDPagingView(frame: CGRect.zero, numberOfPages: self.contents.count, forwardDirection: direction)
@@ -268,7 +271,7 @@ open class RDImageViewerController: UIViewController {
         slider.setValue(trueValue, animated: true)
     }
     
-    func reloadView(at index: Int) {
+    public func reloadView(at index: Int) {
         if contents.count < index {
             let data = contents[index]
             data.reload()
@@ -276,7 +279,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    func refreshView(at index: Int) {
+    public func refreshView(at index: Int) {
         if contents.count < index {
             let data = contents[index]
             if let view = pagingView.view(for: index) {
@@ -285,15 +288,15 @@ open class RDImageViewerController: UIViewController {
         }
     }
 
-    func refreshPageHud() {
+    public func refreshPageHud() {
         currentPageIndex = pagingView.currentPageIndex
     }
     
-    @objc func hideBars() {
+    @objc public func hideBars() {
         setBarsHidden(hidden: true, animated: true)
     }
     
-    func setBarsHidden(hidden: Bool, animated: Bool) {
+    public func setBarsHidden(hidden: Bool, animated: Bool) {
         if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
             if showSlider, pagingView.direction.isVertical() {
                 navigationController?.setToolbarHidden(hidden, animated: animated)

@@ -27,7 +27,7 @@ import UIKit
 
 open class RDPagingView: UIScrollView {
     
-    enum ForwardDirection {
+    public enum ForwardDirection {
         case right
         case left
         case up
@@ -38,7 +38,7 @@ open class RDPagingView: UIScrollView {
         }
     }
     
-    enum MovingDirection {
+    public enum MovingDirection {
         case forward
         case backward
         case unknown
@@ -48,13 +48,13 @@ open class RDPagingView: UIScrollView {
     private var usingViews = Set<UIView>()
     private var scrollViewDelegate: UIScrollViewDelegate?
     
-    var pagingDataSource: RDPagingViewDataSource?
-    var pagingDelegate: RDPagingViewDelegate?
-    let direction: ForwardDirection
-    let numberOfPages: Int
+    public var pagingDataSource: RDPagingViewDataSource?
+    public var pagingDelegate: RDPagingViewDelegate?
+    public let direction: ForwardDirection
+    public let numberOfPages: Int
     
     private var _currentPageIndex: Int = 0
-    var currentPageIndex: Int {
+    public var currentPageIndex: Int {
         set {
             if newValue >= 0 {
                 if _currentPageIndex - newValue != 0 {
@@ -68,9 +68,9 @@ open class RDPagingView: UIScrollView {
         }
     }
     
-    var preloadCount: Int = 0
+    public var preloadCount: Int = 0
     
-    init(frame: CGRect, numberOfPages: Int, forwardDirection: ForwardDirection) {
+    public init(frame: CGRect, numberOfPages: Int, forwardDirection: ForwardDirection) {
         self.numberOfPages = numberOfPages
         self.direction = forwardDirection
         super.init(frame: frame)
@@ -80,17 +80,17 @@ open class RDPagingView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func startRotation() {
+    public func startRotation() {
         scrollViewDelegate = delegate
         delegate = nil
     }
     
-    func endRotation() {
+    public func endRotation() {
         delegate = scrollViewDelegate
         scrollViewDelegate = nil
     }
 
-    func trueIndexInScrollView(index: Int) -> Int {
+    public func trueIndexInScrollView(index: Int) -> Int {
         var trueIndex = index
         if direction == .left || direction == .up {
             trueIndex = numberOfPages - index - 1
@@ -99,7 +99,7 @@ open class RDPagingView: UIScrollView {
         return trueIndex
     }
     
-    func scroll(at: Int) {
+    public func scroll(at: Int) {
         currentPageIndex = at
         let trueIndex = trueIndexInScrollView(index: at)
         if direction.isVertical() {
@@ -110,7 +110,7 @@ open class RDPagingView: UIScrollView {
         }
     }
     
-    func dequeueView(with reuseIdentifier: String) -> UIView? {
+    public func dequeueView(with reuseIdentifier: String) -> UIView? {
         guard let set = queueDictionary[reuseIdentifier] else {
             queueDictionary[reuseIdentifier] = Set<UIView>()
             return nil
@@ -119,7 +119,7 @@ open class RDPagingView: UIScrollView {
         return set.first
     }
     
-    func resize(with frame: CGRect, duration: TimeInterval) {
+    public func resize(with frame: CGRect, duration: TimeInterval) {
         let newSize = frame.size
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingView?(pagingView: self, willChangeViewSize: newSize, duration: duration, visibleViews: Array(usingViews))
@@ -143,7 +143,7 @@ open class RDPagingView: UIScrollView {
         endRotation()
     }
     
-    func view(for index:Int) -> UIView? {
+    public func view(for index:Int) -> UIView? {
         for view in usingViews {
             if view.pageIndex == index {
                 return view
@@ -153,7 +153,7 @@ open class RDPagingView: UIScrollView {
         return nil
     }
 
-    func pageIndexWillChange(to: Int) {
+    public func pageIndexWillChange(to: Int) {
         guard let pagingDataSource = pagingDataSource else {
             return
         }
@@ -176,7 +176,7 @@ open class RDPagingView: UIScrollView {
         }
     }
     
-    func preload(numberOfViews: Int, fromIndex: Int) {
+    public func preload(numberOfViews: Int, fromIndex: Int) {
         let startIndex = max(0, fromIndex - numberOfViews)
         let endIndex = min(numberOfPages, fromIndex + numberOfViews + 1)
         for i in endIndex..<startIndex {
@@ -186,7 +186,7 @@ open class RDPagingView: UIScrollView {
         }
     }
     
-    func loadView(at index: Int) {
+    public func loadView(at index: Int) {
         if let pagingDataSource = pagingDataSource {
             let view = pagingDataSource.pagingView(pagingView: self, viewForIndex: index)
             let trueIndex = trueIndexInScrollView(index: index)
@@ -203,7 +203,7 @@ open class RDPagingView: UIScrollView {
         }
     }
     
-    func viewAsPrepared(view: UIView, reuseIdentifier: String) {
+    public func viewAsPrepared(view: UIView, reuseIdentifier: String) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingView?(pagingView: self, willViewEnqueue: view)
         }
@@ -215,7 +215,7 @@ open class RDPagingView: UIScrollView {
         }
     }
     
-    func viewAsUsing(view: UIView, reuseIdentifier: String) {
+    public func viewAsUsing(view: UIView, reuseIdentifier: String) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingView?(pagingView: self, willViewDequeue: view)
         }
@@ -280,7 +280,7 @@ extension RDPagingView: UIScrollViewDelegate
 extension UIView
 {
     private static var PageIndexKey: UInt8 = 0
-    var pageIndex: Int {
+    public var pageIndex: Int {
         get {
             guard let associatedObject = objc_getAssociatedObject(self, &UIView.PageIndexKey) as? NSNumber else {
                 let associatedObject = NSNumber(value: Int(0))

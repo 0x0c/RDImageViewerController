@@ -15,12 +15,12 @@ open class RDImageContentData: RDPageContentData {
     var image: UIImage?
     private var imageName: String?
     
-    init(image: UIImage) {
+    public init(image: UIImage) {
         super.init()
         self.image = image
     }
     
-    init(imageName: String) {
+    public init(imageName: String) {
         super.init()
         self.imageName = imageName
     }
