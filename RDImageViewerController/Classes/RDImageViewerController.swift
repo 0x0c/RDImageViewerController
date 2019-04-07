@@ -109,10 +109,11 @@ open class RDImageViewerController: UIViewController {
     private var pageSlider: UISlider
     private var currentPageHud: UIView
     private var currentPageHudLabel: UILabel
-    private var pageSliderMaximumTrackTintColor: UIColor?
-    private var pageSliderMinimumTrackTintColor: UIColor?
-    static private let PageHudLabelFontSize: CGFloat = 17
     
+    public var pageSliderMaximumTrackTintColor: UIColor?
+    public var pageSliderMinimumTrackTintColor: UIColor?
+    
+    static private let PageHudLabelFontSize: CGFloat = 17
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         pagingView.startRotation()
