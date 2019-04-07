@@ -1,0 +1,6 @@
+framework module RDImageViewerController {
+  umbrella header "RDImageViewerController-umbrella.h"
+
+  export *
+  module * { export * }
+}

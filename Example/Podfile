@@ -1,9 +1,11 @@
 use_frameworks!
 
-target 'RDImageViewerController' do
-  pod "RDImageViewerController", :path => "../"
-end
+target 'RDImageViewerController_Example' do
+  pod 'RDImageViewerController', :path => '../'
 
-target 'Tests' do
-  pod "RDImageViewerController", :path => "../"
+  target 'RDImageViewerController_Tests' do
+    inherit! :search_paths
+
+    
+  end
 end
