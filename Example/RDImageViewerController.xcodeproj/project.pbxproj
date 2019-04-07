@@ -26,8 +26,6 @@
 		E90C11501D8E022000630F12 /* RDViewPageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E90C114F1D8E022000630F12 /* RDViewPageContentData.m */; };
 		E90C11531D8E022800630F12 /* RDScrollViewPageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E90C11521D8E022800630F12 /* RDScrollViewPageContentData.m */; };
 		E90E268A1A34981000F1F54A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90E26881A34981000F1F54A /* LaunchScreen.xib */; };
-		E919D29119D8005C003F4BD0 /* RDImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E919D29019D8005C003F4BD0 /* RDImageScrollView.m */; };
-		E919D29619D80683003F4BD0 /* RDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E919D29519D80683003F4BD0 /* RDPagingView.m */; };
 		E919D2A219D82F8E003F4BD0 /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29819D82F8E003F4BD0 /* 1.JPG */; };
 		E919D2A319D82F8E003F4BD0 /* 10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29919D82F8E003F4BD0 /* 10.JPG */; };
 		E919D2A419D82F8E003F4BD0 /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29A19D82F8E003F4BD0 /* 2.JPG */; };
@@ -38,11 +36,6 @@
 		E919D2A919D82F8E003F4BD0 /* 7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D29F19D82F8E003F4BD0 /* 7.JPG */; };
 		E919D2AA19D82F8E003F4BD0 /* 8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A019D82F8E003F4BD0 /* 8.JPG */; };
 		E919D2AB19D82F8E003F4BD0 /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E919D2A119D82F8E003F4BD0 /* 9.JPG */; };
-		E928DBE01AB2011C00594AAD /* rd_M2DURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E928DBDF1AB2011C00594AAD /* rd_M2DURLConnectionOperation.m */; };
-		E9437D751D8DF4BC003DC413 /* RDPageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E9437D741D8DF4BC003DC413 /* RDPageContentData.m */; };
-		E9437D781D8DF59A003DC413 /* RDRemoteImageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E9437D771D8DF59A003DC413 /* RDRemoteImageContentData.m */; };
-		E9437D7B1D8DF5A4003DC413 /* RDImageContentData.m in Sources */ = {isa = PBXBuildFile; fileRef = E9437D7A1D8DF5A4003DC413 /* RDImageContentData.m */; };
-		E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96FFD8119CE7970008ADEDF /* RDImageViewerController.m */; };
 		E9B106601AB760DA000DEEE4 /* 11.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9B1065F1AB760DA000DEEE4 /* 11.JPG */; };
 		E9B106621AB76127000DEEE4 /* 12.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9B106611AB76127000DEEE4 /* 12.JPG */; };
 /* End PBXBuildFile section */
@@ -378,7 +371,6 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				40CC8727554EFA447316C428 /* [CP] Embed Pods Frameworks */,
-				17A07E73C56C4A89A52DCDB0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -398,7 +390,6 @@
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
 				12878CB9D6B18A1BA06EB80B /* [CP] Embed Pods Frameworks */,
-				158D885D8397CAE1CE9D9D61 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -417,7 +408,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RD;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Akira Matsuda";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
@@ -432,7 +423,7 @@
 			};
 			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "RDImageViewerController" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -502,36 +493,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		158D885D8397CAE1CE9D9D61 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		17A07E73C56C4A89A52DCDB0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RDImageViewerController/Pods-RDImageViewerController-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		40CC8727554EFA447316C428 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -593,18 +554,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E96FFD8419CE7970008ADEDF /* RDImageViewerController.m in Sources */,
 				6003F59E195388D20070C39A /* RDAppDelegate.m in Sources */,
-				E9437D781D8DF59A003DC413 /* RDRemoteImageContentData.m in Sources */,
-				E9437D7B1D8DF5A4003DC413 /* RDImageContentData.m in Sources */,
-				E919D29119D8005C003F4BD0 /* RDImageScrollView.m in Sources */,
 				6003F5A7195388D20070C39A /* RDViewController.m in Sources */,
 				E90C11531D8E022800630F12 /* RDScrollViewPageContentData.m in Sources */,
 				E90C11501D8E022000630F12 /* RDViewPageContentData.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				E919D29619D80683003F4BD0 /* RDPagingView.m in Sources */,
-				E9437D751D8DF4BC003DC413 /* RDPageContentData.m in Sources */,
-				E928DBE01AB2011C00594AAD /* rd_M2DURLConnectionOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,6 +620,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -674,12 +629,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -706,7 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -717,6 +674,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -725,12 +683,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -750,7 +710,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -769,7 +729,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RDImageViewerController/RDImageViewerController-Prefix.pch";
 				INFOPLIST_FILE = "RDImageViewerController/RDImageViewerController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -791,7 +751,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RDImageViewerController/RDImageViewerController-Prefix.pch";
 				INFOPLIST_FILE = "RDImageViewerController/RDImageViewerController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

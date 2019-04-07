@@ -7,12 +7,7 @@
 //
 
 #import "RDViewController.h"
-#import "RDImageViewerController.h"
-#import "RDImageContentData.h"
-#import "RDRemoteImageContentData.h"
-
-#import "RDViewPageContentData.h"
-#import "RDScrollViewPageContentData.h"
+#import "RDImageViewerController-Swift.h"
 
 const NSInteger kPreloadCount = 3;
 const NSInteger kNumberOfImages = 12;
