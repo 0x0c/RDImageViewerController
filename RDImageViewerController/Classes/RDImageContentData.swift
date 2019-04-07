@@ -8,12 +8,12 @@
 import UIKit
 
 open class RDImageContentData: RDPageContentData {
-    private static let DefaultMaximumZoomScale: CGFloat = 2.5
+    static let DefaultMaximumZoomScale: CGFloat = 2.5
     
-    var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
-    var landscapeMode: RDImageScrollView.ResizeMode = .aspectFit
-    var image: UIImage?
-    private var imageName: String?
+    public var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
+    public var landscapeMode: RDImageScrollView.ResizeMode = .aspectFit
+    public var image: UIImage?
+    var imageName: String?
     
     public init(image: UIImage) {
         super.init()

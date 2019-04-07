@@ -44,16 +44,16 @@ open class RDPagingView: UIScrollView {
         case unknown
     }
     
-    private var queueDictionary = [String : Set<UIView>]()
-    private var usingViews = Set<UIView>()
-    private var scrollViewDelegate: UIScrollViewDelegate?
+    var queueDictionary = [String : Set<UIView>]()
+    var usingViews = Set<UIView>()
+    var scrollViewDelegate: UIScrollViewDelegate?
     
     public var pagingDataSource: RDPagingViewDataSource?
     public var pagingDelegate: RDPagingViewDelegate?
     public let direction: ForwardDirection
     public let numberOfPages: Int
     
-    private var _currentPageIndex: Int = 0
+    var _currentPageIndex: Int = 0
     public var currentPageIndex: Int {
         set {
             if newValue >= 0 {
@@ -279,7 +279,7 @@ extension RDPagingView: UIScrollViewDelegate
 
 extension UIView
 {
-    private static var PageIndexKey: UInt8 = 0
+    static var PageIndexKey: UInt8 = 0
     public var pageIndex: Int {
         get {
             guard let associatedObject = objc_getAssociatedObject(self, &UIView.PageIndexKey) as? NSNumber else {

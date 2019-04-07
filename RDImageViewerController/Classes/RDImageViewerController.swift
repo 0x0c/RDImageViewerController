@@ -14,7 +14,7 @@ public protocol RDImageViewerControllerDelegate {
 
 open class RDImageViewerController: UIViewController {
 
-    private enum ViewTag : Int {
+    enum ViewTag : Int {
         case mainScrollView = 1
         case pageScrollView = 2
         case currentPageLabel = 3
@@ -56,7 +56,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    private var _showSlider: Bool = false
+    var _showSlider: Bool = false
     public var showSlider: Bool {
         set {
             _showSlider = newValue
@@ -75,7 +75,7 @@ open class RDImageViewerController: UIViewController {
     public var automaticBarsHiddenDuration: TimeInterval = 0
     public var restoreBarState: Bool = true
     
-    private var _showPageNumberHud: Bool = false
+    var _showPageNumberHud: Bool = false
     public var showPageNumberHud: Bool {
         set {
             _showPageNumberHud = newValue
@@ -93,9 +93,9 @@ open class RDImageViewerController: UIViewController {
     
     public var contents: [RDPageContentData] = []
     
-    private var previousPageIndex: Int = 0
-    private var _statusBarHidden: Bool = false
-    private var statusBarHidden: Bool {
+    var previousPageIndex: Int = 0
+    var _statusBarHidden: Bool = false
+    var statusBarHidden: Bool {
         set {
             _statusBarHidden = newValue
             setNeedsStatusBarAppearanceUpdate()
@@ -104,16 +104,16 @@ open class RDImageViewerController: UIViewController {
             return _statusBarHidden
         }
     }
-    private var feedbackGenerator = UISelectionFeedbackGenerator()
-    private var pagingView: RDPagingView
-    private var pageSlider: UISlider
-    private var currentPageHud: UIView
-    private var currentPageHudLabel: UILabel
+    var feedbackGenerator = UISelectionFeedbackGenerator()
+    var pagingView: RDPagingView
+    var pageSlider: UISlider
+    var currentPageHud: UIView
+    var currentPageHudLabel: UILabel
     
     public var pageSliderMaximumTrackTintColor: UIColor?
     public var pageSliderMinimumTrackTintColor: UIColor?
     
-    static private let PageHudLabelFontSize: CGFloat = 17
+    static let PageHudLabelFontSize: CGFloat = 17
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         pagingView.startRotation()
@@ -240,7 +240,7 @@ open class RDImageViewerController: UIViewController {
         pagingView.pagingDelegate = nil
     }
     
-    private func updateSliderValue() {
+    func updateSliderValue() {
         if pagingView.direction.isVertical() {
             if pagingView.direction == .right {
                 pageSlider.value = Float(pagingView.currentPageIndex) / Float(pagingView.numberOfPages - 1)
@@ -251,12 +251,12 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    @objc private func setBarHiddenByTapGesture() {
+    @objc func setBarHiddenByTapGesture() {
         cancelAutoBarHidden()
         setBarsHidden(hidden: !statusBarHidden, animated: true)
     }
     
-    @objc private func sliderValueDidChange(slider: UISlider) {
+    @objc func sliderValueDidChange(slider: UISlider) {
         cancelAutoBarHidden()
         let trueValue = pagingView.direction == .right ? slider.value : 1.0 - slider.value
         let page = Int(trueValue * Float(pagingView.numberOfPages - 1))
@@ -266,7 +266,7 @@ open class RDImageViewerController: UIViewController {
         pagingView.scroll(at: page)
     }
     
-    @objc private func sliderDidTouchUpInside(slider: UISlider) {
+    @objc func sliderDidTouchUpInside(slider: UISlider) {
         let value = Float(pagingView.currentPageIndex / (pagingView.numberOfPages - 1))
         let trueValue = pagingView.direction == .right ? value : 1 - value
         slider.setValue(trueValue, animated: true)
@@ -324,15 +324,15 @@ open class RDImageViewerController: UIViewController {
         }, completion: nil)
     }
     
-    private func updateHudHorizontalPosition(position: CGFloat) {
+    func updateHudHorizontalPosition(position: CGFloat) {
         currentPageHud.frame = CGRect(x: view.center.x - currentPageHud.frame.width / 2.0, y: position - currentPageHud.frame.height - 10, width: currentPageHud.frame.width, height: currentPageHud.frame.height)
     }
     
-    private func cancelAutoBarHidden() {
+    func cancelAutoBarHidden() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideBars), object: self)
     }
     
-    private func applySliderTintColor() {
+    func applySliderTintColor() {
         var maximumTintColor = UIColor(red: 0, green: (122.0 / 255.0), blue: 1, alpha: 1)
         if let tintColor = pageSliderMaximumTrackTintColor {
             maximumTintColor = tintColor

@@ -8,11 +8,11 @@
 import UIKit
 
 open class RDRemoteImageContentData: RDImageContentData {
-    private var tempolaryImageView: RDImageScrollView?
-    private let request: URLRequest
-    private let session: URLSession
-    private var task: URLSessionTask?
-    private var lazyConfigurationHandler: ((UIImage?) -> Void)?
+    var tempolaryImageView: RDImageScrollView?
+    let request: URLRequest
+    let session: URLSession
+    var task: URLSessionTask?
+    var lazyConfigurationHandler: ((UIImage?) -> Void)?
     public var configuration: URLSessionConfiguration?
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?

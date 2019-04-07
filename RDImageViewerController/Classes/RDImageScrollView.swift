@@ -9,14 +9,14 @@ import UIKit
 
 open class RDImageScrollView: UIScrollView {
     
-    private let zoomRect = CGSize(width: 100, height: 100)
+    let zoomRect = CGSize(width: 100, height: 100)
     
     public enum ResizeMode {
         case aspectFit
         case displayFit
     }
     
-    private var _mode: ResizeMode = .aspectFit
+    var _mode: ResizeMode = .aspectFit
     public var mode: ResizeMode {
         set {
             _mode = newValue
@@ -49,9 +49,9 @@ open class RDImageScrollView: UIScrollView {
         }
     }
     
-    private var imageView = UIImageView()
-    private var indicatorView = UIActivityIndicatorView(style: .white)
-    private var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
+    var imageView = UIImageView()
+    var indicatorView = UIActivityIndicatorView(style: .white)
+    var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
 
     public var image: UIImage? {
         set {
@@ -98,7 +98,7 @@ open class RDImageScrollView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func zoomImage(gesture: UIGestureRecognizer) {
+    @objc func zoomImage(gesture: UIGestureRecognizer) {
         let scrollView = gesture.view as! UIScrollView
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             scrollView.setZoomScale(1.0, animated: true)
