@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RDRemoteImageContentData: RDImageContentData {
+open class RDRemoteImageContentData: RDImageContentData {
     private var tempolaryImageView: RDImageScrollView?
     private let request: URLRequest
     private let session: URLSession
@@ -23,17 +23,17 @@ class RDRemoteImageContentData: RDImageContentData {
         super.init(imageName: "")
     }
     
-    override func stopPreload() {
+    override public func stopPreload() {
         if let task = task {
             task.cancel()
         }
     }
     
-    override func contentView(frame: CGRect) -> UIView {
+    override public func contentView(frame: CGRect) -> UIView {
         return RDImageScrollView(frame: frame)
     }
     
-    override func preload() {
+    override public func preload() {
         if image == nil {
             task = session.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
                 guard let weakSelf = self, let data = data else {
@@ -58,12 +58,12 @@ class RDRemoteImageContentData: RDImageContentData {
         }
     }
     
-    override func reload() {
+    override public func reload() {
         image = nil
         preload()
     }
     
-    override func configure(view: UIView) {
+    override public func configure(view: UIView) {
         super.configure(view: view)
         if image == nil {
             let imageView = view as! RDImageScrollView

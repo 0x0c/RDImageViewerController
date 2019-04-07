@@ -7,12 +7,12 @@
 
 import UIKit
 
-@objc protocol RDPagingViewDataSource {
+@objc public protocol RDPagingViewDataSource {
     func pagingView(pagingView: RDPagingView, viewForIndex index: Int) -> UIView
     func pagingView(pagingView: RDPagingView, reuseIdentifierForIndex index: Int) -> String
 }
 
-@objc protocol RDPagingViewDelegate {
+@objc public protocol RDPagingViewDelegate {
     @objc optional func pagingView(pagingView: RDPagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
     @objc optional func pagingView(pagingView: RDPagingView, willViewDequeue view: UIView)
     @objc optional func pagingView(pagingView: RDPagingView, willViewEnqueue view: UIView)
@@ -25,7 +25,7 @@ import UIKit
     @objc optional func pagingViewDidEndScrollingAnimation(pagingView: RDPagingView)
 }
 
-class RDPagingView: UIScrollView {
+open class RDPagingView: UIScrollView {
     
     enum ForwardDirection {
         case right
@@ -76,7 +76,7 @@ class RDPagingView: UIScrollView {
         super.init(frame: frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -231,7 +231,7 @@ class RDPagingView: UIScrollView {
 
 extension RDPagingView: UIScrollViewDelegate
 {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var position: CGFloat = 0
         if direction.isVertical() {
             position = scrollView.contentOffset.x / scrollView.frame.width
@@ -246,31 +246,31 @@ extension RDPagingView: UIScrollViewDelegate
         }
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewWillBeginDragging?(pagingView: self)
         }
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndDragging?(pagingView: self, willDecelerate: decelerate)
         }
     }
     
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewWillBeginDecelerating?(pagingView: self)
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndDecelerating?(pagingView: self)
         }
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndScrollingAnimation?(pagingView: self)
         }

@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol RDImageViewerControllerDelegate {
+public protocol RDImageViewerControllerDelegate {
     func imageViewController(viewController: RDImageViewerController, willChangeIndexTo index: Int)
     func contentViewWillAppear(view: UIView, pageIndex: Int)
 }
 
-class RDImageViewerController: UIViewController {
+open class RDImageViewerController: UIViewController {
 
     private enum ViewTag : Int {
         case mainScrollView = 1
@@ -110,7 +110,7 @@ class RDImageViewerController: UIViewController {
     private var pageSliderMinimumTrackTintColor: UIColor?
     static private let PageHudLabelFontSize: CGFloat = 17
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         pagingView.startRotation()
         let sizeClass = traitCollection.verticalSizeClass
@@ -139,11 +139,11 @@ class RDImageViewerController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         pagingView.frame = view.bounds
         pagingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -193,7 +193,7 @@ class RDImageViewerController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         pagingView.frame = view.bounds
         
@@ -217,7 +217,7 @@ class RDImageViewerController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         pagingView.pagingDelegate = self
         if automaticBarsHiddenDuration > 0 {
@@ -226,12 +226,12 @@ class RDImageViewerController: UIViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelAutoBarHidden()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         pagingView.pagingDelegate = nil
     }
@@ -346,23 +346,23 @@ class RDImageViewerController: UIViewController {
 
 extension RDImageViewerController
 {
-    override var prefersStatusBarHidden: Bool {
+    override open var prefersStatusBarHidden: Bool {
         return statusBarHidden
     }
     
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+    override open var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
     }
     
-    override var shouldAutorotate: Bool {
+    override open var shouldAutorotate: Bool {
         return true
     }
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portraitUpsideDown
     }
     
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return .portrait
     }
 }
@@ -370,7 +370,7 @@ extension RDImageViewerController
 
 extension RDImageViewerController: RDPagingViewDelegate
 {
-    @objc func pagingView(pagingView: RDPagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView]) {
+    @objc public func pagingView(pagingView: RDPagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView]) {
         for v in visibleViews {
             if v.pageIndex != pagingView.currentPageIndex {
                 v.isHidden = true
@@ -399,18 +399,18 @@ extension RDImageViewerController: RDPagingViewDelegate
         }
     }
 
-    @objc func pagingView(pagingView: RDPagingView, willViewEnqueue view: UIView) {
+    @objc public func pagingView(pagingView: RDPagingView, willViewEnqueue view: UIView) {
         let data = contents[view.pageIndex]
         data.stopPreload()
     }
     
-    @objc func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
+    @objc public func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
         if let delegate = delegate {
             delegate.imageViewController(viewController: self, willChangeIndexTo: index)
         }
     }
     
-    @objc func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat) {
+    @objc public func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat) {
         if pageSlider.state == .normal {
             let p = pagingView.numberOfPages - 1
             pageSlider.value = Float(position / CGFloat(p))
@@ -418,13 +418,13 @@ extension RDImageViewerController: RDPagingViewDelegate
         refreshPageHud()
     }
 
-    @objc func pagingViewWillBeginDragging(pagingView: RDPagingView) {
+    @objc public func pagingViewWillBeginDragging(pagingView: RDPagingView) {
         if pagingView.isDragging == false {
             previousPageIndex = currentPageIndex
         }
     }
     
-    @objc func pagingViewDidEndDecelerating(pagingView: RDPagingView) {
+    @objc public func pagingViewDidEndDecelerating(pagingView: RDPagingView) {
         let page = currentPageIndex
         for view in pagingView.subviews {
             if view.isKind(of: UIScrollView.self) {
@@ -442,7 +442,7 @@ extension RDImageViewerController: RDPagingViewDelegate
 
 extension RDImageViewerController: RDPagingViewDataSource
 {
-    func pagingView(pagingView: RDPagingView, viewForIndex index: Int) -> UIView {
+    public func pagingView(pagingView: RDPagingView, viewForIndex index: Int) -> UIView {
         let data = contents[index]
         let frame = CGRect(x: 0, y: 0, width: pagingView.bounds.width, height: pagingView.bounds.height)
         let view = data.contentView(frame: frame)
@@ -466,7 +466,7 @@ extension RDImageViewerController: RDPagingViewDataSource
         return view
     }
     
-    func pagingView(pagingView: RDPagingView, reuseIdentifierForIndex index: Int) -> String {
+    public func pagingView(pagingView: RDPagingView, reuseIdentifierForIndex index: Int) -> String {
         if contents.count < index {
             let data = contents[index]
             return String(describing: type(of: data))

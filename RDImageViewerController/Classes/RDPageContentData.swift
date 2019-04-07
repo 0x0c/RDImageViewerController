@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RDPageContentDataDelegate {
+public protocol RDPageContentDataDelegate {
     func contentView(frame: CGRect) -> UIView
     func preloadable() -> Bool
     func preload()
@@ -16,29 +16,29 @@ protocol RDPageContentDataDelegate {
     func configure(view: UIView)
 }
 
-class RDPageContentData: NSObject, RDPageContentDataDelegate {
+open class RDPageContentData: NSObject, RDPageContentDataDelegate {
     
-    func contentView(frame: CGRect) -> UIView {
+    public func contentView(frame: CGRect) -> UIView {
         return UIView(frame: CGRect.zero)
     }
     
-    func preloadable() -> Bool {
+    public func preloadable() -> Bool {
         return false
     }
 
-    func preload() {
+    public func preload() {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
     }
     
-    func stopPreload() {
+    public func stopPreload() {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
     }
     
-    func reload() {
+    public func reload() {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
     }
     
-    func configure(view: UIView) {
+    public func configure(view: UIView) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
     }
 

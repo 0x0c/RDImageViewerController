@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RDImageContentData: RDPageContentData {
+open class RDImageContentData: RDPageContentData {
     private static let DefaultMaximumZoomScale: CGFloat = 2.5
     
     var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
@@ -25,26 +25,26 @@ class RDImageContentData: RDPageContentData {
         self.imageName = imageName
     }
     
-    override func contentView(frame: CGRect) -> UIView {
+    override public func contentView(frame: CGRect) -> UIView {
         return RDImageScrollView(frame: frame)
     }
     
-    override func preload() {
+    override public func preload() {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
         }
     }
     
-    override func reload() {
+    override public func reload() {
         image = nil
         preload()
     }
     
-    override func stopPreload() {
+    override public func stopPreload() {
         
     }
     
-    override func configure(view: UIView) {
+    override public func configure(view: UIView) {
         let imageView = view as! RDImageScrollView
         imageView.maximumZoomScale = maximumZoomScale
         imageView.mode = landscapeMode

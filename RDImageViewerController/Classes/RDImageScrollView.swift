@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RDImageScrollView: UIScrollView {
+open class RDImageScrollView: UIScrollView {
     
     private let zoomRect = CGSize(width: 100, height: 100)
     
@@ -94,7 +94,7 @@ class RDImageScrollView: UIScrollView {
         self.addGestureRecognizer(self.zoomGesture)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -169,11 +169,11 @@ class RDImageScrollView: UIScrollView {
 }
 
 extension RDImageScrollView: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         if let subView = scrollView.subviews.first {
             let offsetX = scrollView.bounds.width > scrollView.contentSize.width ? (scrollView.bounds.width - scrollView.contentSize.width) * 0.5 : 0
             let offsetY = scrollView.bounds.height > scrollView.contentSize.height ? (scrollView.bounds.height - scrollView.contentSize.height) * 0.5 : 0
