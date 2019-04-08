@@ -34,7 +34,7 @@ open class RDImageViewerController: UIViewController {
     public var currentPageIndex: Int {
         set {
             updateSliderValue()
-            updateCurrentPageHudLabel(page: newValue)
+            updateCurrentPageHudLabel(page: newValue + 1, denominator: numberOfPages)
             pagingView.scroll(at: newValue)
         }
         get {
@@ -253,8 +253,8 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    open func updateCurrentPageHudLabel(page: Int) {
-        currentPageHudLabel.text = "\(page + 1)/\(numberOfPages)"
+    open func updateCurrentPageHudLabel(page: Int, denominator: Int) {
+        currentPageHudLabel.text = "\(page)/\(denominator)"
     }
     
     @objc open func setBarHiddenByTapGesture() {
