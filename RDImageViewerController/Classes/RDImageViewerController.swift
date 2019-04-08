@@ -12,6 +12,7 @@ public protocol RDImageViewerControllerDelegate {
     func contentViewWillAppear(view: UIView, pageIndex: Int)
 }
 
+@objcMembers
 open class RDImageViewerController: UIViewController {
 
     enum ViewTag : Int {
