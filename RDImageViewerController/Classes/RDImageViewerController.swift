@@ -28,8 +28,8 @@ open class RDImageViewerController: UIViewController {
     public var currentPageIndex: Int {
         set {
             updateSliderValue()
-            updateCurrentPageHudLabel(page: newValue + 1, denominator: numberOfPages)
-            scrollAt(index: pagingView.currentPageIndex)
+            pagingView.currentPageIndex = newValue
+            updateCurrentPageHudLabel(page: pagingView.currentPageIndex + 1, denominator: numberOfPages)
         }
         get {
             return pagingView.currentPageIndex
@@ -85,7 +85,22 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    public var contents: [RDPageContentData] = []
+    public var _orderedContents: [RDPageContentData]?
+    public var orderedContents: [RDPageContentData] {
+        get {
+            if _orderedContents == nil {
+                if pagingView.direction == .right || pagingView.direction == .down {
+                    _orderedContents = contents
+                }
+                else {
+                    _orderedContents = contents.reversed()
+                }
+            }
+            
+            return _orderedContents!
+        }
+    }
+    private var contents: [RDPageContentData] = []
     
     var previousPageIndex: Int = 0
     var _statusBarHidden: Bool = false
@@ -217,8 +232,6 @@ open class RDImageViewerController: UIViewController {
         currentPageHudLabel.tag = ViewTag.currentPageLabel.rawValue
         currentPageHud.addSubview(currentPageHudLabel)
         
-//        pagingView.reloadData()
-        updateSliderValue()
         applySliderTintColor()
     }
     
@@ -228,7 +241,7 @@ open class RDImageViewerController: UIViewController {
             setBarsHidden(hidden: !showSlider, animated: animated)
             setHudHidden(hidden: !showPageNumberHud, animated: false)
         }
-
+        
         updateHudPosition()
         refreshPageHud()
     }
@@ -239,6 +252,8 @@ open class RDImageViewerController: UIViewController {
             perform(#selector(hideBars), with: self, afterDelay: automaticBarsHiddenDuration)
             automaticBarsHiddenDuration = 0
         }
+        currentPageIndex = 0
+        updateSliderValue()
     }
     
     override open func viewWillDisappear(_ animated: Bool) {
@@ -263,10 +278,10 @@ open class RDImageViewerController: UIViewController {
     func updateSliderValue() {
         if pagingView.direction.isHorizontal() {
             if pagingView.direction == .right {
-                pageSlider.value = Float(pagingView.currentPageIndex) / Float(contents.count - 1)
+                pageSlider.value = 1.0 - Float(currentPageIndex) / Float(numberOfPages - 1)
             }
             else {
-                pageSlider.value = 1.0 - Float(pagingView.currentPageIndex) / Float(contents.count - 1)
+                pageSlider.value = Float(currentPageIndex) / Float(numberOfPages - 1)
             }
         }
     }
@@ -281,44 +296,31 @@ open class RDImageViewerController: UIViewController {
     }
     
     @objc func sliderValueDidChange(slider: UISlider) {
-//        cancelAutoBarHidden()
-//        let trueValue = pagingView.direction == .left ? slider.value : 1.0 - slider.value
-//        let page = Int(trueValue * Float(contents.count - 1))
-//        if currentPageIndex != page {
-//            feedbackGenerator.selectionChanged()
-//        }
-//        scrollAt(index: page)
+        cancelAutoBarHidden()
+        let page = Int(slider.value * Float(contents.count - 1) + 0.5)
+        if currentPageIndex != page {
+            feedbackGenerator.selectionChanged()
+        }
+        currentPageIndex = page
     }
     
     @objc func sliderDidTouchUpInside(slider: UISlider) {
-        let value = Float(pagingView.currentPageIndex / (contents.count - 1))
-        let trueValue = pagingView.direction == .right ? value : 1 - value
-        slider.setValue(trueValue, animated: true)
+        let value = Float(currentPageIndex) / Float(numberOfPages - 1)
+        let trueValue = pagingView.direction == .left ? value : 1 - value
+        slider.setValue(trueValue, animated: false)
     }
     
     public func reloadView(at index: Int) {
-        if contents.count > index {
-            let data = contents[index]
+        if numberOfPages > index {
+            let data = orderedContents[index]
             data.reload()
             refreshView(at: index)
         }
     }
     
     public func refreshView(at index: Int) {
-        if contents.count > index {
+        if numberOfPages > index {
             pagingView.reloadItems(at: [IndexPath(row: index, section: 0)])
-        }
-    }
-    
-    func    scrollAt(index: Int) {
-        if contents.count <= index {
-            return
-        }
-        if pagingView.direction.isHorizontal() {
-            pagingView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
-        }
-        else {
-            pagingView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredVertically, animated: true)
         }
     }
 
@@ -376,8 +378,8 @@ open class RDImageViewerController: UIViewController {
             minimumTintColor = tintColor
         }
         
-        pageSlider.maximumTrackTintColor = pagingView.direction == .left ? maximumTintColor : minimumTintColor
-        pageSlider.minimumTrackTintColor = pagingView.direction == .left ? minimumTintColor : maximumTintColor
+        pageSlider.maximumTrackTintColor = pagingView.direction == .right ? maximumTintColor : minimumTintColor
+        pageSlider.minimumTrackTintColor = pagingView.direction == .right ? minimumTintColor : maximumTintColor
     }
 }
 
@@ -389,11 +391,11 @@ extension RDImageViewerController : UICollectionViewDelegate
 extension RDImageViewerController : UICollectionViewDataSource
 {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return contents.count
+        return numberOfPages
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let data = contents[indexPath.row]
+        let data = orderedContents[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! RDPageContentDataView & UICollectionViewCell
         cell.configure(data: data)
         if let imageScrollView = cell as? RDImageScrollView {
@@ -442,12 +444,12 @@ extension RDImageViewerController
 extension RDImageViewerController: RDPagingViewDelegate
 {
     @objc public func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
-        updateCurrentPageHudLabel(page: index, denominator: contents.count)
+        updateCurrentPageHudLabel(page: index + 1, denominator: numberOfPages)
     }
     
     @objc public func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat) {
         if pageSlider.state == .normal {
-            let p = contents.count - 1
+            let p = numberOfPages - 1
             pageSlider.value = Float(position / CGFloat(p))
         }
     }
@@ -466,7 +468,7 @@ extension RDImageViewerController: RDPagingViewDelegate
                 if pagingView.isPagingEnabled == true, page != previousPageIndex {
                     scrollView.zoomScale = 1.0
                 }
-                else if previousPageIndex == pagingView.currentPageIndex - 2 || previousPageIndex == pagingView.currentPageIndex + 2 {
+                else if previousPageIndex == currentPageIndex - 2 || previousPageIndex == currentPageIndex + 2 {
                     scrollView.zoomScale = 1.0
                 }
             }
@@ -477,8 +479,8 @@ extension RDImageViewerController: RDPagingViewDelegate
 extension RDImageViewerController: RDPagingViewDataSource
 {
     public func pagingView(pagingView: RDPagingView, preloadItemAt index: Int) {
-        if contents.count > index {
-            let data = contents[index]
+        if numberOfPages > index {
+            let data = orderedContents[index]
             if data.isPreloadable() {
                 data.preload()
             }

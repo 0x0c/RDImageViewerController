@@ -52,6 +52,6 @@ open class RDImageContentData: RDPageContentData {
     }
 
     open override func reuseIdentifier() -> String {
-        return "RDImageContentData"
+        return "\(RDImageContentData.self)"
     }
 }

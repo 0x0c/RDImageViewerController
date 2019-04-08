@@ -126,7 +126,7 @@ open class RDImageScrollView: UICollectionViewCell {
         case .displayFit:
             fitToDisplay()
         }
-//        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
     
     public func fitToAspect() {

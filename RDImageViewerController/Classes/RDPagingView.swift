@@ -45,14 +45,19 @@ open class RDPagingView: UICollectionView {
     public var pagingDelegate: (RDPagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
     public let direction: ForwardDirection
     
+    var numberOfPages = 0
     var _currentPageIndex: Int = 0
     public var currentPageIndex: Int {
         set {
-            if newValue >= 0 {
-                if _currentPageIndex - newValue != 0 {
-                    
+            if newValue >= 0, newValue < numberOfPages {
+                if direction == .left || direction == .up {
+                    scrollToItem(at: IndexPath(row: newValue, section: 0), at: .centeredHorizontally, animated: false)
+                    _currentPageIndex = newValue
                 }
-                _currentPageIndex = newValue
+                else if direction == .right || direction == .down {
+                    scrollToItem(at: IndexPath(row: numberOfPages - newValue - 1, section: 0), at: .centeredHorizontally, animated: false)
+                    _currentPageIndex = numberOfPages - newValue - 1
+                }
             }
         }
         get {
@@ -107,26 +112,14 @@ open class RDPagingView: UICollectionView {
         for i in 0..<preloadCount {
             pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
         }
+        numberOfPages = pagingDataSource.collectionView(self, numberOfItemsInSection: 0)
         super.reloadData()
-    }
-    
-    public func pageIndexWillChange(to: Int) {
-        let movingDirection: MovingDirection = to - currentPageIndex > 0 ? .forward : (to - currentPageIndex < 0 ? .backward : .unknown)
-
-        if movingDirection != .unknown {
-            preload(numberOfViews: preloadCount, fromIndex: to)
-        }
-        
-        if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
-        }
     }
     
     public func preload(numberOfViews: Int, fromIndex: Int) {
         let startIndex = max(0, fromIndex - numberOfViews)
-        let numberOfPages = numberOfItems(inSection: 0)
         let endIndex = min(numberOfPages, fromIndex + numberOfViews + 1)
-        for i in endIndex..<startIndex {
+        for i in startIndex..<endIndex {
             guard let pagingDataSource = pagingDataSource else {
                 return
             }
@@ -138,16 +131,31 @@ open class RDPagingView: UICollectionView {
 extension RDPagingView : UIScrollViewDelegate
 {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var position: CGFloat = 0
+        var position: CGFloat
         if direction.isHorizontal() {
             position = scrollView.contentOffset.x / scrollView.frame.width
         }
         else {
             position = scrollView.contentOffset.y / scrollView.frame.height
+            
+        }
+        
+        var to = 0
+        switch direction {
+        case .up, .left:
+            to = Int(position + 0.5)
+        case .down, .right:
+            to = Int(position + 0.5)
+        }
+        let movingDirection: MovingDirection = to - currentPageIndex > 0 ? .forward : (to - currentPageIndex < 0 ? .backward : .unknown)
+        if movingDirection != .unknown {
+            preload(numberOfViews: preloadCount, fromIndex: to)
         }
         if let pagingDelegate = pagingDelegate {
+            pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
             pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: position)
         }
+        _currentPageIndex = to
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -197,9 +205,11 @@ extension RDPagingView : UICollectionViewDataSource
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let pagingDataSource = pagingDataSource else {
+            numberOfPages = 0
             return 0
         }
-        return pagingDataSource.collectionView(collectionView, numberOfItemsInSection: section)
+        numberOfPages = pagingDataSource.collectionView(collectionView, numberOfItemsInSection: section)
+        return numberOfPages
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
