@@ -7,11 +7,6 @@
 
 import UIKit
 
-public protocol RDImageViewerControllerDelegate {
-    func imageViewController(viewController: RDImageViewerController, willChangeIndexTo index: Int)
-    func contentViewWillAppear(view: UIView, pageIndex: Int)
-}
-
 @objcMembers
 open class RDImageViewerController: UIViewController {
 
@@ -21,7 +16,6 @@ open class RDImageViewerController: UIViewController {
         case currentPageLabel = 3
     }
 
-    public var delegate: RDImageViewerControllerDelegate?
     public var preloadCount: Int {
         set {
             pagingView.preloadCount = newValue
@@ -35,7 +29,7 @@ open class RDImageViewerController: UIViewController {
         set {
             updateSliderValue()
             updateCurrentPageHudLabel(page: newValue + 1, denominator: numberOfPages)
-            pagingView.scroll(at: newValue)
+            scrollAt(index: pagingView.currentPageIndex)
         }
         get {
             return pagingView.currentPageIndex
@@ -61,11 +55,10 @@ open class RDImageViewerController: UIViewController {
     public var showSlider: Bool {
         set {
             _showSlider = newValue
-            var toolbarPositionY = view.frame.height
-            if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
-                toolbarPositionY = navigationController?.toolbar.frame.minY ?? 0
+            if showSlider, pagingView.direction.isHorizontal() {
+                navigationController?.setToolbarHidden(true, animated: true)
             }
-            updateHudHorizontalPosition(position: toolbarPositionY)
+            updateHudPosition()
             applySliderTintColor()
         }
         get {
@@ -112,13 +105,30 @@ open class RDImageViewerController: UIViewController {
     public var pageSlider: UISlider
     public var currentPageHud: UIView
     
-    public var pageSliderMaximumTrackTintColor: UIColor?
-    public var pageSliderMinimumTrackTintColor: UIColor?
+    private var _pageSliderMaximumTrackTintColor: UIColor?
+    public var pageSliderMaximumTrackTintColor: UIColor? {
+        set {
+            _pageSliderMaximumTrackTintColor = newValue
+            applySliderTintColor()
+        }
+        get {
+            return _pageSliderMaximumTrackTintColor
+        }
+    }
+    private var _pageSliderMinimumTrackTintColor: UIColor?
+    public var pageSliderMinimumTrackTintColor: UIColor? {
+        set {
+            _pageSliderMinimumTrackTintColor = newValue
+            applySliderTintColor()
+        }
+        get {
+            return _pageSliderMinimumTrackTintColor
+        }
+    }
     
     static let PageHudLabelFontSize: CGFloat = 17
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        pagingView.startRotation()
         let sizeClass = traitCollection.verticalSizeClass
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
             if self.traitCollection.verticalSizeClass != sizeClass {
@@ -130,19 +140,20 @@ open class RDImageViewerController: UIViewController {
                 toolbarPosition = self.navigationController?.toolbar.frame.minY ?? self.view.frame.height
             }
             self.updateHudHorizontalPosition(position: toolbarPosition)
-        }) { [unowned self] (context) in
-            self.pagingView.endRotation()
-        }
+        })
     }
     
     public init(contents: [RDPageContentData], direction: RDPagingView.ForwardDirection) {
-        self.feedbackGenerator.prepare()
-        self.contents = contents
-        self.pagingView = RDPagingView(frame: CGRect.zero, numberOfPages: self.contents.count, forwardDirection: direction)
         self.currentPageHud = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         self.currentPageHudLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: RDImageViewerController.PageHudLabelFontSize))
+        self.feedbackGenerator.prepare()
+        self.contents = contents
+        self.pagingView = RDPagingView(frame: CGRect.zero, forwardDirection: direction)
         self.pageSlider = UISlider(frame: CGRect.zero)
         super.init(nibName: nil, bundle: nil)
+        self.pagingView.pagingDataSource = self
+        self.pagingView.pagingDelegate = self
+        self.view.addSubview(self.pagingView)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -151,33 +162,33 @@ open class RDImageViewerController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        for data in contents {
+            switch data.type {
+            case let .class(cellClass):
+                pagingView.register(cellClass, forCellWithReuseIdentifier: data.reuseIdentifier())
+            case let .nib(cellNib):
+                pagingView.register(cellNib, forCellWithReuseIdentifier: data.reuseIdentifier())
+            }
+        }
+        automaticallyAdjustsScrollViewInsets = false
+        
         pagingView.frame = view.bounds
         pagingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         pagingView.backgroundColor = UIColor.black
-        pagingView.pagingDelegate = self
-        pagingView.pagingDataSource = self
         pagingView.isDirectionalLockEnabled = true
         pagingView.tag = ViewTag.pageScrollView.rawValue
         pagingView.showsHorizontalScrollIndicator = false
         pagingView.showsVerticalScrollIndicator = false
         pagingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
+        if pagingView.direction.isHorizontal() {
+            pagingView.isPagingEnabled = true
+        }
         
         pageSlider.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 31)
         pageSlider.autoresizingMask = [.flexibleWidth]
         pageSlider.addTarget(self, action: #selector(sliderValueDidChange(slider:)), for: .valueChanged)
         pageSlider.addTarget(self, action: #selector(sliderDidTouchUpInside(slider:)), for: .touchUpInside)
         toolbarItems = [UIBarButtonItem(customView: pageSlider)]
-        updateSliderValue()
-        applySliderTintColor()
-        
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        blurView.frame = self.currentPageHud.bounds
-        currentPageHud.addSubview(blurView)
-        currentPageHud.clipsToBounds = true
-        currentPageHud.layer.cornerRadius = 15
-        currentPageHud.layer.borderColor = UIColor.white.cgColor
-        currentPageHud.layer.borderWidth = 1
-        currentPageHud.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
         
         let x = view.center.x - currentPageHud.frame.width / 2.0
         var y = view.frame.height - currentPageHud.frame.height - 10
@@ -188,6 +199,15 @@ open class RDImageViewerController: UIViewController {
         }
         currentPageHud.frame = CGRect(x: x, y: y, width: currentPageHud.frame.width, height: currentPageHud.frame.height)
         currentPageHud.alpha = 0
+        currentPageHud.clipsToBounds = true
+        currentPageHud.layer.cornerRadius = 15
+        currentPageHud.layer.borderColor = UIColor.white.cgColor
+        currentPageHud.layer.borderWidth = 1
+        currentPageHud.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
+        
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        blurView.frame = self.currentPageHud.bounds
+        currentPageHud.addSubview(blurView)
         
         currentPageHudLabel.backgroundColor = UIColor.clear
         currentPageHudLabel.font = UIFont.systemFont(ofSize: RDImageViewerController.PageHudLabelFontSize)
@@ -196,36 +216,25 @@ open class RDImageViewerController: UIViewController {
         currentPageHudLabel.center = CGPoint(x: currentPageHud.bounds.width / 2, y: currentPageHud.bounds.height / 2)
         currentPageHudLabel.tag = ViewTag.currentPageLabel.rawValue
         currentPageHud.addSubview(currentPageHudLabel)
-        automaticallyAdjustsScrollViewInsets = false
+        
+//        pagingView.reloadData()
+        updateSliderValue()
+        applySliderTintColor()
     }
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        pagingView.frame = view.bounds
-        
-        if restoreBarState == false {
-            setBarsHidden(hidden: false, animated: animated)
-            setHudHidden(hidden: false, animated: animated)
+        if restoreBarState == true {
+            setBarsHidden(hidden: !showSlider, animated: animated)
+            setHudHidden(hidden: !showPageNumberHud, animated: false)
         }
-        
-        if pagingView.superview == nil {
-            view.addSubview(pagingView)
-            pagingView.scroll(at: pagingView.currentPageIndex)
-        }
-        
-        if contents.count > 0 {
-            if showSlider == true, pagingView.direction.isVertical() {
-                if showPageNumberHud {
-                    refreshPageHud()
-                    view.addSubview(currentPageHud)
-                }
-            }
-        }
+
+        updateHudPosition()
+        refreshPageHud()
     }
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        pagingView.pagingDelegate = self
         if automaticBarsHiddenDuration > 0 {
             perform(#selector(hideBars), with: self, afterDelay: automaticBarsHiddenDuration)
             automaticBarsHiddenDuration = 0
@@ -239,16 +248,25 @@ open class RDImageViewerController: UIViewController {
     
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        pagingView.pagingDataSource = nil
         pagingView.pagingDelegate = nil
     }
     
+    func updateHudPosition() {
+        var toolbarPosition = view.frame.height
+        if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
+            toolbarPosition = navigationController?.toolbar.frame.minY ?? view.frame.height
+        }
+        updateHudHorizontalPosition(position: toolbarPosition)
+    }
+    
     func updateSliderValue() {
-        if pagingView.direction.isVertical() {
+        if pagingView.direction.isHorizontal() {
             if pagingView.direction == .right {
-                pageSlider.value = Float(pagingView.currentPageIndex) / Float(pagingView.numberOfPages - 1)
+                pageSlider.value = Float(pagingView.currentPageIndex) / Float(contents.count - 1)
             }
             else {
-                pageSlider.value = 1.0 - Float(pagingView.currentPageIndex) / Float(pagingView.numberOfPages - 1)
+                pageSlider.value = 1.0 - Float(pagingView.currentPageIndex) / Float(contents.count - 1)
             }
         }
     }
@@ -263,23 +281,23 @@ open class RDImageViewerController: UIViewController {
     }
     
     @objc func sliderValueDidChange(slider: UISlider) {
-        cancelAutoBarHidden()
-        let trueValue = pagingView.direction == .right ? slider.value : 1.0 - slider.value
-        let page = Int(trueValue * Float(pagingView.numberOfPages - 1))
-        if currentPageIndex != page {
-            feedbackGenerator.selectionChanged()
-        }
-        pagingView.scroll(at: page)
+//        cancelAutoBarHidden()
+//        let trueValue = pagingView.direction == .left ? slider.value : 1.0 - slider.value
+//        let page = Int(trueValue * Float(contents.count - 1))
+//        if currentPageIndex != page {
+//            feedbackGenerator.selectionChanged()
+//        }
+//        scrollAt(index: page)
     }
     
     @objc func sliderDidTouchUpInside(slider: UISlider) {
-        let value = Float(pagingView.currentPageIndex / (pagingView.numberOfPages - 1))
+        let value = Float(pagingView.currentPageIndex / (contents.count - 1))
         let trueValue = pagingView.direction == .right ? value : 1 - value
         slider.setValue(trueValue, animated: true)
     }
     
     public func reloadView(at index: Int) {
-        if contents.count < index {
+        if contents.count > index {
             let data = contents[index]
             data.reload()
             refreshView(at: index)
@@ -287,11 +305,20 @@ open class RDImageViewerController: UIViewController {
     }
     
     public func refreshView(at index: Int) {
-        if contents.count < index {
-            let data = contents[index]
-            if let view = pagingView.view(for: index) {
-                data.configure(view: view)
-            }
+        if contents.count > index {
+            pagingView.reloadItems(at: [IndexPath(row: index, section: 0)])
+        }
+    }
+    
+    func    scrollAt(index: Int) {
+        if contents.count <= index {
+            return
+        }
+        if pagingView.direction.isHorizontal() {
+            pagingView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+        }
+        else {
+            pagingView.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredVertically, animated: true)
         }
     }
 
@@ -305,7 +332,7 @@ open class RDImageViewerController: UIViewController {
     
     open func setBarsHidden(hidden: Bool, animated: Bool) {
         if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
-            if showSlider, pagingView.direction.isVertical() {
+            if showSlider, pagingView.direction.isHorizontal() {
                 navigationController?.setToolbarHidden(hidden, animated: animated)
             }
         }
@@ -354,6 +381,40 @@ open class RDImageViewerController: UIViewController {
     }
 }
 
+extension RDImageViewerController : UICollectionViewDelegate
+{
+    
+}
+
+extension RDImageViewerController : UICollectionViewDataSource
+{
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return contents.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let data = contents[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! RDPageContentDataView & UICollectionViewCell
+        cell.configure(data: data)
+        if let imageScrollView = cell as? RDImageScrollView {
+            pagingView.gestureRecognizers?.forEach({ (gesture) in
+                if gesture is UITapGestureRecognizer {
+                    imageScrollView.addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: gesture)
+                }
+            })
+        }
+        
+        return cell
+    }
+}
+
+extension RDImageViewerController : UICollectionViewDelegateFlowLayout
+{
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.bounds.width, height: view.bounds.height)
+    }
+}
+
 extension RDImageViewerController
 {
     override open var prefersStatusBarHidden: Bool {
@@ -380,52 +441,15 @@ extension RDImageViewerController
 
 extension RDImageViewerController: RDPagingViewDelegate
 {
-    @objc public func pagingView(pagingView: RDPagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView]) {
-        for v in visibleViews {
-            if v.pageIndex != pagingView.currentPageIndex {
-                v.isHidden = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-                    v.isHidden = false
-                }
-            }
-            
-            if pagingView.direction.isVertical() {
-                let x = pagingView.direction == .right ? CGFloat(v.pageIndex) : (CGFloat(pagingView.numberOfPages - v.pageIndex - 1) * size.width)
-                v.frame = CGRect(x: x, y: 0, width: size.width, height: size.height)
-            }
-            else {
-                let y = pagingView.direction == .right ? CGFloat(v.pageIndex) : (CGFloat(pagingView.numberOfPages - v.pageIndex - 1) * size.height)
-                v.frame = CGRect(x: 0, y: y, width: size.width, height: size.height)
-            }
-            
-            if v.isKind(of: UIScrollView.self) {
-                let scrollView = v as! UIScrollView
-                scrollView.zoomScale = 1.0
-                if scrollView.isKind(of: RDImageScrollView.self) {
-                    let imageScrollView = scrollView as! RDImageScrollView
-                    imageScrollView.adjustContentAspect()
-                }
-            }
-        }
-    }
-
-    @objc public func pagingView(pagingView: RDPagingView, willViewEnqueue view: UIView) {
-        let data = contents[view.pageIndex]
-        data.stopPreload()
-    }
-    
     @objc public func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
-        if let delegate = delegate {
-            delegate.imageViewController(viewController: self, willChangeIndexTo: index)
-        }
+        updateCurrentPageHudLabel(page: index, denominator: contents.count)
     }
     
     @objc public func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat) {
         if pageSlider.state == .normal {
-            let p = pagingView.numberOfPages - 1
+            let p = contents.count - 1
             pageSlider.value = Float(position / CGFloat(p))
         }
-        refreshPageHud()
     }
 
     @objc public func pagingViewWillBeginDragging(pagingView: RDPagingView) {
@@ -452,36 +476,12 @@ extension RDImageViewerController: RDPagingViewDelegate
 
 extension RDImageViewerController: RDPagingViewDataSource
 {
-    public func pagingView(pagingView: RDPagingView, viewForIndex index: Int) -> UIView {
-        let data = contents[index]
-        let frame = CGRect(x: 0, y: 0, width: pagingView.bounds.width, height: pagingView.bounds.height)
-        let view = data.contentView(frame: frame)
-        if data.preloadable() {
-            data.preload()
-        }
-        data.configure(view: view)
-        
-        if view.isKind(of: RDImageScrollView.self) {
-            let imageScrollView = view as! RDImageScrollView
-            pagingView.gestureRecognizers?.forEach({ (gesture) in
-                if gesture is UITapGestureRecognizer {
-                    imageScrollView.addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: gesture)
-                }
-            })
-        }
-        if let delegate = delegate {
-            delegate.contentViewWillAppear(view: view, pageIndex: index)
-        }
-        
-        return view
-    }
-    
-    public func pagingView(pagingView: RDPagingView, reuseIdentifierForIndex index: Int) -> String {
-        if contents.count < index {
+    public func pagingView(pagingView: RDPagingView, preloadItemAt index: Int) {
+        if contents.count > index {
             let data = contents[index]
-            return String(describing: type(of: data))
+            if data.isPreloadable() {
+                data.preload()
+            }
         }
-        
-        return ""
     }
 }

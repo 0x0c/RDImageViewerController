@@ -8,11 +8,9 @@
 import UIKit
 
 open class RDRemoteImageContentData: RDImageContentData {
-    public var tempolaryImageView: RDImageScrollView?
     let request: URLRequest
     let session: URLSession
     var task: URLSessionTask?
-    var lazyConfigurationHandler: ((UIImage?) -> Void)?
     public var configuration: URLSessionConfiguration?
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?
@@ -20,7 +18,7 @@ open class RDRemoteImageContentData: RDImageContentData {
     public init(request: URLRequest, session: URLSession) {
         self.session = session
         self.request = request
-        super.init(imageName: "")
+        super.init(type: .class(RDRemoteImageScrollView.self))
     }
     
     override open func stopPreload() {
@@ -29,11 +27,16 @@ open class RDRemoteImageContentData: RDImageContentData {
         }
     }
     
-    override open func contentView(frame: CGRect) -> UIView {
-        return RDImageScrollView(frame: frame)
+    @objc override open func preload() {
+        preload(completion: nil)
     }
     
-    @objc override open func preload() {
+    @objc override open func reload() {
+        image = nil
+        preload()
+    }
+    
+    open func preload(completion: ((UIImage?) -> Void)?) {
         if image == nil {
             task = session.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
                 guard let weakSelf = self, let data = data else {
@@ -48,8 +51,7 @@ open class RDRemoteImageContentData: RDImageContentData {
                 else {
                     weakSelf.image = UIImage(data: data)
                 }
-                
-                if let handler = weakSelf.lazyConfigurationHandler {
+                if let handler = completion {
                     handler(weakSelf.image)
                 }
             })
@@ -58,26 +60,7 @@ open class RDRemoteImageContentData: RDImageContentData {
         }
     }
     
-    @objc override open func reload() {
-        image = nil
-        preload()
-    }
-    
-    @objc override open func configure(view: UIView) {
-        super.configure(view: view)
-        if image == nil {
-            let imageView = view as! RDImageScrollView
-            tempolaryImageView = imageView
-            lazyConfigurationHandler = { [weak self] (image) in
-                guard let weakSelf = self else {
-                    return
-                }
-                if weakSelf.tempolaryImageView == imageView {
-                    DispatchQueue.main.async {
-                        weakSelf.tempolaryImageView?.image = image
-                    }
-                }
-            }
-        }
+    open override func reuseIdentifier() -> String {
+        return "RDRemoteImageContentData"
     }
 }

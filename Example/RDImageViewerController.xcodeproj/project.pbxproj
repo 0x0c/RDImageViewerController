@@ -14,6 +14,18 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		E9CD537C225B649E009061E0 /* 8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5370225B649D009061E0 /* 8.JPG */; };
+		E9CD537D225B649E009061E0 /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5371225B649D009061E0 /* 9.JPG */; };
+		E9CD537E225B649E009061E0 /* 12.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5372225B649D009061E0 /* 12.JPG */; };
+		E9CD537F225B649E009061E0 /* 11.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5373225B649D009061E0 /* 11.JPG */; };
+		E9CD5380225B649E009061E0 /* 10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5374225B649D009061E0 /* 10.JPG */; };
+		E9CD5381225B649E009061E0 /* 4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5375225B649D009061E0 /* 4.JPG */; };
+		E9CD5382225B649E009061E0 /* 5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5376225B649D009061E0 /* 5.JPG */; };
+		E9CD5383225B649E009061E0 /* 7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5377225B649D009061E0 /* 7.JPG */; };
+		E9CD5384225B649E009061E0 /* 6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5378225B649D009061E0 /* 6.JPG */; };
+		E9CD5385225B649E009061E0 /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5379225B649D009061E0 /* 2.JPG */; };
+		E9CD5386225B649E009061E0 /* 3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD537A225B649D009061E0 /* 3.JPG */; };
+		E9CD5387225B649E009061E0 /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD537B225B649D009061E0 /* 1.JPG */; };
 		EF452A13D53A58201EAEE812 /* Pods_RDImageViewerController_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41FEC61AEE0298263ECC27F0 /* Pods_RDImageViewerController_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +59,18 @@
 		BAF3DEA09E140B584783BB2E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CCD211D10975DEE89C336176 /* Pods_RDImageViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E538D3F86688C0E3E7E91CA5 /* Pods-RDImageViewerController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RDImageViewerController_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example.release.xcconfig"; sourceTree = "<group>"; };
+		E9CD5370225B649D009061E0 /* 8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.JPG; sourceTree = "<group>"; };
+		E9CD5371225B649D009061E0 /* 9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.JPG; sourceTree = "<group>"; };
+		E9CD5372225B649D009061E0 /* 12.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 12.JPG; sourceTree = "<group>"; };
+		E9CD5373225B649D009061E0 /* 11.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 11.JPG; sourceTree = "<group>"; };
+		E9CD5374225B649D009061E0 /* 10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.JPG; sourceTree = "<group>"; };
+		E9CD5375225B649D009061E0 /* 4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.JPG; sourceTree = "<group>"; };
+		E9CD5376225B649D009061E0 /* 5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.JPG; sourceTree = "<group>"; };
+		E9CD5377225B649D009061E0 /* 7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.JPG; sourceTree = "<group>"; };
+		E9CD5378225B649D009061E0 /* 6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.JPG; sourceTree = "<group>"; };
+		E9CD5379225B649D009061E0 /* 2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.JPG; sourceTree = "<group>"; };
+		E9CD537A225B649D009061E0 /* 3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.JPG; sourceTree = "<group>"; };
+		E9CD537B225B649D009061E0 /* 1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.JPG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +117,7 @@
 		607FACD21AFB9204008FA782 /* Example for RDImageViewerController */ = {
 			isa = PBXGroup;
 			children = (
+				E9CD536F225B649D009061E0 /* Images */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -158,6 +183,25 @@
 			);
 			name = Pods;
 			sourceTree = "<group>";
+		};
+		E9CD536F225B649D009061E0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E9CD5370225B649D009061E0 /* 8.JPG */,
+				E9CD5371225B649D009061E0 /* 9.JPG */,
+				E9CD5372225B649D009061E0 /* 12.JPG */,
+				E9CD5373225B649D009061E0 /* 11.JPG */,
+				E9CD5374225B649D009061E0 /* 10.JPG */,
+				E9CD5375225B649D009061E0 /* 4.JPG */,
+				E9CD5376225B649D009061E0 /* 5.JPG */,
+				E9CD5377225B649D009061E0 /* 7.JPG */,
+				E9CD5378225B649D009061E0 /* 6.JPG */,
+				E9CD5379225B649D009061E0 /* 2.JPG */,
+				E9CD537A225B649D009061E0 /* 3.JPG */,
+				E9CD537B225B649D009061E0 /* 1.JPG */,
+			);
+			path = Images;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -245,9 +289,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9CD5383225B649E009061E0 /* 7.JPG in Resources */,
+				E9CD5386225B649E009061E0 /* 3.JPG in Resources */,
+				E9CD5385225B649E009061E0 /* 2.JPG in Resources */,
+				E9CD537C225B649E009061E0 /* 8.JPG in Resources */,
+				E9CD537D225B649E009061E0 /* 9.JPG in Resources */,
+				E9CD537F225B649E009061E0 /* 11.JPG in Resources */,
+				E9CD5381225B649E009061E0 /* 4.JPG in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				E9CD5384225B649E009061E0 /* 6.JPG in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				E9CD537E225B649E009061E0 /* 12.JPG in Resources */,
+				E9CD5380225B649E009061E0 /* 10.JPG in Resources */,
+				E9CD5387225B649E009061E0 /* 1.JPG in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				E9CD5382225B649E009061E0 /* 5.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

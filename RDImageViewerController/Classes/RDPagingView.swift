@@ -8,14 +8,11 @@
 import UIKit
 
 @objc public protocol RDPagingViewDataSource {
-    func pagingView(pagingView: RDPagingView, viewForIndex index: Int) -> UIView
-    func pagingView(pagingView: RDPagingView, reuseIdentifierForIndex index: Int) -> String
+    func pagingView(pagingView: RDPagingView, preloadItemAt index: Int)
 }
 
 @objc public protocol RDPagingViewDelegate {
     @objc optional func pagingView(pagingView: RDPagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
-    @objc optional func pagingView(pagingView: RDPagingView, willViewDequeue view: UIView)
-    @objc optional func pagingView(pagingView: RDPagingView, willViewEnqueue view: UIView)
     @objc optional func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int)
     @objc optional func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat)
     @objc optional func pagingViewWillBeginDragging(pagingView: RDPagingView)
@@ -25,7 +22,7 @@ import UIKit
     @objc optional func pagingViewDidEndScrollingAnimation(pagingView: RDPagingView)
 }
 
-open class RDPagingView: UIScrollView {
+open class RDPagingView: UICollectionView {
     
     public enum ForwardDirection {
         case right
@@ -33,7 +30,7 @@ open class RDPagingView: UIScrollView {
         case up
         case down
         
-        public func isVertical() -> Bool {
+        public func isHorizontal() -> Bool {
             return self == .right || self == .left
         }
     }
@@ -44,14 +41,9 @@ open class RDPagingView: UIScrollView {
         case unknown
     }
     
-    var queueDictionary = [String : Set<UIView>]()
-    var usingViews = Set<UIView>()
-    var scrollViewDelegate: UIScrollViewDelegate?
-    
-    public var pagingDataSource: RDPagingViewDataSource?
-    public var pagingDelegate: RDPagingViewDelegate?
+    public var pagingDataSource: (RDPagingViewDataSource & UICollectionViewDataSource)?
+    public var pagingDelegate: (RDPagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
     public let direction: ForwardDirection
-    public let numberOfPages: Int
     
     var _currentPageIndex: Int = 0
     public var currentPageIndex: Int {
@@ -68,12 +60,25 @@ open class RDPagingView: UIScrollView {
         }
     }
     
-    public var preloadCount: Int = 0
+    public var preloadCount: Int = 3
     
-    public init(frame: CGRect, numberOfPages: Int, forwardDirection: ForwardDirection) {
-        self.numberOfPages = numberOfPages
+    public init(frame: CGRect, forwardDirection: ForwardDirection) {
         self.direction = forwardDirection
-        super.init(frame: frame)
+        let layout = UICollectionViewFlowLayout()
+        if forwardDirection.isHorizontal() {
+            layout.scrollDirection = .horizontal
+        }
+        else {
+            layout.scrollDirection = .vertical
+        }
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        super.init(frame: frame, collectionViewLayout: layout)
+        self.delegate = self
+        self.dataSource = self
+//        if #available(iOS 11.0, *) {
+//            self.contentInsetAdjustmentBehavior = .automatic
+//        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -81,92 +86,33 @@ open class RDPagingView: UIScrollView {
     }
     
     public func startRotation() {
-        scrollViewDelegate = delegate
         delegate = nil
     }
     
     public func endRotation() {
-        delegate = scrollViewDelegate
-        scrollViewDelegate = nil
-    }
-
-    public func trueIndexInScrollView(index: Int) -> Int {
-        var trueIndex = index
-        if direction == .left || direction == .up {
-            trueIndex = numberOfPages - index - 1
-        }
-        
-        return trueIndex
-    }
-    
-    public func scroll(at: Int) {
-        currentPageIndex = at
-        let trueIndex = trueIndexInScrollView(index: at)
-        if direction.isVertical() {
-            setContentOffset(CGPoint(x: CGFloat(trueIndex) * frame.width, y: 0), animated: false)
-        }
-        else {
-            setContentOffset(CGPoint(x: 0, y: CGFloat(trueIndex) * frame.height), animated: false)
-        }
-    }
-    
-    public func dequeueView(with reuseIdentifier: String) -> UIView? {
-        guard let set = queueDictionary[reuseIdentifier] else {
-            queueDictionary[reuseIdentifier] = Set<UIView>()
-            return nil
-        }
-        
-        return set.first
+        delegate = self
     }
     
     public func resize(with frame: CGRect, duration: TimeInterval) {
-        let newSize = frame.size
-        if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingView?(pagingView: self, willChangeViewSize: newSize, duration: duration, visibleViews: Array(usingViews))
+        UIView.animate(withDuration: duration) { [unowned self] in
+            self.collectionViewLayout.invalidateLayout()
+            self.reloadData()
         }
-        
-        let currentIndex = trueIndexInScrollView(index: currentPageIndex)
-        if direction.isVertical() {
-            contentSize = CGSize(width: CGFloat(numberOfPages) * newSize.width, height: newSize.height)
-        }
-        else {
-            contentSize = CGSize(width: newSize.width, height: CGFloat(numberOfPages) * newSize.height)
-        }
-
-        startRotation()
-        if direction.isVertical() {
-            setContentOffset(CGPoint(x: CGFloat(currentIndex) * newSize.width, y: 0), animated: false)
-        }
-        else {
-            setContentOffset(CGPoint(x: 0, y: CGFloat(currentIndex) * newSize.height), animated: false)
-        }
-        endRotation()
     }
     
-    public func view(for index:Int) -> UIView? {
-        for view in usingViews {
-            if view.pageIndex == index {
-                return view
-            }
-        }
-        
-        return nil
-    }
-
-    public func pageIndexWillChange(to: Int) {
+    open override func reloadData() {
         guard let pagingDataSource = pagingDataSource else {
             return
         }
-        let movingDirection: MovingDirection = to - currentPageIndex > 0 ? .forward : (to - currentPageIndex < 0 ? .backward : .unknown)
-        let maximumIndex = to + preloadCount
-        let minimumIndex = to - preloadCount
-        
-        for view in usingViews {
-            if view.pageIndex < minimumIndex || view.pageIndex > maximumIndex {
-                viewAsPrepared(view: view, reuseIdentifier: pagingDataSource.pagingView(pagingView: self, reuseIdentifierForIndex: to))
-            }
+        for i in 0..<preloadCount {
+            pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
         }
-        
+        super.reloadData()
+    }
+    
+    public func pageIndexWillChange(to: Int) {
+        let movingDirection: MovingDirection = to - currentPageIndex > 0 ? .forward : (to - currentPageIndex < 0 ? .backward : .unknown)
+
         if movingDirection != .unknown {
             preload(numberOfViews: preloadCount, fromIndex: to)
         }
@@ -178,69 +124,27 @@ open class RDPagingView: UIScrollView {
     
     public func preload(numberOfViews: Int, fromIndex: Int) {
         let startIndex = max(0, fromIndex - numberOfViews)
+        let numberOfPages = numberOfItems(inSection: 0)
         let endIndex = min(numberOfPages, fromIndex + numberOfViews + 1)
         for i in endIndex..<startIndex {
-            if view(for: i) == nil {
-                loadView(at: i)
+            guard let pagingDataSource = pagingDataSource else {
+                return
             }
+            pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
         }
     }
-    
-    public func loadView(at index: Int) {
-        if let pagingDataSource = pagingDataSource {
-            let view = pagingDataSource.pagingView(pagingView: self, viewForIndex: index)
-            let trueIndex = trueIndexInScrollView(index: index)
-            if direction.isVertical() {
-                view.frame = CGRect(x: CGFloat(trueIndex) * frame.width, y: 0, width: frame.width, height: frame.height)
-            }
-            else {
-                view.frame = CGRect(x: 0, y: CGFloat(trueIndex) * frame.height, width: frame.width, height: frame.height)
-            }
-            
-            view.pageIndex = index
-            viewAsUsing(view: view, reuseIdentifier: pagingDataSource.pagingView(pagingView: self, reuseIdentifierForIndex: index))
-            self.addSubview(view)
-        }
-    }
-    
-    public func viewAsPrepared(view: UIView, reuseIdentifier: String) {
-        if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingView?(pagingView: self, willViewEnqueue: view)
-        }
-        view.removeFromSuperview()
-        usingViews.remove(view)
-        if var set = queueDictionary[reuseIdentifier] {
-            set.insert(view)
-            queueDictionary[reuseIdentifier] = set
-        }
-    }
-    
-    public func viewAsUsing(view: UIView, reuseIdentifier: String) {
-        if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingView?(pagingView: self, willViewDequeue: view)
-        }
-        
-        if var set = queueDictionary[reuseIdentifier] {
-            set.remove(view)
-            queueDictionary[reuseIdentifier] = set
-        }
-        usingViews.insert(view)
-    }
-    
 }
 
-extension RDPagingView: UIScrollViewDelegate
+extension RDPagingView : UIScrollViewDelegate
 {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var position: CGFloat = 0
-        if direction.isVertical() {
+        if direction.isHorizontal() {
             position = scrollView.contentOffset.x / scrollView.frame.width
         }
         else {
             position = scrollView.contentOffset.y / scrollView.frame.height
         }
-        
-        currentPageIndex = trueIndexInScrollView(index: Int(position + 0.5))
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: position)
         }
@@ -277,21 +181,60 @@ extension RDPagingView: UIScrollViewDelegate
     }
 }
 
+extension RDPagingView : UICollectionViewDelegate
+{
+    
+}
+
+extension RDPagingView : UICollectionViewDataSource
+{
+    open override func numberOfItems(inSection section: Int) -> Int {
+        guard let pagingDataSource = pagingDataSource else {
+            return 0
+        }
+        return pagingDataSource.collectionView(self, numberOfItemsInSection: section)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let pagingDataSource = pagingDataSource else {
+            return 0
+        }
+        return pagingDataSource.collectionView(collectionView, numberOfItemsInSection: section)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let pagingDataSource = pagingDataSource else {
+            return UICollectionViewCell(frame: CGRect.zero)
+        }
+        return pagingDataSource.collectionView(collectionView, cellForItemAt: indexPath)
+    }
+}
+
+extension RDPagingView : UICollectionViewDelegateFlowLayout
+{
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let pagingDelegate = pagingDelegate else {
+            return CGSize.zero
+        }
+        return pagingDelegate.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? CGSize.zero
+    }
+}
+
 extension UIView
 {
-    static var PageIndexKey: UInt8 = 0
+    static var pageIndexKey: UInt8 = 0
     public var pageIndex: Int {
         get {
-            guard let associatedObject = objc_getAssociatedObject(self, &UIView.PageIndexKey) as? NSNumber else {
+            guard let associatedObject = objc_getAssociatedObject(self, &UIView.pageIndexKey) as? NSNumber else {
                 let associatedObject = NSNumber(value: Int(0))
-                objc_setAssociatedObject(self, &UIView.PageIndexKey, associatedObject, .OBJC_ASSOCIATION_RETAIN)
+                objc_setAssociatedObject(self, &UIView.pageIndexKey, associatedObject, .OBJC_ASSOCIATION_RETAIN)
                 return Int(associatedObject.intValue)
             }
             return Int(associatedObject.intValue)
         }
         
         set {
-            objc_setAssociatedObject(self, &UIView.PageIndexKey, NSNumber(value: Int(newValue)), .OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &UIView.pageIndexKey, NSNumber(value: Int(newValue)), .OBJC_ASSOCIATION_RETAIN)
         }
     }
 }

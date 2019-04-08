@@ -8,21 +8,35 @@
 import UIKit
 
 public protocol RDPageContentDataDelegate {
-    func contentView(frame: CGRect) -> UIView
-    func preloadable() -> Bool
+    func isPreloadable() -> Bool
     func preload()
     func stopPreload()
     func reload()
-    func configure(view: UIView)
+    func reuseIdentifier() -> String
+}
+
+protocol RDPageContentDataView {
+    func configure(data: RDPageContentData)
 }
 
 open class RDPageContentData: NSObject, RDPageContentDataDelegate {
     
-    @objc open func contentView(frame: CGRect) -> UIView {
-        return UIView(frame: CGRect.zero)
+    public enum PresentationType {
+        case `class`(AnyClass)
+        case nib(UINib)
     }
     
-    @objc open func preloadable() -> Bool {
+    private var _type: PresentationType
+    public var type: PresentationType {
+        get {
+            return _type
+        }
+    }
+    public init(type: PresentationType) {
+        self._type = type
+    }
+    
+    @objc open func isPreloadable() -> Bool {
         return false
     }
 
@@ -38,8 +52,8 @@ open class RDPageContentData: NSObject, RDPageContentDataDelegate {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
     }
     
-    @objc open func configure(view: UIView) {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
+    @objc open func reuseIdentifier() -> String {
+        return ""
     }
 
 }

@@ -7,8 +7,9 @@
 
 import UIKit
 
-open class RDImageScrollView: UIScrollView {
+open class RDImageScrollView: UICollectionViewCell {
     
+    var scrollView: UIScrollView
     let zoomRect = CGSize(width: 100, height: 100)
     
     public enum ResizeMode {
@@ -26,6 +27,7 @@ open class RDImageScrollView: UIScrollView {
             return _mode
         }
     }
+    
     public var borderColor: UIColor? {
         set {
             if let color = newValue {
@@ -49,10 +51,6 @@ open class RDImageScrollView: UIScrollView {
         }
     }
     
-    public var imageView = UIImageView()
-    var indicatorView = UIActivityIndicatorView(style: .white)
-    var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
-
     public var image: UIImage? {
         set {
             imageView.image = newValue
@@ -69,19 +67,29 @@ open class RDImageScrollView: UIScrollView {
         }
     }
     
+    public var imageView = UIImageView()
+    var indicatorView = UIActivityIndicatorView(style: .white)
+    var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
+    
     override public init(frame: CGRect) {
+        self.scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        self.imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        
         super.init(frame: frame)
         
-        self.imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
-        self.imageView.center = CGPoint(x: frame.midX, y: frame.midY)
-        self.imageView.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
+        self.scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.scrollView.delegate = self
+        self.scrollView.showsVerticalScrollIndicator = false
+        self.scrollView.showsHorizontalScrollIndicator = false
+        self.addSubview(self.scrollView)
+        
+        self.imageView.center = self.scrollView.center
+        self.imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.imageView.layer.borderColor = UIColor.black.cgColor
         self.imageView.layer.borderWidth = 0.5
-        self.addSubview(self.imageView)
-        
-        self.delegate = self
-        self.showsVerticalScrollIndicator = false
-        self.showsHorizontalScrollIndicator = false
+        self.imageView.contentMode = .scaleAspectFit
+        self.scrollView.addSubview(self.imageView)
+
         
         self.indicatorView.center = self.imageView.center
         self.indicatorView.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
@@ -92,6 +100,8 @@ open class RDImageScrollView: UIScrollView {
         self.zoomGesture.numberOfTapsRequired = 2
         self.zoomGesture.numberOfTouchesRequired = 1
         self.addGestureRecognizer(self.zoomGesture)
+        
+        self.backgroundColor = UIColor.red
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -99,13 +109,13 @@ open class RDImageScrollView: UIScrollView {
     }
     
     @objc func zoomImage(gesture: UIGestureRecognizer) {
-        let scrollView = gesture.view as! UIScrollView
-        if scrollView.zoomScale > scrollView.minimumZoomScale {
-            scrollView.setZoomScale(1.0, animated: true)
+        let imageView = gesture.view as! RDImageScrollView
+        if imageView.scrollView.zoomScale > imageView.scrollView.minimumZoomScale {
+            imageView.scrollView.setZoomScale(1.0, animated: true)
         }
         else {
-            let position = gesture.location(in: scrollView)
-            scrollView.zoom(to: CGRect(x: position.x - zoomRect.width / 2, y: position.y - zoomRect.height / 2, width: zoomRect.width, height: zoomRect.height), animated: true)
+            let position = gesture.location(in: imageView.scrollView)
+            imageView.scrollView.zoom(to: CGRect(x: position.x - zoomRect.width / 2, y: position.y - zoomRect.height / 2, width: zoomRect.width, height: zoomRect.height), animated: true)
         }
     }
     
@@ -116,7 +126,7 @@ open class RDImageScrollView: UIScrollView {
         case .displayFit:
             fitToDisplay()
         }
-        setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+//        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
     
     public func fitToAspect() {
@@ -139,11 +149,10 @@ open class RDImageScrollView: UIScrollView {
         if imageEdgeLength > viewEdgeLength {
             scale = viewEdgeLength / max(1, imageEdgeLength)
         }
-        
         imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width * scale, height: imageView.frame.height * scale)
         imageView.center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
-        contentSize = imageView.frame.size
-        setZoomScale(1.0, animated: false)
+        scrollView.contentSize = imageView.frame.size
+        scrollView.setZoomScale(1.0, animated: false)
     }
     
     public func fitToDisplay() {
@@ -156,16 +165,27 @@ open class RDImageScrollView: UIScrollView {
         else {
             let scale = width > height ? width / max(1, imageView.frame.width) : height / max(1, imageView.frame.height)
             imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width * scale, height: imageView.frame.height * scale)
-            contentSize = imageView.frame.size
-            setZoomScale(1.0, animated: false)
-            
+            imageView.center = scrollView.center
+            scrollView.setZoomScale(1.0, animated: false)
         }
     }
     
     public func addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: UIGestureRecognizer) {
         gesture.require(toFail: zoomGesture)
     }
+}
 
+extension RDImageScrollView : RDPageContentDataView
+{
+    func configure(data: RDPageContentData) {
+        guard let data = data as? RDImageContentData else {
+            return
+        }
+        scrollView.maximumZoomScale = data.maximumZoomScale
+        mode = data.landscapeMode
+        scrollView.setZoomScale(1.0, animated: false)
+        image = data.image
+    }
 }
 
 extension RDImageScrollView: UIScrollViewDelegate {

@@ -15,24 +15,31 @@ open class RDImageContentData: RDPageContentData {
     public var image: UIImage?
     public var imageName: String?
     
+    public override init(type: PresentationType) {
+        super.init(type: .class(RDImageScrollView.self))
+    }
+    
     public init(image: UIImage) {
-        super.init()
+        super.init(type: .class(RDImageScrollView.self))
         self.image = image
     }
     
-    public init(imageName: String) {
-        super.init()
+    public init(imageName: String, lazyLoad: Bool = false) {
+        super.init(type: .class(RDImageScrollView.self))
         self.imageName = imageName
-    }
-    
-    override open func contentView(frame: CGRect) -> UIView {
-        return RDImageScrollView(frame: frame)
+        if lazyLoad == false {
+            preload()
+        }
     }
     
     override open func preload() {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
         }
+    }
+    
+    open override func isPreloadable() -> Bool {
+        return true
     }
     
     override open func reload() {
@@ -43,13 +50,8 @@ open class RDImageContentData: RDPageContentData {
     override open func stopPreload() {
         
     }
-    
-    override open func configure(view: UIView) {
-        let imageView = view as! RDImageScrollView
-        imageView.maximumZoomScale = maximumZoomScale
-        imageView.mode = landscapeMode
-        imageView.setZoomScale(1.0, animated: false)
-        imageView.image = image
-    }
 
+    open override func reuseIdentifier() -> String {
+        return "RDImageContentData"
+    }
 }
