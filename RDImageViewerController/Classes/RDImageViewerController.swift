@@ -31,7 +31,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    public var currentPageIndex: Int {
+    open var currentPageIndex: Int {
         set {
             updateSliderValue()
             currentPageHudLabel.text = "\(newValue + 1)/\(numberOfPages)"
@@ -96,7 +96,7 @@ open class RDImageViewerController: UIViewController {
     
     var previousPageIndex: Int = 0
     var _statusBarHidden: Bool = false
-    var statusBarHidden: Bool {
+    open var statusBarHidden: Bool {
         set {
             _statusBarHidden = newValue
             setNeedsStatusBarAppearanceUpdate()
@@ -253,7 +253,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    @objc func setBarHiddenByTapGesture() {
+    @objc open func setBarHiddenByTapGesture() {
         cancelAutoBarHidden()
         setBarsHidden(hidden: !statusBarHidden, animated: true)
     }
@@ -291,15 +291,15 @@ open class RDImageViewerController: UIViewController {
         }
     }
 
-    public func refreshPageHud() {
+    open func refreshPageHud() {
         currentPageIndex = pagingView.currentPageIndex
     }
     
-    @objc public func hideBars() {
+    @objc open func hideBars() {
         setBarsHidden(hidden: true, animated: true)
     }
     
-    public func setBarsHidden(hidden: Bool, animated: Bool) {
+    open func setBarsHidden(hidden: Bool, animated: Bool) {
         if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
             if showSlider, pagingView.direction.isVertical() {
                 navigationController?.setToolbarHidden(hidden, animated: animated)
@@ -311,7 +311,7 @@ open class RDImageViewerController: UIViewController {
         statusBarHidden = hidden
     }
     
-    func setHudHidden(hidden: Bool, animated: Bool) {
+    open func setHudHidden(hidden: Bool, animated: Bool) {
         var duration: CGFloat = 0
         if animated {
             duration = UINavigationController.hideShowBarDuration
@@ -330,7 +330,7 @@ open class RDImageViewerController: UIViewController {
         currentPageHud.frame = CGRect(x: view.center.x - currentPageHud.frame.width / 2.0, y: position - currentPageHud.frame.height - 10, width: currentPageHud.frame.width, height: currentPageHud.frame.height)
     }
     
-    func cancelAutoBarHidden() {
+    open func cancelAutoBarHidden() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideBars), object: self)
     }
     
