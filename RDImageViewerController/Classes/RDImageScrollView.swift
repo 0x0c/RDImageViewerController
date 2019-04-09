@@ -12,13 +12,13 @@ open class RDImageScrollView: UICollectionViewCell {
     var scrollView: UIScrollView
     let zoomRect = CGSize(width: 100, height: 100)
     
-    public enum ResizeMode {
+    public enum LandscapeMode {
         case aspectFit
         case displayFit
     }
     
-    var _mode: ResizeMode = .aspectFit
-    public var mode: ResizeMode {
+    var _mode: LandscapeMode = .aspectFit
+    public var mode: LandscapeMode {
         set {
             _mode = newValue
             adjustContentAspect()
@@ -89,7 +89,6 @@ open class RDImageScrollView: UICollectionViewCell {
         self.imageView.layer.borderWidth = 0.5
         self.imageView.contentMode = .scaleAspectFit
         self.scrollView.addSubview(self.imageView)
-
         
         self.indicatorView.center = self.imageView.center
         self.indicatorView.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
@@ -177,6 +176,10 @@ open class RDImageScrollView: UICollectionViewCell {
 
 extension RDImageScrollView : RDPageContentDataView
 {
+    func resize() {
+        adjustContentAspect()
+    }
+    
     func configure(data: RDPageContentData) {
         guard let data = data as? RDImageContentData else {
             return

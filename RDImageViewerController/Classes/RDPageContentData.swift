@@ -13,10 +13,12 @@ public protocol RDPageContentDataDelegate {
     func stopPreload()
     func reload()
     func reuseIdentifier() -> String
+    func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize
 }
 
 protocol RDPageContentDataView {
     func configure(data: RDPageContentData)
+    func resize()
 }
 
 open class RDPageContentData: NSObject, RDPageContentDataDelegate {
@@ -54,6 +56,11 @@ open class RDPageContentData: NSObject, RDPageContentDataDelegate {
     
     @objc open func reuseIdentifier() -> String {
         return ""
+    }
+    
+    open func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize {
+        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
+        return CGSize.zero
     }
 
 }

@@ -24,6 +24,8 @@
 		DDAA0C8D0E9FB71EE1E5F76A9EB5BDE6 /* Pods-RDImageViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCDEBE1DFAC168629FDBE88D3942B84 /* Pods-RDImageViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E9066C0E225C884E00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */; };
 		E9066C13225C920A00EA76BA /* RDPagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */; };
+		E9066C21225CDD3900EA76BA /* RDPagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C1F225CDD3800EA76BA /* RDPagingViewVerticalFlowLayout.swift */; };
+		E9066C22225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C20225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift */; };
 		E9BE4C92225BA6DF00FD031D /* RDRemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +87,8 @@
 		E8B79A0AE42EA3FCE3CF24CBA1C0EEEE /* Pods-RDImageViewerController_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDPagingViewRightToLeftFlowLayout.swift; path = RDImageViewerController/Classes/RDPagingViewRightToLeftFlowLayout.swift; sourceTree = "<group>"; };
 		E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDPagingViewBottomToTopLayout.swift; path = RDImageViewerController/Classes/RDPagingViewBottomToTopLayout.swift; sourceTree = "<group>"; };
+		E9066C1F225CDD3800EA76BA /* RDPagingViewVerticalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDPagingViewVerticalFlowLayout.swift; path = RDImageViewerController/Classes/RDPagingViewVerticalFlowLayout.swift; sourceTree = "<group>"; };
+		E9066C20225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDPagingViewHorizontalFlowLayout.swift; path = RDImageViewerController/Classes/RDPagingViewHorizontalFlowLayout.swift; sourceTree = "<group>"; };
 		E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDRemoteImageScrollView.swift; path = RDImageViewerController/Classes/RDRemoteImageScrollView.swift; sourceTree = "<group>"; };
 		F20055BF70B762A3A319D58473545EBD /* RDImageViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RDImageViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39303BE14FE782222E15AEC0804C378 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = RDImageViewerController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -227,6 +231,8 @@
 				E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */,
 				E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */,
 				E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */,
+				E9066C20225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift */,
+				E9066C1F225CDD3800EA76BA /* RDPagingViewVerticalFlowLayout.swift */,
 				86D4353664230C1DD9E438D4B21F1969 /* Support Files */,
 			);
 			name = RDImageViewerController;
@@ -349,6 +355,9 @@
 					43B09F5CFB0626E52225097B69005692 = {
 						LastSwiftMigration = 1020;
 					};
+					5258935EB5B987823F829693E11BB4BF = {
+						LastSwiftMigration = 1020;
+					};
 				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
@@ -416,6 +425,8 @@
 				66A908C94896C47D70AA179020B8B479 /* RDPageContentData.swift in Sources */,
 				7F7965CF9CFF1F28D43893737A6C7928 /* RDPagingView.swift in Sources */,
 				D42F4C9B0AD6C325CEBD274EAE859EDF /* RDRemoteImageContentData.swift in Sources */,
+				E9066C22225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift in Sources */,
+				E9066C21225CDD3900EA76BA /* RDPagingViewVerticalFlowLayout.swift in Sources */,
 				E9066C0E225C884E00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift in Sources */,
 				E9066C13225C920A00EA76BA /* RDPagingViewBottomToTopLayout.swift in Sources */,
 			);
@@ -452,6 +463,7 @@
 			baseConfigurationReference = 205B5A6897C687BE3BBE2112A7000388 /* Pods-RDImageViewerController_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -475,6 +487,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -597,6 +610,7 @@
 			baseConfigurationReference = 8CB155CE434488AC9D9B02C7794FA7F8 /* Pods-RDImageViewerController_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -620,6 +634,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

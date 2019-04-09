@@ -11,7 +11,7 @@ open class RDImageContentData: RDPageContentData {
     static let DefaultMaximumZoomScale: CGFloat = 2.5
     
     public var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
-    public var landscapeMode: RDImageScrollView.ResizeMode = .aspectFit
+    public var landscapeMode: RDImageScrollView.LandscapeMode = .aspectFit
     public var image: UIImage?
     public var imageName: String?
     
@@ -53,5 +53,16 @@ open class RDImageContentData: RDPageContentData {
 
     open override func reuseIdentifier() -> String {
         return "\(RDImageContentData.self)"
+    }
+    
+    open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize {
+        if direction.isHorizontal() == false, let image = image {
+            let scale = rect.size.width / image.size.width
+            let width = image.size.width * scale
+            let height = image.size.height * scale
+            return CGSize(width: width, height: height)
+        }
+        
+        return UIScreen.main.bounds.size
     }
 }

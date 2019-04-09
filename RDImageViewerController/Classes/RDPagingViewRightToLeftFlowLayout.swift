@@ -7,16 +7,7 @@
 
 import UIKit
 
-class RDPagingViewRightToLeftFlowLayout: UICollectionViewFlowLayout {
-    
-    override init() {
-        super.init()
-        self.scrollDirection = .horizontal
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+class RDPagingViewRightToLeftFlowLayout: RDPagingViewHorizontalFlowLayout {
     
     override var flipsHorizontallyInOppositeLayoutDirection: Bool {
         return true

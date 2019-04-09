@@ -64,19 +64,22 @@ open class RDPagingView: UICollectionView {
     
     public init(frame: CGRect, forwardDirection: ForwardDirection) {
         self.direction = forwardDirection
-        var layout = UICollectionViewFlowLayout()
         if forwardDirection == .left {
-            layout = RDPagingViewRightToLeftFlowLayout()
+            super.init(frame: frame, collectionViewLayout: RDPagingViewRightToLeftFlowLayout())
+        }
+        else if forwardDirection == .right {
+            super.init(frame: frame, collectionViewLayout: RDPagingViewHorizontalFlowLayout())
         }
         else if forwardDirection == .up {
-            layout = RDPagingViewBottomToTopLayout()
+            super.init(frame: frame, collectionViewLayout: RDPagingViewBottomToTopLayout())
+        }
+        else { // .down
+            super.init(frame: frame, collectionViewLayout: RDPagingViewVerticalFlowLayout())
         }
         
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        super.init(frame: frame, collectionViewLayout: layout)
         self.delegate = self
         self.dataSource = self
+        self.prefetchDataSource = self
 //        if #available(iOS 11.0, *) {
 //            self.contentInsetAdjustmentBehavior = .automatic
 //        }
@@ -103,22 +106,8 @@ open class RDPagingView: UICollectionView {
         guard let pagingDataSource = pagingDataSource else {
             return
         }
-        for i in 0..<preloadCount {
-            pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
-        }
         numberOfPages = pagingDataSource.collectionView(self, numberOfItemsInSection: 0)
         super.reloadData()
-    }
-    
-    public func preload(numberOfViews: Int, fromIndex: Int) {
-        let startIndex = max(0, fromIndex - numberOfViews)
-        let endIndex = min(numberOfPages, fromIndex + numberOfViews + 1)
-        for i in startIndex..<endIndex {
-            guard let pagingDataSource = pagingDataSource else {
-                return
-            }
-            pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
-        }
     }
 }
 
@@ -131,14 +120,9 @@ extension RDPagingView : UIScrollViewDelegate
         }
         else {
             position = scrollView.contentOffset.y / scrollView.frame.height
-            
         }
         
         let to = Int(position + 0.5)
-        let movingDirection: MovingDirection = to - currentPageIndex > 0 ? .forward : (to - currentPageIndex < 0 ? .backward : .unknown)
-        if movingDirection != .unknown {
-            preload(numberOfViews: preloadCount, fromIndex: to)
-        }
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
             pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: position)
@@ -173,6 +157,22 @@ extension RDPagingView : UIScrollViewDelegate
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndScrollingAnimation?(pagingView: self)
+        }
+    }
+}
+
+extension RDPagingView : UICollectionViewDataSourcePrefetching
+{
+    public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        guard let pagingDataSource = pagingDataSource else {
+            return
+        }
+        if let lastIndexPath = indexPaths.last, let firstIndexPath = indexPaths.first {
+            let startIndex = max(0, firstIndexPath.row - preloadCount)
+            let endIndex = min(numberOfPages - 1, lastIndexPath.row + preloadCount)
+            for i in startIndex..<endIndex {
+                pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
+            }
         }
     }
 }

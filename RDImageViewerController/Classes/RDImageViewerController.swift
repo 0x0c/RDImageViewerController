@@ -126,6 +126,16 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
+    open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        pagingView.collectionViewLayout.invalidateLayout()
+        let pageIndex = currentPageIndex
+        coordinator.animate(alongsideTransition: { [unowned self] (context) in
+            self.currentPageIndex = pageIndex
+            self.pagingView.reloadItems(at: self.pagingView.indexPathsForVisibleItems)
+        })
+    }
+    
     static let pageHudLabelFontSize: CGFloat = 17
     public init(contents: [RDPageContentData], direction: RDPagingView.ForwardDirection) {
         self.currentPageHud = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
@@ -142,12 +152,6 @@ open class RDImageViewerController: UIViewController {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        pagingView.collectionViewLayout.invalidateLayout()
-        currentPageIndex = pagingView.currentPageIndex
     }
     
     override open func viewDidLoad() {
@@ -381,6 +385,7 @@ extension RDImageViewerController : UICollectionViewDataSource
         let data = contents[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! RDPageContentDataView & UICollectionViewCell
         cell.configure(data: data)
+        cell.resize()
         if let imageScrollView = cell as? RDImageScrollView {
             pagingView.gestureRecognizers?.forEach({ (gesture) in
                 if gesture is UITapGestureRecognizer {
@@ -396,7 +401,8 @@ extension RDImageViewerController : UICollectionViewDataSource
 extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width, height: view.bounds.height)
+        let data = contents[indexPath.row]
+        return data.size(inRect: collectionView.bounds, direction: pagingView.direction)
     }
 }
 
@@ -462,11 +468,9 @@ extension RDImageViewerController: RDPagingViewDelegate
 extension RDImageViewerController: RDPagingViewDataSource
 {
     public func pagingView(pagingView: RDPagingView, preloadItemAt index: Int) {
-        if numberOfPages > index {
-            let data = contents[index]
-            if data.isPreloadable() {
-                data.preload()
-            }
+        let data = contents[index]
+        if data.isPreloadable() {
+            data.preload()
         }
     }
 }

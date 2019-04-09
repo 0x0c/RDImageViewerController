@@ -7,18 +7,9 @@
 
 import UIKit
 
-class RDPagingViewBottomToTopLayout: UICollectionViewFlowLayout {
+class RDPagingViewBottomToTopLayout: RDPagingViewVerticalFlowLayout {
     
     open var expandContentSizeToBounds: Bool = true
-    override init() {
-        super.init()
-        self.scrollDirection = .vertical
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-    }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         if let collectionView = collectionView, expandContentSizeToBounds == true, fabsf(Float(collectionView.bounds.height - newBounds.height)) > .ulpOfOne {
@@ -67,18 +58,6 @@ class RDPagingViewBottomToTopLayout: UICollectionViewFlowLayout {
         newAttribute.center = reversedCenter
         return newAttribute
     }
-    
-    
-//    - (NSArray *) layoutAttributesForElementsInRect:(CGRect)reversedRect
-//    {
-//    CGRect const normalRect = [self normalRectForReversedRect:reversedRect];
-//    NSArray * attributes = [super layoutAttributesForElementsInRect:normalRect];
-//    for(UICollectionViewLayoutAttributes *attribute in attributes){
-//    [self modifyLayoutAttribute:attribute];
-//    }
-//    return attributes;
-//    }
-//
 
     override var scrollDirection: UICollectionView.ScrollDirection {
         set {

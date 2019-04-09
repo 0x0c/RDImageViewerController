@@ -12,6 +12,7 @@ import RDImageViewerController
 class ViewController: UIViewController {
     @IBOutlet weak var showSlider: UISwitch!
     @IBOutlet weak var showHud: UISwitch!
+    @IBOutlet weak var scrollvertically: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class ViewController: UIViewController {
         var contents = [RDPageContentData]()
         for i in 0..<12 {
             let data = RDImageContentData(imageName: "\(i + 1).JPG")
+            data.landscapeMode = .displayFit
             contents.append(data)
         }
         
@@ -39,7 +41,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func image(_ sender: Any) {
-        let viewController = RDImageViewerController(contents: contents(), direction: .up)
+        var direction: RDPagingView.ForwardDirection = .right
+        if scrollvertically.isOn {
+            direction = .down
+        }
+        
+        let viewController = RDImageViewerController(contents: contents(), direction: direction)
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         navigationController?.pushViewController(viewController, animated: true)
