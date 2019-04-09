@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func image(_ sender: Any) {
-        let viewController = RDImageViewerController(contents: contents(), direction: .left)
+        let viewController = RDImageViewerController(contents: contents(), direction: .up)
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         navigationController?.pushViewController(viewController, animated: true)

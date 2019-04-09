@@ -23,6 +23,7 @@
 		D42F4C9B0AD6C325CEBD274EAE859EDF /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
 		DDAA0C8D0E9FB71EE1E5F76A9EB5BDE6 /* Pods-RDImageViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCDEBE1DFAC168629FDBE88D3942B84 /* Pods-RDImageViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E9066C0E225C884E00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */; };
+		E9066C13225C920A00EA76BA /* RDPagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */; };
 		E9BE4C92225BA6DF00FD031D /* RDRemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDRemoteImageContentData.swift; path = RDImageViewerController/Classes/RDRemoteImageContentData.swift; sourceTree = "<group>"; };
 		E8B79A0AE42EA3FCE3CF24CBA1C0EEEE /* Pods-RDImageViewerController_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDPagingViewRightToLeftFlowLayout.swift; path = RDImageViewerController/Classes/RDPagingViewRightToLeftFlowLayout.swift; sourceTree = "<group>"; };
+		E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDPagingViewBottomToTopLayout.swift; path = RDImageViewerController/Classes/RDPagingViewBottomToTopLayout.swift; sourceTree = "<group>"; };
 		E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RDRemoteImageScrollView.swift; path = RDImageViewerController/Classes/RDRemoteImageScrollView.swift; sourceTree = "<group>"; };
 		F20055BF70B762A3A319D58473545EBD /* RDImageViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RDImageViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39303BE14FE782222E15AEC0804C378 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = RDImageViewerController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -223,6 +225,7 @@
 				2596B47787510671B7994791021BBD8B /* RDPagingView.swift */,
 				D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */,
 				E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */,
+				E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */,
 				E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */,
 				86D4353664230C1DD9E438D4B21F1969 /* Support Files */,
 			);
@@ -414,6 +417,7 @@
 				7F7965CF9CFF1F28D43893737A6C7928 /* RDPagingView.swift in Sources */,
 				D42F4C9B0AD6C325CEBD274EAE859EDF /* RDRemoteImageContentData.swift in Sources */,
 				E9066C0E225C884E00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift in Sources */,
+				E9066C13225C920A00EA76BA /* RDPagingViewBottomToTopLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -68,12 +68,10 @@ open class RDPagingView: UICollectionView {
         if forwardDirection == .left {
             layout = RDPagingViewRightToLeftFlowLayout()
         }
-        if forwardDirection.isHorizontal() {
-            layout.scrollDirection = .horizontal
+        else if forwardDirection == .up {
+            layout = RDPagingViewBottomToTopLayout()
         }
-        else {
-            layout.scrollDirection = .vertical
-        }
+        
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         super.init(frame: frame, collectionViewLayout: layout)
@@ -98,7 +96,7 @@ open class RDPagingView: UICollectionView {
     
     public func resize() {
         collectionViewLayout.invalidateLayout()
-//        reloadItems(at: indexPathsForVisibleItems)
+        reloadItems(at: indexPathsForVisibleItems)
     }
     
     open override func reloadData() {
