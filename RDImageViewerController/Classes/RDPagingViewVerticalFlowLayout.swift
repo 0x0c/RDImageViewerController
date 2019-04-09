@@ -11,8 +11,8 @@ class RDPagingViewVerticalFlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         self.scrollDirection = .vertical
-        minimumLineSpacing = 0
-        minimumInteritemSpacing = 0
+        self.minimumLineSpacing = 0
+        self.minimumInteritemSpacing = 0
     }
     
     required init?(coder aDecoder: NSCoder) {

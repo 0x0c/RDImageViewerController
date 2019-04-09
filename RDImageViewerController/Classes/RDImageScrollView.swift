@@ -101,6 +101,8 @@ open class RDImageScrollView: UICollectionViewCell {
         self.addGestureRecognizer(self.zoomGesture)
         
         self.backgroundColor = UIColor.red
+        self.layer.borderColor = UIColor.yellow.cgColor
+        self.layer.borderWidth = 0.5
     }
     
     required public init?(coder aDecoder: NSCoder) {

@@ -26,6 +26,17 @@
 		E9066C13225C920A00EA76BA /* RDPagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */; };
 		E9066C21225CDD3900EA76BA /* RDPagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C1F225CDD3800EA76BA /* RDPagingViewVerticalFlowLayout.swift */; };
 		E9066C22225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C20225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift */; };
+		E907AE37225D18B100615D72 /* RDImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* RDImageContentData.swift */; };
+		E907AE38225D18B100615D72 /* RDImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* RDImageScrollView.swift */; };
+		E907AE39225D18B100615D72 /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
+		E907AE3A225D18B100615D72 /* RDPageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */; };
+		E907AE3B225D18B100615D72 /* RDPagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* RDPagingView.swift */; };
+		E907AE3C225D18B100615D72 /* RDRemoteImageContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */; };
+		E907AE3D225D18B100615D72 /* RDRemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */; };
+		E907AE3E225D18B100615D72 /* RDPagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */; };
+		E907AE3F225D18B100615D72 /* RDPagingViewRightToLeftFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */; };
+		E907AE40225D18B100615D72 /* RDPagingViewHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C20225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift */; };
+		E907AE41225D18B100615D72 /* RDPagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C1F225CDD3800EA76BA /* RDPagingViewVerticalFlowLayout.swift */; };
 		E9BE4C92225BA6DF00FD031D /* RDRemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */; };
 /* End PBXBuildFile section */
 
@@ -437,6 +448,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				71F98BC5C006E8B7154E705B9644B9C2 /* Pods-RDImageViewerController_Example-dummy.m in Sources */,
+				E907AE37225D18B100615D72 /* RDImageContentData.swift in Sources */,
+				E907AE38225D18B100615D72 /* RDImageScrollView.swift in Sources */,
+				E907AE39225D18B100615D72 /* RDImageViewerController.swift in Sources */,
+				E907AE3A225D18B100615D72 /* RDPageContentData.swift in Sources */,
+				E907AE3B225D18B100615D72 /* RDPagingView.swift in Sources */,
+				E907AE3C225D18B100615D72 /* RDRemoteImageContentData.swift in Sources */,
+				E907AE3D225D18B100615D72 /* RDRemoteImageScrollView.swift in Sources */,
+				E907AE3E225D18B100615D72 /* RDPagingViewBottomToTopLayout.swift in Sources */,
+				E907AE3F225D18B100615D72 /* RDPagingViewRightToLeftFlowLayout.swift in Sources */,
+				E907AE40225D18B100615D72 /* RDPagingViewHorizontalFlowLayout.swift in Sources */,
+				E907AE41225D18B100615D72 /* RDPagingViewVerticalFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

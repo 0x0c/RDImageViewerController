@@ -126,16 +126,24 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    open override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
-        pagingView.collectionViewLayout.invalidateLayout()
-        let pageIndex = currentPageIndex
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let offset = pagingView.contentOffset
+        let width  = pagingView.bounds.size.width
+
+        let index = round(offset.x / width)
+        let newOffset = CGPoint(x: index * size.width, y: offset.y)
+        pagingView.setContentOffset(newOffset, animated: false)
+        pagingView.reloadData()
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
-            self.currentPageIndex = pageIndex
-            self.pagingView.reloadItems(at: self.pagingView.indexPathsForVisibleItems)
+            self.pagingView.reloadData()
+            self.pagingView.setContentOffset(newOffset, animated: false)
+            UIView.animate(withDuration: context.transitionDuration, animations: {
+                self.updateHudPosition()
+            })
         })
     }
-    
+
     static let pageHudLabelFontSize: CGFloat = 17
     public init(contents: [RDPageContentData], direction: RDPagingView.ForwardDirection) {
         self.currentPageHud = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
