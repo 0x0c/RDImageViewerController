@@ -473,4 +473,11 @@ extension RDImageViewerController: RDPagingViewDataSource
             data.preload()
         }
     }
+    
+    public func pagingView(pagingView: RDPagingView, cancelPreloadingItemAt index: Int) {
+        let data = contents[index]
+        if data.isPreloadable() {
+            data.stopPreload()
+        }
+    }
 }

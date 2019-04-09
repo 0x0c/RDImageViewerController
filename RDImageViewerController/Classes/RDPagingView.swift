@@ -9,6 +9,7 @@ import UIKit
 
 @objc public protocol RDPagingViewDataSource {
     func pagingView(pagingView: RDPagingView, preloadItemAt index: Int)
+    func pagingView(pagingView: RDPagingView, cancelPreloadingItemAt index: Int)
 }
 
 @objc public protocol RDPagingViewDelegate {
@@ -172,6 +173,19 @@ extension RDPagingView : UICollectionViewDataSourcePrefetching
             let endIndex = min(numberOfPages - 1, lastIndexPath.row + preloadCount)
             for i in startIndex..<endIndex {
                 pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
+            }
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        guard let pagingDataSource = pagingDataSource else {
+            return
+        }
+        if let lastIndexPath = indexPaths.last, let firstIndexPath = indexPaths.first {
+            let startIndex = max(0, firstIndexPath.row - preloadCount)
+            let endIndex = min(numberOfPages - 1, lastIndexPath.row + preloadCount)
+            for i in startIndex..<endIndex {
+                pagingDataSource.pagingView(pagingView: self, cancelPreloadingItemAt: i)
             }
         }
     }
