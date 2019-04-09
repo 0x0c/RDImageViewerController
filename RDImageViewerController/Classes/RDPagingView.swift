@@ -31,7 +31,7 @@ open class RDPagingView: UICollectionView {
         case down
         
         public func isHorizontal() -> Bool {
-            return self == .right || self == .left
+            return self == .left || self == .right
         }
     }
     
@@ -45,19 +45,14 @@ open class RDPagingView: UICollectionView {
     public var pagingDelegate: (RDPagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
     public let direction: ForwardDirection
     
+    private var previousIndex: Int = 0
     var numberOfPages = 0
-    var _currentPageIndex: Int = 0
+    private var _currentPageIndex: Int = 0
     public var currentPageIndex: Int {
         set {
             if newValue >= 0, newValue < numberOfPages {
-                if direction == .left || direction == .up {
-                    scrollToItem(at: IndexPath(row: newValue, section: 0), at: .centeredHorizontally, animated: false)
-                    _currentPageIndex = newValue
-                }
-                else if direction == .right || direction == .down {
-                    scrollToItem(at: IndexPath(row: numberOfPages - newValue - 1, section: 0), at: .centeredHorizontally, animated: false)
-                    _currentPageIndex = numberOfPages - newValue - 1
-                }
+                scrollToItem(at: IndexPath(row: newValue, section: 0), at: .centeredHorizontally, animated: false)
+                _currentPageIndex = newValue
             }
         }
         get {
@@ -69,7 +64,10 @@ open class RDPagingView: UICollectionView {
     
     public init(frame: CGRect, forwardDirection: ForwardDirection) {
         self.direction = forwardDirection
-        let layout = UICollectionViewFlowLayout()
+        var layout = UICollectionViewFlowLayout()
+        if forwardDirection == .left {
+            layout = RDPagingViewRightToLeftFlowLayout()
+        }
         if forwardDirection.isHorizontal() {
             layout.scrollDirection = .horizontal
         }
@@ -91,18 +89,16 @@ open class RDPagingView: UICollectionView {
     }
     
     public func startRotation() {
-        delegate = nil
+        previousIndex = currentPageIndex
     }
     
     public func endRotation() {
-        delegate = self
+        scrollToItem(at: IndexPath(row: previousIndex, section: 0), at: .centeredHorizontally, animated: false)
     }
     
-    public func resize(with frame: CGRect, duration: TimeInterval) {
-        UIView.animate(withDuration: duration) { [unowned self] in
-            self.collectionViewLayout.invalidateLayout()
-            self.reloadData()
-        }
+    public func resize() {
+        collectionViewLayout.invalidateLayout()
+//        reloadItems(at: indexPathsForVisibleItems)
     }
     
     open override func reloadData() {
@@ -140,13 +136,7 @@ extension RDPagingView : UIScrollViewDelegate
             
         }
         
-        var to = 0
-        switch direction {
-        case .up, .left:
-            to = Int(position + 0.5)
-        case .down, .right:
-            to = Int(position + 0.5)
-        }
+        let to = Int(position + 0.5)
         let movingDirection: MovingDirection = to - currentPageIndex > 0 ? .forward : (to - currentPageIndex < 0 ? .backward : .unknown)
         if movingDirection != .unknown {
             preload(numberOfViews: preloadCount, fromIndex: to)
