@@ -116,7 +116,7 @@ open class RDImageScrollView: UICollectionViewCell {
         }
     }
     
-    public func adjustContentAspect() {
+    open func adjustContentAspect() {
         switch mode {
         case .aspectFit:
             fitToAspect()
@@ -126,7 +126,7 @@ open class RDImageScrollView: UICollectionViewCell {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
     
-    public func fitToAspect() {
+    open func fitToAspect() {
         imageView.sizeToFit()
         let height = frame.height
         let width = frame.width
@@ -152,7 +152,7 @@ open class RDImageScrollView: UICollectionViewCell {
         scrollView.setZoomScale(1.0, animated: false)
     }
     
-    public func fitToDisplay() {
+    open func fitToDisplay() {
         imageView.sizeToFit()
         let height = frame.height
         let width = frame.width
@@ -174,11 +174,11 @@ open class RDImageScrollView: UICollectionViewCell {
 
 extension RDImageScrollView : RDPageContentDataView
 {
-    func resize() {
+    open func resize() {
         adjustContentAspect()
     }
     
-    func configure(data: RDPageContentData) {
+    open func configure(data: RDPageContentData) {
         guard let data = data as? RDImageContentData else {
             return
         }
