@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RDRemoteImageScrollView: RDImageScrollView {
+open class RDRemoteImageScrollView: RDImageScrollView {
 
     open func configure(data: RDRemoteImageContentData) {
         if data.image == nil {
