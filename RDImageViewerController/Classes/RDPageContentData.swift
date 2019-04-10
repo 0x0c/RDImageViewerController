@@ -16,7 +16,7 @@ public protocol RDPageContentDataDelegate {
     func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize
 }
 
-protocol RDPageContentDataView {
+public protocol RDPageContentDataView {
     func configure(data: RDPageContentData)
     func resize()
 }
