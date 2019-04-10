@@ -21,6 +21,12 @@ open class RDRemoteImageContentData: RDImageContentData {
         super.init(type: .class(RDRemoteImageScrollView.self))
     }
     
+    public init(type: RDImageContentData.PresentationType, request: URLRequest, session: URLSession) {
+        self.session = session
+        self.request = request
+        super.init(type: type)
+    }
+    
     override open func stopPreload() {
         if let task = task {
             task.cancel()
