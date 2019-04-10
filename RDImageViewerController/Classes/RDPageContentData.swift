@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc public protocol RDPageContentDataDelegate {
+public protocol RDPageContentDataDelegate {
     func isPreloadable() -> Bool
     func preload()
     func stopPreload()
