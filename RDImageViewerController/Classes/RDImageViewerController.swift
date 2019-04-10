@@ -254,6 +254,18 @@ open class RDImageViewerController: UIViewController {
         pagingView.pagingDelegate = nil
     }
     
+    func reloadData() {
+        pagingView.reloadData()
+        updateHudPosition()
+        updateCurrentPageHudLabel()
+        updateSliderValue()
+    }
+    
+    func update(contents newContents: [RDPageContentData]) {
+        contents = newContents
+        reloadData()
+    }
+    
     func updateHudPosition() {
         var toolbarPosition = view.frame.height
         if let toolbarItems = toolbarItems, toolbarItems.count > 0 {

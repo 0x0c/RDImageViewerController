@@ -29,9 +29,21 @@ class ViewController: UIViewController {
         navigationController?.setToolbarHidden(true, animated: true)
     }
     
+    func remoteContents() -> [RDRemoteImageContentData] {
+        var contents = [RDRemoteImageContentData]()
+        for i in 0..<12 {
+            let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(i).JPG")!)
+            let data = RDRemoteImageContentData(request: request, session: URLSession.shared)
+            data.landscapeMode = .displayFit
+            contents.append(data)
+        }
+        
+        return contents
+    }
+    
     func contents() -> [RDPageContentData] {
         var contents = [RDPageContentData]()
-        for i in 0..<12 {
+        for i in 1...12 {
             let data = RDImageContentData(imageName: "\(i + 1).JPG")
             data.landscapeMode = .displayFit
             contents.append(data)
@@ -47,6 +59,18 @@ class ViewController: UIViewController {
         }
         
         let viewController = RDImageViewerController(contents: contents(), direction: direction)
+        viewController.showSlider = showSlider.isOn
+        viewController.showPageNumberHud = showHud.isOn
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @IBAction func remoteImage(_ sender: Any) {
+        var direction: RDPagingView.ForwardDirection = .right
+        if scrollvertically.isOn {
+            direction = .down
+        }
+        
+        let viewController = RDImageViewerController(contents: remoteContents(), direction: direction)
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         navigationController?.pushViewController(viewController, animated: true)
