@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     func contents() -> [RDPageContentData] {
         var contents = [RDPageContentData]()
         for i in 1...12 {
-            let data = RDImageContentData(imageName: "\(i + 1).JPG")
+            let data = RDImageContentData(imageName: "\(i).JPG")
             data.landscapeMode = .displayFit
             contents.append(data)
         }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class RDImageScrollView: UICollectionViewCell {
+open class RDImageScrollView: UICollectionViewCell, RDPageContentDataView {
     
     var scrollView: UIScrollView
     let zoomRect = CGSize(width: 100, height: 100)
@@ -170,10 +170,8 @@ open class RDImageScrollView: UICollectionViewCell {
     public func addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: UIGestureRecognizer) {
         gesture.require(toFail: zoomGesture)
     }
-}
-
-extension RDImageScrollView : RDPageContentDataView
-{
+    
+    // RDPageContentDataView
     open func resize() {
         adjustContentAspect()
     }
