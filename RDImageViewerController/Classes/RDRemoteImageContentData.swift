@@ -8,9 +8,9 @@
 import UIKit
 
 open class RDRemoteImageContentData: RDImageContentData {
-    let request: URLRequest
-    let session: URLSession
-    var task: URLSessionTask?
+    public var task: URLSessionTask?
+    public let request: URLRequest
+    public let session: URLSession
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?
     var lazyCompletionHandler: ((RDPageContentData) -> Void)?
