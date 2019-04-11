@@ -11,20 +11,14 @@ open class RDRemoteImageContentData: RDImageContentData {
     let request: URLRequest
     let session: URLSession
     var task: URLSessionTask?
-    public var configuration: URLSessionConfiguration?
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?
+    var lazyCompletionHandler: ((RDPageContentData) -> Void)?
     
     public init(request: URLRequest, session: URLSession) {
         self.session = session
         self.request = request
         super.init(type: .class(RDRemoteImageScrollView.self))
-    }
-    
-    public init(type: RDImageContentData.PresentationType, request: URLRequest, session: URLSession) {
-        self.session = session
-        self.request = request
-        super.init(type: type)
     }
     
     override open func stopPreload() {
@@ -42,8 +36,15 @@ open class RDRemoteImageContentData: RDImageContentData {
         preload()
     }
     
-    open func preload(completion: ((UIImage?) -> Void)?) {
-        if image == nil {
+    open override func preload(completion: ((RDPageContentData) -> Void)?) {
+        lazyCompletionHandler = completion
+        
+        if image != nil {
+            if let handler = lazyCompletionHandler {
+                handler(self)
+            }
+        }
+        else if task == nil  {
             task = session.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
                 guard let weakSelf = self, let data = data else {
                     return
@@ -57,8 +58,8 @@ open class RDRemoteImageContentData: RDImageContentData {
                 else {
                     weakSelf.image = UIImage(data: data)
                 }
-                if let handler = completion {
-                    handler(weakSelf.image)
+                if let handler = weakSelf.lazyCompletionHandler {
+                    handler(weakSelf)
                 }
             })
             

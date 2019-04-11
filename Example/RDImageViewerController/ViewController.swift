@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     
     func remoteContents() -> [RDRemoteImageContentData] {
         var contents = [RDRemoteImageContentData]()
-        for i in 0..<12 {
+        for i in 1...12 {
             let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(i).JPG")!)
             let data = RDRemoteImageContentData(request: request, session: URLSession.shared)
             data.landscapeMode = .displayFit

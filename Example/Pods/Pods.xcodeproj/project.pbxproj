@@ -238,12 +238,12 @@
 				82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */,
 				566956B463483645D2DA826B9E16BDAF /* RDPageContentData.swift */,
 				2596B47787510671B7994791021BBD8B /* RDPagingView.swift */,
+				E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */,
+				E9066C20225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift */,
+				E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */,
+				E9066C1F225CDD3800EA76BA /* RDPagingViewVerticalFlowLayout.swift */,
 				D8E43C1C4726CFFE602DD265F0D69812 /* RDRemoteImageContentData.swift */,
 				E9BE4C90225BA6B600FD031D /* RDRemoteImageScrollView.swift */,
-				E9066C11225C920500EA76BA /* RDPagingViewBottomToTopLayout.swift */,
-				E9066C0C225C87FC00EA76BA /* RDPagingViewRightToLeftFlowLayout.swift */,
-				E9066C20225CDD3900EA76BA /* RDPagingViewHorizontalFlowLayout.swift */,
-				E9066C1F225CDD3800EA76BA /* RDPagingViewVerticalFlowLayout.swift */,
 				86D4353664230C1DD9E438D4B21F1969 /* Support Files */,
 			);
 			name = RDImageViewerController;

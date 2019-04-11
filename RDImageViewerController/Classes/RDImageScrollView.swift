@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class RDImageScrollView: UICollectionViewCell, RDPageContentDataView {
+open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtocol {
     
     var scrollView: UIScrollView
     let zoomRect = CGSize(width: 100, height: 100)
@@ -176,7 +176,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataView {
         adjustContentAspect()
     }
     
-    open func configure(data: RDPageContent) {
+    open func configure(data: RDPageContentProtocol) {
         guard let data = data as? RDImageContentData else {
             return
         }

@@ -16,7 +16,7 @@ open class RDImageContentData: RDPageContentData {
     public var imageName: String?
     
     public override init(type: PresentationType) {
-        super.init(type: .class(RDImageScrollView.self))
+        super.init(type: type)
     }
     
     public init(image: UIImage) {
@@ -32,10 +32,17 @@ open class RDImageContentData: RDPageContentData {
         }
     }
     
-    override open func preload() {
+    open override func preload(completion: ((RDPageContentData) -> Void)?) {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
+            if let handler = completion {
+                handler(self)
+            }
         }
+    }
+    
+    override open func preload() {
+        preload(completion: nil)
     }
     
     open override func isPreloadable() -> Bool {

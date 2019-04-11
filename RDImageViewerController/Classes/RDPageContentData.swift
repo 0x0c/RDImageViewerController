@@ -7,21 +7,22 @@
 
 import UIKit
 
-public protocol RDPageContent {
+public protocol RDPageContentProtocol {
     func isPreloadable() -> Bool
     func preload()
+    func preload(completion: ((RDPageContentData) -> Void)?)
     func stopPreload()
     func reload()
     func reuseIdentifier() -> String
     func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize
 }
 
-public protocol RDPageContentDataView {
-    func configure(data: RDPageContent)
+public protocol RDPageContentDataViewProtocol {
+    func configure(data: RDPageContentProtocol)
     func resize()
 }
 
-open class RDPageContentData: NSObject, RDPageContent {
+open class RDPageContentData: NSObject, RDPageContentProtocol {
     
     public enum PresentationType {
         case `class`(AnyClass)
@@ -43,6 +44,10 @@ open class RDPageContentData: NSObject, RDPageContent {
     }
 
     @objc open func preload() {
+        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
+    }
+    
+    @objc open func preload(completion: ((RDPageContentData) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
     }
     

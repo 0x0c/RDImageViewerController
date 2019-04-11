@@ -9,17 +9,16 @@ import UIKit
 
 open class RDRemoteImageScrollView: RDImageScrollView {
 
-    open override func configure(data: RDPageContent) {
+    open override func configure(data: RDPageContentProtocol) {
         guard let data = data as? RDRemoteImageContentData else {
             return
         }
-        if data.image == nil {
-            data.preload { [weak self] (downloadedImage) in
-                if let weakSelf = self, let newImage = downloadedImage {
-                    DispatchQueue.main.async {
-                        weakSelf.image = newImage
-                    }
-                }
+        data.stopPreload()
+        data.preload { [weak self] (content) in
+            if let weakSelf = self, let cnt = content as? RDRemoteImageContentData {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+                    weakSelf.image = cnt.image
+                })
             }
         }
     }
