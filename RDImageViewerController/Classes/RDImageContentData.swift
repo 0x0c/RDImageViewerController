@@ -19,13 +19,13 @@ open class RDImageContentData: RDPageContentData {
         super.init(type: type)
     }
     
-    public init(image: UIImage) {
-        super.init(type: .class(RDImageScrollView.self))
+    public convenience init(image: UIImage) {
+        self.init(type: .class(RDImageScrollView.self))
         self.image = image
     }
     
-    public init(imageName: String, lazyLoad: Bool = false) {
-        super.init(type: .class(RDImageScrollView.self))
+    public convenience init(imageName: String, lazyLoad: Bool = false) {
+        self.init(type: .class(RDImageScrollView.self))
         self.imageName = imageName
         if lazyLoad == false {
             preload()

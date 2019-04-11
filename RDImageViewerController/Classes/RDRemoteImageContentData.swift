@@ -15,10 +15,14 @@ open class RDRemoteImageContentData: RDImageContentData {
     public var imageDecodeHandler: ((Data) -> UIImage?)?
     var lazyCompletionHandler: ((RDPageContentData) -> Void)?
     
-    public init(request: URLRequest, session: URLSession) {
+    public init(type: RDPageContentData.PresentationType, request: URLRequest, session: URLSession) {
         self.session = session
         self.request = request
-        super.init(type: .class(RDRemoteImageScrollView.self))
+        super.init(type: type)
+    }
+    
+    public convenience init(request: URLRequest, session: URLSession) {
+        self.init(type: .class(RDRemoteImageScrollView.self), request: request, session: session)
     }
     
     override open func stopPreload() {
