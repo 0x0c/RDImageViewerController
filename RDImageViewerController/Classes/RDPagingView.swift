@@ -208,7 +208,7 @@ extension RDPagingView : UICollectionViewDataSource
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let pagingDataSource = pagingDataSource else {
             numberOfPages = 0
-            return 0
+            return numberOfPages
         }
         numberOfPages = pagingDataSource.collectionView(collectionView, numberOfItemsInSection: section)
         return numberOfPages

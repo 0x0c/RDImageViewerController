@@ -57,10 +57,6 @@ open class RDImageContentData: RDPageContentData {
     override open func stopPreload() {
         
     }
-
-    open override func reuseIdentifier() -> String {
-        return "\(RDImageContentData.self)"
-    }
     
     open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize {
         if direction.isHorizontal() == false, let image = image {

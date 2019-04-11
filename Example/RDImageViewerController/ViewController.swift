@@ -41,6 +41,16 @@ class ViewController: UIViewController {
         return contents
     }
     
+    func textLabelContents() -> [TextLabelViewContentData] {
+        var contents = [TextLabelViewContentData]()
+        for i in 1...12 {
+            let data = TextLabelViewContentData(text: "\(i)")
+            contents.append(data)
+        }
+        
+        return contents
+    }
+    
     func contents() -> [RDPageContentData] {
         var contents = [RDPageContentData]()
         for i in 1...12 {
@@ -81,7 +91,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showView(_ sender: Any) {
+        var direction: RDPagingView.ForwardDirection = .right
+        if scrollvertically.isOn {
+            direction = .down
+        }
         
+        let viewController = RDImageViewerController(contents: textLabelContents(), direction: direction)
+        viewController.showSlider = showSlider.isOn
+        viewController.showPageNumberHud = showHud.isOn
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     @IBAction func aspectFit(_ sender: Any) {

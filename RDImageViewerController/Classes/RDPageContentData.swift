@@ -26,7 +26,7 @@ open class RDPageContentData: NSObject, RDPageContentProtocol {
     
     public enum PresentationType {
         case `class`(AnyClass)
-        case nib(UINib)
+        case nib(UINib, AnyClass)
     }
     
     private var _type: PresentationType
@@ -44,27 +44,32 @@ open class RDPageContentData: NSObject, RDPageContentProtocol {
     }
 
     @objc open func preload() {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
     @objc open func preload(completion: ((RDPageContentData) -> Void)?) {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
     @objc open func stopPreload() {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
     @objc open func reload() {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
     @objc open func reuseIdentifier() -> String {
-        return ""
+        switch type {
+        case let .class(cellClass):
+            return "\(cellClass.self)"
+        case let .nib(_, cellClass):
+            return "\(cellClass.self)"
+        }
     }
     
     open func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
         return CGSize.zero
     }
 

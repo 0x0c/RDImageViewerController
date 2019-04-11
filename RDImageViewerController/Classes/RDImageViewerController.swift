@@ -168,7 +168,7 @@ open class RDImageViewerController: UIViewController {
             switch data.type {
             case let .class(cellClass):
                 pagingView.register(cellClass, forCellWithReuseIdentifier: data.reuseIdentifier())
-            case let .nib(cellNib):
+            case let .nib(cellNib, _):
                 pagingView.register(cellNib, forCellWithReuseIdentifier: data.reuseIdentifier())
             }
         }

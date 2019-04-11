@@ -66,8 +66,4 @@ open class RDRemoteImageContentData: RDImageContentData {
             task?.resume()
         }
     }
-    
-    open override func reuseIdentifier() -> String {
-        return "\(RDRemoteImageContentData.self)"
-    }
 }
