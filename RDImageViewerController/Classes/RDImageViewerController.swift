@@ -254,14 +254,14 @@ open class RDImageViewerController: UIViewController {
         pagingView.pagingDelegate = nil
     }
     
-    func reloadData() {
+    open func reloadData() {
         pagingView.reloadData()
         updateHudPosition()
         updateCurrentPageHudLabel()
         updateSliderValue()
     }
     
-    func update(contents newContents: [RDPageContentData]) {
+    open func update(contents newContents: [RDPageContentData]) {
         contents = newContents
         reloadData()
     }
