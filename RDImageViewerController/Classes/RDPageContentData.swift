@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol RDPageContentDataDelegate {
+public protocol RDPageContent {
     func isPreloadable() -> Bool
     func preload()
     func stopPreload()
@@ -16,12 +16,12 @@ public protocol RDPageContentDataDelegate {
     func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize
 }
 
-@objc public protocol RDPageContentDataView {
-    func configure(data: RDPageContentData)
+public protocol RDPageContentDataView {
+    func configure(data: RDPageContent)
     func resize()
 }
 
-open class RDPageContentData: NSObject, RDPageContentDataDelegate {
+open class RDPageContentData: NSObject, RDPageContent {
     
     public enum PresentationType {
         case `class`(AnyClass)

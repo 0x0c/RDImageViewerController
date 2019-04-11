@@ -178,7 +178,7 @@ extension RDImageScrollView : RDPageContentDataView
         adjustContentAspect()
     }
     
-    open func configure(data: RDPageContentData) {
+    open func configure(data: RDPageContent) {
         guard let data = data as? RDImageContentData else {
             return
         }
