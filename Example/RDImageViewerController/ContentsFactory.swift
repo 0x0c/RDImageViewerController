@@ -51,14 +51,14 @@ class ContentsFactory {
         return contents
     }
     
-    static func contents() -> [RDPageContentData] {
+    static func imageContents() -> [RDPageContentData] {
         var contents = [RDPageContentData]()
         for i in 1...12 {
             let data = RDImageContentData(imageName: "\(i).JPG")
             data.landscapeMode = .displayFit
             contents.append(data)
         }
-        
+
         return contents
     }
     

@@ -35,7 +35,7 @@ class ViewController: UIViewController {
             direction = .down
         }
         
-        let viewController = RDImageViewerController(contents: ContentsFactory.contents(), direction: direction)
+        let viewController = RDImageViewerController(contents: ContentsFactory.imageContents(), direction: direction)
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         viewController.title = "Image"
@@ -100,7 +100,7 @@ class ViewController: UIViewController {
             direction = .down
         }
         
-        let viewController = RDImageViewerController(contents: ContentsFactory.contents(), direction: direction)
+        let viewController = RDImageViewerController(contents: ContentsFactory.imageContents(), direction: direction)
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         viewController.title = "Display Fit"
