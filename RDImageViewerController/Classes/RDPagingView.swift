@@ -178,12 +178,13 @@ extension RDPagingView : UICollectionViewDataSourcePrefetching
     }
     
     public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        guard let pagingDataSource = pagingDataSource else {
+        guard let pagingDataSource = pagingDataSource, numberOfPages > 0 else {
             return
         }
         if let lastIndexPath = indexPaths.last, let firstIndexPath = indexPaths.first {
-            let startIndex = max(0, firstIndexPath.row - preloadCount)
-            let endIndex = min(numberOfPages - 1, lastIndexPath.row + preloadCount)
+            let startIndex = min(max(0, firstIndexPath.row - preloadCount), numberOfPages - 1)
+            let endIndex = max(min(numberOfPages - 1, lastIndexPath.row + preloadCount), 0)
+            
             for i in startIndex..<endIndex {
                 pagingDataSource.pagingView(pagingView: self, cancelPreloadingItemAt: i)
             }

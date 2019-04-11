@@ -164,14 +164,6 @@ open class RDImageViewerController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        for data in contents {
-            switch data.type {
-            case let .class(cellClass):
-                pagingView.register(cellClass, forCellWithReuseIdentifier: data.reuseIdentifier())
-            case let .nib(cellNib, _):
-                pagingView.register(cellNib, forCellWithReuseIdentifier: data.reuseIdentifier())
-            }
-        }
         automaticallyAdjustsScrollViewInsets = false
         
         pagingView.frame = view.bounds
@@ -219,8 +211,9 @@ open class RDImageViewerController: UIViewController {
         currentPageHudLabel.tag = ViewTag.currentPageLabel.rawValue
         currentPageHud.addSubview(currentPageHudLabel)
         
-        applySliderTintColor()
         currentPageIndex = 0
+        registerContents()
+        applySliderTintColor()
         updateSliderValue()
     }
     
@@ -254,7 +247,19 @@ open class RDImageViewerController: UIViewController {
         pagingView.pagingDelegate = nil
     }
     
+    open func registerContents() {
+        for data in contents {
+            switch data.type {
+            case let .class(cellClass):
+                pagingView.register(cellClass, forCellWithReuseIdentifier: data.reuseIdentifier())
+            case let .nib(cellNib, _):
+                pagingView.register(cellNib, forCellWithReuseIdentifier: data.reuseIdentifier())
+            }
+        }
+    }
+    
     open func reloadData() {
+        registerContents()
         pagingView.reloadData()
         updateHudPosition()
         updateCurrentPageHudLabel()
