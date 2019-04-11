@@ -128,24 +128,25 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
     
     open func fitToAspect() {
         imageView.sizeToFit()
-        let height = frame.height
-        let width = frame.width
+        let viewHeight = frame.height
+        let viewWidth = frame.width
         var scale: CGFloat = 1.0
         var fitWidth = false
-        if width < height {
+        if viewWidth < viewHeight {
             fitWidth = true
-            scale = width / max(1, imageView.frame.width)
+            scale = viewWidth / max(1, imageView.frame.width)
         }
         else {
-            scale = height / max(1, imageView.frame.height)
+            scale = viewHeight / max(1, imageView.frame.height)
         }
         
-        let imageEdgeLength: CGFloat = fitWidth ? imageView.frame.height : imageView.frame.width
-        let viewEdgeLength: CGFloat = fitWidth ? height : width
+        let imageEdgeLength: CGFloat = fitWidth ? imageView.frame.height * scale : imageView.frame.width * scale
+        let viewEdgeLength: CGFloat = fitWidth ? viewHeight : viewWidth
         
         if imageEdgeLength > viewEdgeLength {
             scale = viewEdgeLength / max(1, imageEdgeLength)
         }
+
         imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width * scale, height: imageView.frame.height * scale)
         imageView.center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
         scrollView.contentSize = imageView.frame.size
