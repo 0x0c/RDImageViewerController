@@ -16,9 +16,9 @@ open class RDRemoteImageScrollView: RDImageScrollView {
         data.stopPreload()
         data.preload { [weak self] (content) in
             if let weakSelf = self, let cnt = content as? RDRemoteImageContentData {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: {
+                DispatchQueue.main.async {
                     weakSelf.image = cnt.image
-                })
+                }
             }
         }
     }

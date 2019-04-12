@@ -41,7 +41,9 @@ open class RDRemoteImageContentData: RDImageContentData {
     }
     
     open override func preload(completion: ((RDPageContentData) -> Void)?) {
-        lazyCompletionHandler = completion
+        if completion != nil {
+            lazyCompletionHandler = completion
+        }
         
         if image != nil {
             if let handler = lazyCompletionHandler {
