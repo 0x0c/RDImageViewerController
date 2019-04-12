@@ -13,6 +13,7 @@ open class RDRemoteImageScrollView: RDImageScrollView {
         guard let data = data as? RDRemoteImageContentData else {
             return
         }
+        super.configure(data: data)
         data.stopPreload()
         data.preload { [weak self] (content) in
             if let weakSelf = self, let cnt = content as? RDRemoteImageContentData {
