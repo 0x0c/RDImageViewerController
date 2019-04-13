@@ -10,10 +10,10 @@ import UIKit
 open class RDImageContentData: RDPageContentData {
     static let DefaultMaximumZoomScale: CGFloat = 2.5
     
-    public var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
-    public var landscapeMode: RDImageScrollView.LandscapeMode = .aspectFit
-    public var image: UIImage?
-    public var imageName: String?
+    open var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
+    open var landscapeMode: RDImageScrollView.LandscapeMode = .aspectFit
+    open var image: UIImage?
+    open var imageName: String?
     
     public override init(type: PresentationType) {
         super.init(type: type)
@@ -45,7 +45,7 @@ open class RDImageContentData: RDPageContentData {
         preload(completion: nil)
     }
     
-    open override func isPreloadable() -> Bool {
+    override open func isPreloadable() -> Bool {
         return true
     }
     
