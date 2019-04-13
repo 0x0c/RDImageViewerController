@@ -65,7 +65,9 @@ open class RDRemoteImageContentData: RDImageContentData {
                     weakSelf.image = UIImage(data: data)
                 }
                 if let handler = weakSelf.lazyCompletionHandler {
-                    handler(weakSelf)
+                    DispatchQueue.main.async {
+                        handler(weakSelf)
+                    }
                 }
             })
             
