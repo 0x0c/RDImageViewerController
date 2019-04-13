@@ -220,13 +220,11 @@ open class RDImageViewerController: UIViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        pagingView.pagingDataSource = self
-        pagingView.pagingDelegate = self
+        view.setNeedsLayout()
         if restoreBarState == true {
             setBarsHidden(hidden: !showSlider, animated: animated)
             setHudHidden(hidden: !showPageNumberHud, animated: false)
         }
-        
         updateHudPosition()
         refreshPageHud()
     }
@@ -239,17 +237,24 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
+    var tempPageIndex = 0
+    var viewIsDisappeared = false
+    
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelAutoBarHidden()
+        tempPageIndex = currentPageIndex
+        viewIsDisappeared = true
     }
     
-    override open func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        pagingView.pagingDataSource = nil
-        pagingView.pagingDelegate = nil
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if viewIsDisappeared {
+            currentPageIndex = tempPageIndex
+            viewIsDisappeared = false
+        }
     }
-    
+
     open func registerContents() {
         for data in contents {
             switch data.type {
@@ -396,11 +401,6 @@ open class RDImageViewerController: UIViewController {
         pageSlider.maximumTrackTintColor = pagingView.direction == .left ? maximumTintColor : minimumTintColor
         pageSlider.minimumTrackTintColor = pagingView.direction == .left ? minimumTintColor : maximumTintColor
     }
-}
-
-extension RDImageViewerController : UICollectionViewDelegate
-{
-    
 }
 
 extension RDImageViewerController : UICollectionViewDataSource
