@@ -140,6 +140,7 @@ open class RDImageViewerController: UIViewController {
             self.pagingView.setContentOffset(newOffset, animated: false)
             UIView.animate(withDuration: context.transitionDuration, animations: {
                 self.updateHudPosition()
+                self.updateCurrentPageHudLabel()
             })
         })
     }
