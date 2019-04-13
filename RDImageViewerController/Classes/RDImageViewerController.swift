@@ -457,24 +457,24 @@ extension RDImageViewerController
 
 extension RDImageViewerController: RDPagingViewDelegate
 {
-    @objc public func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
+    @objc open func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
         updateCurrentPageHudLabel()
     }
     
-    @objc public func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat) {
+    @objc open func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat) {
         if pageSlider.state == .normal {
             let value = position / CGFloat(numberOfPages - 1)
             pageSlider.value = Float(trueSliderValue(value: Float(value)))
         }
     }
 
-    @objc public func pagingViewWillBeginDragging(pagingView: RDPagingView) {
+    @objc open func pagingViewWillBeginDragging(pagingView: RDPagingView) {
         if pagingView.isDragging == false {
             previousPageIndex = currentPageIndex
         }
     }
     
-    @objc public func pagingViewDidEndDecelerating(pagingView: RDPagingView) {
+    @objc open func pagingViewDidEndDecelerating(pagingView: RDPagingView) {
         let page = currentPageIndex
         for view in pagingView.subviews {
             if view.isKind(of: UIScrollView.self) {
@@ -492,14 +492,14 @@ extension RDImageViewerController: RDPagingViewDelegate
 
 extension RDImageViewerController: RDPagingViewDataSource
 {
-    public func pagingView(pagingView: RDPagingView, preloadItemAt index: Int) {
+    open func pagingView(pagingView: RDPagingView, preloadItemAt index: Int) {
         let data = contents[index]
         if data.isPreloadable() {
             data.preload()
         }
     }
     
-    public func pagingView(pagingView: RDPagingView, cancelPreloadingItemAt index: Int) {
+    open func pagingView(pagingView: RDPagingView, cancelPreloadingItemAt index: Int) {
         let data = contents[index]
         if data.isPreloadable() {
             data.stopPreload()
