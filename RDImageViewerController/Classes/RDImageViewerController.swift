@@ -220,6 +220,8 @@ open class RDImageViewerController: UIViewController {
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        pagingView.pagingDataSource = self
+        pagingView.pagingDelegate = self
         if restoreBarState == true {
             setBarsHidden(hidden: !showSlider, animated: animated)
             setHudHidden(hidden: !showPageNumberHud, animated: false)
