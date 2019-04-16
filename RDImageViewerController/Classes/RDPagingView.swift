@@ -57,7 +57,7 @@ open class RDPagingView: UICollectionView {
             }
         }
         get {
-            if semanticContentAttribute == .forceRightToLeft {
+            if isLegacyLayoutSystem {
                 return numberOfPages - _currentPageIndex - 1
             }
             return _currentPageIndex
@@ -65,6 +65,12 @@ open class RDPagingView: UICollectionView {
     }
     
     public var preloadCount: Int = 3
+    
+    var isLegacyLayoutSystem: Bool {
+        get {
+            return semanticContentAttribute == .forceRightToLeft
+        }
+    }
     
     public init(frame: CGRect, forwardDirection: ForwardDirection) {
         self.direction = forwardDirection

@@ -320,7 +320,7 @@ open class RDImageViewerController: UIViewController {
     }
     
     func trueSliderValue(value: Float) -> Float {
-        if pagingView.semanticContentAttribute == .forceRightToLeft {
+        if pagingView.isLegacyLayoutSystem {
             return value
         }
         return pagingView.direction == .right ? value : 1 - value
@@ -348,7 +348,7 @@ open class RDImageViewerController: UIViewController {
             feedbackGenerator.selectionChanged()
         }
         
-        if pagingView.semanticContentAttribute == .forceRightToLeft {
+        if pagingView.isLegacyLayoutSystem {
             let newPageIndex = (1.0 - position) * Float(numberOfPages - 1)
             pagingView.scrollTo(index: Int(newPageIndex + 0.5))
             slider.setValue(position, animated: false)
@@ -361,7 +361,7 @@ open class RDImageViewerController: UIViewController {
     
     @objc func sliderDidTouchUpInside(slider: UISlider) {
         let position = trueSliderValue(value: Float(currentPageIndex) / Float(numberOfPages - 1))
-        if pagingView.semanticContentAttribute == .forceRightToLeft {
+        if pagingView.isLegacyLayoutSystem {
             slider.setValue(1.0 - ((1.0 / Float(numberOfPages - 1)) * Float(currentPageIndex)), animated: false)
         }
         else {
@@ -433,7 +433,7 @@ open class RDImageViewerController: UIViewController {
             minimumTintColor = tintColor
         }
         
-        if pagingView.direction == .left || pagingView.semanticContentAttribute == .forceRightToLeft {
+        if pagingView.direction == .left || pagingView.isLegacyLayoutSystem {
             pageSlider.maximumTrackTintColor = maximumTintColor
             pageSlider.minimumTrackTintColor = minimumTintColor
         }
