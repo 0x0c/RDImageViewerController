@@ -165,6 +165,8 @@ open class RDImageViewerController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
+        
         automaticallyAdjustsScrollViewInsets = false
         
         pagingView.frame = view.bounds
@@ -174,7 +176,6 @@ open class RDImageViewerController: UIViewController {
         pagingView.tag = ViewTag.pageScrollView.rawValue
         pagingView.showsHorizontalScrollIndicator = false
         pagingView.showsVerticalScrollIndicator = false
-        pagingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
         if pagingView.direction.isHorizontal() {
             pagingView.isPagingEnabled = true
         }
