@@ -81,6 +81,9 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
         self.scrollView.delegate = self
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
+        if #available(iOS 11.0, *) {
+            self.scrollView.contentInsetAdjustmentBehavior = .never
+        }
         self.addSubview(self.scrollView)
         
         self.imageView.center = self.scrollView.center
