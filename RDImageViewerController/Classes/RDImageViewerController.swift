@@ -169,8 +169,6 @@ open class RDImageViewerController: UIViewController {
         super.viewDidLoad()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
         
-        automaticallyAdjustsScrollViewInsets = false
-        
         pagingView.frame = view.bounds
         pagingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         pagingView.backgroundColor = UIColor.black
@@ -180,6 +178,13 @@ open class RDImageViewerController: UIViewController {
         pagingView.showsVerticalScrollIndicator = false
         if pagingView.direction.isHorizontal() {
             pagingView.isPagingEnabled = true
+        }
+        
+        if #available(iOS 11.0, *) {
+            pagingView.contentInsetAdjustmentBehavior = .never
+        }
+        else {
+            automaticallyAdjustsScrollViewInsets = false
         }
         
         pageSlider.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 31)
