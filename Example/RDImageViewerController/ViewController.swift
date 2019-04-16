@@ -133,5 +133,13 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    @IBAction func left(_ sender: Any) {
+        let direction: RDPagingView.ForwardDirection = .left
+        let viewController = RDImageViewerController(contents: ContentsFactory.imageContents(), direction: direction)
+        viewController.showSlider = showSlider.isOn
+        viewController.showPageNumberHud = showHud.isOn
+        viewController.title = "Left"
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 

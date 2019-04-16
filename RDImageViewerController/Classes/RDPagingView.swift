@@ -52,11 +52,14 @@ open class RDPagingView: UICollectionView {
     public var currentPageIndex: Int {
         set {
             if newValue >= 0, newValue < numberOfPages {
-                scrollToItem(at: IndexPath(row: newValue, section: 0), at: .centeredHorizontally, animated: false)
+                scrollTo(index: newValue)
                 _currentPageIndex = newValue
             }
         }
         get {
+            if semanticContentAttribute == .forceRightToLeft {
+                return numberOfPages - _currentPageIndex - 1
+            }
             return _currentPageIndex
         }
     }
@@ -67,6 +70,13 @@ open class RDPagingView: UICollectionView {
         self.direction = forwardDirection
         if forwardDirection == .left {
             super.init(frame: frame, collectionViewLayout: RDPagingViewRightToLeftFlowLayout())
+            if #available(iOS 11.0, *) {
+                self.contentInsetAdjustmentBehavior = .never
+            }
+            else {
+                self.semanticContentAttribute = .forceRightToLeft
+                _currentPageIndex = numberOfPages
+            }
         }
         else if forwardDirection == .right {
             super.init(frame: frame, collectionViewLayout: RDPagingViewHorizontalFlowLayout())
@@ -81,9 +91,6 @@ open class RDPagingView: UICollectionView {
         self.delegate = self
         self.dataSource = self
         self.prefetchDataSource = self
-//        if #available(iOS 11.0, *) {
-//            self.contentInsetAdjustmentBehavior = .automatic
-//        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -95,7 +102,11 @@ open class RDPagingView: UICollectionView {
     }
     
     public func endRotation() {
-        scrollToItem(at: IndexPath(row: previousIndex, section: 0), at: .centeredHorizontally, animated: false)
+        scrollTo(index: previousIndex)
+    }
+    
+    public func scrollTo(index: Int) {
+        scrollToItem(at: IndexPath(row: index, section: 0), at: direction.isHorizontal() ? .centeredHorizontally : .centeredVertically, animated: false)
     }
     
     public func resize() {

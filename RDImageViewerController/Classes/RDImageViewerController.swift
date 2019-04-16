@@ -100,6 +100,7 @@ open class RDImageViewerController: UIViewController {
     }
     var feedbackGenerator = UISelectionFeedbackGenerator()
     var currentPageHudLabel: UILabel
+    var didRotate: Bool = false
     
     public var pagingView: RDPagingView
     public var pageSlider: UISlider
@@ -135,6 +136,7 @@ open class RDImageViewerController: UIViewController {
         let newOffset = CGPoint(x: index * size.width, y: offset.y)
         pagingView.setContentOffset(newOffset, animated: false)
         pagingView.reloadData()
+        didRotate = true
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
             self.pagingView.reloadData()
             self.pagingView.setContentOffset(newOffset, animated: false)
@@ -227,7 +229,7 @@ open class RDImageViewerController: UIViewController {
             setHudHidden(hidden: !showPageNumberHud, animated: false)
         }
         updateHudPosition()
-        refreshPageHud()
+        updateCurrentPageHudLabel()
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -253,6 +255,24 @@ open class RDImageViewerController: UIViewController {
         if viewIsDisappeared {
             currentPageIndex = tempPageIndex
             viewIsDisappeared = false
+        }
+    }
+    
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if didRotate {
+            let offset = pagingView.contentOffset
+            let width  = pagingView.bounds.size.width
+            
+            let index = Int(round(offset.x / width))
+            currentPageIndex = numberOfPages - index
+            updateCurrentPageHudLabel()
+            updateSliderValue()
+            didRotate = false
+        }
+        else {
+            updateCurrentPageHudLabel()
         }
     }
 
@@ -300,11 +320,14 @@ open class RDImageViewerController: UIViewController {
     }
     
     func trueSliderValue(value: Float) -> Float {
+        if pagingView.semanticContentAttribute == .forceRightToLeft {
+            return value
+        }
         return pagingView.direction == .right ? value : 1 - value
     }
     
     open func updateCurrentPageHudLabel() {
-        updateCurrentPageHudLabel(page: pagingView.currentPageIndex + 1, denominator: numberOfPages)
+        updateCurrentPageHudLabel(page: currentPageIndex + 1, denominator: numberOfPages)
     }
     
     open func updateCurrentPageHudLabel(page: Int, denominator: Int) {
@@ -318,17 +341,32 @@ open class RDImageViewerController: UIViewController {
     
     @objc func sliderValueDidChange(slider: UISlider) {
         cancelAutoBarHidden()
-        let page = trueSliderValue(value: slider.value) * Float(numberOfPages - 1)
-        let truePage = Int(page + 0.5)
-        if currentPageIndex != truePage {
+        let position = trueSliderValue(value: slider.value)
+        let pageIndex = position * Float(numberOfPages - 1)
+        let truePageIndex = Int(pageIndex + 0.5)
+        if currentPageIndex != truePageIndex {
             feedbackGenerator.selectionChanged()
         }
-        currentPageIndex = truePage
+        
+        if pagingView.semanticContentAttribute == .forceRightToLeft {
+            let newPageIndex = (1.0 - position) * Float(numberOfPages - 1)
+            pagingView.scrollTo(index: Int(newPageIndex + 0.5))
+            slider.setValue(position, animated: false)
+            updateCurrentPageHudLabel()
+        }
+        else {
+            currentPageIndex = truePageIndex
+        }
     }
     
     @objc func sliderDidTouchUpInside(slider: UISlider) {
         let position = trueSliderValue(value: Float(currentPageIndex) / Float(numberOfPages - 1))
-        slider.setValue(position, animated: false)
+        if pagingView.semanticContentAttribute == .forceRightToLeft {
+            slider.setValue(1.0 - ((1.0 / Float(numberOfPages - 1)) * Float(currentPageIndex)), animated: false)
+        }
+        else {
+            slider.setValue(position, animated: false)
+        }
     }
     
     public func reloadView(at index: Int) {
@@ -343,10 +381,6 @@ open class RDImageViewerController: UIViewController {
         if numberOfPages > index {
             pagingView.reloadItems(at: [IndexPath(row: index, section: 0)])
         }
-    }
-
-    open func refreshPageHud() {
-        currentPageIndex = pagingView.currentPageIndex
     }
     
     @objc open func hideBars() {
@@ -399,8 +433,14 @@ open class RDImageViewerController: UIViewController {
             minimumTintColor = tintColor
         }
         
-        pageSlider.maximumTrackTintColor = pagingView.direction == .left ? maximumTintColor : minimumTintColor
-        pageSlider.minimumTrackTintColor = pagingView.direction == .left ? minimumTintColor : maximumTintColor
+        if pagingView.direction == .left || pagingView.semanticContentAttribute == .forceRightToLeft {
+            pageSlider.maximumTrackTintColor = maximumTintColor
+            pageSlider.minimumTrackTintColor = minimumTintColor
+        }
+        else {
+            pageSlider.maximumTrackTintColor = minimumTintColor
+            pageSlider.minimumTrackTintColor = maximumTintColor
+        }
     }
 }
 
