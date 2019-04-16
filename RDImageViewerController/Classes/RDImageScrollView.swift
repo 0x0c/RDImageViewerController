@@ -9,8 +9,8 @@ import UIKit
 
 open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtocol {
     
-    var scrollView: UIScrollView
-    let zoomRect = CGSize(width: 100, height: 100)
+    open var scrollView: UIScrollView
+    public let zoomRect = CGSize(width: 100, height: 100)
     
     public enum LandscapeMode {
         case aspectFit
