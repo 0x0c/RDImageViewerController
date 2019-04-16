@@ -142,13 +142,18 @@ extension RDPagingView : UIScrollViewDelegate
         
         let to = Int(position + 0.5)
         if let pagingDelegate = pagingDelegate {
-            if isLegacyLayoutSystem {
-                pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: numberOfPages - to - 1)
-            }
-            else {
-                pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
+            if previousIndex != to {
+                if isLegacyLayoutSystem {
+                    pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: numberOfPages - to - 1)
+                }
+                else {
+                    pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
+                }
             }
             pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: position)
+        }
+        if previousIndex != to {
+            previousIndex = to
         }
         _currentPageIndex = to
     }
