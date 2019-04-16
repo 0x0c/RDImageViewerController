@@ -173,6 +173,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
     
     public func addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: UIGestureRecognizer) {
         gesture.require(toFail: zoomGesture)
+        addGestureRecognizer(gesture)
     }
     
     // RDPageContentDataView
