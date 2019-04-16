@@ -507,13 +507,21 @@ extension RDImageViewerController
 extension RDImageViewerController: RDPagingViewDelegate
 {
     @objc open func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
-        updateCurrentPageHudLabel()
+        
     }
     
     @objc open func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat) {
         if pageSlider.state == .normal {
             let value = position / CGFloat(numberOfPages - 1)
             pageSlider.value = Float(trueSliderValue(value: Float(value)))
+        }
+        
+        let to = Int(position + 0.5)
+        if pagingView.isLegacyLayoutSystem {
+            updateCurrentPageHudLabel(page: numberOfPages - to, denominator: numberOfPages)
+        }
+        else {
+            updateCurrentPageHudLabel(page: to + 1, denominator: numberOfPages)
         }
     }
 

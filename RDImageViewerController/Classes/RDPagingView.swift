@@ -15,6 +15,7 @@ import UIKit
 @objc public protocol RDPagingViewDelegate {
     @objc optional func pagingView(pagingView: RDPagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
     @objc optional func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int)
+    @objc optional func pagingView(pagingView: RDPagingView, didsChangeIndexTo index: Int)
     @objc optional func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat)
     @objc optional func pagingViewWillBeginDragging(pagingView: RDPagingView)
     @objc optional func pagingViewDidEndDragging(pagingView: RDPagingView, willDecelerate decelerate: Bool)
@@ -152,10 +153,10 @@ extension RDPagingView : UIScrollViewDelegate
             }
             pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: position)
         }
+        _currentPageIndex = to
         if previousIndex != to {
             previousIndex = to
         }
-        _currentPageIndex = to
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
