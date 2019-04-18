@@ -399,6 +399,7 @@ open class RDImageViewerController: UIViewController {
     }
     
     open func setToolBarHidden(hidden: Bool, animated: Bool) {
+        _showSlider = !hidden
         if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
             if showSlider, pagingView.direction.isHorizontal() {
                 navigationController?.setToolbarHidden(hidden, animated: animated)
