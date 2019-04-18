@@ -35,6 +35,10 @@ open class RDPagingView: UICollectionView {
         public func isHorizontal() -> Bool {
             return self == .left || self == .right
         }
+        
+        public func isVertical() -> Bool {
+            return self == .up || self == .down
+        }
     }
     
     public enum MovingDirection {
@@ -130,19 +134,27 @@ open class RDPagingView: UICollectionView {
     }
 }
 
+extension Array {
+    
+    var middle: Element? {
+        guard count != 0 else { return nil }
+        
+        let middleIndex = (count > 1 ? count - 1 : count) / 2
+        return self[middleIndex]
+    }
+    
+}
+
 extension RDPagingView : UIScrollViewDelegate
 {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let pagingDelegate = pagingDelegate else {
+            return
+        }
         var position: CGFloat
         if direction.isHorizontal() {
             position = scrollView.contentOffset.x / scrollView.frame.width
-        }
-        else {
-            position = scrollView.contentOffset.y / scrollView.frame.height
-        }
-        
-        let to = Int(position + 0.5)
-        if let pagingDelegate = pagingDelegate {
+            let to = Int(position + 0.5)
             if previousIndex != to {
                 if isLegacyLayoutSystem {
                     pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: numberOfPages - to - 1)
@@ -152,10 +164,23 @@ extension RDPagingView : UIScrollViewDelegate
                 }
             }
             pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: position)
+            _currentPageIndex = to
+            if previousIndex != to {
+                previousIndex = to
+            }
         }
-        _currentPageIndex = to
-        if previousIndex != to {
-            previousIndex = to
+        else {
+            pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
+            if let index = indexPathsForVisibleItems.sorted().middle {
+                let to = index.row
+                if previousIndex != to {
+                    pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
+                }
+                _currentPageIndex = to
+                if previousIndex != to {
+                    previousIndex = to
+                }
+            }
         }
     }
     
@@ -247,7 +272,10 @@ extension RDPagingView : UICollectionViewDataSource
         guard let pagingDataSource = pagingDataSource else {
             return UICollectionViewCell(frame: CGRect.zero)
         }
-        return pagingDataSource.collectionView(collectionView, cellForItemAt: indexPath)
+        let cell = pagingDataSource.collectionView(collectionView, cellForItemAt: indexPath)
+        cell.pageIndex = indexPath.row
+        
+        return cell
     }
 }
 
@@ -258,24 +286,5 @@ extension RDPagingView : UICollectionViewDelegateFlowLayout
             return CGSize.zero
         }
         return pagingDelegate.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? CGSize.zero
-    }
-}
-
-extension UIView
-{
-    static var pageIndexKey: UInt8 = 0
-    public var pageIndex: Int {
-        get {
-            guard let associatedObject = objc_getAssociatedObject(self, &UIView.pageIndexKey) as? NSNumber else {
-                let associatedObject = NSNumber(value: Int(0))
-                objc_setAssociatedObject(self, &UIView.pageIndexKey, associatedObject, .OBJC_ASSOCIATION_RETAIN)
-                return Int(associatedObject.intValue)
-            }
-            return Int(associatedObject.intValue)
-        }
-        
-        set {
-            objc_setAssociatedObject(self, &UIView.pageIndexKey, NSNumber(value: Int(newValue)), .OBJC_ASSOCIATION_RETAIN)
-        }
     }
 }
