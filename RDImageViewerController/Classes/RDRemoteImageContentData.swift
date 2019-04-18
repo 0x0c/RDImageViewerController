@@ -31,13 +31,13 @@ open class RDRemoteImageContentData: RDImageContentData {
         }
     }
     
-    @objc override open func preload() {
-        preload(completion: nil)
+    @objc override open func reload(completion: ((RDPageContentData) -> Void)?) {
+        image = nil
+        preload(completion: completion)
     }
     
-    @objc override open func reload() {
-        image = nil
-        preload()
+    @objc override open func preload() {
+        preload(completion: nil)
     }
     
     open override func preload(completion: ((RDPageContentData) -> Void)?) {

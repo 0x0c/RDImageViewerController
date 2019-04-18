@@ -49,9 +49,9 @@ open class RDImageContentData: RDPageContentData {
         return true
     }
     
-    override open func reload() {
+    @objc override open func reload(completion: ((RDPageContentData) -> Void)?) {
         image = nil
-        preload()
+        preload(completion: completion)
     }
     
     override open func stopPreload() {

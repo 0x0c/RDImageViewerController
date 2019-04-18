@@ -13,6 +13,7 @@ public protocol RDPageContentProtocol {
     func preload(completion: ((RDPageContentData) -> Void)?)
     func stopPreload()
     func reload()
+    func reload(completion: ((RDPageContentData) -> Void)?)
     func reuseIdentifier() -> String
     func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize
 }
@@ -56,6 +57,10 @@ open class RDPageContentData: NSObject, RDPageContentProtocol {
     }
     
     @objc open func reload() {
+        reload(completion: nil)
+    }
+    
+    @objc open func reload(completion: ((RDPageContentData) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
