@@ -56,7 +56,7 @@ open class RDImageViewerController: UIViewController {
         set {
             _showSlider = newValue
             if showSlider, pagingView.direction.isHorizontal() {
-                navigationController?.setToolbarHidden(true, animated: true)
+                setNavigationBarHidden(hidden: !newValue, animated: true)
             }
             updateHudPosition()
             applySliderTintColor()
@@ -67,12 +67,19 @@ open class RDImageViewerController: UIViewController {
     }
     
     public var automaticBarsHiddenDuration: TimeInterval = 0
+    public var restoreBarState: Bool = true
     
     var _showPageNumberHud: Bool = false
     public var showPageNumberHud: Bool {
         set {
-            _showPageNumberHud = newValue
-            setHudHidden(hidden: _showPageNumberHud, animated: true)
+            if newValue == true {
+                view.addSubview(currentPageHud)
+            }
+            else {
+                currentPageHud.removeFromSuperview()
+            }
+            
+            setHudHidden(hidden: !newValue, animated: true)
         }
         get {
             return _showPageNumberHud
@@ -201,7 +208,6 @@ open class RDImageViewerController: UIViewController {
         currentPageHud.layer.borderColor = UIColor.white.cgColor
         currentPageHud.layer.borderWidth = 1
         currentPageHud.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
-        
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         blurView.frame = self.currentPageHud.bounds
         currentPageHud.addSubview(blurView)
@@ -223,6 +229,12 @@ open class RDImageViewerController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.setNeedsLayout()
+        if restoreBarState == true {
+            setNavigationBarHidden(hidden: navigationController?.isNavigationBarHidden ?? false, animated: true)
+            setToolBarHidden(hidden: !showSlider, animated: true)
+            setHudHidden(hidden: !showPageNumberHud, animated: false)
+        }
+        
         updateHudPosition()
         updateCurrentPageHudLabel()
     }
@@ -331,9 +343,7 @@ open class RDImageViewerController: UIViewController {
     
     @objc open func setBarHiddenByTapGesture() {
         cancelAutoBarHidden()
-        showSlider = false
-        showPageNumberHud = false
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        setBarsHidden(hidden: !statusBarHidden, animated: true)
     }
     
     @objc func sliderValueDidChange(slider: UISlider) {
@@ -381,18 +391,30 @@ open class RDImageViewerController: UIViewController {
     }
     
     @objc open func hideBars() {
+        setBarsHidden(hidden: true, animated: true)
+    }
+    
+    open func setNavigationBarHidden(hidden: Bool, animated: Bool) {
+        navigationController?.setNavigationBarHidden(hidden, animated: animated)
+    }
+    
+    open func setToolBarHidden(hidden: Bool, animated: Bool) {
         if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
             if showSlider, pagingView.direction.isHorizontal() {
-                navigationController?.setToolbarHidden(true, animated: true)
+                navigationController?.setToolbarHidden(hidden, animated: animated)
             }
         }
-        
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        setHudHidden(hidden: true, animated: true)
-        statusBarHidden = true
+    }
+    
+    open func setBarsHidden(hidden: Bool, animated: Bool) {
+        setToolBarHidden(hidden: hidden, animated: animated)
+        setNavigationBarHidden(hidden: hidden, animated: animated)
+        setHudHidden(hidden: hidden, animated: animated)
+        statusBarHidden = hidden
     }
     
     open func setHudHidden(hidden: Bool, animated: Bool) {
+        _showPageNumberHud = !hidden
         var duration: CGFloat = 0
         if animated {
             duration = UINavigationController.hideShowBarDuration
@@ -404,7 +426,7 @@ open class RDImageViewerController: UIViewController {
             }
             self.updateHudHorizontalPosition(position: toolbarPositionY)
             self.currentPageHud.alpha = hidden == true ? 0 : 1.0
-        }, completion: nil)
+            })
     }
     
     func updateHudHorizontalPosition(position: CGFloat) {
