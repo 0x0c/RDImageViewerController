@@ -67,18 +67,12 @@ open class RDImageViewerController: UIViewController {
     }
     
     public var automaticBarsHiddenDuration: TimeInterval = 0
-    public var restoreBarState: Bool = true
     
     var _showPageNumberHud: Bool = false
     public var showPageNumberHud: Bool {
         set {
             _showPageNumberHud = newValue
-            if _showPageNumberHud == true {
-                view.addSubview(currentPageHud)
-            }
-            else {
-                currentPageHud.removeFromSuperview()
-            }
+            setHudHidden(hidden: _showPageNumberHud, animated: true)
         }
         get {
             return _showPageNumberHud
@@ -229,10 +223,6 @@ open class RDImageViewerController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.setNeedsLayout()
-        if restoreBarState == true {
-            setBarsHidden(hidden: !showSlider, animated: animated)
-            setHudHidden(hidden: !showPageNumberHud, animated: false)
-        }
         updateHudPosition()
         updateCurrentPageHudLabel()
     }
@@ -341,7 +331,9 @@ open class RDImageViewerController: UIViewController {
     
     @objc open func setBarHiddenByTapGesture() {
         cancelAutoBarHidden()
-        setBarsHidden(hidden: !statusBarHidden, animated: true)
+        showSlider = false
+        showPageNumberHud = false
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @objc func sliderValueDidChange(slider: UISlider) {
@@ -389,19 +381,15 @@ open class RDImageViewerController: UIViewController {
     }
     
     @objc open func hideBars() {
-        setBarsHidden(hidden: true, animated: true)
-    }
-    
-    open func setBarsHidden(hidden: Bool, animated: Bool) {
         if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
             if showSlider, pagingView.direction.isHorizontal() {
-                navigationController?.setToolbarHidden(hidden, animated: animated)
+                navigationController?.setToolbarHidden(true, animated: true)
             }
         }
         
-        navigationController?.setNavigationBarHidden(hidden, animated: animated)
-        setHudHidden(hidden: hidden, animated: animated)
-        statusBarHidden = hidden
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        setHudHidden(hidden: true, animated: true)
+        statusBarHidden = true
     }
     
     open func setHudHidden(hidden: Bool, animated: Bool) {
