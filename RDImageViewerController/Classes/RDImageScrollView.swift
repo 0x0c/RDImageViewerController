@@ -113,7 +113,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
         if imageView.scrollView.zoomScale > imageView.scrollView.minimumZoomScale {
             imageView.scrollView.setZoomScale(1.0, animated: true)
         }
-        else {
+        else if imageView.scrollView.zoomScale < imageView.scrollView.maximumZoomScale {
             let position = gesture.location(in: imageView.scrollView)
             imageView.scrollView.zoom(to: CGRect(x: position.x - zoomRect.width / 2, y: position.y - zoomRect.height / 2, width: zoomRect.width, height: zoomRect.height), animated: true)
         }
