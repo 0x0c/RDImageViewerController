@@ -28,6 +28,13 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setToolbarHidden(true, animated: true)
     }
+    
+    func commonSetup(viewController: RDImageViewerController) {
+        viewController.isSliderEnabled = showSlider.isOn
+        viewController.showSlider = showSlider.isOn
+        viewController.showPageNumberHud = showHud.isOn
+        viewController.isPageNumberHudEnabled = showHud.isOn
+    }
 
     @IBAction func image(_ sender: Any) {
         var direction: RDPagingView.ForwardDirection = .right
@@ -36,8 +43,7 @@ class ViewController: UIViewController {
         }
         
         let viewController = RDImageViewerController(contents: ContentsFactory.imageContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "Image"
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -49,8 +55,7 @@ class ViewController: UIViewController {
         }
         
         let viewController = RDImageViewerController(contents: ContentsFactory.remoteContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "Remote Image"
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -62,8 +67,7 @@ class ViewController: UIViewController {
         }
         
         let viewController = RDImageViewerController(contents: ContentsFactory.scrollContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "Scroll View"
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -75,8 +79,7 @@ class ViewController: UIViewController {
         }
         
         let viewController = RDImageViewerController(contents: ContentsFactory.textLabelContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "View"
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -88,8 +91,7 @@ class ViewController: UIViewController {
         }
         
         let viewController = RDImageViewerController(contents: ContentsFactory.aspectFitContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "Aspect Fit"
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -101,8 +103,7 @@ class ViewController: UIViewController {
         }
         
         let viewController = RDImageViewerController(contents: ContentsFactory.imageContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "Display Fit"
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -114,8 +115,7 @@ class ViewController: UIViewController {
         }
         
         let viewController = RDImageViewerController(contents: ContentsFactory.viewAndImageContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "View and Image"
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -127,8 +127,7 @@ class ViewController: UIViewController {
         }
         
         let viewController = ReloadImageViewerController(contents: ContentsFactory.scrollContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "View and Image"
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -136,8 +135,7 @@ class ViewController: UIViewController {
     @IBAction func left(_ sender: Any) {
         let direction: RDPagingView.ForwardDirection = .left
         let viewController = RDImageViewerController(contents: ContentsFactory.imageContents(), direction: direction)
-        viewController.showSlider = showSlider.isOn
-        viewController.showPageNumberHud = showHud.isOn
+        commonSetup(viewController: viewController)
         viewController.title = "Left"
         navigationController?.pushViewController(viewController, animated: true)
     }

@@ -51,14 +51,16 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
+    public var isSliderEnabled: Bool = true
     var _showSlider: Bool = false
     public var showSlider: Bool {
         set {
-            _showSlider = newValue
-            if showSlider, pagingView.direction.isHorizontal() {
-                setNavigationBarHidden(hidden: !newValue, animated: true)
+            if pagingView.direction.isHorizontal() {
+                setToolBarHidden(hidden: !newValue, animated: true)
             }
-            updateHudPosition()
+            else {
+                setToolBarHidden(hidden: true, animated: true)
+            }
             applySliderTintColor()
         }
         get {
@@ -69,6 +71,7 @@ open class RDImageViewerController: UIViewController {
     public var automaticBarsHiddenDuration: TimeInterval = 0
     public var restoreBarState: Bool = true
     
+    public var isPageNumberHudEnabled: Bool = true
     var _showPageNumberHud: Bool = false
     public var showPageNumberHud: Bool {
         set {
@@ -234,8 +237,6 @@ open class RDImageViewerController: UIViewController {
             setToolBarHidden(hidden: !showSlider, animated: true)
             setHudHidden(hidden: !showPageNumberHud, animated: false)
         }
-        
-        updateHudPosition()
         updateCurrentPageHudLabel()
     }
     
@@ -267,7 +268,6 @@ open class RDImageViewerController: UIViewController {
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         if didRotate {
             let offset = pagingView.contentOffset
             let width  = pagingView.bounds.size.width
@@ -309,7 +309,7 @@ open class RDImageViewerController: UIViewController {
     
     func updateHudPosition() {
         var toolbarPosition = view.frame.height
-        if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
+        if isSliderEnabled, showSlider, let toolbarItems = toolbarItems, toolbarItems.count > 0 {
             toolbarPosition = navigationController?.toolbar.frame.minY ?? view.frame.height
         }
         updateHudHorizontalPosition(position: toolbarPosition)
@@ -400,6 +400,10 @@ open class RDImageViewerController: UIViewController {
     
     open func setToolBarHidden(hidden: Bool, animated: Bool) {
         _showSlider = !hidden
+        updateHudPosition()
+        if isSliderEnabled == false {
+            return
+        }
         if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
             navigationController?.setToolbarHidden(hidden, animated: animated)
         }
@@ -414,18 +418,17 @@ open class RDImageViewerController: UIViewController {
     
     open func setHudHidden(hidden: Bool, animated: Bool) {
         _showPageNumberHud = !hidden
+        if isPageNumberHudEnabled == false {
+            return
+        }
         var duration: CGFloat = 0
         if animated {
             duration = UINavigationController.hideShowBarDuration
         }
         UIView.animate(withDuration: TimeInterval(duration), animations: { [unowned self] in
-            var toolbarPositionY = self.view.frame.height
-            if let toolbarItems = self.toolbarItems, toolbarItems.count > 0 {
-                toolbarPositionY = self.navigationController?.toolbar.frame.minY ?? self.view.frame.height
-            }
-            self.updateHudHorizontalPosition(position: toolbarPositionY)
             self.currentPageHud.alpha = hidden == true ? 0 : 1.0
-            })
+            self.updateHudPosition()
+        })
     }
     
     func updateHudHorizontalPosition(position: CGFloat) {
