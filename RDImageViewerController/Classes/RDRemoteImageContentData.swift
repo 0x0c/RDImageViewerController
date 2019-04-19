@@ -13,7 +13,7 @@ open class RDRemoteImageContentData: RDImageContentData {
     public let session: URLSession
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?
-    var lazyCompletionHandler: ((RDPageContentData) -> Void)?
+    public var lazyCompletionHandler: ((RDPageContentData) -> Void)?
     
     public init(type: RDPageContentData.PresentationType, request: URLRequest, session: URLSession) {
         self.session = session
