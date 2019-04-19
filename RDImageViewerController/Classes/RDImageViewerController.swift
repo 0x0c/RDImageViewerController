@@ -75,17 +75,18 @@ open class RDImageViewerController: UIViewController {
     var _showPageNumberHud: Bool = false
     public var showPageNumberHud: Bool {
         set {
-            if newValue == true {
-                view.addSubview(currentPageHud)
-            }
-            else {
-                currentPageHud.removeFromSuperview()
-            }
-            
             setHudHidden(hidden: !newValue, animated: true)
         }
         get {
             return _showPageNumberHud
+        }
+    }
+    private func registerPageNumberHud(_ register: Bool) {
+        if register == true {
+            view.addSubview(currentPageHud)
+        }
+        else {
+            currentPageHud.removeFromSuperview()
         }
     }
     
@@ -238,6 +239,7 @@ open class RDImageViewerController: UIViewController {
             setHudHidden(hidden: !showPageNumberHud, animated: false)
         }
         updateCurrentPageHudLabel()
+        registerPageNumberHud(true)
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -400,7 +402,14 @@ open class RDImageViewerController: UIViewController {
     
     open func setToolBarHidden(hidden: Bool, animated: Bool) {
         _showSlider = !hidden
-        updateHudPosition()
+        if animated {
+            UIView.animate(withDuration: TimeInterval(UINavigationController.hideShowBarDuration), animations: { [unowned self] in
+                self.updateHudPosition()
+            })
+        }
+        else {
+            updateHudPosition()
+        }
         if isSliderEnabled == false {
             return
         }
