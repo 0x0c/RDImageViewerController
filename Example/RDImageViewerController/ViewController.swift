@@ -34,6 +34,10 @@ class ViewController: UIViewController {
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         viewController.isPageNumberHudEnabled = showHud.isOn
+        if scrollvertically.isOn {
+            viewController.showSlider = false
+            viewController.isSliderEnabled = false
+        }
     }
 
     @IBAction func image(_ sender: Any) {

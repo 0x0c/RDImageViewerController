@@ -197,7 +197,8 @@ open class RDImageViewerController: UIViewController {
         pageSlider.autoresizingMask = [.flexibleWidth]
         pageSlider.addTarget(self, action: #selector(sliderValueDidChange(slider:)), for: .valueChanged)
         pageSlider.addTarget(self, action: #selector(sliderDidTouchUpInside(slider:)), for: .touchUpInside)
-        toolbarItems = [UIBarButtonItem(customView: pageSlider)]
+        let sliderItem = UIBarButtonItem(customView: pageSlider)
+        toolbarItems = [sliderItem]
         
         let x = view.center.x - currentPageHud.frame.width / 2.0
         var y = view.frame.height - currentPageHud.frame.height - 10
@@ -264,25 +265,46 @@ open class RDImageViewerController: UIViewController {
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if viewIsDisappeared {
+            // update slider position
+            pageSlider.frame = CGRect(x: pageSlider.frame.minX, y: pageSlider.frame.minY, width: view.frame.width - 30, height: 31)
+            
+            // update hud position
+            updateHudPosition()
+            
+            // restore page index
             currentPageIndex = tempPageIndex
-            viewIsDisappeared = false
         }
     }
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if didRotate {
-            let offset = pagingView.contentOffset
-            let width = pagingView.bounds.size.width
+            // update cell size
+            pagingView.reloadItems(at: pagingView.indexPathsForVisibleItems)
             
-            let index = Int(round(offset.x / width))
-            currentPageIndex = numberOfPages - index
-            updateCurrentPageHudLabel()
-            updateSliderValue()
+            if viewIsDisappeared == false {
+                // restore page index when rotate
+                let offset = pagingView.contentOffset
+                let width = pagingView.bounds.size.width
+                let index = Int(round(offset.x / width))
+                currentPageIndex = numberOfPages - index
+                updateCurrentPageHudLabel()
+                updateSliderValue()
+            }
+            else {
+                currentPageIndex = pagingView.currentPageIndex
+                updateCurrentPageHudLabel()
+                updateSliderValue()
+            }
+            
             didRotate = false
         }
         else {
             updateCurrentPageHudLabel()
+        }
+        
+        if viewIsDisappeared {
+            viewIsDisappeared = false
         }
     }
 
