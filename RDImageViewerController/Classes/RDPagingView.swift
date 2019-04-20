@@ -71,7 +71,7 @@ open class RDPagingView: UICollectionView {
     
     public var preloadCount: Int = 3
     
-    var isLegacyLayoutSystem: Bool {
+    public mvar isLegacyLayoutSystem: Bool {
         get {
             return semanticContentAttribute == .forceRightToLeft
         }
