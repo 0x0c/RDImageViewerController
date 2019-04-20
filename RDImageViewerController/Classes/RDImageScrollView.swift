@@ -133,42 +133,50 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
         imageView.sizeToFit()
         let viewHeight = frame.height
         let viewWidth = frame.width
+        let imageHeight = max(1, imageView.frame.height)
+        let imageWidth = max(1, imageView.frame.width)
         var scale: CGFloat = 1.0
-        var fitWidth = false
-        
-        var heightToFit = viewHeight
-        var widthToFit = viewWidth
         
         if viewWidth < viewHeight {
-            fitWidth = true
-            if imageView.frame.width < viewWidth {
-                scale = viewWidth / max(1, viewWidth)
+            // device portrait
+            if image?.isLandspaceImage() ?? false {
+                // landscape image
+                // fit imageWidth to viewWidth
+                scale = viewWidth / imageWidth
             }
             else {
-                scale = viewWidth / max(1, imageView.frame.width)
-                heightToFit = imageView.frame.height
-                widthToFit = imageView.frame.width
+                // portrait image
+                if imageWidth / imageHeight > viewWidth / viewHeight {
+                    // fit imageWidth to viewWidth
+                    scale = viewWidth / imageWidth
+                }
+                else {
+                    // fit imageHeight to viewHeight
+                    scale = viewHeight / imageHeight
+                }
             }
         }
         else {
-            if imageView.frame.height < viewHeight {
-                scale = viewWidth / max(1, viewHeight)
+            // device landscape
+            if image?.isLandspaceImage() ?? false {
+                // image landscape
+                if imageWidth / imageHeight > viewWidth / viewHeight {
+                    // fit imageWidth to viewWidth
+                    scale = viewWidth / imageWidth
+                }
+                else {
+                    // fit imageHeight to viewHeight
+                    scale = viewHeight / imageHeight
+                }
             }
             else {
-                scale = viewWidth / max(1, imageView.frame.width)
-                heightToFit = imageView.frame.height
-                widthToFit = imageView.frame.width
+                // image portrait
+                // fit imageHeight to viewHeight
+                scale = viewHeight / imageHeight
             }
         }
         
-        let imageEdgeLength: CGFloat = fitWidth ? imageView.frame.height * scale : imageView.frame.width * scale
-        let viewEdgeLength: CGFloat = fitWidth ? viewHeight : viewWidth
-        
-        if imageEdgeLength > viewEdgeLength {
-            scale = viewEdgeLength / max(1, imageEdgeLength)
-        }
-
-        imageView.frame = CGRect(x: 0, y: 0, width: widthToFit * scale, height: heightToFit * scale)
+        imageView.frame = CGRect(x: 0, y: 0, width: imageWidth * scale, height: imageHeight * scale)
         imageView.center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
         scrollView.contentSize = imageView.frame.size
         scrollView.setZoomScale(1.0, animated: false)
@@ -178,7 +186,8 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
         imageView.sizeToFit()
         let height = frame.height
         let width = frame.width
-        if height > width {
+        if width < height {
+            // portrait
             fitToAspect()
         }
         else {
