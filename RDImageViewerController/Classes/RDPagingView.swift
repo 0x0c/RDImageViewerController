@@ -86,7 +86,7 @@ open class RDPagingView: UICollectionView {
             if #available(iOS 11.0, *) {
                 self.contentInsetAdjustmentBehavior = .never
             }
-            else {
+            else if forwardDirection == .left {
                 transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
         }
@@ -136,7 +136,7 @@ open class RDPagingView: UICollectionView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if isLegacyLayoutSystem {
+        if isLegacyLayoutSystem, direction == .left {
             for cell in visibleCells {
                 cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
