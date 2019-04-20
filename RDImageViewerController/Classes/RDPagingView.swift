@@ -73,8 +73,11 @@ open class RDPagingView: UICollectionView {
             if #available(iOS 11.0, *) {
                 return false
             }
-            else {
+            else if direction == .left {
                 return true
+            }
+            else {
+                return false
             }
         }
     }
@@ -86,7 +89,7 @@ open class RDPagingView: UICollectionView {
             if #available(iOS 11.0, *) {
                 self.contentInsetAdjustmentBehavior = .never
             }
-            else if forwardDirection == .left {
+            else {
                 transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
         }
@@ -136,7 +139,7 @@ open class RDPagingView: UICollectionView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if isLegacyLayoutSystem, direction == .left {
+        if isLegacyLayoutSystem {
             for cell in visibleCells {
                 cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
