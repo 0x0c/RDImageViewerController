@@ -272,7 +272,7 @@ open class RDImageViewerController: UIViewController {
         super.viewDidLayoutSubviews()
         if didRotate {
             let offset = pagingView.contentOffset
-            let width  = pagingView.bounds.size.width
+            let width = pagingView.bounds.size.width
             
             let index = Int(round(offset.x / width))
             currentPageIndex = numberOfPages - index

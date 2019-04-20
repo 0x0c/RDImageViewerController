@@ -73,6 +73,7 @@ open class RDPagingView: UICollectionView {
     
     public var isLegacyLayoutSystem: Bool {
         get {
+            return false
             return semanticContentAttribute == .forceRightToLeft
         }
     }
@@ -85,8 +86,8 @@ open class RDPagingView: UICollectionView {
                 self.contentInsetAdjustmentBehavior = .never
             }
             else {
-                self.semanticContentAttribute = .forceRightToLeft
-                _currentPageIndex = numberOfPages
+                transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+//                _currentPageIndex = numberOfPages
             }
         }
         else if forwardDirection == .right {
@@ -274,6 +275,10 @@ extension RDPagingView : UICollectionViewDataSource
         }
         let cell = pagingDataSource.collectionView(collectionView, cellForItemAt: indexPath)
         cell.pageIndex = indexPath.row
+        
+        if #available(iOS 11.0, *) {} else {
+            cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        }
         
         return cell
     }
