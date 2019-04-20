@@ -271,8 +271,10 @@ open class RDImageViewerController: UIViewController {
             // update hud position
             updateHudPosition()
             
-            // restore page index
-            currentPageIndex = tempPageIndex
+            if pagingView.direction.isHorizontal() {
+                // restore page index
+                currentPageIndex = tempPageIndex
+            }
         }
     }
     
@@ -291,7 +293,7 @@ open class RDImageViewerController: UIViewController {
                 updateCurrentPageHudLabel()
                 updateSliderValue()
             }
-            else {
+            else if pagingView.direction.isHorizontal() {
                 currentPageIndex = pagingView.currentPageIndex
                 updateCurrentPageHudLabel()
                 updateSliderValue()
