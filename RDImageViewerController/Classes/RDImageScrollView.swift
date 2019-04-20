@@ -184,7 +184,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
         else {
             let scale = width > height ? width / max(1, imageView.frame.width) : height / max(1, imageView.frame.height)
             imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width * scale, height: imageView.frame.height * scale)
-            if imageView.image?.isLandspaceImage() ?? false {
+            if height > imageView.frame.height {
                 imageView.center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
             }
             scrollView.setZoomScale(1.0, animated: false)
