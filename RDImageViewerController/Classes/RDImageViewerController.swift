@@ -145,6 +145,7 @@ open class RDImageViewerController: UIViewController {
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
             self.pagingView.reloadData()
             self.pagingView.setContentOffset(newOffset, animated: false)
+
             UIView.animate(withDuration: context.transitionDuration, animations: {
                 self.updateHudPosition()
                 self.updateCurrentPageHudLabel()
@@ -329,9 +330,6 @@ open class RDImageViewerController: UIViewController {
     }
     
     func trueSliderValue(value: Float) -> Float {
-        if pagingView.isLegacyLayoutSystem {
-            return value
-        }
         return pagingView.direction == .right ? value : 1 - value
     }
     
@@ -357,25 +355,12 @@ open class RDImageViewerController: UIViewController {
             feedbackGenerator.selectionChanged()
         }
         
-        if pagingView.isLegacyLayoutSystem {
-            let newPageIndex = (1.0 - position) * Float(numberOfPages - 1)
-            pagingView.scrollTo(index: Int(newPageIndex + 0.5))
-            slider.setValue(position, animated: false)
-            updateCurrentPageHudLabel()
-        }
-        else {
-            currentPageIndex = truePageIndex
-        }
+        currentPageIndex = truePageIndex
     }
     
     @objc func sliderDidTouchUpInside(slider: UISlider) {
         let position = trueSliderValue(value: Float(currentPageIndex) / Float(numberOfPages - 1))
-        if pagingView.isLegacyLayoutSystem {
-            slider.setValue(1.0 - ((1.0 / Float(numberOfPages - 1)) * Float(currentPageIndex)), animated: false)
-        }
-        else {
-            slider.setValue(position, animated: false)
-        }
+        slider.setValue(position, animated: false)
     }
     
     public func reloadView(at index: Int) {
@@ -459,7 +444,7 @@ open class RDImageViewerController: UIViewController {
             minimumTintColor = tintColor
         }
         
-        if pagingView.direction == .left || pagingView.isLegacyLayoutSystem {
+        if pagingView.direction == .left {
             pageSlider.maximumTrackTintColor = maximumTintColor
             pageSlider.minimumTrackTintColor = minimumTintColor
         }
@@ -541,12 +526,7 @@ extension RDImageViewerController: RDPagingViewDelegate
             }
             
             let to = Int(position + 0.5)
-            if pagingView.isLegacyLayoutSystem {
-                updateCurrentPageHudLabel(page: numberOfPages - to, denominator: numberOfPages)
-            }
-            else {
-                updateCurrentPageHudLabel(page: to + 1, denominator: numberOfPages)
-            }
+            updateCurrentPageHudLabel(page: to + 1, denominator: numberOfPages)
         }
     }
 

@@ -62,9 +62,6 @@ open class RDPagingView: UICollectionView {
             }
         }
         get {
-            if isLegacyLayoutSystem {
-                return numberOfPages - _currentPageIndex - 1
-            }
             return _currentPageIndex
         }
     }
@@ -73,8 +70,12 @@ open class RDPagingView: UICollectionView {
     
     public var isLegacyLayoutSystem: Bool {
         get {
-            return false
-            return semanticContentAttribute == .forceRightToLeft
+            if #available(iOS 11.0, *) {
+                return false
+            }
+            else {
+                return true
+            }
         }
     }
     
@@ -87,7 +88,6 @@ open class RDPagingView: UICollectionView {
             }
             else {
                 transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-//                _currentPageIndex = numberOfPages
             }
         }
         else if forwardDirection == .right {
@@ -133,6 +133,15 @@ open class RDPagingView: UICollectionView {
         numberOfPages = pagingDataSource.collectionView(self, numberOfItemsInSection: 0)
         super.reloadData()
     }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        if isLegacyLayoutSystem {
+            for cell in visibleCells {
+                cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+            }
+        }
+    }
 }
 
 extension Array {
@@ -157,12 +166,7 @@ extension RDPagingView : UIScrollViewDelegate
             position = scrollView.contentOffset.x / scrollView.frame.width
             let to = Int(position + 0.5)
             if previousIndex != to {
-                if isLegacyLayoutSystem {
-                    pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: numberOfPages - to - 1)
-                }
-                else {
-                    pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
-                }
+                pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
             }
             pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: position)
             _currentPageIndex = to
@@ -248,7 +252,7 @@ extension RDPagingView : UICollectionViewDataSourcePrefetching
 
 extension RDPagingView : UICollectionViewDelegate
 {
-    
+
 }
 
 extension RDPagingView : UICollectionViewDataSource
@@ -275,8 +279,7 @@ extension RDPagingView : UICollectionViewDataSource
         }
         let cell = pagingDataSource.collectionView(collectionView, cellForItemAt: indexPath)
         cell.pageIndex = indexPath.row
-        
-        if #available(iOS 11.0, *) {} else {
+        if isLegacyLayoutSystem {
             cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }
         
