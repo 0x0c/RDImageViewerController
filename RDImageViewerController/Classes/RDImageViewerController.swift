@@ -240,7 +240,6 @@ open class RDImageViewerController: UIViewController {
             setToolBarHidden(hidden: !showSlider, animated: true)
             setHudHidden(hidden: !showPageNumberHud, animated: false)
         }
-        updateCurrentPageHudLabel()
         registerPageNumberHud(true)
     }
     
@@ -309,6 +308,12 @@ open class RDImageViewerController: UIViewController {
             viewIsDisappeared = false
         }
     }
+    
+    @available(iOS 11.0, *)
+    open override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        updateHudPosition()
+    }
 
     open func registerContents() {
         for data in contents {
@@ -339,7 +344,10 @@ open class RDImageViewerController: UIViewController {
         if isSliderEnabled, showSlider, let toolbarItems = toolbarItems, toolbarItems.count > 0 {
             toolbarPosition = navigationController?.toolbar.frame.minY ?? view.frame.height
         }
-        updateHudHorizontalPosition(position: toolbarPosition)
+        else if #available(iOS 11.0, *) {
+            toolbarPosition = toolbarPosition - bottomLayoutGuide.length
+        }
+        updateHudVerticalPosition(position: toolbarPosition)
     }
     
     func updateSliderValue() {
@@ -449,8 +457,10 @@ open class RDImageViewerController: UIViewController {
         })
     }
     
-    func updateHudHorizontalPosition(position: CGFloat) {
-        currentPageHud.frame = CGRect(x: view.center.x - currentPageHud.frame.width / 2.0, y: position - currentPageHud.frame.height - 10, width: currentPageHud.frame.width, height: currentPageHud.frame.height)
+    func updateHudVerticalPosition(position: CGFloat) {
+        let horizontalPosition = view.center.x - currentPageHud.frame.width / 2.0
+        let verticalPosition = position - currentPageHud.frame.height - 10
+        currentPageHud.frame = CGRect(x: horizontalPosition, y: verticalPosition, width: currentPageHud.frame.width, height: currentPageHud.frame.height)
     }
     
     open func cancelAutoBarHidden() {
