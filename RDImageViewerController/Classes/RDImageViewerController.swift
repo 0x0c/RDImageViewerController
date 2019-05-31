@@ -487,6 +487,16 @@ open class RDImageViewerController: UIViewController {
             pageSlider.minimumTrackTintColor = maximumTintColor
         }
     }
+    
+    open func changeDirection(_ forwardDirection: RDPagingView.ForwardDirection) {
+        pagingView.changeDirection(forwardDirection)
+        if pagingView.direction.isHorizontal() {
+            pagingView.isPagingEnabled = true
+        }
+        else {
+            pagingView.isPagingEnabled = false
+        }
+    }
 }
 
 extension RDImageViewerController : UICollectionViewDataSource

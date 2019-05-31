@@ -49,7 +49,7 @@ open class RDPagingView: UICollectionView {
     
     public var pagingDataSource: (RDPagingViewDataSource & UICollectionViewDataSource)?
     public var pagingDelegate: (RDPagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
-    public let direction: ForwardDirection
+    public var direction: ForwardDirection
     
     private var previousIndex: Int = 0
     var numberOfPages = 0
@@ -126,6 +126,30 @@ open class RDPagingView: UICollectionView {
     
     public func resize() {
         collectionViewLayout.invalidateLayout()
+        reloadItems(at: indexPathsForVisibleItems)
+    }
+    
+    public func changeDirection(_ forwardDirection: ForwardDirection) {
+        self.direction = forwardDirection
+        if forwardDirection == .left {
+            collectionViewLayout = RDPagingViewRightToLeftFlowLayout()
+            if #available(iOS 11.0, *) {
+                self.contentInsetAdjustmentBehavior = .never
+            }
+            else {
+                transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+            }
+        }
+        else if forwardDirection == .right {
+            collectionViewLayout = RDPagingViewHorizontalFlowLayout()
+        }
+        else if forwardDirection == .up {
+            collectionViewLayout = RDPagingViewBottomToTopLayout()
+        }
+        else { // .down
+            collectionViewLayout = RDPagingViewVerticalFlowLayout()
+        }
+        
         reloadItems(at: indexPathsForVisibleItems)
     }
     
