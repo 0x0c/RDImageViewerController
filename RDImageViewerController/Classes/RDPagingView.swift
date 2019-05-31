@@ -140,14 +140,17 @@ open class RDPagingView: UICollectionView {
                 transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
         }
-        else if forwardDirection == .right {
-            collectionViewLayout = RDPagingViewHorizontalFlowLayout()
-        }
-        else if forwardDirection == .up {
-            collectionViewLayout = RDPagingViewBottomToTopLayout()
-        }
-        else { // .down
-            collectionViewLayout = RDPagingViewVerticalFlowLayout()
+        else {
+            transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            if forwardDirection == .right {
+                collectionViewLayout = RDPagingViewHorizontalFlowLayout()
+            }
+            else if forwardDirection == .up {
+                collectionViewLayout = RDPagingViewBottomToTopLayout()
+            }
+            else { // .down
+                collectionViewLayout = RDPagingViewVerticalFlowLayout()
+            }
         }
         
         reloadItems(at: indexPathsForVisibleItems)
