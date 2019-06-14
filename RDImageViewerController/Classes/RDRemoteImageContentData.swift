@@ -26,8 +26,9 @@ open class RDRemoteImageContentData: RDImageContentData {
     }
     
     override open func stopPreload() {
-        if let task = task {
-            task.cancel()
+        if let t = task {
+            t.cancel()
+            task = nil
         }
     }
     
@@ -38,6 +39,13 @@ open class RDRemoteImageContentData: RDImageContentData {
     
     @objc override open func preload() {
         preload(completion: nil)
+    }
+    
+    @objc override open func isPreloading() -> Bool {
+        if task != nil {
+            return true
+        }
+        return false
     }
     
     open override func preload(completion: ((RDPageContentData) -> Void)?) {

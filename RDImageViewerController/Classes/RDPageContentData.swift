@@ -9,6 +9,7 @@ import UIKit
 
 public protocol RDPageContentProtocol {
     func isPreloadable() -> Bool
+    func isPreloading() -> Bool
     func preload()
     func preload(completion: ((RDPageContentData) -> Void)?)
     func stopPreload()
@@ -41,6 +42,10 @@ open class RDPageContentData: NSObject, RDPageContentProtocol {
     }
     
     @objc open func isPreloadable() -> Bool {
+        return false
+    }
+    
+    @objc open func isPreloading() -> Bool {
         return false
     }
 

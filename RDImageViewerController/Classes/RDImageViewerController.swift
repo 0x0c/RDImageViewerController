@@ -607,7 +607,7 @@ extension RDImageViewerController: RDPagingViewDataSource
     
     open func pagingView(pagingView: RDPagingView, cancelPreloadingItemAt index: Int) {
         let data = contents[index]
-        if data.isPreloadable() {
+        if data.isPreloadable(), data.isPreloading() {
             data.stopPreload()
         }
     }

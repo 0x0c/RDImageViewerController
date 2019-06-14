@@ -105,7 +105,6 @@ open class RDPagingView: UICollectionView {
         
         self.delegate = self
         self.dataSource = self
-        self.prefetchDataSource = self
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -250,36 +249,6 @@ extension RDPagingView : UIScrollViewDelegate
     }
 }
 
-extension RDPagingView : UICollectionViewDataSourcePrefetching
-{
-    public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        guard let pagingDataSource = pagingDataSource else {
-            return
-        }
-        if let lastIndexPath = indexPaths.last, let firstIndexPath = indexPaths.first {
-            let startIndex = max(0, firstIndexPath.row - preloadCount)
-            let endIndex = min(numberOfPages - 1, lastIndexPath.row + preloadCount)
-            for i in startIndex..<endIndex {
-                pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
-            }
-        }
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        guard let pagingDataSource = pagingDataSource, numberOfPages > 0 else {
-            return
-        }
-        if let lastIndexPath = indexPaths.last, let firstIndexPath = indexPaths.first {
-            let startIndex = min(max(0, firstIndexPath.row - preloadCount), numberOfPages - 1)
-            let endIndex = max(min(numberOfPages - 1, lastIndexPath.row + preloadCount), 0)
-            
-            for i in startIndex..<endIndex {
-                pagingDataSource.pagingView(pagingView: self, cancelPreloadingItemAt: i)
-            }
-        }
-    }
-}
-
 extension RDPagingView : UICollectionViewDelegate
 {
 
@@ -311,6 +280,23 @@ extension RDPagingView : UICollectionViewDataSource
         cell.pageIndex = indexPath.row
         if isLegacyLayoutSystem {
             cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        }
+        
+        // prefetch
+        let prefetchStartIndex = max(0, indexPath.row - preloadCount)
+        let prefetchEndIndex = min(numberOfPages - 1, indexPath.row + preloadCount)
+        for i in (prefetchStartIndex..<prefetchEndIndex) {
+            pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
+        }
+        
+        // cancel
+        let cancelStartIndex = min(max(0, indexPath.row - preloadCount - 1), numberOfPages - 1)
+        let cancelEndIndex = max(min(numberOfPages - 1, indexPath.row + preloadCount + 1), 0)
+        for i in cancelStartIndex..<prefetchStartIndex {
+            pagingDataSource.pagingView(pagingView: self, cancelPreloadingItemAt: i)
+        }
+        for i in prefetchEndIndex..<cancelEndIndex {
+            pagingDataSource.pagingView(pagingView: self, cancelPreloadingItemAt: i)
         }
         
         return cell
