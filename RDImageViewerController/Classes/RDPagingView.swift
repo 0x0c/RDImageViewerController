@@ -47,8 +47,8 @@ open class RDPagingView: UICollectionView {
         case unknown
     }
     
-    public var pagingDataSource: (RDPagingViewDataSource & UICollectionViewDataSource)?
-    public var pagingDelegate: (RDPagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
+    public weak var pagingDataSource: (RDPagingViewDataSource & UICollectionViewDataSource)?
+    public weak var pagingDelegate: (RDPagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
     public var direction: ForwardDirection
     
     private var previousIndex: Int = 0
