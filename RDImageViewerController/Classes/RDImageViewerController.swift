@@ -281,7 +281,7 @@ open class RDImageViewerController: UIViewController {
         super.viewDidLayoutSubviews()
         if didRotate {
             // update cell size
-            pagingView.reloadItems(at: pagingView.indexPathsForVisibleItems)
+            pagingView.reloadData()
             
             if viewIsDisappeared == false {
                 // restore page index when rotate
