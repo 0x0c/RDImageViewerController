@@ -260,9 +260,18 @@ extension RDImageScrollView: UIScrollViewDelegate {
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         if let subView = scrollView.subviews.first {
-            let offsetX = scrollView.bounds.width > scrollView.contentSize.width ? (scrollView.bounds.width - scrollView.contentSize.width) * 0.5 : 0
-            let offsetY = scrollView.bounds.height > scrollView.contentSize.height ? (scrollView.bounds.height - scrollView.contentSize.height) * 0.5 : 0
-            subView.center = CGPoint(x: scrollView.contentSize.width * 0.5 + offsetX, y: scrollView.contentSize.height * 0.5 + offsetY)
+            var x = subView.center.x
+            var y = subView.center.y
+            
+            if alignment.horizontal == .center {
+                let offsetX = scrollView.bounds.width > scrollView.contentSize.width ? (scrollView.bounds.width - scrollView.contentSize.width) * 0.5 : 0
+                x = scrollView.contentSize.width * 0.5 + offsetX
+            }
+            if alignment.vertical == .center {
+                let offsetY = scrollView.bounds.height > scrollView.contentSize.height ? (scrollView.bounds.height - scrollView.contentSize.height) * 0.5 : 0
+                y = scrollView.contentSize.height * 0.5 + offsetY
+            }
+            subView.center = CGPoint(x: x, y: y)
         }
     }
 }
