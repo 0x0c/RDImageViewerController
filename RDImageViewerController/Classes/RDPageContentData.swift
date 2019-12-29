@@ -7,6 +7,23 @@
 
 import UIKit
 
+public enum ImageHorizontalAlignment {
+    case left
+    case right
+    case center
+}
+
+public enum ImageVerticalAlignment {
+    case top
+    case bottom
+    case center
+}
+
+public struct ImageAlignment {
+    public var horizontal: ImageHorizontalAlignment = .center
+    public var vertical: ImageVerticalAlignment = .center
+}
+
 public protocol RDPageContentProtocol {
     func isPreloadable() -> Bool
     func isPreloading() -> Bool

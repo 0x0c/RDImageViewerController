@@ -9,12 +9,23 @@ import UIKit
 
 open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtocol {
     
-    open var scrollView: UIScrollView
-    public let zoomRect = CGSize(width: 100, height: 100)
-    
     public enum LandscapeMode {
         case aspectFit
         case displayFit
+    }
+    
+    open var scrollView: UIScrollView
+    public let zoomRect = CGSize(width: 100, height: 100)
+    
+    private var _alignment: ImageAlignment = ImageAlignment(horizontal: .center, vertical: .center)
+    var alignment: ImageAlignment {
+        get {
+            return _alignment
+        }
+        set {
+            _alignment = newValue
+            fixImageViewPosition()
+        }
     }
     
     var _mode: LandscapeMode = .aspectFit
@@ -119,6 +130,26 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
         }
     }
     
+    private func fixImageViewPosition() {
+        switch _alignment.horizontal {
+        case .left:
+            imageView.frame.origin.x = 0
+        case .right:
+            imageView.frame.origin.x = frame.width - imageView.frame.width
+        case .center:
+            imageView.center.x = scrollView.center.x
+        }
+        
+        switch _alignment.vertical {
+        case .top:
+            imageView.frame.origin.y = 0
+        case .bottom:
+            imageView.frame.origin.y = frame.height - imageView.frame.height
+        case .center:
+            imageView.center.y = scrollView.center.y
+        }
+    }
+    
     open func adjustContentAspect() {
         switch mode {
         case .aspectFit:
@@ -177,7 +208,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
         }
         
         imageView.frame = CGRect(x: 0, y: 0, width: imageWidth * scale, height: imageHeight * scale)
-        imageView.center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
+        fixImageViewPosition()
         scrollView.contentSize = imageView.frame.size
         scrollView.setZoomScale(1.0, animated: false)
     }
@@ -217,6 +248,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
         scrollView.maximumZoomScale = data.maximumZoomScale
         mode = data.landscapeMode
         scrollView.setZoomScale(1.0, animated: false)
+        alignment = data.alignment
         image = data.image
     }
 }

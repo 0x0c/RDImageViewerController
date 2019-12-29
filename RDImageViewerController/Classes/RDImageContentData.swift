@@ -14,6 +14,7 @@ open class RDImageContentData: RDPageContentData {
     open var landscapeMode: RDImageScrollView.LandscapeMode = .aspectFit
     open var image: UIImage?
     open var imageName: String?
+    open var alignment: ImageAlignment = ImageAlignment(horizontal: .center, vertical: .center)
     
     public override init(type: PresentationType) {
         super.init(type: type)
