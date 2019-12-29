@@ -67,7 +67,6 @@ class ContentsFactory {
         for i in 1...12 {
             let data = RDImageContentData(imageName: "\(i).JPG")
             data.landscapeMode = .aspectFit
-            data.alignment.horizontal = .left
             contents.append(data)
         }
         
