@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class RDImageContentData: RDPageContentData {
+open class RDImageContent: RDPageContent {
     static let DefaultMaximumZoomScale: CGFloat = 2.5
     
     open var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
@@ -33,7 +33,7 @@ open class RDImageContentData: RDPageContentData {
         }
     }
     
-    open override func preload(completion: ((RDPageContentData) -> Void)?) {
+    open override func preload(completion: ((RDPageContent) -> Void)?) {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
             if let handler = completion {
@@ -50,7 +50,7 @@ open class RDImageContentData: RDPageContentData {
         return true
     }
     
-    @objc override open func reload(completion: ((RDPageContentData) -> Void)?) {
+    @objc override open func reload(completion: ((RDPageContent) -> Void)?) {
         image = nil
         preload(completion: completion)
     }

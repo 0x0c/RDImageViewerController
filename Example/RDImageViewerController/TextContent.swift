@@ -9,7 +9,7 @@
 import UIKit
 import RDImageViewerController
 
-class TextLabelViewContentData: RDPageContentData {
+class TextContent: RDPageContent {
     let text: String
     
     init(text: String) {
@@ -21,7 +21,7 @@ class TextLabelViewContentData: RDPageContentData {
 
     }
     
-    open override func preload(completion: ((RDPageContentData) -> Void)?) {
+    open override func preload(completion: ((RDPageContent) -> Void)?) {
 
     }
     

@@ -9,19 +9,19 @@
 import UIKit
 import RDImageViewerController
 
-class ScrollContentData: RDPageContentData {
+class ScrollableContent: RDPageContent {
     let color: UIColor
     
     init(color: UIColor) {
         self.color = color
-        super.init(type: .nib(UINib(nibName: "ScrollContentView", bundle: nil), ScrollContentView.self))
+        super.init(type: .nib(UINib(nibName: "ScrollContentView", bundle: nil), ScrollableContentView.self))
     }
     
     open override func preload() {
         
     }
     
-    open override func preload(completion: ((RDPageContentData) -> Void)?) {
+    open override func preload(completion: ((RDPageContent) -> Void)?) {
         
     }
     

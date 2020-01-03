@@ -19,11 +19,11 @@ class ContentsFactory {
         return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1)
     }
     
-    static func remoteContents() -> [RDRemoteImageContentData] {
-        var contents = [RDRemoteImageContentData]()
+    static func remoteContents() -> [RDRemoteImageContent] {
+        var contents = [RDRemoteImageContent]()
         for i in 1...12 {
             let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(i).JPG")!)
-            let data = RDRemoteImageContentData(request: request, session: URLSession.shared)
+            let data = RDRemoteImageContent(request: request, session: URLSession.shared)
             data.landscapeMode = .displayFit
             contents.append(data)
         }
@@ -31,30 +31,30 @@ class ContentsFactory {
         return contents
     }
     
-    static func scrollContents() -> [ScrollContentData] {
-        var contents = [ScrollContentData]()
+    static func scrollContents() -> [ScrollableContent] {
+        var contents = [ScrollableContent]()
         for _ in 1...12 {
-            let data = ScrollContentData(color: generateRandomColor())
+            let data = ScrollableContent(color: generateRandomColor())
             contents.append(data)
         }
         
         return contents
     }
     
-    static func textLabelContents() -> [TextLabelViewContentData] {
-        var contents = [TextLabelViewContentData]()
+    static func textLabelContents() -> [TextContent] {
+        var contents = [TextContent]()
         for i in 1...12 {
-            let data = TextLabelViewContentData(text: "\(i)")
+            let data = TextContent(text: "\(i)")
             contents.append(data)
         }
         
         return contents
     }
     
-    static func imageContents() -> [RDPageContentData] {
-        var contents = [RDPageContentData]()
+    static func imageContents() -> [RDPageContent] {
+        var contents = [RDPageContent]()
         for i in 1...12 {
-            let data = RDImageContentData(imageName: "\(i).JPG")
+            let data = RDImageContent(imageName: "\(i).JPG")
             data.landscapeMode = .displayFit
             contents.append(data)
         }
@@ -62,10 +62,10 @@ class ContentsFactory {
         return contents
     }
     
-    static func aspectFitContents() -> [RDPageContentData] {
-        var contents = [RDPageContentData]()
+    static func aspectFitContents() -> [RDPageContent] {
+        var contents = [RDPageContent]()
         for i in 1...12 {
-            let data = RDImageContentData(imageName: "\(i).JPG")
+            let data = RDImageContent(imageName: "\(i).JPG")
             data.landscapeMode = .aspectFit
             contents.append(data)
         }
@@ -73,16 +73,16 @@ class ContentsFactory {
         return contents
     }
     
-    static func viewAndImageContents() -> [RDPageContentData] {
-        var contents = [RDPageContentData]()
+    static func viewAndImageContents() -> [RDPageContent] {
+        var contents = [RDPageContent]()
         for i in 1...12 {
             if i % 2 == 0 {
-                let data = RDImageContentData(imageName: "\(i).JPG")
+                let data = RDImageContent(imageName: "\(i).JPG")
                 data.landscapeMode = .displayFit
                 contents.append(data)
             }
             else {
-                let data = TextLabelViewContentData(text: "\(i)")
+                let data = TextContent(text: "\(i)")
                 contents.append(data)
             }
         }
@@ -90,9 +90,9 @@ class ContentsFactory {
         return contents
     }
     
-    static func randomContents() -> [RDPageContentData] {
+    static func randomContents() -> [RDPageContent] {
         let numberOfPages = Int(arc4random() % 20 + 1)
-        var contents = [RDPageContentData]()
+        var contents = [RDPageContent]()
         for i in 0..<numberOfPages {
             contents.append(ContentsFactory.randomContent(seed: i))
         }
@@ -100,20 +100,20 @@ class ContentsFactory {
         return contents
     }
     
-    static func randomContent(seed: Int) -> RDPageContentData {
+    static func randomContent(seed: Int) -> RDPageContent {
         let rand = arc4random() % 4
         switch rand {
         case 0:
-            return RDImageContentData(imageName: "\(seed % 12 + 1).JPG")
+            return RDImageContent(imageName: "\(seed % 12 + 1).JPG")
         case 1:
             let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(seed % 12 + 1).JPG")!)
-            return RDRemoteImageContentData(request: request, session: URLSession.shared)
+            return RDRemoteImageContent(request: request, session: URLSession.shared)
         case 2:
-            return TextLabelViewContentData(text: "\(seed)")
+            return TextContent(text: "\(seed)")
         case 3:
-            return ScrollContentData(color: generateRandomColor())
+            return ScrollableContent(color: generateRandomColor())
         default:
-            return TextLabelViewContentData(text: "\(seed)")
+            return TextContent(text: "\(seed)")
         }
     }
 }

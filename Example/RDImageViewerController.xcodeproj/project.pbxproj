@@ -14,12 +14,12 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		E907AE53225F7A3000615D72 /* TextLabelViewContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E907AE52225F7A3000615D72 /* TextLabelViewContentData.swift */; };
+		E907AE53225F7A3000615D72 /* TextContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E907AE52225F7A3000615D72 /* TextContent.swift */; };
 		E907AE5C225F7B8600615D72 /* TextLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E907AE5A225F7B8600615D72 /* TextLabelView.swift */; };
 		E907AE5D225F7B8600615D72 /* TextLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E907AE5B225F7B8600615D72 /* TextLabelView.xib */; };
-		E907AE62225F7EAA00615D72 /* ScrollContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E907AE60225F7EAA00615D72 /* ScrollContentView.swift */; };
+		E907AE62225F7EAA00615D72 /* ScrollableContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E907AE60225F7EAA00615D72 /* ScrollableContentView.swift */; };
 		E907AE63225F7EAA00615D72 /* ScrollContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E907AE61225F7EAA00615D72 /* ScrollContentView.xib */; };
-		E907AE65225F7EBE00615D72 /* ScrollContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E907AE64225F7EBE00615D72 /* ScrollContentData.swift */; };
+		E907AE65225F7EBE00615D72 /* ScrollableContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E907AE64225F7EBE00615D72 /* ScrollableContent.swift */; };
 		E99FABDA225F8F9B00FE0B14 /* ReloadImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99FABD9225F8F9B00FE0B14 /* ReloadImageViewerController.swift */; };
 		E99FABDC225F8FCF00FE0B14 /* ContentsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99FABDB225F8FCF00FE0B14 /* ContentsFactory.swift */; };
 		E9CD537C225B649E009061E0 /* 8.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5370225B649D009061E0 /* 8.JPG */; };
@@ -67,12 +67,12 @@
 		BAF3DEA09E140B584783BB2E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CCD211D10975DEE89C336176 /* Pods_RDImageViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E538D3F86688C0E3E7E91CA5 /* Pods-RDImageViewerController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RDImageViewerController_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example.release.xcconfig"; sourceTree = "<group>"; };
-		E907AE52225F7A3000615D72 /* TextLabelViewContentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLabelViewContentData.swift; sourceTree = "<group>"; };
+		E907AE52225F7A3000615D72 /* TextContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextContent.swift; sourceTree = "<group>"; };
 		E907AE5A225F7B8600615D72 /* TextLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLabelView.swift; sourceTree = "<group>"; };
 		E907AE5B225F7B8600615D72 /* TextLabelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextLabelView.xib; sourceTree = "<group>"; };
-		E907AE60225F7EAA00615D72 /* ScrollContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollContentView.swift; sourceTree = "<group>"; };
+		E907AE60225F7EAA00615D72 /* ScrollableContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableContentView.swift; sourceTree = "<group>"; };
 		E907AE61225F7EAA00615D72 /* ScrollContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScrollContentView.xib; sourceTree = "<group>"; };
-		E907AE64225F7EBE00615D72 /* ScrollContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollContentData.swift; sourceTree = "<group>"; };
+		E907AE64225F7EBE00615D72 /* ScrollableContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableContent.swift; sourceTree = "<group>"; };
 		E99FABD9225F8F9B00FE0B14 /* ReloadImageViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadImageViewerController.swift; sourceTree = "<group>"; };
 		E99FABDB225F8FCF00FE0B14 /* ContentsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsFactory.swift; sourceTree = "<group>"; };
 		E9CD5370225B649D009061E0 /* 8.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.JPG; sourceTree = "<group>"; };
@@ -138,10 +138,10 @@
 				E99FABDB225F8FCF00FE0B14 /* ContentsFactory.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				E99FABD9225F8F9B00FE0B14 /* ReloadImageViewerController.swift */,
-				E907AE64225F7EBE00615D72 /* ScrollContentData.swift */,
-				E907AE60225F7EAA00615D72 /* ScrollContentView.swift */,
+				E907AE64225F7EBE00615D72 /* ScrollableContent.swift */,
+				E907AE60225F7EAA00615D72 /* ScrollableContentView.swift */,
 				E907AE61225F7EAA00615D72 /* ScrollContentView.xib */,
-				E907AE52225F7A3000615D72 /* TextLabelViewContentData.swift */,
+				E907AE52225F7A3000615D72 /* TextContent.swift */,
 				E907AE5A225F7B8600615D72 /* TextLabelView.swift */,
 				E907AE5B225F7B8600615D72 /* TextLabelView.xib */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -416,11 +416,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E907AE53225F7A3000615D72 /* TextLabelViewContentData.swift in Sources */,
+				E907AE53225F7A3000615D72 /* TextContent.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
-				E907AE62225F7EAA00615D72 /* ScrollContentView.swift in Sources */,
+				E907AE62225F7EAA00615D72 /* ScrollableContentView.swift in Sources */,
 				E907AE5C225F7B8600615D72 /* TextLabelView.swift in Sources */,
-				E907AE65225F7EBE00615D72 /* ScrollContentData.swift in Sources */,
+				E907AE65225F7EBE00615D72 /* ScrollableContent.swift in Sources */,
 				E99FABDA225F8F9B00FE0B14 /* ReloadImageViewerController.swift in Sources */,
 				E99FABDC225F8FCF00FE0B14 /* ContentsFactory.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,

@@ -90,7 +90,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    public var contents: [RDPageContentData] = []
+    public var contents: [RDPageContent] = []
     
     var previousPageIndex: Int = 0
     var _statusBarHidden: Bool = false
@@ -154,7 +154,7 @@ open class RDImageViewerController: UIViewController {
     }
 
     static let pageHudLabelFontSize: CGFloat = 17
-    public init(contents: [RDPageContentData], direction: RDPagingView.ForwardDirection) {
+    public init(contents: [RDPageContent], direction: RDPagingView.ForwardDirection) {
         self.currentPageHud = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         self.currentPageHudLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: RDImageViewerController.pageHudLabelFontSize))
         self.feedbackGenerator.prepare()
@@ -334,7 +334,7 @@ open class RDImageViewerController: UIViewController {
         updateSliderValue()
     }
     
-    open func update(contents newContents: [RDPageContentData]) {
+    open func update(contents newContents: [RDPageContent]) {
         contents = newContents
         reloadData()
     }
@@ -507,7 +507,7 @@ extension RDImageViewerController : UICollectionViewDataSource
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = contents[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! RDPageContentDataViewProtocol & UICollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! RDPageViewProtocol & UICollectionViewCell
         cell.configure(data: data)
         cell.resize()
         if let imageScrollView = cell as? RDImageScrollView {

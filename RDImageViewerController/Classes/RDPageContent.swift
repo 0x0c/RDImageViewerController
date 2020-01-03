@@ -28,20 +28,20 @@ public protocol RDPageContentProtocol {
     func isPreloadable() -> Bool
     func isPreloading() -> Bool
     func preload()
-    func preload(completion: ((RDPageContentData) -> Void)?)
+    func preload(completion: ((RDPageContent) -> Void)?)
     func stopPreload()
     func reload()
-    func reload(completion: ((RDPageContentData) -> Void)?)
+    func reload(completion: ((RDPageContent) -> Void)?)
     func reuseIdentifier() -> String
     func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize
 }
 
-public protocol RDPageContentDataViewProtocol {
+public protocol RDPageViewProtocol {
     func configure(data: RDPageContentProtocol)
     func resize()
 }
 
-open class RDPageContentData: NSObject, RDPageContentProtocol {
+open class RDPageContent: NSObject, RDPageContentProtocol {
     
     public enum PresentationType {
         case `class`(AnyClass)
@@ -70,7 +70,7 @@ open class RDPageContentData: NSObject, RDPageContentProtocol {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
-    @objc open func preload(completion: ((RDPageContentData) -> Void)?) {
+    @objc open func preload(completion: ((RDPageContent) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
@@ -82,7 +82,7 @@ open class RDPageContentData: NSObject, RDPageContentProtocol {
         reload(completion: nil)
     }
     
-    @objc open func reload(completion: ((RDPageContentData) -> Void)?) {
+    @objc open func reload(completion: ((RDPageContent) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     

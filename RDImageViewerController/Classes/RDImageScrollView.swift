@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtocol {
+open class RDImageScrollView: UICollectionViewCell, RDPageViewProtocol {
     
     public enum LandscapeMode {
         case aspectFit
@@ -242,7 +242,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageContentDataViewProtoco
     }
     
     open func configure(data: RDPageContentProtocol) {
-        guard let data = data as? RDImageContentData else {
+        guard let data = data as? RDImageContent else {
             return
         }
         scrollView.maximumZoomScale = data.maximumZoomScale

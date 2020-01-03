@@ -7,15 +7,15 @@
 
 import UIKit
 
-open class RDRemoteImageContentData: RDImageContentData {
+open class RDRemoteImageContent: RDImageContent {
     public var task: URLSessionTask?
     public let request: URLRequest
     public let session: URLSession
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?
-    public var lazyCompletionHandler: ((RDPageContentData) -> Void)?
+    public var lazyCompletionHandler: ((RDPageContent) -> Void)?
     
-    public init(type: RDPageContentData.PresentationType, request: URLRequest, session: URLSession) {
+    public init(type: RDPageContent.PresentationType, request: URLRequest, session: URLSession) {
         self.session = session
         self.request = request
         super.init(type: type)
@@ -32,7 +32,7 @@ open class RDRemoteImageContentData: RDImageContentData {
         }
     }
     
-    @objc override open func reload(completion: ((RDPageContentData) -> Void)?) {
+    @objc override open func reload(completion: ((RDPageContent) -> Void)?) {
         image = nil
         preload(completion: completion)
     }
@@ -48,7 +48,7 @@ open class RDRemoteImageContentData: RDImageContentData {
         return false
     }
     
-    open override func preload(completion: ((RDPageContentData) -> Void)?) {
+    open override func preload(completion: ((RDPageContent) -> Void)?) {
         if completion != nil {
             lazyCompletionHandler = completion
         }

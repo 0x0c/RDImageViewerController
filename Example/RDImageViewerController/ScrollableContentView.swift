@@ -9,13 +9,13 @@
 import UIKit
 import RDImageViewerController
 
-class ScrollContentView: UICollectionViewCell, RDPageContentDataViewProtocol {
+class ScrollableContentView: UICollectionViewCell, RDPageViewProtocol {
     
     @IBOutlet weak var scrollView: UIScrollView!
     var view: UIView?
     
     func configure(data: RDPageContentProtocol) {
-        guard let data = data as? ScrollContentData else {
+        guard let data = data as? ScrollableContent else {
             return
         }
         if view == nil {
