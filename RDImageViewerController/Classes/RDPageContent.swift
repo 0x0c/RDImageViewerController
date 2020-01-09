@@ -7,6 +7,18 @@
 
 import UIKit
 
+extension UITraitCollection {
+    public func isLandscape() -> Bool {
+        let portrait = UITraitCollection(traitsFrom: [
+            UITraitCollection(horizontalSizeClass: .compact),
+            UITraitCollection(verticalSizeClass: .regular)])
+        if containsTraits(in: portrait) {
+            return false
+        }
+        return true
+    }
+}
+
 public enum ImageHorizontalAlignment {
     case left
     case right
@@ -33,7 +45,7 @@ public protocol RDPageContentProtocol {
     func reload()
     func reload(completion: ((RDPageContent) -> Void)?)
     func reuseIdentifier() -> String
-    func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize
+    func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection) -> CGSize
 }
 
 public protocol RDPageViewProtocol {
@@ -57,6 +69,8 @@ open class RDPageContent: NSObject, RDPageContentProtocol {
     public init(type: PresentationType) {
         self._type = type
     }
+    
+    public var doubleSided = false
     
     @objc open func isPreloadable() -> Bool {
         return false
@@ -95,9 +109,12 @@ open class RDPageContent: NSObject, RDPageContentProtocol {
         }
     }
     
-    open func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
-        return CGSize.zero
+    open func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection) -> CGSize {
+        if traitCollection.isLandscape(), doubleSided {
+            return CGSize(width: rect.width / 2.0, height: rect.height)
+        }
+        
+        return rect.size
     }
 
 }

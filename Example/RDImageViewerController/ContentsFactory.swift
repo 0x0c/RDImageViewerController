@@ -79,10 +79,12 @@ class ContentsFactory {
             if i % 2 == 0 {
                 let data = RDImageContent(imageName: "\(i).JPG")
                 data.landscapeMode = .displayFit
+                data.doubleSided = true
                 contents.append(data)
             }
             else {
                 let data = TextContent(text: "\(i)")
+                data.doubleSided = true
                 contents.append(data)
             }
         }

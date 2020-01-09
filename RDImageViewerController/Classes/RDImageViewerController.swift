@@ -526,7 +526,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = contents[indexPath.row]
-        return data.size(inRect: collectionView.bounds, direction: pagingView.direction)
+        return data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection)
     }
 }
 

@@ -59,7 +59,7 @@ open class RDImageContent: RDPageContent {
         
     }
     
-    open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize {
+    open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection) -> CGSize {
         if direction.isHorizontal() == false, let image = image {
             let scale = rect.size.width / image.size.width
             let width = image.size.width * scale
@@ -67,6 +67,6 @@ open class RDImageContent: RDPageContent {
             return CGSize(width: width, height: height)
         }
         
-        return UIScreen.main.bounds.size
+        return super.size(inRect: rect, direction: direction, traitCollection: traitCollection)
     }
 }

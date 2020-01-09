@@ -32,8 +32,4 @@ class TextContent: RDPageContent {
     open override func reload() {
 
     }
-    
-    override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection) -> CGSize {
-        return rect.size
-    }
 }
