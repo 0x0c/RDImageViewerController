@@ -51,6 +51,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
+    public var isDoubleSided: Bool = false
     public var isSliderEnabled: Bool = true
     var _showSlider: Bool = false
     public var showSlider: Bool {
@@ -138,14 +139,15 @@ open class RDImageViewerController: UIViewController {
         let width  = pagingView.bounds.size.width
 
         let index = round(offset.x / width)
-        let newOffset = CGPoint(x: index * size.width, y: offset.y)
-        pagingView.setContentOffset(newOffset, animated: false)
-        pagingView.reloadData()
         didRotate = true
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
-            self.pagingView.reloadData()
-            self.pagingView.setContentOffset(newOffset, animated: false)
-
+            for cell in self.pagingView.visibleCells {
+                let cell = cell as! RDPageViewProtocol & UICollectionViewCell
+                cell.resize()
+            }
+            
+            self.pagingView.scrollTo(index: Int(index))
+            
             UIView.animate(withDuration: context.transitionDuration, animations: {
                 self.updateHudPosition()
                 self.updateCurrentPageHudLabel()
@@ -508,7 +510,7 @@ extension RDImageViewerController : UICollectionViewDataSource
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = contents[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! RDPageViewProtocol & UICollectionViewCell
-        cell.configure(data: data)
+        cell.configure(data: data, pageIndex: indexPath.row, traitCollection: traitCollection, doubleSided: isDoubleSided)
         cell.resize()
         if let imageScrollView = cell as? RDImageScrollView {
             pagingView.gestureRecognizers?.forEach({ (gesture) in
@@ -526,7 +528,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = contents[indexPath.row]
-        return data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection)
+        return data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection, doubleSided: isDoubleSided)
     }
 }
 

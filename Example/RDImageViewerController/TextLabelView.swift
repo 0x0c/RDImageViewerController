@@ -13,7 +13,7 @@ class TextLabelView: UICollectionViewCell, RDPageViewProtocol {
     
     @IBOutlet weak var label: UILabel!
     
-    func configure(data: RDPageContentProtocol) {
+    func configure(data: RDPageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
         guard let data = data as? TextContent else {
             return
         }

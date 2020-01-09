@@ -241,14 +241,21 @@ open class RDImageScrollView: UICollectionViewCell, RDPageViewProtocol {
         adjustContentAspect()
     }
     
-    open func configure(data: RDPageContentProtocol) {
+    open func configure(data: RDPageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
         guard let data = data as? RDImageContent else {
             return
         }
         scrollView.maximumZoomScale = data.maximumZoomScale
         mode = data.landscapeMode
         scrollView.setZoomScale(1.0, animated: false)
-        alignment = data.alignment
+        if traitCollection.isLandscape(), doubleSided {
+            if pageIndex % 2 == 0 {
+                alignment = ImageAlignment(horizontal: .right, vertical: .center)
+            }
+            else {
+                alignment = ImageAlignment(horizontal: .left, vertical: .center)
+            }
+        }
         image = data.image
     }
 }

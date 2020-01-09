@@ -14,7 +14,7 @@ class ScrollableContentView: UICollectionViewCell, RDPageViewProtocol {
     @IBOutlet weak var scrollView: UIScrollView!
     var view: UIView?
     
-    func configure(data: RDPageContentProtocol) {
+    func configure(data: RDPageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
         guard let data = data as? ScrollableContent else {
             return
         }

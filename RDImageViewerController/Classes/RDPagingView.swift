@@ -120,7 +120,7 @@ open class RDPagingView: UICollectionView {
     }
     
     public func scrollTo(index: Int) {
-        scrollToItem(at: IndexPath(row: index, section: 0), at: direction.isHorizontal() ? .centeredHorizontally : .centeredVertically, animated: false)
+        scrollToItem(at: IndexPath(row: index, section: 0), at: direction.isHorizontal() ? .centeredHorizontally : .left, animated: false)
     }
     
     public func resize() {

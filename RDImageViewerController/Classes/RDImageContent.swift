@@ -14,7 +14,6 @@ open class RDImageContent: RDPageContent {
     open var landscapeMode: RDImageScrollView.LandscapeMode = .aspectFit
     open var image: UIImage?
     open var imageName: String?
-    open var alignment: ImageAlignment = ImageAlignment(horizontal: .center, vertical: .center)
     
     public override init(type: PresentationType) {
         super.init(type: type)
@@ -59,7 +58,7 @@ open class RDImageContent: RDPageContent {
         
     }
     
-    open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection) -> CGSize {
+    open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
         if direction.isHorizontal() == false, let image = image {
             let scale = rect.size.width / image.size.width
             let width = image.size.width * scale
@@ -67,6 +66,6 @@ open class RDImageContent: RDPageContent {
             return CGSize(width: width, height: height)
         }
         
-        return super.size(inRect: rect, direction: direction, traitCollection: traitCollection)
+        return super.size(inRect: rect, direction: direction, traitCollection: traitCollection, doubleSided: doubleSided)
     }
 }

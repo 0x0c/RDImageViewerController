@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var showSlider: UISwitch!
     @IBOutlet weak var showHud: UISwitch!
     @IBOutlet weak var scrollvertically: UISwitch!
+    @IBOutlet weak var doubleSided: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class ViewController: UIViewController {
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         viewController.isPageNumberHudEnabled = showHud.isOn
+        viewController.isDoubleSided = doubleSided.isOn
         if scrollvertically.isOn {
             viewController.showSlider = false
             viewController.isSliderEnabled = false

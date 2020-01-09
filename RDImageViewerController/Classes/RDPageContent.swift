@@ -45,11 +45,11 @@ public protocol RDPageContentProtocol {
     func reload()
     func reload(completion: ((RDPageContent) -> Void)?)
     func reuseIdentifier() -> String
-    func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection) -> CGSize
+    func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize
 }
 
 public protocol RDPageViewProtocol {
-    func configure(data: RDPageContentProtocol)
+    func configure(data: RDPageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool)
     func resize()
 }
 
@@ -69,9 +69,7 @@ open class RDPageContent: NSObject, RDPageContentProtocol {
     public init(type: PresentationType) {
         self._type = type
     }
-    
-    public var doubleSided = false
-    
+        
     @objc open func isPreloadable() -> Bool {
         return false
     }
@@ -109,7 +107,7 @@ open class RDPageContent: NSObject, RDPageContentProtocol {
         }
     }
     
-    open func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection) -> CGSize {
+    open func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
         if traitCollection.isLandscape(), doubleSided {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }
