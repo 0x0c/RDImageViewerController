@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         viewController.isPageNumberHudEnabled = showHud.isOn
-        viewController.isDoubleSided = doubleSided.isOn
+        viewController.doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: doubleSided.isOn)
         if scrollvertically.isOn {
             viewController.showSlider = false
             viewController.isSliderEnabled = false

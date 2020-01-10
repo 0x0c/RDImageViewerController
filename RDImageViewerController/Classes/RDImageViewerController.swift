@@ -8,6 +8,17 @@
 import UIKit
 
 @objcMembers
+public class DoubleSidedConfiguration {
+    public var portrait: Bool = false
+    public var landscape: Bool = false
+    
+    public init(portrait: Bool, landscape: Bool) {
+        self.portrait = portrait
+        self.landscape = landscape
+    }
+}
+
+@objcMembers
 open class RDImageViewerController: UIViewController {
 
     enum ViewTag : Int {
@@ -51,7 +62,15 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    public var isDoubleSided: Bool = false
+    public var doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: false)
+    public var isDoubleSided: Bool {
+        get {
+            if traitCollection.isLandscape() {
+                return doubleSidedConfiguration.landscape
+            }
+            return doubleSidedConfiguration.portrait
+        }
+    }
     public var isSliderEnabled: Bool = true
     var _showSlider: Bool = false
     public var showSlider: Bool {
@@ -528,7 +547,11 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = contents[indexPath.row]
-        return data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection, doubleSided: isDoubleSided)
+        let size = data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection, doubleSided: isDoubleSided)
+        if isDoubleSided {
+            return CGSize(width: min(size.width, collectionView.bounds.width / 2.0), height: size.height)
+        }
+        return size
     }
 }
 
