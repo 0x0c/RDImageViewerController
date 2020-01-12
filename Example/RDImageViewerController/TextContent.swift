@@ -11,6 +11,7 @@ import RDImageViewerController
 
 class TextContent: RDPageContent {
     let text: String
+    var forceFullscreenSize: Bool = false
     
     init(text: String) {
         self.text = text
@@ -31,5 +32,13 @@ class TextContent: RDPageContent {
     
     open override func reload() {
 
+    }
+    
+    open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
+        if traitCollection.isLandscape(), doubleSided, forceFullscreenSize == false {
+            return CGSize(width: rect.width / 2.0, height: rect.height)
+        }
+        
+        return rect.size
     }
 }

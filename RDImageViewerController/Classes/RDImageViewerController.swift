@@ -71,6 +71,7 @@ open class RDImageViewerController: UIViewController {
             return doubleSidedConfiguration.portrait
         }
     }
+    
     public var isSliderEnabled: Bool = true
     var _showSlider: Bool = false
     public var showSlider: Bool {
@@ -154,24 +155,42 @@ open class RDImageViewerController: UIViewController {
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        let offset = pagingView.contentOffset
-        let width  = pagingView.bounds.size.width
-
-        let index = round(offset.x / width)
+        print("viewWillTransition")
         didRotate = true
+        
+        let visiblePageIndex = pagingView.visiblePageIndexes.sorted().first!
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
-            for cell in self.pagingView.visibleCells {
-                let cell = cell as! RDPageViewProtocol & UICollectionViewCell
-                cell.resize()
-            }
-            
-            self.pagingView.scrollTo(index: Int(index))
-            
-            UIView.animate(withDuration: context.transitionDuration, animations: {
+            print("viewDidTransition")
+            self.pagingView.resizeVisiblePages()
+            self.pagingView.scrollTo(index: visiblePageIndex, doubleSided: self.isDoubleSided)
+            UIView.animate(withDuration: context.transitionDuration) {
                 self.updateHudPosition()
+            }
+        }) { [unowned self] (context) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                print("viewDidTransition - complete \(self.pagingView.visiblePageIndexes.sorted())")
                 self.updateCurrentPageHudLabel()
-            })
-        })
+            }
+        }
+        
+//        let offset = pagingView.contentOffset
+//        let width  = pagingView.bounds.size.width
+//
+//        let index = round(offset.x / width)
+//        didRotate = true
+//        coordinator.animate(alongsideTransition: { [unowned self] (context) in
+//            for cell in self.pagingView.visibleCells {
+//                let cell = cell as! RDPageViewProtocol & UICollectionViewCell
+//                cell.resize()
+//            }
+//            
+//            self.pagingView.scrollTo(index: Int(index))
+//            
+//            UIView.animate(withDuration: context.transitionDuration, animations: {
+//                self.updateHudPosition()
+//                self.updateCurrentPageHudLabel()
+//            })
+//        })
     }
 
     static let pageHudLabelFontSize: CGFloat = 17
@@ -300,9 +319,10 @@ open class RDImageViewerController: UIViewController {
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        print("viewDidLayoutSubviews")
         if didRotate {
             // update cell size
-            pagingView.reloadData()
+            pagingView.resizeVisiblePages()
             
             if viewIsDisappeared == false {
                 // restore page index when rotate
@@ -310,7 +330,6 @@ open class RDImageViewerController: UIViewController {
                 let width = pagingView.bounds.size.width
                 let index = Int(round(offset.x / width))
                 currentPageIndex = numberOfPages - index
-                updateCurrentPageHudLabel()
                 updateSliderValue()
             }
             else if pagingView.direction.isHorizontal() {
@@ -387,11 +406,26 @@ open class RDImageViewerController: UIViewController {
     }
     
     open func updateCurrentPageHudLabel() {
-        updateCurrentPageHudLabel(page: currentPageIndex + 1, denominator: numberOfPages)
+        if isDoubleSided {
+            var pageString = pagingView.visiblePageIndexes.sorted().map({ (index) -> String in
+                return String(index + 1)
+                }).joined(separator: " - ")
+            if pagingView.visiblePageIndexes.count > 1 {
+                pageString = "[" + pageString + "]"
+            }
+            updateCurrentPageHudLabel(pageString: pageString, denominator: numberOfPages)
+        }
+        else {
+            updateCurrentPageHudLabel(page: currentPageIndex + 1, denominator: numberOfPages)
+        }
     }
     
     open func updateCurrentPageHudLabel(page: Int, denominator: Int) {
         currentPageHudLabel.text = "\(page)/\(denominator)"
+    }
+    
+    open func updateCurrentPageHudLabel(pageString: String, denominator: Int) {
+        currentPageHudLabel.text = "\(pageString)/\(denominator)"
     }
     
     @objc open func setBarHiddenByTapGesture() {
@@ -547,11 +581,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = contents[indexPath.row]
-        let size = data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection, doubleSided: isDoubleSided)
-        if isDoubleSided {
-            return CGSize(width: min(size.width, collectionView.bounds.width / 2.0), height: size.height)
-        }
-        return size
+        return data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection, doubleSided: isDoubleSided)
     }
 }
 

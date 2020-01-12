@@ -66,6 +66,13 @@ open class RDPagingView: UICollectionView {
         }
     }
     
+    public var visiblePageIndexes: [Int] {
+        return visibleCells.map({ (cell) -> Int in
+            let view: UIView = cell as! RDPageViewProtocol & UICollectionViewCell
+            return Int(view.pageIndex)
+        })
+    }
+    
     public var preloadCount: Int = 3
     
     public var isLegacyLayoutSystem: Bool {
@@ -111,19 +118,25 @@ open class RDPagingView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func startRotation() {
-        previousIndex = currentPageIndex
+    public func scrollTo(index: Int, animated: Bool = false, doubleSided: Bool = false) {
+        var position: UICollectionView.ScrollPosition {
+            if direction.isHorizontal() {
+                if doubleSided {
+                    if index % 2 == 0 {
+                        return .left
+                    }
+                    return .right
+                }
+                return .centeredHorizontally
+            }
+            else {
+                return .centeredVertically
+            }
+        }
+        scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: animated)
     }
     
-    public func endRotation() {
-        scrollTo(index: previousIndex)
-    }
-    
-    public func scrollTo(index: Int) {
-        scrollToItem(at: IndexPath(row: index, section: 0), at: direction.isHorizontal() ? .centeredHorizontally : .left, animated: false)
-    }
-    
-    public func resize() {
+    public func resizeVisiblePages() {
         collectionViewLayout.invalidateLayout()
         reloadItems(at: indexPathsForVisibleItems)
     }

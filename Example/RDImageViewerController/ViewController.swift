@@ -145,5 +145,13 @@ class ViewController: UIViewController {
         viewController.title = "Left"
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    @IBAction func multipleSize(_ sender: Any) {
+        let direction: RDPagingView.ForwardDirection = .right
+        let viewController = RDImageViewerController(contents: ContentsFactory.multipleSizeViewContents(), direction: direction)
+        commonSetup(viewController: viewController)
+        viewController.title = "Multiple size"
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 

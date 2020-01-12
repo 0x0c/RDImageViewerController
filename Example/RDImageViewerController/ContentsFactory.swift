@@ -43,7 +43,7 @@ class ContentsFactory {
     
     static func textLabelContents() -> [TextContent] {
         var contents = [TextContent]()
-        for i in 1...12 {
+        for i in 1...11 {
             let data = TextContent(text: "\(i)")
             contents.append(data)
         }
@@ -86,6 +86,20 @@ class ContentsFactory {
                 contents.append(data)
             }
         }
+        
+        return contents
+    }
+    
+    static func multipleSizeViewContents() -> [RDPageContent] {
+        var contents = [RDPageContent]()
+        for i in 1...11 {
+            let data = TextContent(text: "\(i)")
+            contents.append(data)
+        }
+        
+        let data = TextContent(text: "fullscreen")
+        data.forceFullscreenSize = true
+        contents.append(data)
         
         return contents
     }
