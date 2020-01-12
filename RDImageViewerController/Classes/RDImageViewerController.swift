@@ -27,6 +27,25 @@ open class RDImageViewerController: UIViewController {
         case currentPageLabel = 3
     }
 
+    static let pageHudLabelFontSize: CGFloat = 17
+    
+    var tempPageIndex = 0
+    var viewIsDisappeared = false
+    var previousPageIndex: Int = 0
+    var feedbackGenerator = UISelectionFeedbackGenerator()
+    var currentPageHudLabel: UILabel
+    var didRotate: Bool = false
+    
+    public var doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: false)
+    public var isSliderEnabled: Bool = true
+    public var automaticBarsHiddenDuration: TimeInterval = 0
+    public var restoreBarState: Bool = true
+    public var isPageNumberHudEnabled: Bool = true
+    public var contents: [RDPageContent] = []
+    public var pagingView: RDPagingView
+    public var pageSlider: UISlider
+    public var currentPageHud: UIView
+    
     public var preloadCount: Int {
         set {
             pagingView.preloadCount = newValue
@@ -61,8 +80,7 @@ open class RDImageViewerController: UIViewController {
             return pagingView.isPagingEnabled
         }
     }
-    
-    public var doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: false)
+
     public var isDoubleSided: Bool {
         get {
             if traitCollection.isLandscape() {
@@ -71,8 +89,7 @@ open class RDImageViewerController: UIViewController {
             return doubleSidedConfiguration.portrait
         }
     }
-    
-    public var isSliderEnabled: Bool = true
+
     var _showSlider: Bool = false
     public var showSlider: Bool {
         set {
@@ -89,10 +106,6 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    public var automaticBarsHiddenDuration: TimeInterval = 0
-    public var restoreBarState: Bool = true
-    
-    public var isPageNumberHudEnabled: Bool = true
     var _showPageNumberHud: Bool = false
     public var showPageNumberHud: Bool {
         set {
@@ -102,18 +115,7 @@ open class RDImageViewerController: UIViewController {
             return _showPageNumberHud
         }
     }
-    private func registerPageNumberHud(_ register: Bool) {
-        if register == true {
-            view.addSubview(currentPageHud)
-        }
-        else {
-            currentPageHud.removeFromSuperview()
-        }
-    }
     
-    public var contents: [RDPageContent] = []
-    
-    var previousPageIndex: Int = 0
     var _statusBarHidden: Bool = false
     open var statusBarHidden: Bool {
         set {
@@ -124,13 +126,6 @@ open class RDImageViewerController: UIViewController {
             return _statusBarHidden
         }
     }
-    var feedbackGenerator = UISelectionFeedbackGenerator()
-    var currentPageHudLabel: UILabel
-    var didRotate: Bool = false
-    
-    public var pagingView: RDPagingView
-    public var pageSlider: UISlider
-    public var currentPageHud: UIView
     
     private var _pageSliderMaximumTrackTintColor: UIColor?
     public var pageSliderMaximumTrackTintColor: UIColor? {
@@ -142,6 +137,7 @@ open class RDImageViewerController: UIViewController {
             return _pageSliderMaximumTrackTintColor
         }
     }
+    
     private var _pageSliderMinimumTrackTintColor: UIColor?
     public var pageSliderMinimumTrackTintColor: UIColor? {
         set {
@@ -183,9 +179,9 @@ open class RDImageViewerController: UIViewController {
 //                let cell = cell as! RDPageViewProtocol & UICollectionViewCell
 //                cell.resize()
 //            }
-//            
+//
 //            self.pagingView.scrollTo(index: Int(index))
-//            
+//
 //            UIView.animate(withDuration: context.transitionDuration, animations: {
 //                self.updateHudPosition()
 //                self.updateCurrentPageHudLabel()
@@ -193,7 +189,6 @@ open class RDImageViewerController: UIViewController {
 //        })
     }
 
-    static let pageHudLabelFontSize: CGFloat = 17
     public init(contents: [RDPageContent], direction: RDPagingView.ForwardDirection) {
         self.currentPageHud = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         self.currentPageHudLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: RDImageViewerController.pageHudLabelFontSize))
@@ -291,9 +286,6 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    var tempPageIndex = 0
-    var viewIsDisappeared = false
-    
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelAutoBarHidden()
@@ -354,85 +346,8 @@ open class RDImageViewerController: UIViewController {
         super.viewSafeAreaInsetsDidChange()
         updateHudPosition()
     }
-
-    open func registerContents() {
-        for data in contents {
-            switch data.type {
-            case let .class(cellClass):
-                pagingView.register(cellClass, forCellWithReuseIdentifier: data.reuseIdentifier())
-            case let .nib(cellNib, _):
-                pagingView.register(cellNib, forCellWithReuseIdentifier: data.reuseIdentifier())
-            }
-        }
-    }
     
-    open func reloadData() {
-        registerContents()
-        pagingView.reloadData()
-        updateHudPosition()
-        updateCurrentPageHudLabel()
-        updateSliderValue()
-    }
-    
-    open func update(contents newContents: [RDPageContent]) {
-        contents = newContents
-        reloadData()
-    }
-    
-    func updateHudPosition() {
-        var toolbarPosition = view.frame.height
-        if isSliderEnabled, showSlider, let toolbarItems = toolbarItems, toolbarItems.count > 0 {
-            toolbarPosition = navigationController?.toolbar.frame.minY ?? view.frame.height
-        }
-        else if #available(iOS 11.0, *) {
-            toolbarPosition = toolbarPosition - bottomLayoutGuide.length
-        }
-        updateHudVerticalPosition(position: toolbarPosition)
-    }
-    
-    func updateSliderValue() {
-        if pagingView.direction.isHorizontal() {
-            if pagingView.direction == .left {
-                pageSlider.value = 1.0 - Float(currentPageIndex) / Float(numberOfPages - 1)
-            }
-            else {
-                pageSlider.value = Float(currentPageIndex) / Float(numberOfPages - 1)
-            }
-        }
-    }
-    
-    func trueSliderValue(value: Float) -> Float {
-        return pagingView.direction == .right ? value : 1 - value
-    }
-    
-    open func updateCurrentPageHudLabel() {
-        if isDoubleSided {
-            var pageString = pagingView.visiblePageIndexes.sorted().map({ (index) -> String in
-                return String(index + 1)
-                }).joined(separator: " - ")
-            if pagingView.visiblePageIndexes.count > 1 {
-                pageString = "[" + pageString + "]"
-            }
-            updateCurrentPageHudLabel(pageString: pageString, denominator: numberOfPages)
-        }
-        else {
-            updateCurrentPageHudLabel(page: currentPageIndex + 1, denominator: numberOfPages)
-        }
-    }
-    
-    open func updateCurrentPageHudLabel(page: Int, denominator: Int) {
-        currentPageHudLabel.text = "\(page)/\(denominator)"
-    }
-    
-    open func updateCurrentPageHudLabel(pageString: String, denominator: Int) {
-        currentPageHudLabel.text = "\(pageString)/\(denominator)"
-    }
-    
-    @objc open func setBarHiddenByTapGesture() {
-        cancelAutoBarHidden()
-        setBarsHidden(hidden: !statusBarHidden, animated: true)
-    }
-    
+    // MARK: - slider
     @objc func sliderValueDidChange(slider: UISlider) {
         cancelAutoBarHidden()
         let position = trueSliderValue(value: slider.value)
@@ -450,18 +365,25 @@ open class RDImageViewerController: UIViewController {
         slider.setValue(position, animated: false)
     }
     
-    public func reloadView(at index: Int) {
-        if numberOfPages > index {
-            let data = contents[index]
-            data.reload()
-            refreshView(at: index)
+    func updateSliderValue() {
+        if pagingView.direction.isHorizontal() {
+            if pagingView.direction == .left {
+                pageSlider.value = 1.0 - Float(currentPageIndex) / Float(numberOfPages - 1)
+            }
+            else {
+                pageSlider.value = Float(currentPageIndex) / Float(numberOfPages - 1)
+            }
         }
     }
     
-    public func refreshView(at index: Int) {
-        if numberOfPages > index {
-            pagingView.reloadItems(at: [IndexPath(row: index, section: 0)])
-        }
+    func trueSliderValue(value: Float) -> Float {
+        return pagingView.direction == .right ? value : 1 - value
+    }
+    
+    // MARK: - bars
+    @objc open func setBarHiddenByTapGesture() {
+        cancelAutoBarHidden()
+        setBarsHidden(hidden: !statusBarHidden, animated: true)
     }
     
     @objc open func hideBars() {
@@ -497,6 +419,45 @@ open class RDImageViewerController: UIViewController {
         statusBarHidden = hidden
     }
     
+    open func cancelAutoBarHidden() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideBars), object: self)
+    }
+    
+    // MARK: - hud
+    open func updateCurrentPageHudLabel() {
+        if isDoubleSided {
+            var pageString = pagingView.visiblePageIndexes.sorted().map({ (index) -> String in
+                return String(index + 1)
+                }).joined(separator: " - ")
+            if pagingView.visiblePageIndexes.count > 1 {
+                pageString = "[" + pageString + "]"
+            }
+            updateCurrentPageHudLabel(pageString: pageString, denominator: numberOfPages)
+        }
+        else {
+            updateCurrentPageHudLabel(page: currentPageIndex + 1, denominator: numberOfPages)
+        }
+    }
+    
+    open func updateCurrentPageHudLabel(page: Int, denominator: Int) {
+        currentPageHudLabel.text = "\(page)/\(denominator)"
+    }
+    
+    open func updateCurrentPageHudLabel(pageString: String, denominator: Int) {
+        currentPageHudLabel.text = "\(pageString)/\(denominator)"
+    }
+    
+    func updateHudPosition() {
+        var toolbarPosition = view.frame.height
+        if isSliderEnabled, showSlider, let toolbarItems = toolbarItems, toolbarItems.count > 0 {
+            toolbarPosition = navigationController?.toolbar.frame.minY ?? view.frame.height
+        }
+        else if #available(iOS 11.0, *) {
+            toolbarPosition = toolbarPosition - bottomLayoutGuide.length
+        }
+        updateHudVerticalPosition(position: toolbarPosition)
+    }
+    
     open func setHudHidden(hidden: Bool, animated: Bool) {
         _showPageNumberHud = !hidden
         if isPageNumberHudEnabled == false {
@@ -518,10 +479,16 @@ open class RDImageViewerController: UIViewController {
         currentPageHud.frame = CGRect(x: horizontalPosition, y: verticalPosition, width: currentPageHud.frame.width, height: currentPageHud.frame.height)
     }
     
-    open func cancelAutoBarHidden() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideBars), object: self)
+    private func registerPageNumberHud(_ register: Bool) {
+        if register == true {
+            view.addSubview(currentPageHud)
+        }
+        else {
+            currentPageHud.removeFromSuperview()
+        }
     }
     
+    // MARK: - appearance
     func applySliderTintColor() {
         var maximumTintColor = UIColor(red: 0, green: (122.0 / 255.0), blue: 1, alpha: 1)
         if let tintColor = pageSliderMaximumTrackTintColor {
@@ -543,6 +510,45 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
+    // MARK: - page/viewer
+    open func registerContents() {
+        for data in contents {
+            switch data.type {
+            case let .class(cellClass):
+                pagingView.register(cellClass, forCellWithReuseIdentifier: data.reuseIdentifier())
+            case let .nib(cellNib, _):
+                pagingView.register(cellNib, forCellWithReuseIdentifier: data.reuseIdentifier())
+            }
+        }
+    }
+    
+    open func reloadData() {
+        registerContents()
+        pagingView.reloadData()
+        updateHudPosition()
+        updateCurrentPageHudLabel()
+        updateSliderValue()
+    }
+    
+    open func update(contents newContents: [RDPageContent]) {
+        contents = newContents
+        reloadData()
+    }
+    
+    public func reloadView(at index: Int) {
+        if numberOfPages > index {
+            let data = contents[index]
+            data.reload()
+            refreshView(at: index)
+        }
+    }
+    
+    public func refreshView(at index: Int) {
+        if numberOfPages > index {
+            pagingView.reloadItems(at: [IndexPath(row: index, section: 0)])
+        }
+    }
+    
     open func changeDirection(_ forwardDirection: RDPagingView.ForwardDirection) {
         pagingView.changeDirection(forwardDirection)
         if pagingView.direction.isHorizontal() {
@@ -554,6 +560,7 @@ open class RDImageViewerController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension RDImageViewerController : UICollectionViewDataSource
 {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -577,6 +584,7 @@ extension RDImageViewerController : UICollectionViewDataSource
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -585,30 +593,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
     }
 }
 
-extension RDImageViewerController
-{
-    override open var prefersStatusBarHidden: Bool {
-        return statusBarHidden
-    }
-    
-    override open var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
-    
-    override open var shouldAutorotate: Bool {
-        return true
-    }
-    
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portraitUpsideDown
-    }
-    
-    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .portrait
-    }
-}
-
-
+// MARK: - RDPagingViewDelegate
 extension RDImageViewerController: RDPagingViewDelegate
 {
     @objc open func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
@@ -651,6 +636,7 @@ extension RDImageViewerController: RDPagingViewDelegate
     }
 }
 
+// MARK: - RDPagingViewDataSource
 extension RDImageViewerController: RDPagingViewDataSource
 {
     open func pagingView(pagingView: RDPagingView, preloadItemAt index: Int) {
@@ -665,5 +651,29 @@ extension RDImageViewerController: RDPagingViewDataSource
         if data.isPreloadable(), data.isPreloading() {
             data.stopPreload()
         }
+    }
+}
+
+// MARK: - ViewController
+extension RDImageViewerController
+{
+    override open var prefersStatusBarHidden: Bool {
+        return statusBarHidden
+    }
+    
+    override open var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .fade
+    }
+    
+    override open var shouldAutorotate: Bool {
+        return true
+    }
+    
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portraitUpsideDown
+    }
+    
+    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
     }
 }
