@@ -7,10 +7,6 @@
 
 import UIKit
 
-public protocol HudBehaviour {
-    func updateLabel(label: UILabel, pagingView: PagingView)
-}
-
 @objcMembers
 public class DoubleSidedConfiguration {
     public var portrait: Bool = false
@@ -163,7 +159,6 @@ open class RDImageViewerController: UIViewController {
     
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        print("viewWillTransition")
         didRotate = true
         
         guard let flowLayout = pagingView.collectionViewLayout as? UICollectionViewFlowLayout else {
@@ -172,7 +167,6 @@ open class RDImageViewerController: UIViewController {
         
         let visiblePageIndex = pagingView.visiblePageIndexes.sorted().first!
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
-            print("viewDidTransition")
             flowLayout.invalidateLayout()
             self.pagingView.isDoubleSided = self.isDoubleSided
             self.pagingView.resizeVisiblePages()
@@ -182,7 +176,6 @@ open class RDImageViewerController: UIViewController {
             }
         }) { [unowned self] (context) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                print("viewDidTransition - complete \(self.pagingView.visiblePageIndexes.sorted())")
                 self.updateCurrentPageHudLabel()
             }
         }
@@ -306,7 +299,6 @@ open class RDImageViewerController: UIViewController {
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print("viewDidLayoutSubviews")
         if didRotate {
             // update cell size
             pagingView.resizeVisiblePages()
@@ -326,9 +318,6 @@ open class RDImageViewerController: UIViewController {
             }
             
             didRotate = false
-        }
-        else {
-            updateCurrentPageHudLabel()
         }
         
         if viewIsDisappeared {
@@ -583,24 +572,23 @@ extension RDImageViewerController: RDPagingViewDelegate
 {
     @objc open func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
         if pagingView.direction.isVertical() {
-            if isDoubleSided {
-                updateCurrentPageHudLabel()
-            }
-            else {
-                updateCurrentPageHudLabel(page: index + 1, denominator: numberOfPages)
-            }
+            updateCurrentPageHudLabel(page: index + 1, denominator: numberOfPages)
         }
     }
     
     @objc open func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        
         if pagingView.direction.isHorizontal() {
             if pageSlider.state == .normal {
                 let value = position / CGFloat(numberOfPages - 1)
                 pageSlider.value = Float(trueSliderValue(value: Float(value)))
             }
             
-            let to = Int(position + 0.5)
-            updateCurrentPageHudLabel(page: to + 1, denominator: numberOfPages)
+            if isDoubleSided == false {
+                let to = Int(position + 0.5)
+                updateCurrentPageHudLabel(page: to + 1, denominator: numberOfPages)
+            }
         }
     }
 
@@ -623,6 +611,14 @@ extension RDImageViewerController: RDPagingViewDelegate
                 }
             }
         }
+        if isDoubleSided {
+            perform(#selector(scrollDidEnd), with: nil, afterDelay: 0.1)
+        }
+    }
+    
+    @objc func scrollDidEnd() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        self.updateCurrentPageHudLabel()
     }
 }
 
