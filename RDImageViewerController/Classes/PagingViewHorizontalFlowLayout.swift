@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RDPagingViewHorizontalFlowLayout: UICollectionViewFlowLayout {
+class PagingViewHorizontalFlowLayout: UICollectionViewFlowLayout {
     
     var indexPathsToAnimate = [IndexPath]()
     

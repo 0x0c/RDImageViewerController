@@ -9,7 +9,7 @@
 import UIKit
 import RDImageViewerController
 
-class ScrollableContent: RDPageContent {
+class ScrollableContent: PageContent {
     let color: UIColor
     
     init(color: UIColor) {
@@ -21,7 +21,7 @@ class ScrollableContent: RDPageContent {
         
     }
     
-    open override func preload(completion: ((RDPageContent) -> Void)?) {
+    open override func preload(completion: ((PageContent) -> Void)?) {
         
     }
     

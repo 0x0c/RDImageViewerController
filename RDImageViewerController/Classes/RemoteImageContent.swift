@@ -7,22 +7,22 @@
 
 import UIKit
 
-open class RDRemoteImageContent: RDImageContent {
+open class RemoteImageContent: ImageContent {
     public var task: URLSessionTask?
     public let request: URLRequest
     public let session: URLSession
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?
-    public var lazyCompletionHandler: ((RDPageContent) -> Void)?
+    public var lazyCompletionHandler: ((PageContent) -> Void)?
     
-    public init(type: RDPageContent.PresentationType, request: URLRequest, session: URLSession) {
+    public init(type: PageContent.PresentationType, request: URLRequest, session: URLSession) {
         self.session = session
         self.request = request
         super.init(type: type)
     }
     
     public convenience init(request: URLRequest, session: URLSession) {
-        self.init(type: .class(RDRemoteImageScrollView.self), request: request, session: session)
+        self.init(type: .class(RemoteImageScrollView.self), request: request, session: session)
     }
     
     override open func stopPreload() {
@@ -32,7 +32,7 @@ open class RDRemoteImageContent: RDImageContent {
         }
     }
     
-    @objc override open func reload(completion: ((RDPageContent) -> Void)?) {
+    @objc override open func reload(completion: ((PageContent) -> Void)?) {
         image = nil
         preload(completion: completion)
     }
@@ -48,7 +48,7 @@ open class RDRemoteImageContent: RDImageContent {
         return false
     }
     
-    open override func preload(completion: ((RDPageContent) -> Void)?) {
+    open override func preload(completion: ((PageContent) -> Void)?) {
         if completion != nil {
             lazyCompletionHandler = completion
         }

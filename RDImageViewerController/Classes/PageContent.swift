@@ -36,24 +36,24 @@ public struct ImageAlignment {
     public var vertical: ImageVerticalAlignment = .center
 }
 
-public protocol RDPageContentProtocol {
+public protocol PageContentProtocol {
     func isPreloadable() -> Bool
     func isPreloading() -> Bool
     func preload()
-    func preload(completion: ((RDPageContent) -> Void)?)
+    func preload(completion: ((PageContent) -> Void)?)
     func stopPreload()
     func reload()
-    func reload(completion: ((RDPageContent) -> Void)?)
+    func reload(completion: ((PageContent) -> Void)?)
     func reuseIdentifier() -> String
-    func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize
+    func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize
 }
 
-public protocol RDPageViewProtocol {
-    func configure(data: RDPageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool)
+public protocol PageViewProtocol {
+    func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool)
     func resize()
 }
 
-open class RDPageContent: NSObject, RDPageContentProtocol {
+open class PageContent: NSObject, PageContentProtocol {
     
     public enum PresentationType {
         case `class`(AnyClass)
@@ -82,7 +82,7 @@ open class RDPageContent: NSObject, RDPageContentProtocol {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
-    @objc open func preload(completion: ((RDPageContent) -> Void)?) {
+    @objc open func preload(completion: ((PageContent) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
@@ -94,7 +94,7 @@ open class RDPageContent: NSObject, RDPageContentProtocol {
         reload(completion: nil)
     }
     
-    @objc open func reload(completion: ((RDPageContent) -> Void)?) {
+    @objc open func reload(completion: ((PageContent) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
     
@@ -107,7 +107,7 @@ open class RDPageContent: NSObject, RDPageContentProtocol {
         }
     }
     
-    open func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
+    open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
         if traitCollection.isLandscape(), doubleSided {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }

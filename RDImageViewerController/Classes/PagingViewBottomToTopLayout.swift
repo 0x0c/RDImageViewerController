@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RDPagingViewBottomToTopLayout: RDPagingViewVerticalFlowLayout {
+class PagingViewBottomToTopLayout: PagingViewVerticalFlowLayout {
     
     open var expandContentSizeToBounds: Bool = true
     

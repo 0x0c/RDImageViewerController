@@ -9,11 +9,11 @@
 import UIKit
 import RDImageViewerController
 
-class TextLabelView: UICollectionViewCell, RDPageViewProtocol {
+class TextLabelView: UICollectionViewCell, PageViewProtocol {
     
     @IBOutlet weak var label: UILabel!
     
-    func configure(data: RDPageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
+    func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
         guard let data = data as? TextContent else {
             return
         }

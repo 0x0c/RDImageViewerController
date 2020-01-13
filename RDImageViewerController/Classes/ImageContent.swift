@@ -7,11 +7,11 @@
 
 import UIKit
 
-open class RDImageContent: RDPageContent {
+open class ImageContent: PageContent {
     static let DefaultMaximumZoomScale: CGFloat = 2.5
     
     open var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
-    open var landscapeMode: RDImageScrollView.LandscapeMode = .aspectFit
+    open var landscapeMode: ImageScrollView.LandscapeMode = .aspectFit
     open var image: UIImage?
     open var imageName: String?
     
@@ -20,19 +20,19 @@ open class RDImageContent: RDPageContent {
     }
     
     public convenience init(image: UIImage) {
-        self.init(type: .class(RDImageScrollView.self))
+        self.init(type: .class(ImageScrollView.self))
         self.image = image
     }
     
     public convenience init(imageName: String, lazyLoad: Bool = false) {
-        self.init(type: .class(RDImageScrollView.self))
+        self.init(type: .class(ImageScrollView.self))
         self.imageName = imageName
         if lazyLoad == false {
             preload()
         }
     }
     
-    open override func preload(completion: ((RDPageContent) -> Void)?) {
+    open override func preload(completion: ((PageContent) -> Void)?) {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
             if let handler = completion {
@@ -49,7 +49,7 @@ open class RDImageContent: RDPageContent {
         return true
     }
     
-    @objc override open func reload(completion: ((RDPageContent) -> Void)?) {
+    @objc override open func reload(completion: ((PageContent) -> Void)?) {
         image = nil
         preload(completion: completion)
     }
@@ -58,7 +58,7 @@ open class RDImageContent: RDPageContent {
         
     }
     
-    open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
+    open override func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
         if direction.isVertical(), let image = image {
             var scale: CGFloat {
                 if doubleSided {

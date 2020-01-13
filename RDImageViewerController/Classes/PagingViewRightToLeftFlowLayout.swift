@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RDPagingViewRightToLeftFlowLayout: RDPagingViewHorizontalFlowLayout {
+class PagingViewRightToLeftFlowLayout: PagingViewHorizontalFlowLayout {
     
     override var flipsHorizontallyInOppositeLayoutDirection: Bool {
         return true

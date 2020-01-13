@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func image(_ sender: Any) {
-        var direction: RDPagingView.ForwardDirection = .right
+        var direction: PagingView.ForwardDirection = .right
         if scrollvertically.isOn {
             direction = .down
         }
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func remoteImage(_ sender: Any) {
-        var direction: RDPagingView.ForwardDirection = .right
+        var direction: PagingView.ForwardDirection = .right
         if scrollvertically.isOn {
             direction = .down
         }
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showScrollView(_ sender: Any) {
-        var direction: RDPagingView.ForwardDirection = .right
+        var direction: PagingView.ForwardDirection = .right
         if scrollvertically.isOn {
             direction = .down
         }
@@ -79,7 +79,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showView(_ sender: Any) {
-        var direction: RDPagingView.ForwardDirection = .right
+        var direction: PagingView.ForwardDirection = .right
         if scrollvertically.isOn {
             direction = .down
         }
@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func aspectFit(_ sender: Any) {
-        var direction: RDPagingView.ForwardDirection = .right
+        var direction: PagingView.ForwardDirection = .right
         if scrollvertically.isOn {
             direction = .down
         }
@@ -103,7 +103,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func displayFit(_ sender: Any) {
-        var direction: RDPagingView.ForwardDirection = .right
+        var direction: PagingView.ForwardDirection = .right
         if scrollvertically.isOn {
             direction = .down
         }
@@ -115,7 +115,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func viewAndImage(_ sender: Any) {
-        var direction: RDPagingView.ForwardDirection = .right
+        var direction: PagingView.ForwardDirection = .right
         if scrollvertically.isOn {
             direction = .down
         }
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func reload(_ sender: Any) {
-        var direction: RDPagingView.ForwardDirection = .right
+        var direction: PagingView.ForwardDirection = .right
         if scrollvertically.isOn {
             direction = .down
         }
@@ -139,7 +139,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func left(_ sender: Any) {
-        let direction: RDPagingView.ForwardDirection = .left
+        let direction: PagingView.ForwardDirection = .left
         let viewController = RDImageViewerController(contents: ContentsFactory.imageContents(), direction: direction)
         commonSetup(viewController: viewController)
         viewController.title = "Left"
@@ -147,7 +147,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func multipleSize(_ sender: Any) {
-        let direction: RDPagingView.ForwardDirection = .right
+        let direction: PagingView.ForwardDirection = .right
         let viewController = RDImageViewerController(contents: ContentsFactory.multipleSizeViewContents(), direction: direction)
         commonSetup(viewController: viewController)
         viewController.title = "Multiple size"

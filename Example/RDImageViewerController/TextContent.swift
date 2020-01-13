@@ -9,7 +9,7 @@
 import UIKit
 import RDImageViewerController
 
-class TextContent: RDPageContent {
+class TextContent: PageContent {
     let text: String
     var forceFullscreenSize: Bool = false
     
@@ -22,7 +22,7 @@ class TextContent: RDPageContent {
 
     }
     
-    open override func preload(completion: ((RDPageContent) -> Void)?) {
+    open override func preload(completion: ((PageContent) -> Void)?) {
 
     }
     
@@ -34,7 +34,7 @@ class TextContent: RDPageContent {
 
     }
     
-    open override func size(inRect rect: CGRect, direction: RDPagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
+    open override func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
         if traitCollection.isLandscape(), doubleSided, forceFullscreenSize == false {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }

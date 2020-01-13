@@ -7,47 +7,8 @@
 
 import UIKit
 
-public class PageHud: UIView {
-    let label: UILabel
-    
-    public override init(frame: CGRect) {
-        self.label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        super.init(frame: frame)
-        self.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
-        self.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
-        configureViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureViews() {
-        clipsToBounds = true
-        
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(blurView)
-        blurView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        blurView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        blurView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        blurView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
-        addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = UIColor.clear
-        layer.cornerRadius = 15
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.white.cgColor
-        label.textColor = UIColor.white
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: RDImageViewerController.pageHudLabelFontSize)
-        
-        label.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        label.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-    }
+public protocol HudBehaviour {
+    func updateLabel(label: UILabel, pagingView: PagingView)
 }
 
 @objcMembers
@@ -93,8 +54,8 @@ open class RDImageViewerController: UIViewController {
     public var automaticBarsHiddenDuration: TimeInterval = 0
     public var restoreBarState: Bool = true
     public var isPageNumberHudEnabled: Bool = true
-    public var contents: [RDPageContent] = []
-    public var pagingView: RDPagingView
+    public var contents: [PageContent] = []
+    public var pagingView: PagingView
     public var pageSlider: UISlider
     
     public var preloadCount: Int {
@@ -246,11 +207,11 @@ open class RDImageViewerController: UIViewController {
 //        })
     }
 
-    public init(contents: [RDPageContent], direction: RDPagingView.ForwardDirection) {
+    public init(contents: [PageContent], direction: PagingView.ForwardDirection) {
         self.pageHud = PageHud(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         self.feedbackGenerator.prepare()
         self.contents = contents
-        self.pagingView = RDPagingView(frame: CGRect.zero, forwardDirection: direction)
+        self.pagingView = PagingView(frame: CGRect.zero, forwardDirection: direction)
         self.pageSlider = UISlider(frame: CGRect.zero)
         super.init(nibName: nil, bundle: nil)
         self.pagingView.pagingDataSource = self
@@ -554,7 +515,7 @@ open class RDImageViewerController: UIViewController {
         updateSliderValue()
     }
     
-    open func update(contents newContents: [RDPageContent]) {
+    open func update(contents newContents: [PageContent]) {
         contents = newContents
         reloadData()
     }
@@ -573,7 +534,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    open func changeDirection(_ forwardDirection: RDPagingView.ForwardDirection) {
+    open func changeDirection(_ forwardDirection: PagingView.ForwardDirection) {
         pagingView.changeDirection(forwardDirection)
         if pagingView.direction.isHorizontal() {
             pagingView.isPagingEnabled = true
@@ -593,10 +554,10 @@ extension RDImageViewerController : UICollectionViewDataSource
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = contents[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! RDPageViewProtocol & UICollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! PageViewProtocol & UICollectionViewCell
         cell.configure(data: data, pageIndex: indexPath.row, traitCollection: traitCollection, doubleSided: isDoubleSided)
         cell.resize()
-        if let imageScrollView = cell as? RDImageScrollView {
+        if let imageScrollView = cell as? ImageScrollView {
             pagingView.gestureRecognizers?.forEach({ (gesture) in
                 if gesture is UITapGestureRecognizer {
                     imageScrollView.addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: gesture)
@@ -620,7 +581,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 // MARK: - RDPagingViewDelegate
 extension RDImageViewerController: RDPagingViewDelegate
 {
-    @objc open func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
+    @objc open func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
         if pagingView.direction.isVertical() {
             if isDoubleSided {
                 updateCurrentPageHudLabel()
@@ -631,7 +592,7 @@ extension RDImageViewerController: RDPagingViewDelegate
         }
     }
     
-    @objc open func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat) {
+    @objc open func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat) {
         if pagingView.direction.isHorizontal() {
             if pageSlider.state == .normal {
                 let value = position / CGFloat(numberOfPages - 1)
@@ -643,13 +604,13 @@ extension RDImageViewerController: RDPagingViewDelegate
         }
     }
 
-    @objc open func pagingViewWillBeginDragging(pagingView: RDPagingView) {
+    @objc open func pagingViewWillBeginDragging(pagingView: PagingView) {
         if pagingView.isDragging == false {
             previousPageIndex = currentPageIndex
         }
     }
     
-    @objc open func pagingViewDidEndDecelerating(pagingView: RDPagingView) {
+    @objc open func pagingViewDidEndDecelerating(pagingView: PagingView) {
         let page = currentPageIndex
         for view in pagingView.subviews {
             if view.isKind(of: UIScrollView.self) {
@@ -668,14 +629,14 @@ extension RDImageViewerController: RDPagingViewDelegate
 // MARK: - RDPagingViewDataSource
 extension RDImageViewerController: RDPagingViewDataSource
 {
-    open func pagingView(pagingView: RDPagingView, preloadItemAt index: Int) {
+    open func pagingView(pagingView: PagingView, preloadItemAt index: Int) {
         let data = contents[index]
         if data.isPreloadable() && !data.isPreloading() {
             data.preload()
         }
     }
     
-    open func pagingView(pagingView: RDPagingView, cancelPreloadingItemAt index: Int) {
+    open func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {
         let data = contents[index]
         if data.isPreloadable(), data.isPreloading() {
             data.stopPreload()

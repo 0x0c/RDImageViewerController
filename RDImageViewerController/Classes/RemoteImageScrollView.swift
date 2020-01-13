@@ -7,11 +7,11 @@
 
 import UIKit
 
-open class RDRemoteImageScrollView: RDImageScrollView {
-    var contentData: RDRemoteImageContent?
+open class RemoteImageScrollView: ImageScrollView {
+    var contentData: RemoteImageContent?
     
-    open override func configure(data: RDPageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
-        guard let data = data as? RDRemoteImageContent else {
+    open override func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
+        guard let data = data as? RemoteImageContent else {
             return
         }
         super.configure(data: data, pageIndex: pageIndex, traitCollection: traitCollection, doubleSided: doubleSided)
@@ -19,7 +19,7 @@ open class RDRemoteImageScrollView: RDImageScrollView {
         if data.image == nil {
             data.stopPreload()
             data.preload { [weak self] (content) in
-                if let weakSelf = self, let cnt = content as? RDRemoteImageContent {
+                if let weakSelf = self, let cnt = content as? RemoteImageContent {
                     DispatchQueue.main.async {
                         if weakSelf.contentData == cnt {
                             weakSelf.image = cnt.image

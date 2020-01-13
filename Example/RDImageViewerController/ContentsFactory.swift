@@ -19,11 +19,11 @@ class ContentsFactory {
         return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1)
     }
     
-    static func remoteContents() -> [RDRemoteImageContent] {
-        var contents = [RDRemoteImageContent]()
+    static func remoteContents() -> [RemoteImageContent] {
+        var contents = [RemoteImageContent]()
         for i in 1...12 {
             let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(i).JPG")!)
-            let data = RDRemoteImageContent(request: request, session: URLSession.shared)
+            let data = RemoteImageContent(request: request, session: URLSession.shared)
             data.landscapeMode = .displayFit
             contents.append(data)
         }
@@ -51,10 +51,10 @@ class ContentsFactory {
         return contents
     }
     
-    static func imageContents() -> [RDPageContent] {
-        var contents = [RDPageContent]()
+    static func imageContents() -> [PageContent] {
+        var contents = [PageContent]()
         for i in 1...12 {
-            let data = RDImageContent(imageName: "\(i).JPG")
+            let data = ImageContent(imageName: "\(i).JPG")
             data.landscapeMode = .displayFit
             contents.append(data)
         }
@@ -62,10 +62,10 @@ class ContentsFactory {
         return contents
     }
     
-    static func aspectFitContents() -> [RDPageContent] {
-        var contents = [RDPageContent]()
+    static func aspectFitContents() -> [PageContent] {
+        var contents = [PageContent]()
         for i in 1...12 {
-            let data = RDImageContent(imageName: "\(i).JPG")
+            let data = ImageContent(imageName: "\(i).JPG")
             data.landscapeMode = .aspectFit
             contents.append(data)
         }
@@ -73,11 +73,11 @@ class ContentsFactory {
         return contents
     }
     
-    static func viewAndImageContents() -> [RDPageContent] {
-        var contents = [RDPageContent]()
+    static func viewAndImageContents() -> [PageContent] {
+        var contents = [PageContent]()
         for i in 1...12 {
             if i % 2 == 0 {
-                let data = RDImageContent(imageName: "\(i).JPG")
+                let data = ImageContent(imageName: "\(i).JPG")
                 data.landscapeMode = .displayFit
                 contents.append(data)
             }
@@ -90,8 +90,8 @@ class ContentsFactory {
         return contents
     }
     
-    static func multipleSizeViewContents() -> [RDPageContent] {
-        var contents = [RDPageContent]()
+    static func multipleSizeViewContents() -> [PageContent] {
+        var contents = [PageContent]()
         for i in 1...11 {
             let data = TextContent(text: "\(i)")
             contents.append(data)
@@ -104,9 +104,9 @@ class ContentsFactory {
         return contents
     }
     
-    static func randomContents() -> [RDPageContent] {
+    static func randomContents() -> [PageContent] {
         let numberOfPages = Int(arc4random() % 20 + 1)
-        var contents = [RDPageContent]()
+        var contents = [PageContent]()
         for i in 0..<numberOfPages {
             contents.append(ContentsFactory.randomContent(seed: i))
         }
@@ -114,14 +114,14 @@ class ContentsFactory {
         return contents
     }
     
-    static func randomContent(seed: Int) -> RDPageContent {
+    static func randomContent(seed: Int) -> PageContent {
         let rand = arc4random() % 4
         switch rand {
         case 0:
-            return RDImageContent(imageName: "\(seed % 12 + 1).JPG")
+            return ImageContent(imageName: "\(seed % 12 + 1).JPG")
         case 1:
             let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(seed % 12 + 1).JPG")!)
-            return RDRemoteImageContent(request: request, session: URLSession.shared)
+            return RemoteImageContent(request: request, session: URLSession.shared)
         case 2:
             return TextContent(text: "\(seed)")
         case 3:

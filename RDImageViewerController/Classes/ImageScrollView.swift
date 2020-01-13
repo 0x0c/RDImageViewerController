@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class RDImageScrollView: UICollectionViewCell, RDPageViewProtocol {
+open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
     
     public enum LandscapeMode {
         case aspectFit
@@ -120,7 +120,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageViewProtocol {
     }
     
     @objc func zoomImage(gesture: UIGestureRecognizer) {
-        let imageView = gesture.view as! RDImageScrollView
+        let imageView = gesture.view as! ImageScrollView
         if imageView.scrollView.zoomScale > imageView.scrollView.minimumZoomScale {
             imageView.scrollView.setZoomScale(1.0, animated: true)
         }
@@ -241,8 +241,8 @@ open class RDImageScrollView: UICollectionViewCell, RDPageViewProtocol {
         adjustContentAspect()
     }
     
-    open func configure(data: RDPageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
-        guard let data = data as? RDImageContent else {
+    open func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
+        guard let data = data as? ImageContent else {
             return
         }
         scrollView.maximumZoomScale = data.maximumZoomScale
@@ -260,7 +260,7 @@ open class RDImageScrollView: UICollectionViewCell, RDPageViewProtocol {
     }
 }
 
-extension RDImageScrollView: UIScrollViewDelegate {
+extension ImageScrollView: UIScrollViewDelegate {
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }

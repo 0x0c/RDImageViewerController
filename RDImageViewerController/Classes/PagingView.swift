@@ -8,23 +8,23 @@
 import UIKit
 
 @objc public protocol RDPagingViewDataSource {
-    func pagingView(pagingView: RDPagingView, preloadItemAt index: Int)
-    func pagingView(pagingView: RDPagingView, cancelPreloadingItemAt index: Int)
+    func pagingView(pagingView: PagingView, preloadItemAt index: Int)
+    func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int)
 }
 
 @objc public protocol RDPagingViewDelegate {
-    @objc optional func pagingView(pagingView: RDPagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
-    @objc optional func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int)
-    @objc optional func pagingView(pagingView: RDPagingView, didsChangeIndexTo index: Int)
-    @objc optional func pagingView(pagingView: RDPagingView, didScrollToPosition position: CGFloat)
-    @objc optional func pagingViewWillBeginDragging(pagingView: RDPagingView)
-    @objc optional func pagingViewDidEndDragging(pagingView: RDPagingView, willDecelerate decelerate: Bool)
-    @objc optional func pagingViewWillBeginDecelerating(pagingView: RDPagingView)
-    @objc optional func pagingViewDidEndDecelerating(pagingView: RDPagingView)
-    @objc optional func pagingViewDidEndScrollingAnimation(pagingView: RDPagingView)
+    @objc optional func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
+    @objc optional func pagingView(pagingView: PagingView, willChangeIndexTo index: Int)
+    @objc optional func pagingView(pagingView: PagingView, didsChangeIndexTo index: Int)
+    @objc optional func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat)
+    @objc optional func pagingViewWillBeginDragging(pagingView: PagingView)
+    @objc optional func pagingViewDidEndDragging(pagingView: PagingView, willDecelerate decelerate: Bool)
+    @objc optional func pagingViewWillBeginDecelerating(pagingView: PagingView)
+    @objc optional func pagingViewDidEndDecelerating(pagingView: PagingView)
+    @objc optional func pagingViewDidEndScrollingAnimation(pagingView: PagingView)
 }
 
-open class RDPagingView: UICollectionView {
+open class PagingView: UICollectionView {
     
     public enum ForwardDirection {
         case right
@@ -94,7 +94,7 @@ open class RDPagingView: UICollectionView {
     public init(frame: CGRect, forwardDirection: ForwardDirection) {
         self.direction = forwardDirection
         if forwardDirection == .left {
-            super.init(frame: frame, collectionViewLayout: RDPagingViewRightToLeftFlowLayout())
+            super.init(frame: frame, collectionViewLayout: PagingViewRightToLeftFlowLayout())
             if #available(iOS 11.0, *) {
                 self.contentInsetAdjustmentBehavior = .never
             }
@@ -103,13 +103,13 @@ open class RDPagingView: UICollectionView {
             }
         }
         else if forwardDirection == .right {
-            super.init(frame: frame, collectionViewLayout: RDPagingViewHorizontalFlowLayout())
+            super.init(frame: frame, collectionViewLayout: PagingViewHorizontalFlowLayout())
         }
         else if forwardDirection == .up {
-            super.init(frame: frame, collectionViewLayout: RDPagingViewBottomToTopLayout())
+            super.init(frame: frame, collectionViewLayout: PagingViewBottomToTopLayout())
         }
         else { // .down
-            super.init(frame: frame, collectionViewLayout: RDPagingViewVerticalFlowLayout())
+            super.init(frame: frame, collectionViewLayout: PagingViewVerticalFlowLayout())
         }
         
         self.delegate = self
@@ -146,7 +146,7 @@ open class RDPagingView: UICollectionView {
     public func changeDirection(_ forwardDirection: ForwardDirection) {
         self.direction = forwardDirection
         if forwardDirection == .left {
-            collectionViewLayout = RDPagingViewRightToLeftFlowLayout()
+            collectionViewLayout = PagingViewRightToLeftFlowLayout()
             if #available(iOS 11.0, *) {
                 self.contentInsetAdjustmentBehavior = .never
             }
@@ -157,13 +157,13 @@ open class RDPagingView: UICollectionView {
         else {
             transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             if forwardDirection == .right {
-                collectionViewLayout = RDPagingViewHorizontalFlowLayout()
+                collectionViewLayout = PagingViewHorizontalFlowLayout()
             }
             else if forwardDirection == .up {
-                collectionViewLayout = RDPagingViewBottomToTopLayout()
+                collectionViewLayout = PagingViewBottomToTopLayout()
             }
             else { // .down
-                collectionViewLayout = RDPagingViewVerticalFlowLayout()
+                collectionViewLayout = PagingViewVerticalFlowLayout()
             }
         }
         
@@ -199,7 +199,7 @@ extension Array {
     
 }
 
-extension RDPagingView : UIScrollViewDelegate
+extension PagingView : UIScrollViewDelegate
 {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let pagingDelegate = pagingDelegate else {
@@ -264,12 +264,12 @@ extension RDPagingView : UIScrollViewDelegate
     }
 }
 
-extension RDPagingView : UICollectionViewDelegate
+extension PagingView : UICollectionViewDelegate
 {
 
 }
 
-extension RDPagingView : UICollectionViewDataSource
+extension PagingView : UICollectionViewDataSource
 {
     open override func numberOfItems(inSection section: Int) -> Int {
         guard let pagingDataSource = pagingDataSource else {
@@ -318,7 +318,7 @@ extension RDPagingView : UICollectionViewDataSource
     }
 }
 
-extension RDPagingView : UICollectionViewDelegateFlowLayout
+extension PagingView : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let pagingDelegate = pagingDelegate else {
