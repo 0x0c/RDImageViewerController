@@ -179,25 +179,6 @@ open class RDImageViewerController: UIViewController {
                 self.updateCurrentPageHudLabel()
             }
         }
-        
-//        let offset = pagingView.contentOffset
-//        let width  = pagingView.bounds.size.width
-//
-//        let index = round(offset.x / width)
-//        didRotate = true
-//        coordinator.animate(alongsideTransition: { [unowned self] (context) in
-//            for cell in self.pagingView.visibleCells {
-//                let cell = cell as! RDPageViewProtocol & UICollectionViewCell
-//                cell.resize()
-//            }
-//
-//            self.pagingView.scrollTo(index: Int(index))
-//
-//            UIView.animate(withDuration: context.transitionDuration, animations: {
-//                self.updateHudPosition()
-//                self.updateCurrentPageHudLabel()
-//            })
-//        })
     }
 
     public init(contents: [PageContent], direction: PagingView.ForwardDirection) {
