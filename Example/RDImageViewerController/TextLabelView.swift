@@ -28,6 +28,8 @@ class TextLabelView: UICollectionViewCell, RDPageViewProtocol {
         super.awakeFromNib()
         // Initialization code
         label.text = ""
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.darkGray.cgColor
     }
     
 }
