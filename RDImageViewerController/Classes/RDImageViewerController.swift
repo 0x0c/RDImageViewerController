@@ -7,6 +7,49 @@
 
 import UIKit
 
+public class PageHud: UIView {
+    let label: UILabel
+    
+    public override init(frame: CGRect) {
+        self.label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        super.init(frame: frame)
+        self.widthAnchor.constraint(equalToConstant: frame.width).isActive = true
+        self.heightAnchor.constraint(equalToConstant: frame.height).isActive = true
+        configureViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureViews() {
+        clipsToBounds = true
+        
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(blurView)
+        blurView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        blurView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        blurView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        blurView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = UIColor.clear
+        layer.cornerRadius = 15
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.white.cgColor
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: RDImageViewerController.pageHudLabelFontSize)
+        
+        label.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        label.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+}
+
 @objcMembers
 public class DoubleSidedConfiguration {
     public var portrait: Bool = false
@@ -33,8 +76,8 @@ open class RDImageViewerController: UIViewController {
     var viewIsDisappeared = false
     var previousPageIndex: Int = 0
     var feedbackGenerator = UISelectionFeedbackGenerator()
-    var currentPageHudLabel: UILabel
     var didRotate: Bool = false
+    var pageHud: PageHud
     
     private var _doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: false)
     public var doubleSidedConfiguration: DoubleSidedConfiguration {
@@ -53,7 +96,6 @@ open class RDImageViewerController: UIViewController {
     public var contents: [RDPageContent] = []
     public var pagingView: RDPagingView
     public var pageSlider: UISlider
-    public var currentPageHud: UIView
     
     public var preloadCount: Int {
         set {
@@ -205,8 +247,7 @@ open class RDImageViewerController: UIViewController {
     }
 
     public init(contents: [RDPageContent], direction: RDPagingView.ForwardDirection) {
-        self.currentPageHud = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-        self.currentPageHudLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: RDImageViewerController.pageHudLabelFontSize))
+        self.pageHud = PageHud(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         self.feedbackGenerator.prepare()
         self.contents = contents
         self.pagingView = RDPagingView(frame: CGRect.zero, forwardDirection: direction)
@@ -214,7 +255,6 @@ open class RDImageViewerController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.pagingView.pagingDataSource = self
         self.pagingView.pagingDelegate = self
-        self.view.addSubview(self.pagingView)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -223,6 +263,11 @@ open class RDImageViewerController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateHudPosition()
+        view.addSubview(pagingView)
+        view.addSubview(pageHud)
+
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
         
         pagingView.frame = view.bounds
@@ -251,32 +296,6 @@ open class RDImageViewerController: UIViewController {
         let sliderItem = UIBarButtonItem(customView: pageSlider)
         toolbarItems = [sliderItem]
         
-        let x = view.center.x - currentPageHud.frame.width / 2.0
-        var y = view.frame.height - currentPageHud.frame.height - 10
-        if let toolbarItems = toolbarItems {
-            if toolbarItems.count > 0 {
-                y -= 50
-            }
-        }
-        currentPageHud.frame = CGRect(x: x, y: y, width: currentPageHud.frame.width, height: currentPageHud.frame.height)
-        currentPageHud.alpha = 0
-        currentPageHud.clipsToBounds = true
-        currentPageHud.layer.cornerRadius = 15
-        currentPageHud.layer.borderColor = UIColor.white.cgColor
-        currentPageHud.layer.borderWidth = 1
-        currentPageHud.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        blurView.frame = self.currentPageHud.bounds
-        currentPageHud.addSubview(blurView)
-        
-        currentPageHudLabel.backgroundColor = UIColor.clear
-        currentPageHudLabel.font = UIFont.systemFont(ofSize: RDImageViewerController.pageHudLabelFontSize)
-        currentPageHudLabel.textColor = UIColor.white
-        currentPageHudLabel.textAlignment = .center
-        currentPageHudLabel.center = CGPoint(x: currentPageHud.bounds.width / 2, y: currentPageHud.bounds.height / 2)
-        currentPageHudLabel.tag = ViewTag.currentPageLabel.rawValue
-        currentPageHud.addSubview(currentPageHudLabel)
-        
         currentPageIndex = 0
         registerContents()
         applySliderTintColor()
@@ -291,7 +310,6 @@ open class RDImageViewerController: UIViewController {
             setToolBarHidden(hidden: !showSlider, animated: true)
             setHudHidden(hidden: !showPageNumberHud, animated: false)
         }
-        registerPageNumberHud(true)
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -455,11 +473,11 @@ open class RDImageViewerController: UIViewController {
     }
     
     open func updateCurrentPageHudLabel(page: Int, denominator: Int) {
-        currentPageHudLabel.text = "\(page)/\(denominator)"
+        pageHud.label.text = "\(page)/\(denominator)"
     }
     
     open func updateCurrentPageHudLabel(pageString: String, denominator: Int) {
-        currentPageHudLabel.text = "\(pageString)/\(denominator)"
+        pageHud.label.text = "\(pageString)/\(denominator)"
     }
     
     func updateHudPosition() {
@@ -472,6 +490,12 @@ open class RDImageViewerController: UIViewController {
         }
         updateHudVerticalPosition(position: toolbarPosition)
     }
+
+    func updateHudVerticalPosition(position: CGFloat) {
+        let horizontalPosition = view.center.x - pageHud.frame.width / 2.0
+        let verticalPosition = position - pageHud.frame.height - 10
+        pageHud.frame = CGRect(x: horizontalPosition, y: verticalPosition, width: pageHud.frame.width, height: pageHud.frame.height)
+    }
     
     open func setHudHidden(hidden: Bool, animated: Bool) {
         _showPageNumberHud = !hidden
@@ -483,26 +507,11 @@ open class RDImageViewerController: UIViewController {
             duration = UINavigationController.hideShowBarDuration
         }
         UIView.animate(withDuration: TimeInterval(duration), animations: { [unowned self] in
-            self.currentPageHud.alpha = hidden == true ? 0 : 1.0
+            self.pageHud.alpha = hidden == true ? 0 : 1.0
             self.updateHudPosition()
         })
     }
-    
-    func updateHudVerticalPosition(position: CGFloat) {
-        let horizontalPosition = view.center.x - currentPageHud.frame.width / 2.0
-        let verticalPosition = position - currentPageHud.frame.height - 10
-        currentPageHud.frame = CGRect(x: horizontalPosition, y: verticalPosition, width: currentPageHud.frame.width, height: currentPageHud.frame.height)
-    }
-    
-    private func registerPageNumberHud(_ register: Bool) {
-        if register == true {
-            view.addSubview(currentPageHud)
-        }
-        else {
-            currentPageHud.removeFromSuperview()
-        }
-    }
-    
+        
     // MARK: - appearance
     func applySliderTintColor() {
         var maximumTintColor = UIColor(red: 0, green: (122.0 / 255.0), blue: 1, alpha: 1)
