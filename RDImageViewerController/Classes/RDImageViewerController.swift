@@ -36,7 +36,16 @@ open class RDImageViewerController: UIViewController {
     var currentPageHudLabel: UILabel
     var didRotate: Bool = false
     
-    public var doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: false)
+    private var _doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: false)
+    public var doubleSidedConfiguration: DoubleSidedConfiguration {
+        get {
+            return _doubleSidedConfiguration
+        }
+        set {
+            _doubleSidedConfiguration = newValue
+            pagingView.isDoubleSided = isDoubleSided
+        }
+    }
     public var isSliderEnabled: Bool = true
     public var automaticBarsHiddenDuration: TimeInterval = 0
     public var restoreBarState: Bool = true
@@ -83,7 +92,7 @@ open class RDImageViewerController: UIViewController {
 
     public var isDoubleSided: Bool {
         get {
-            if traitCollection.isLandscape() {
+            if UIDevice.current.orientation.isLandscape {
                 return doubleSidedConfiguration.landscape
             }
             return doubleSidedConfiguration.portrait
@@ -154,11 +163,17 @@ open class RDImageViewerController: UIViewController {
         print("viewWillTransition")
         didRotate = true
         
+        guard let flowLayout = pagingView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        
         let visiblePageIndex = pagingView.visiblePageIndexes.sorted().first!
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
             print("viewDidTransition")
+            flowLayout.invalidateLayout()
+            self.pagingView.isDoubleSided = self.isDoubleSided
             self.pagingView.resizeVisiblePages()
-            self.pagingView.scrollTo(index: visiblePageIndex, doubleSided: self.isDoubleSided)
+            self.pagingView.scrollTo(index: visiblePageIndex)
             UIView.animate(withDuration: context.transitionDuration) {
                 self.updateHudPosition()
             }
@@ -217,6 +232,7 @@ open class RDImageViewerController: UIViewController {
         pagingView.tag = ViewTag.pageScrollView.rawValue
         pagingView.showsHorizontalScrollIndicator = false
         pagingView.showsVerticalScrollIndicator = false
+        pagingView.isDoubleSided = isDoubleSided
         if pagingView.direction.isHorizontal() {
             pagingView.isPagingEnabled = true
         }
@@ -356,7 +372,6 @@ open class RDImageViewerController: UIViewController {
         if currentPageIndex != truePageIndex {
             feedbackGenerator.selectionChanged()
         }
-        
         currentPageIndex = truePageIndex
     }
     
@@ -598,7 +613,12 @@ extension RDImageViewerController: RDPagingViewDelegate
 {
     @objc open func pagingView(pagingView: RDPagingView, willChangeIndexTo index: Int) {
         if pagingView.direction.isVertical() {
-            updateCurrentPageHudLabel(page: index + 1, denominator: numberOfPages)
+            if isDoubleSided {
+                updateCurrentPageHudLabel()
+            }
+            else {
+                updateCurrentPageHudLabel(page: index + 1, denominator: numberOfPages)
+            }
         }
     }
     

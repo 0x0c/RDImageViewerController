@@ -49,10 +49,15 @@ open class RDPagingView: UICollectionView {
     
     public weak var pagingDataSource: (RDPagingViewDataSource & UICollectionViewDataSource)?
     public weak var pagingDelegate: (RDPagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
-    public var direction: ForwardDirection
     
     private var previousIndex: Int = 0
+    
     var numberOfPages = 0
+    
+    public var preloadCount: Int = 3
+    public var isDoubleSided: Bool = false
+    public var direction: ForwardDirection
+    
     private var _currentPageIndex: Int = 0
     public var currentPageIndex: Int {
         set {
@@ -67,13 +72,10 @@ open class RDPagingView: UICollectionView {
     }
     
     public var visiblePageIndexes: [Int] {
-        return visibleCells.map({ (cell) -> Int in
-            let view: UIView = cell as! RDPageViewProtocol & UICollectionViewCell
-            return Int(view.pageIndex)
+        return indexPathsForVisibleItems.map({ (indexPath) -> Int in
+            Int(indexPath.row)
         })
     }
-    
-    public var preloadCount: Int = 3
     
     public var isLegacyLayoutSystem: Bool {
         get {
@@ -118,10 +120,10 @@ open class RDPagingView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func scrollTo(index: Int, animated: Bool = false, doubleSided: Bool = false) {
+    public func scrollTo(index: Int, animated: Bool = false) {
         var position: UICollectionView.ScrollPosition {
             if direction.isHorizontal() {
-                if doubleSided {
+                if isDoubleSided {
                     if index % 2 == 0 {
                         return .left
                     }
