@@ -24,7 +24,6 @@ open class RDImageViewerController: UIViewController {
     enum ViewTag : Int {
         case mainScrollView = 1
         case pageScrollView = 2
-        case currentPageLabel = 3
     }
 
     static let pageHudLabelFontSize: CGFloat = 17
