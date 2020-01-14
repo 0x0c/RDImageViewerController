@@ -45,11 +45,11 @@ public protocol PageContentProtocol {
     func reload()
     func reload(completion: ((PageContent) -> Void)?)
     func reuseIdentifier() -> String
-    func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize
+    func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize
 }
 
 public protocol PageViewProtocol {
-    func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool)
+    func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, isDoubleSpread: Bool)
     func resize()
 }
 
@@ -107,8 +107,8 @@ open class PageContent: NSObject, PageContentProtocol {
         }
     }
     
-    open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
-        if traitCollection.isLandscape(), doubleSided {
+    open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
+        if traitCollection.isLandscape(), isDoubleSpread {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }
         

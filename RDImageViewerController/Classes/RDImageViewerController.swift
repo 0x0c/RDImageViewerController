@@ -61,7 +61,7 @@ struct SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
     }
 }
 
-struct DoubleSidedPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
+struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 {
     func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
         var pageString = pagingView.visiblePageIndexes.sorted().map({ (index) -> String in
@@ -114,7 +114,7 @@ struct DoubleSidedPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 }
 
 @objcMembers
-public class DoubleSidedConfiguration {
+public class DoubleSpreadConfiguration {
     public var portrait: Bool = false
     public var landscape: Bool = false
     
@@ -142,21 +142,21 @@ open class RDImageViewerController: UIViewController {
     var pageHud: PageHud
     var interfaceBehaviour: HudBehaviour & SliderBehaviour & PagingBehaviour {
         get {
-            if isDoubleSided {
-                return DoubleSidedPageBehaviour()
+            if isDoubleSpread {
+                return DoubleSpreadPageBehaviour()
             }
             return SinglePageBehaviour()
         }
     }
     
-    private var _doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: false)
-    public var doubleSidedConfiguration: DoubleSidedConfiguration {
+    private var _doubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: false)
+    public var doubleSpreadConfiguration: DoubleSpreadConfiguration {
         get {
-            return _doubleSidedConfiguration
+            return _doubleSpreadConfiguration
         }
         set {
-            _doubleSidedConfiguration = newValue
-            pagingView.isDoubleSided = isDoubleSided
+            _doubleSpreadConfiguration = newValue
+            pagingView.isDoubleSpread = isDoubleSpread
         }
     }
     public var isSliderEnabled: Bool = true
@@ -202,12 +202,12 @@ open class RDImageViewerController: UIViewController {
         }
     }
 
-    public var isDoubleSided: Bool {
+    public var isDoubleSpread: Bool {
         get {
             if UIDevice.current.orientation.isLandscape {
-                return doubleSidedConfiguration.landscape
+                return doubleSpreadConfiguration.landscape
             }
-            return doubleSidedConfiguration.portrait
+            return doubleSpreadConfiguration.portrait
         }
     }
 
@@ -281,7 +281,7 @@ open class RDImageViewerController: UIViewController {
         let visiblePageIndex = pagingView.visiblePageIndexes.sorted().first!
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
             flowLayout.invalidateLayout()
-            self.pagingView.isDoubleSided = self.isDoubleSided
+            self.pagingView.isDoubleSpread = self.isDoubleSpread
             self.pagingView.resizeVisiblePages()
             self.pagingView.scrollTo(index: visiblePageIndex)
             UIView.animate(withDuration: context.transitionDuration) {
@@ -325,7 +325,7 @@ open class RDImageViewerController: UIViewController {
         pagingView.tag = ViewTag.pageScrollView.rawValue
         pagingView.showsHorizontalScrollIndicator = false
         pagingView.showsVerticalScrollIndicator = false
-        pagingView.isDoubleSided = isDoubleSided
+        pagingView.isDoubleSpread = isDoubleSpread
         if pagingView.direction.isHorizontal() {
             pagingView.isPagingEnabled = true
         }
@@ -606,7 +606,7 @@ extension RDImageViewerController : UICollectionViewDataSource
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = contents[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! PageViewProtocol & UICollectionViewCell
-        cell.configure(data: data, pageIndex: indexPath.row, traitCollection: traitCollection, doubleSided: isDoubleSided)
+        cell.configure(data: data, pageIndex: indexPath.row, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
         cell.resize()
         if let imageScrollView = cell as? ImageScrollView {
             pagingView.gestureRecognizers?.forEach({ (gesture) in
@@ -625,7 +625,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = contents[indexPath.row]
-        return data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection, doubleSided: isDoubleSided)
+        return data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
     }
 }
 
@@ -670,7 +670,7 @@ extension RDImageViewerController: RDPagingViewDelegate
                 }
             }
         }
-        if isDoubleSided {
+        if isDoubleSpread {
             perform(#selector(scrollDidEnd), with: nil, afterDelay: 0.1)
         }
     }

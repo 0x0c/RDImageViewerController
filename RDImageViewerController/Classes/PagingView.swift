@@ -55,7 +55,7 @@ open class PagingView: UICollectionView {
     var numberOfPages = 0
     
     public var preloadCount: Int = 3
-    public var isDoubleSided: Bool = false
+    public var isDoubleSpread: Bool = false
     public var direction: ForwardDirection
     
     private var _currentPageIndex: Int = 0
@@ -123,7 +123,7 @@ open class PagingView: UICollectionView {
     public func scrollTo(index: Int, animated: Bool = false) {
         var position: UICollectionView.ScrollPosition {
             if direction.isHorizontal() {
-                if isDoubleSided {
+                if isDoubleSpread {
                     if index % 2 == 0 {
                         return .left
                     }

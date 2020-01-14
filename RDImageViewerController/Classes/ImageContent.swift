@@ -58,10 +58,10 @@ open class ImageContent: PageContent {
         
     }
     
-    open override func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
+    open override func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
         if direction.isVertical(), let image = image {
             var scale: CGFloat {
-                if doubleSided {
+                if isDoubleSpread {
                     return (rect.size.width / 2.0) / image.size.width
                 }
                 return rect.size.width / image.size.width
@@ -72,6 +72,6 @@ open class ImageContent: PageContent {
             return CGSize(width: width, height: height)
         }
         
-        return super.size(inRect: rect, direction: direction, traitCollection: traitCollection, doubleSided: doubleSided)
+        return super.size(inRect: rect, direction: direction, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
     }
 }

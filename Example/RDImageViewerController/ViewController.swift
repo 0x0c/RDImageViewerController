@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var showSlider: UISwitch!
     @IBOutlet weak var showHud: UISwitch!
     @IBOutlet weak var scrollvertically: UISwitch!
-    @IBOutlet weak var doubleSided: UISwitch!
+    @IBOutlet weak var doubleSpread: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         viewController.showSlider = showSlider.isOn
         viewController.showPageNumberHud = showHud.isOn
         viewController.isPageNumberHudEnabled = showHud.isOn
-        viewController.doubleSidedConfiguration = DoubleSidedConfiguration(portrait: false, landscape: doubleSided.isOn)
+        viewController.doubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: doubleSpread.isOn)
         if scrollvertically.isOn {
             viewController.showSlider = false
             viewController.isSliderEnabled = false

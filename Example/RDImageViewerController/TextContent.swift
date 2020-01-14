@@ -34,8 +34,8 @@ class TextContent: PageContent {
 
     }
     
-    open override func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, doubleSided: Bool) -> CGSize {
-        if traitCollection.isLandscape(), doubleSided, forceFullscreenSize == false {
+    open override func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
+        if traitCollection.isLandscape(), isDoubleSpread, forceFullscreenSize == false {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }
         

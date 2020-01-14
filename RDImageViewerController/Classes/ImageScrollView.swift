@@ -241,14 +241,14 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         adjustContentAspect()
     }
     
-    open func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, doubleSided: Bool) {
+    open func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? ImageContent else {
             return
         }
         scrollView.maximumZoomScale = data.maximumZoomScale
         mode = data.landscapeMode
         scrollView.setZoomScale(1.0, animated: false)
-        if traitCollection.isLandscape(), doubleSided {
+        if traitCollection.isLandscape(), isDoubleSpread {
             if pageIndex % 2 == 0 {
                 alignment = ImageAlignment(horizontal: .right, vertical: .center)
             }
