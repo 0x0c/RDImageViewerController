@@ -52,7 +52,7 @@ open class PagingView: UICollectionView {
     
     private var previousIndex: Int = 0
     
-    var numberOfPages = 0
+    public var numberOfPages = 0
     
     public var preloadCount: Int = 3
     public var isDoubleSpread: Bool = false

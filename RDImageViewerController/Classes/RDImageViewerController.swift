@@ -7,48 +7,51 @@
 
 import UIKit
 
-public protocol HudBehaviour {
+public protocol HudBehaviour
+{
     func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int)
     func updateLabel(label: UILabel, numerator: Int, denominator: Int)
 }
 
-public protocol PagingBehaviour {
+public protocol PagingBehaviour
+{
     func updatePageIndex(_ index: Int, pagingView: PagingView)
 }
 
-public protocol SliderBehaviour {
+public protocol SliderBehaviour
+{
     func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView)
     func snapSliderPosition(slider: UISlider, pagingView: PagingView)
 }
 
 extension UISlider
 {
-    func trueSliderValue(value: Float, pagingView: PagingView) -> Float {
+    public func trueSliderValue(value: Float, pagingView: PagingView) -> Float {
         return pagingView.direction == .right ? value : 1 - value
     }
     
-    func setTrueSliderValue(value: Float, pagingView: PagingView, animated: Bool = false) {
+    public func setTrueSliderValue(value: Float, pagingView: PagingView, animated: Bool = false) {
         let position = trueSliderValue(value: value, pagingView: pagingView)
         setValue(position, animated: animated)
     }
 }
 
-struct SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
+public struct SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 {
-    func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
+    public func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
         label.text = "\(pagingView.currentPageIndex + 1)/\(denominator)"
     }
     
-    func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
+    public func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
         label.text = "\(numerator)/\(denominator)"
     }
     
-    func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
+    public func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
         let position = value / Float(pagingView.numberOfPages - 1)
         slider.setTrueSliderValue(value: Float(position), pagingView: pagingView)
     }
     
-    func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
+    public func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
         if pagingView.direction.isVertical() {
             return
         }
@@ -56,14 +59,14 @@ struct SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
         slider.setTrueSliderValue(value:value, pagingView: pagingView)
     }
     
-    func updatePageIndex(_ index: Int, pagingView: PagingView) {
+    public func updatePageIndex(_ index: Int, pagingView: PagingView) {
         pagingView.currentPageIndex = index
     }
 }
 
-struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
+public struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 {
-    func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
+    public func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
         var pageString = pagingView.visiblePageIndexes.sorted().map({ (index) -> String in
             return String(index + 1)
             }).joined(separator: " - ")
@@ -73,11 +76,11 @@ struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
         label.text = "\(pageString)/\(denominator)"
     }
     
-    func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
+    public func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
         // do nothing
     }
     
-    func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
+    public func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
         let snapPosition = (value - 0.5) * 2
         if pagingView.numberOfPages % 2 == 1 {
             if snapPosition > Float(pagingView.numberOfPages - 4) {
@@ -95,7 +98,7 @@ struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
         }
     }
     
-    func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
+    public func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
         if pagingView.direction.isVertical() {
             return
         }
@@ -103,7 +106,7 @@ struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
         slider.setTrueSliderValue(value:value, pagingView: pagingView)
     }
     
-    func updatePageIndex(_ index: Int, pagingView: PagingView) {
+    public func updatePageIndex(_ index: Int, pagingView: PagingView) {
         if index % 2 == 0 {
             pagingView.currentPageIndex = index
         }
