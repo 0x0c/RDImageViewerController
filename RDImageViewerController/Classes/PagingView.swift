@@ -208,7 +208,6 @@ extension PagingView : UIScrollViewDelegate
         var position: CGFloat
         if direction.isHorizontal() {
             position = scrollView.contentOffset.x / scrollView.frame.width
-            print(position)
             let to = Int(position + 0.5)
             if previousIndex != to {
                 pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
