@@ -36,22 +36,22 @@ extension UISlider
     }
 }
 
-public struct SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
+open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 {
-    public func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
+    open func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
         label.text = "\(pagingView.currentPageIndex + 1)/\(denominator)"
     }
     
-    public func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
+    open func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
         label.text = "\(numerator)/\(denominator)"
     }
     
-    public func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
+    open func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
         let position = value / Float(pagingView.numberOfPages - 1)
         slider.setTrueSliderValue(value: Float(position), pagingView: pagingView)
     }
     
-    public func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
+    open func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
         if pagingView.direction.isVertical() {
             return
         }
@@ -59,14 +59,14 @@ public struct SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviou
         slider.setTrueSliderValue(value:value, pagingView: pagingView)
     }
     
-    public func updatePageIndex(_ index: Int, pagingView: PagingView) {
+    open func updatePageIndex(_ index: Int, pagingView: PagingView) {
         pagingView.currentPageIndex = index
     }
 }
 
-public struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
+open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 {
-    public func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
+    open func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
         var pageString = pagingView.visiblePageIndexes.sorted().map({ (index) -> String in
             return String(index + 1)
             }).joined(separator: " - ")
@@ -76,11 +76,11 @@ public struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBe
         label.text = "\(pageString)/\(denominator)"
     }
     
-    public func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
+    open func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
         // do nothing
     }
     
-    public func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
+    open func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
         let snapPosition = (value - 0.5) * 2
         if pagingView.numberOfPages % 2 == 1 {
             if snapPosition > Float(pagingView.numberOfPages - 4) {
@@ -98,7 +98,7 @@ public struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBe
         }
     }
     
-    public func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
+    open func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
         if pagingView.direction.isVertical() {
             return
         }
@@ -106,7 +106,7 @@ public struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBe
         slider.setTrueSliderValue(value:value, pagingView: pagingView)
     }
     
-    public func updatePageIndex(_ index: Int, pagingView: PagingView) {
+    open func updatePageIndex(_ index: Int, pagingView: PagingView) {
         if index % 2 == 0 {
             pagingView.currentPageIndex = index
         }
@@ -117,9 +117,9 @@ public struct DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBe
 }
 
 @objcMembers
-public class DoubleSpreadConfiguration {
-    public var portrait: Bool = false
-    public var landscape: Bool = false
+open class DoubleSpreadConfiguration {
+    open var portrait: Bool = false
+    open var landscape: Bool = false
     
     public init(portrait: Bool, landscape: Bool) {
         self.portrait = portrait
@@ -153,7 +153,7 @@ open class RDImageViewerController: UIViewController {
     }
     
     private var _doubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: false)
-    public var doubleSpreadConfiguration: DoubleSpreadConfiguration {
+    open var doubleSpreadConfiguration: DoubleSpreadConfiguration {
         get {
             return _doubleSpreadConfiguration
         }
@@ -162,15 +162,15 @@ open class RDImageViewerController: UIViewController {
             pagingView.isDoubleSpread = isDoubleSpread
         }
     }
-    public var isSliderEnabled: Bool = true
-    public var automaticBarsHiddenDuration: TimeInterval = 0
-    public var restoreBarState: Bool = true
-    public var isPageNumberHudEnabled: Bool = true
-    public var contents: [PageContent] = []
-    public var pagingView: PagingView
-    public var pageSlider: UISlider
+    open var isSliderEnabled: Bool = true
+    open var automaticBarsHiddenDuration: TimeInterval = 0
+    open var restoreBarState: Bool = true
+    open var isPageNumberHudEnabled: Bool = true
+    open var contents: [PageContent] = []
+    open var pagingView: PagingView
+    open var pageSlider: UISlider
     
-    public var preloadCount: Int {
+    open var preloadCount: Int {
         set {
             pagingView.preloadCount = newValue
         }
@@ -179,7 +179,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    public var currentPageIndex: Int {
+    open var currentPageIndex: Int {
         set {
             interfaceBehaviour.updatePageIndex(newValue, pagingView: pagingView)
             interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
@@ -190,13 +190,13 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    public var numberOfPages: Int {
+    open var numberOfPages: Int {
         get {
             return contents.count
         }
     }
 
-    public var isPagingEnabled: Bool {
+    open var isPagingEnabled: Bool {
         set {
             pagingView.isPagingEnabled = newValue
         }
@@ -205,7 +205,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
 
-    public var isDoubleSpread: Bool {
+    open var isDoubleSpread: Bool {
         get {
             if UIDevice.current.orientation.isLandscape {
                 return doubleSpreadConfiguration.landscape
@@ -215,7 +215,7 @@ open class RDImageViewerController: UIViewController {
     }
 
     var _showSlider: Bool = false
-    public var showSlider: Bool {
+    open var showSlider: Bool {
         set {
             if pagingView.direction.isHorizontal() {
                 setToolBarHidden(hidden: !newValue, animated: true)
@@ -231,7 +231,7 @@ open class RDImageViewerController: UIViewController {
     }
     
     var _showPageNumberHud: Bool = false
-    public var showPageNumberHud: Bool {
+    open var showPageNumberHud: Bool {
         set {
             setHudHidden(hidden: !newValue, animated: true)
         }
@@ -252,7 +252,7 @@ open class RDImageViewerController: UIViewController {
     }
     
     private var _pageSliderMaximumTrackTintColor: UIColor?
-    public var pageSliderMaximumTrackTintColor: UIColor? {
+    open var pageSliderMaximumTrackTintColor: UIColor? {
         set {
             _pageSliderMaximumTrackTintColor = newValue
             applySliderTintColor()
@@ -263,7 +263,7 @@ open class RDImageViewerController: UIViewController {
     }
     
     private var _pageSliderMinimumTrackTintColor: UIColor?
-    public var pageSliderMinimumTrackTintColor: UIColor? {
+    open var pageSliderMinimumTrackTintColor: UIColor? {
         set {
             _pageSliderMinimumTrackTintColor = newValue
             applySliderTintColor()

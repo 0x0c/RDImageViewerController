@@ -18,7 +18,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
     public let zoomRect = CGSize(width: 100, height: 100)
     
     private var _alignment: ImageAlignment = ImageAlignment(horizontal: .center, vertical: .center)
-    var alignment: ImageAlignment {
+    open var alignment: ImageAlignment {
         get {
             return _alignment
         }
@@ -29,7 +29,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
     }
     
     var _mode: LandscapeMode = .aspectFit
-    public var mode: LandscapeMode {
+    open var mode: LandscapeMode {
         set {
             _mode = newValue
             adjustContentAspect()
@@ -39,7 +39,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         }
     }
     
-    public var borderColor: UIColor? {
+    open var borderColor: UIColor? {
         set {
             if let color = newValue {
                 imageView.layer.borderColor = color.cgColor
@@ -53,7 +53,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         }
     }
     
-    public var borderWidth: CGFloat {
+    open var borderWidth: CGFloat {
         set {
             imageView.layer.borderWidth = newValue
         }
@@ -62,7 +62,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         }
     }
     
-    public var image: UIImage? {
+    open var image: UIImage? {
         set {
             imageView.image = newValue
             if imageView.image == nil {
