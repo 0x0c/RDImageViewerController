@@ -38,6 +38,8 @@ extension UISlider
 
 open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 {
+    public init() {}
+    
     open func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
         label.text = "\(pagingView.currentPageIndex + 1)/\(denominator)"
     }
@@ -66,6 +68,8 @@ open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 
 open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 {
+    public init() {}
+    
     open func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
         var pageString = pagingView.visiblePageIndexes.sorted().map({ (index) -> String in
             return String(index + 1)
