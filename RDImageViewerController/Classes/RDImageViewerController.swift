@@ -41,7 +41,9 @@ open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
     public init() {}
     
     open func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
-        label.text = "\(pagingView.currentPageIndex + 1)/\(denominator)"
+        if case let .single(index) = pagingView.currentPageIndex {
+            label.text = "\(index + 1)/\(denominator)"
+        }
     }
     
     open func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
@@ -57,12 +59,14 @@ open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
         if pagingView.scrollDirection.isVertical() {
             return
         }
-        let value = Float(pagingView.currentPageIndex) / Float(pagingView.numberOfPages - 1)
-        slider.setTrueSliderValue(value:value, pagingView: pagingView)
+        if case let .single(index) = pagingView.currentPageIndex {
+            let value = Float(index) / Float(pagingView.numberOfPages - 1)
+            slider.setTrueSliderValue(value:value, pagingView: pagingView)
+        }
     }
     
     open func updatePageIndex(_ index: Int, pagingView: PagingView) {
-        pagingView.currentPageIndex = index
+        pagingView.currentPageIndex = index.single()
     }
 }
 
@@ -106,16 +110,19 @@ open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehav
         if pagingView.scrollDirection.isVertical() {
             return
         }
-        let value = Float(pagingView.currentPageIndex + pagingView.currentPageIndex % 2) / Float(pagingView.numberOfPages - 1)
-        slider.setTrueSliderValue(value:value, pagingView: pagingView)
+        if case let .double(indexes) = pagingView.currentPageIndex, indexes.count > 0 {
+            let index = indexes.first!
+            let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 1)
+            slider.setTrueSliderValue(value:value, pagingView: pagingView)
+        }
     }
     
     open func updatePageIndex(_ index: Int, pagingView: PagingView) {
         if index % 2 == 0 {
-            pagingView.currentPageIndex = index
+            pagingView.currentPageIndex = index.doubleSpread()
         }
         else {
-            pagingView.currentPageIndex = index - 1
+            pagingView.currentPageIndex = (index - 1).doubleSpread()
         }
     }
 }
@@ -141,9 +148,9 @@ open class RDImageViewerController: UIViewController {
 
     static let pageHudLabelFontSize: CGFloat = 17
     
-    var tempPageIndex = 0
+    var tempPageIndex: PagingView.VisibleIndex = .single(index: 0)
+    var previousPageIndex: PagingView.VisibleIndex = .single(index: 0)
     var viewIsDisappeared = false
-    var previousPageIndex: Int = 0
     var feedbackGenerator = UISelectionFeedbackGenerator()
     var didRotate: Bool = false
     var pageHud: PageHud
@@ -183,9 +190,16 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    open var currentPageIndex: Int {
+    open var currentPageIndex: PagingView.VisibleIndex {
         set {
-            interfaceBehaviour.updatePageIndex(newValue, pagingView: pagingView)
+            switch newValue {
+            case let .double(indexes):
+                if indexes.isEmpty == false {
+                    interfaceBehaviour.updatePageIndex(indexes.first!, pagingView: pagingView)
+                }
+            case let .single(index):
+                interfaceBehaviour.updatePageIndex(index, pagingView: pagingView)
+            }
             interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
             interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
         }
@@ -218,7 +232,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
 
-    var _showSlider: Bool = false
+    private var _showSlider: Bool = false
     open var showSlider: Bool {
         set {
             if pagingView.scrollDirection.isHorizontal() {
@@ -234,7 +248,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    var _showPageNumberHud: Bool = false
+    private var _showPageNumberHud: Bool = false
     open var showPageNumberHud: Bool {
         set {
             setHudHidden(hidden: !newValue, animated: true)
@@ -244,7 +258,7 @@ open class RDImageViewerController: UIViewController {
         }
     }
     
-    var _statusBarHidden: Bool = false
+    private var _statusBarHidden: Bool = false
     open var statusBarHidden: Bool {
         set {
             _statusBarHidden = newValue
@@ -351,7 +365,7 @@ open class RDImageViewerController: UIViewController {
         let sliderItem = UIBarButtonItem(customView: pageSlider)
         toolbarItems = [sliderItem]
         
-        currentPageIndex = 0
+        currentPageIndex = .single(index: 0)
         registerContents()
         applySliderTintColor()
         interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
@@ -410,7 +424,7 @@ open class RDImageViewerController: UIViewController {
                 let offset = pagingView.contentOffset
                 let width = pagingView.bounds.size.width
                 let index = Int(round(offset.x / width))
-                currentPageIndex = numberOfPages - index
+                currentPageIndex = (numberOfPages - index - 1).convert(double: isDoubleSpread)
                 interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
             }
             else if pagingView.scrollDirection.isHorizontal() {
@@ -420,7 +434,14 @@ open class RDImageViewerController: UIViewController {
             }
             
             // update slider position
-            interfaceBehaviour.updatePageIndex(pagingView.currentPageIndex, pagingView: pagingView)
+            switch pagingView.currentPageIndex {
+            case let .double(indexes):
+                if indexes.isEmpty == false {
+                    interfaceBehaviour.updatePageIndex(indexes.first!, pagingView: pagingView)
+                }
+            case let .single(index):
+                interfaceBehaviour.updatePageIndex(index, pagingView: pagingView)
+            }
             interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
             
             didRotate = false
@@ -443,10 +464,10 @@ open class RDImageViewerController: UIViewController {
         let position = pageSlider.trueSliderValue(value: slider.value, pagingView: pagingView)
         let pageIndex = position * Float(numberOfPages - 1)
         let truePageIndex = Int(pageIndex + 0.5)
-        if currentPageIndex != truePageIndex {
+        if currentPageIndex != truePageIndex.single() {
             feedbackGenerator.selectionChanged()
         }
-        currentPageIndex = truePageIndex
+        currentPageIndex = truePageIndex.convert(double: isDoubleSpread)
     }
     
     @objc func sliderDidTouchUpInside(slider: UISlider) {
@@ -636,16 +657,16 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
     }
 }
 
-// MARK: - RDPagingViewDelegate
-extension RDImageViewerController: RDPagingViewDelegate
+// MARK: - PagingViewDelegate
+extension RDImageViewerController: PagingViewDelegate
 {
-    @objc open func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
+    open func pagingView(pagingView: PagingView, didsChangeIndexTo index: Int) {
         if pagingView.scrollDirection.isVertical() {
             interfaceBehaviour.updateLabel(label: pageHud.label, numerator: index + 1, denominator: numberOfPages)
         }
     }
     
-    @objc open func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat) {
+    open func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
         if pagingView.scrollDirection.isHorizontal() {
@@ -658,27 +679,25 @@ extension RDImageViewerController: RDPagingViewDelegate
         }
     }
 
-    @objc open func pagingViewWillBeginDragging(pagingView: PagingView) {
+    open func pagingViewWillBeginDragging(pagingView: PagingView) {
         if pagingView.isDragging == false {
             previousPageIndex = currentPageIndex
         }
     }
     
-    @objc open func pagingViewDidEndDecelerating(pagingView: PagingView) {
-        let page = currentPageIndex
-        for view in pagingView.subviews {
-            if view.isKind(of: UIScrollView.self) {
-                let scrollView = view as! UIScrollView
-                if pagingView.isPagingEnabled == true, page != previousPageIndex {
-                    scrollView.zoomScale = 1.0
-                }
-                else if previousPageIndex == currentPageIndex - 2 || previousPageIndex == currentPageIndex + 2 {
+    open func pagingViewDidEndDecelerating(pagingView: PagingView) {
+        if isDoubleSpread {
+            perform(#selector(scrollDidEnd), with: nil, afterDelay: 0.1)
+        }
+    }
+    
+    open func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int) {
+        for v in view.subviews {
+            if let scrollView = v as? UIScrollView {
+                if pagingView.isPagingEnabled {
                     scrollView.zoomScale = 1.0
                 }
             }
-        }
-        if isDoubleSpread {
-            perform(#selector(scrollDidEnd), with: nil, afterDelay: 0.1)
         }
     }
     
@@ -688,8 +707,8 @@ extension RDImageViewerController: RDPagingViewDelegate
     }
 }
 
-// MARK: - RDPagingViewDataSource
-extension RDImageViewerController: RDPagingViewDataSource
+// MARK: - PagingViewDataSource
+extension RDImageViewerController: PagingViewDataSource
 {
     open func pagingView(pagingView: PagingView, preloadItemAt index: Int) {
         let data = contents[index]

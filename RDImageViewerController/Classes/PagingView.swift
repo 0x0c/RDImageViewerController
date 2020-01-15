@@ -7,21 +7,57 @@
 
 import UIKit
 
-@objc public protocol RDPagingViewDataSource {
+public protocol PagingViewDataSource {
     func pagingView(pagingView: PagingView, preloadItemAt index: Int)
     func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int)
 }
 
-@objc public protocol RDPagingViewDelegate {
-    @objc optional func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
-    @objc optional func pagingView(pagingView: PagingView, willChangeIndexTo index: Int)
-    @objc optional func pagingView(pagingView: PagingView, didsChangeIndexTo index: Int)
-    @objc optional func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat)
-    @objc optional func pagingViewWillBeginDragging(pagingView: PagingView)
-    @objc optional func pagingViewDidEndDragging(pagingView: PagingView, willDecelerate decelerate: Bool)
-    @objc optional func pagingViewWillBeginDecelerating(pagingView: PagingView)
-    @objc optional func pagingViewDidEndDecelerating(pagingView: PagingView)
-    @objc optional func pagingViewDidEndScrollingAnimation(pagingView: PagingView)
+extension PagingViewDataSource {
+    public func pagingView(pagingView: PagingView, preloadItemAt index: Int) {}
+    public func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {}
+}
+
+public protocol PagingViewDelegate {
+    func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
+    func pagingView(pagingView: PagingView, willChangeIndexTo index: Int)
+    func pagingView(pagingView: PagingView, didsChangeIndexTo index: Int)
+    func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat)
+    func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int)
+    func pagingViewWillBeginDragging(pagingView: PagingView)
+    func pagingViewDidEndDragging(pagingView: PagingView, willDecelerate decelerate: Bool)
+    func pagingViewWillBeginDecelerating(pagingView: PagingView)
+    func pagingViewDidEndDecelerating(pagingView: PagingView)
+    func pagingViewDidEndScrollingAnimation(pagingView: PagingView)
+}
+
+extension PagingViewDelegate {
+    public func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView]) {}
+    public func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {}
+    public func pagingView(pagingView: PagingView, didsChangeIndexTo index: Int) {}
+    public func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat) {}
+    public func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int) {}
+    public func pagingViewWillBeginDragging(pagingView: PagingView) {}
+    public func pagingViewDidEndDragging(pagingView: PagingView, willDecelerate decelerate: Bool) {}
+    public func pagingViewWillBeginDecelerating(pagingView: PagingView) {}
+    public func pagingViewDidEndDecelerating(pagingView: PagingView) {}
+    public func pagingViewDidEndScrollingAnimation(pagingView: PagingView) {}
+}
+
+public extension Int {
+    func convert(double: Bool) -> PagingView.VisibleIndex {
+        if double {
+            return .double(indexes: [self])
+        }
+        return .single(index: self)
+    }
+    
+    func single() -> PagingView.VisibleIndex {
+        return .single(index: self)
+    }
+    
+    func doubleSpread() -> PagingView.VisibleIndex {
+        return .double(indexes: [self])
+    }
 }
 
 open class PagingView: UICollectionView {
@@ -47,26 +83,61 @@ open class PagingView: UICollectionView {
         case unknown
     }
     
-    public weak var pagingDataSource: (RDPagingViewDataSource & UICollectionViewDataSource)?
-    public weak var pagingDelegate: (RDPagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
+    public enum VisibleIndex {
+        case single(index: Int)
+        case double(indexes: [Int])
+        
+        static func ==(a: VisibleIndex, b: VisibleIndex) -> Bool {
+            switch (a, b) {
+            case let (.single(index1), .single(index2)):
+                return index1 == index2
+            case let (.double(indexes1), .double(indexes2)):
+                return indexes1 == indexes2
+            default:
+                return false
+            }
+        }
+        
+        static func !=(a: VisibleIndex, b: VisibleIndex) -> Bool {
+            switch (a, b) {
+            case let (.single(index1), .single(index2)):
+                return !(index1 == index2)
+            case let (.double(indexes1), .double(indexes2)):
+                return !(indexes1 == indexes2)
+            default:
+                return false
+            }
+        }
+    }
+    
+    public weak var pagingDataSource: (PagingViewDataSource & UICollectionViewDataSource)?
+    public weak var pagingDelegate: (PagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
     
     private var previousIndex: Int = 0
     
     public var numberOfPages = 0
-    
     public var preloadCount: Int = 3
     public var isDoubleSpread: Bool = false
     public var scrollDirection: ForwardDirection
     
-    private var _currentPageIndex: Int = 0
-    public var currentPageIndex: Int {
+    private var _currentPageIndex: VisibleIndex = .single(index: 0)
+    public var currentPageIndex: VisibleIndex {
         set {
-            if newValue >= 0, newValue < numberOfPages {
-                scrollTo(index: newValue)
-                _currentPageIndex = newValue
+            _currentPageIndex = newValue
+            switch newValue {
+            case let .single(index):
+                scrollTo(index: index)
+            case let .double(indexes):
+                if indexes.count > 0 {
+                    scrollTo(index: indexes.first!)
+                }
             }
         }
         get {
+            if isDoubleSpread {
+                return .double(indexes: visiblePageIndexes)
+            }
+            
             return _currentPageIndex
         }
     }
@@ -210,22 +281,24 @@ extension PagingView : UIScrollViewDelegate
             position = scrollView.contentOffset.x / scrollView.frame.width
             let to = Int(position + 0.5)
             if previousIndex != to {
-                pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
+                pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: to)
             }
-            pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: position)
-            _currentPageIndex = to
+            pagingDelegate.pagingView(pagingView: self, didScrollToPosition: position)
+            _currentPageIndex = to.convert(double: isDoubleSpread)
+            
             if previousIndex != to {
                 previousIndex = to
             }
         }
         else {
-            pagingDelegate.pagingView?(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
+            pagingDelegate.pagingView(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
             if let index = indexPathsForVisibleItems.sorted().middle {
                 let to = index.row
                 if previousIndex != to {
-                    pagingDelegate.pagingView?(pagingView: self, willChangeIndexTo: to)
+                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: to)
                 }
-                _currentPageIndex = to
+                _currentPageIndex = to.convert(double: isDoubleSpread)
+                
                 if previousIndex != to {
                     previousIndex = to
                 }
@@ -235,31 +308,31 @@ extension PagingView : UIScrollViewDelegate
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingViewWillBeginDragging?(pagingView: self)
+            pagingDelegate.pagingViewWillBeginDragging(pagingView: self)
         }
     }
     
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingViewDidEndDragging?(pagingView: self, willDecelerate: decelerate)
+            pagingDelegate.pagingViewDidEndDragging(pagingView: self, willDecelerate: decelerate)
         }
     }
     
     public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingViewWillBeginDecelerating?(pagingView: self)
+            pagingDelegate.pagingViewWillBeginDecelerating(pagingView: self)
         }
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingViewDidEndDecelerating?(pagingView: self)
+            pagingDelegate.pagingViewDidEndDecelerating(pagingView: self)
         }
     }
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
-            pagingDelegate.pagingViewDidEndScrollingAnimation?(pagingView: self)
+            pagingDelegate.pagingViewDidEndScrollingAnimation(pagingView: self)
         }
     }
 }
@@ -315,6 +388,14 @@ extension PagingView : UICollectionViewDataSource
         }
         
         return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let pagingDelegate = pagingDelegate, let view = cell as? (UIView & PageViewProtocol) else {
+            return
+        }
+        
+        pagingDelegate.pagingView(pagingView: self, didEndDisplaying: view, index: indexPath.row)
     }
 }
 

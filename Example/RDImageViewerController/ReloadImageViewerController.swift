@@ -21,7 +21,7 @@ class ReloadImageViewerController: RDImageViewerController {
     }
     
     @objc func reload() {
-        currentPageIndex = 0
+        currentPageIndex = 0.convert(double: isDoubleSpread)
         let contents = ContentsFactory.randomContents()
         print(contents)
         update(contents: contents)
