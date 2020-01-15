@@ -20,7 +20,7 @@ extension PagingViewDataSource {
 public protocol PagingViewDelegate {
     func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
     func pagingView(pagingView: PagingView, willChangeIndexTo index: Int)
-    func pagingView(pagingView: PagingView, didsChangeIndexTo index: Int)
+    func pagingView(pagingView: PagingView, didChangeIndexTo index: Int)
     func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat)
     func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int)
     func pagingViewWillBeginDragging(pagingView: PagingView)

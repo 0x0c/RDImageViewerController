@@ -660,7 +660,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 // MARK: - PagingViewDelegate
 extension RDImageViewerController: PagingViewDelegate
 {
-    open func pagingView(pagingView: PagingView, didsChangeIndexTo index: Int) {
+    open func pagingView(pagingView: PagingView, didChangeIndexTo index: Int) {
         if pagingView.scrollDirection.isVertical() {
             interfaceBehaviour.updateLabel(label: pageHud.label, numerator: index + 1, denominator: numberOfPages)
         }
