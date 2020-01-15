@@ -241,7 +241,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         adjustContentAspect()
     }
     
-    open func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    public func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? ImageContent else {
             return
         }
@@ -250,10 +250,22 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         scrollView.setZoomScale(1.0, animated: false)
         if traitCollection.isLandscape(), isDoubleSpread {
             if pageIndex % 2 == 0 {
-                alignment = ImageAlignment(horizontal: .right, vertical: .center)
+                var horizontalAlignment: ImageHorizontalAlignment {
+                    if scrollDirection == .right {
+                        return .right
+                    }
+                    return .left
+                }
+                alignment = ImageAlignment(horizontal: horizontalAlignment, vertical: .center)
             }
             else {
-                alignment = ImageAlignment(horizontal: .left, vertical: .center)
+                var horizontalAlignment: ImageHorizontalAlignment {
+                    if scrollDirection == .right {
+                        return .left
+                    }
+                    return .right
+                }
+                alignment = ImageAlignment(horizontal: horizontalAlignment, vertical: .center)
             }
         }
         image = data.image

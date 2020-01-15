@@ -13,7 +13,7 @@ class TextLabelView: UICollectionViewCell, PageViewProtocol {
     
     @IBOutlet weak var label: UILabel!
     
-    func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? TextContent else {
             return
         }

@@ -56,7 +56,7 @@ open class PagingView: UICollectionView {
     
     public var preloadCount: Int = 3
     public var isDoubleSpread: Bool = false
-    public var direction: ForwardDirection
+    public var scrollDirection: ForwardDirection
     
     private var _currentPageIndex: Int = 0
     public var currentPageIndex: Int {
@@ -82,7 +82,7 @@ open class PagingView: UICollectionView {
             if #available(iOS 11.0, *) {
                 return false
             }
-            else if direction == .left {
+            else if scrollDirection == .left {
                 return true
             }
             else {
@@ -92,7 +92,7 @@ open class PagingView: UICollectionView {
     }
     
     public init(frame: CGRect, forwardDirection: ForwardDirection) {
-        self.direction = forwardDirection
+        self.scrollDirection = forwardDirection
         if forwardDirection == .left {
             super.init(frame: frame, collectionViewLayout: PagingViewRightToLeftFlowLayout())
             if #available(iOS 11.0, *) {
@@ -122,7 +122,7 @@ open class PagingView: UICollectionView {
     
     public func scrollTo(index: Int, animated: Bool = false) {
         var position: UICollectionView.ScrollPosition {
-            if direction.isHorizontal() {
+            if scrollDirection.isHorizontal() {
                 if isDoubleSpread {
                     if index % 2 == 0 {
                         return .left
@@ -144,7 +144,7 @@ open class PagingView: UICollectionView {
     }
     
     public func changeDirection(_ forwardDirection: ForwardDirection) {
-        self.direction = forwardDirection
+        self.scrollDirection = forwardDirection
         if forwardDirection == .left {
             collectionViewLayout = PagingViewRightToLeftFlowLayout()
             if #available(iOS 11.0, *) {
@@ -206,7 +206,7 @@ extension PagingView : UIScrollViewDelegate
             return
         }
         var position: CGFloat
-        if direction.isHorizontal() {
+        if scrollDirection.isHorizontal() {
             position = scrollView.contentOffset.x / scrollView.frame.width
             let to = Int(position + 0.5)
             if previousIndex != to {

@@ -10,11 +10,11 @@ import UIKit
 import RDImageViewerController
 
 class ScrollableContentView: UICollectionViewCell, PageViewProtocol {
-    
+        
     @IBOutlet weak var scrollView: UIScrollView!
     var view: UIView?
     
-    func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+        func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? ScrollableContent else {
             return
         }

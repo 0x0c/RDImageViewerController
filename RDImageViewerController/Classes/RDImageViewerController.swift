@@ -27,7 +27,7 @@ public protocol SliderBehaviour
 extension UISlider
 {
     public func trueSliderValue(value: Float, pagingView: PagingView) -> Float {
-        return pagingView.direction == .right ? value : 1 - value
+        return pagingView.scrollDirection == .right ? value : 1 - value
     }
     
     public func setTrueSliderValue(value: Float, pagingView: PagingView, animated: Bool = false) {
@@ -54,7 +54,7 @@ open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
     }
     
     open func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
-        if pagingView.direction.isVertical() {
+        if pagingView.scrollDirection.isVertical() {
             return
         }
         let value = Float(pagingView.currentPageIndex) / Float(pagingView.numberOfPages - 1)
@@ -103,7 +103,7 @@ open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehav
     }
     
     open func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
-        if pagingView.direction.isVertical() {
+        if pagingView.scrollDirection.isVertical() {
             return
         }
         let value = Float(pagingView.currentPageIndex + pagingView.currentPageIndex % 2) / Float(pagingView.numberOfPages - 1)
@@ -221,7 +221,7 @@ open class RDImageViewerController: UIViewController {
     var _showSlider: Bool = false
     open var showSlider: Bool {
         set {
-            if pagingView.direction.isHorizontal() {
+            if pagingView.scrollDirection.isHorizontal() {
                 setToolBarHidden(hidden: !newValue, animated: true)
             }
             else {
@@ -333,7 +333,7 @@ open class RDImageViewerController: UIViewController {
         pagingView.showsHorizontalScrollIndicator = false
         pagingView.showsVerticalScrollIndicator = false
         pagingView.isDoubleSpread = isDoubleSpread
-        if pagingView.direction.isHorizontal() {
+        if pagingView.scrollDirection.isHorizontal() {
             pagingView.isPagingEnabled = true
         }
         
@@ -392,7 +392,7 @@ open class RDImageViewerController: UIViewController {
             // update hud position
             updateHudPosition()
             
-            if pagingView.direction.isHorizontal() {
+            if pagingView.scrollDirection.isHorizontal() {
                 // restore page index
                 currentPageIndex = tempPageIndex
             }
@@ -413,7 +413,7 @@ open class RDImageViewerController: UIViewController {
                 currentPageIndex = numberOfPages - index
                 interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
             }
-            else if pagingView.direction.isHorizontal() {
+            else if pagingView.scrollDirection.isHorizontal() {
                 currentPageIndex = pagingView.currentPageIndex
                 interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
                 interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
@@ -543,7 +543,7 @@ open class RDImageViewerController: UIViewController {
             minimumTintColor = tintColor
         }
         
-        if pagingView.direction == .left {
+        if pagingView.scrollDirection == .left {
             pageSlider.maximumTrackTintColor = maximumTintColor
             pageSlider.minimumTrackTintColor = minimumTintColor
         }
@@ -594,7 +594,7 @@ open class RDImageViewerController: UIViewController {
     
     open func changeDirection(_ forwardDirection: PagingView.ForwardDirection) {
         pagingView.changeDirection(forwardDirection)
-        if pagingView.direction.isHorizontal() {
+        if pagingView.scrollDirection.isHorizontal() {
             pagingView.isPagingEnabled = true
         }
         else {
@@ -613,7 +613,7 @@ extension RDImageViewerController : UICollectionViewDataSource
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = contents[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! PageViewProtocol & UICollectionViewCell
-        cell.configure(data: data, pageIndex: indexPath.row, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+        cell.configure(data: data, pageIndex: indexPath.row, scrollDirection: pagingView.scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
         cell.resize()
         if let imageScrollView = cell as? ImageScrollView {
             pagingView.gestureRecognizers?.forEach({ (gesture) in
@@ -632,7 +632,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = contents[indexPath.row]
-        return data.size(inRect: collectionView.bounds, direction: pagingView.direction, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+        return data.size(inRect: collectionView.bounds, direction: pagingView.scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
     }
 }
 
@@ -640,7 +640,7 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 extension RDImageViewerController: RDPagingViewDelegate
 {
     @objc open func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
-        if pagingView.direction.isVertical() {
+        if pagingView.scrollDirection.isVertical() {
             interfaceBehaviour.updateLabel(label: pageHud.label, numerator: index + 1, denominator: numberOfPages)
         }
     }
@@ -648,7 +648,7 @@ extension RDImageViewerController: RDPagingViewDelegate
     @objc open func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
-        if pagingView.direction.isHorizontal() {
+        if pagingView.scrollDirection.isHorizontal() {
             if pageSlider.state == .normal {
                 interfaceBehaviour.updateSliderPosition(slider: pageSlider, value: Float(position), pagingView: pagingView)
             }

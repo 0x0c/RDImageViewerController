@@ -28,7 +28,7 @@ class ReloadImageViewerController: RDImageViewerController {
     }
     
     @objc func push() {
-        let viewController = ReloadImageViewerController(contents: ContentsFactory.scrollContents(), direction: pagingView.direction)
+        let viewController = ReloadImageViewerController(contents: ContentsFactory.scrollContents(), direction: pagingView.scrollDirection)
         viewController.showSlider = showSlider
         viewController.showPageNumberHud = showPageNumberHud
         viewController.title = "View and Image"

@@ -10,11 +10,11 @@ import UIKit
 open class RemoteImageScrollView: ImageScrollView {
     var contentData: RemoteImageContent?
     
-    open override func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    open override func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? RemoteImageContent else {
             return
         }
-        super.configure(data: data, pageIndex: pageIndex, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+        super.configure(data: data, pageIndex: pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
         contentData = data
         if data.image == nil {
             data.stopPreload()

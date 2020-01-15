@@ -49,7 +49,7 @@ public protocol PageContentProtocol {
 }
 
 public protocol PageViewProtocol {
-    func configure(data: PageContentProtocol, pageIndex: Int, traitCollection: UITraitCollection, isDoubleSpread: Bool)
+    func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool)
     func resize()
 }
 
