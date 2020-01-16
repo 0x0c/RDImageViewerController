@@ -219,12 +219,7 @@ open class PagingView: UICollectionView {
             }
         }
         if let layout = collectionViewLayout as? PagingViewFlowLayout {
-            if isDoubleSpread {
-                layout.page = Float(index / 2)
-            }
-            else {
-                layout.page = Float(index)
-            }
+            layout.currentPageIndex = index
         }
         scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: animated)
     }
@@ -296,40 +291,6 @@ extension Array {
 
 extension PagingView : UIScrollViewDelegate
 {
-//    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        guard let pagingDelegate = pagingDelegate else {
-//            return
-//        }
-//        var position: CGFloat
-//        if scrollDirection.isHorizontal() {
-//            position = scrollView.contentOffset.x / scrollView.frame.width
-//            let to = Int(position + 0.5)
-//            if previousIndex != to {
-//                pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: to)
-//            }
-//            pagingDelegate.pagingView(pagingView: self, didScrollToPosition: position)
-//            _currentPageIndex = to.convert(double: isDoubleSpread)
-//
-//            if previousIndex != to {
-//                previousIndex = to
-//            }
-//        }
-//        else {
-//            pagingDelegate.pagingView(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
-//            if let index = indexPathsForVisibleItems.sorted().middle {
-//                let to = index.row
-//                if previousIndex != to {
-//                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: to)
-//                }
-//                _currentPageIndex = to.convert(double: isDoubleSpread)
-//
-//                if previousIndex != to {
-//                    previousIndex = to
-//                }
-//            }
-//        }
-//    }
-    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let pagingDelegate = pagingDelegate else {
             return

@@ -121,7 +121,6 @@ open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehav
                 let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 2)
                 slider.setTrueSliderValue(value:value, pagingView: pagingView)
             }
-            
         }
     }
     
@@ -706,9 +705,9 @@ extension RDImageViewerController: PagingViewDelegate
         }
     }
     
-    public func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
-        print(index)
-    }
+//    public func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
+//        print(index)
+//    }
     
     @objc func scrollDidEnd() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
