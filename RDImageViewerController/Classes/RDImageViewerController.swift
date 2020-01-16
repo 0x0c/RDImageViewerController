@@ -296,6 +296,7 @@ open class RDImageViewerController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         didRotate = true
         if let flowLayout = pagingView.collectionViewLayout as? PagingViewFlowLayout {
+            flowLayout.invalidateLayout()
             if case let .double(indexes) = currentPageIndex,
                 let index = indexes.sorted().first {
                 flowLayout.page = Float(index)
@@ -335,14 +336,18 @@ open class RDImageViewerController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        updateHudPosition()
-        view.addSubview(pagingView)
-        view.addSubview(pageHud)
-
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
         
-        pagingView.frame = view.bounds
-        pagingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        updateHudPosition()
+        view.addSubview(pageHud)
+        
+        view.addSubview(pagingView)
+        pagingView.translatesAutoresizingMaskIntoConstraints = false
+        pagingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        pagingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        pagingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        pagingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        
         pagingView.backgroundColor = UIColor.black
         pagingView.isDirectionalLockEnabled = true
         pagingView.tag = ViewTag.pageScrollView.rawValue
