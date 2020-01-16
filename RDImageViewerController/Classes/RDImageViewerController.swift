@@ -101,7 +101,7 @@ open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehav
             }
         }
         else {
-            let position = value * 2 / Float(pagingView.numberOfPages - 1)
+            let position = value * 2 / Float(pagingView.numberOfPages - 2)
             slider.setTrueSliderValue(value: Float(position), pagingView: pagingView)
         }
     }
@@ -111,9 +111,17 @@ open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehav
             return
         }
         if case let .double(indexes) = pagingView.currentPageIndex, indexes.count > 0 {
-            let index = indexes.sorted().first!
-            let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 1)
-            slider.setTrueSliderValue(value:value, pagingView: pagingView)
+            if pagingView.numberOfPages % 2 == 1 {
+                let index = indexes.sorted().first!
+                let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 1)
+                slider.setTrueSliderValue(value:value, pagingView: pagingView)
+            }
+            else {
+                let index = indexes.sorted().first!
+                let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 2)
+                slider.setTrueSliderValue(value:value, pagingView: pagingView)
+            }
+            
         }
     }
     
@@ -299,16 +307,17 @@ open class RDImageViewerController: UIViewController {
             flowLayout.invalidateLayout()
             if case let .double(indexes) = currentPageIndex,
                 let index = indexes.sorted().first {
-                flowLayout.page = Float(index)
+                flowLayout.currentPageIndex = index
             }
             else if case let .single(index) = currentPageIndex {
-                flowLayout.page = Float(index)
+                flowLayout.currentPageIndex = index
             }
         }
         
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
             self.pagingView.isDoubleSpread = self.isDoubleSpread
             UIView.animate(withDuration: context.transitionDuration) {
+                self.pagingView.resizeVisiblePages()
                 self.updateHudPosition()
             }
         }) { [unowned self] (context) in
@@ -338,9 +347,6 @@ open class RDImageViewerController: UIViewController {
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
         
-        updateHudPosition()
-        view.addSubview(pageHud)
-        
         view.addSubview(pagingView)
         pagingView.translatesAutoresizingMaskIntoConstraints = false
         pagingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -364,6 +370,9 @@ open class RDImageViewerController: UIViewController {
         else {
             automaticallyAdjustsScrollViewInsets = false
         }
+        
+        updateHudPosition()
+        view.addSubview(pageHud)
         
         pageSlider.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 31)
         pageSlider.autoresizingMask = [.flexibleWidth]
@@ -438,16 +447,8 @@ open class RDImageViewerController: UIViewController {
             }
 
             // update slider position
-            switch pagingView.currentPageIndex {
-            case let .double(indexes):
-                if indexes.isEmpty == false {
-                    interfaceBehaviour.updatePageIndex(indexes.first!, pagingView: pagingView)
-                }
-            case let .single(index):
-                interfaceBehaviour.updatePageIndex(index, pagingView: pagingView)
-            }
             interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
-
+            
             didRotate = false
         }
 
@@ -703,6 +704,10 @@ extension RDImageViewerController: PagingViewDelegate
                 }
             }
         }
+    }
+    
+    public func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
+        print(index)
     }
     
     @objc func scrollDidEnd() {
