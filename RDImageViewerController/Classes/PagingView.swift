@@ -105,19 +105,31 @@ open class PagingView: UICollectionView {
             case let (.double(indexes1), .double(indexes2)):
                 return !(indexes1 == indexes2)
             default:
-                return false
+                return true
             }
         }
     }
     
     public weak var pagingDataSource: (PagingViewDataSource & UICollectionViewDataSource)?
     public weak var pagingDelegate: (PagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
-    
-    private var previousIndex: Int = 0
-    
+        
     public var numberOfPages = 0
     public var preloadCount: Int = 3
-    public var isDoubleSpread: Bool = false
+    
+    private var _isDoubleSpread: Bool = false
+    public var isDoubleSpread: Bool {
+        get {
+            return _isDoubleSpread
+        }
+        set {
+            _isDoubleSpread = newValue
+            if let layout = collectionViewLayout as? PagingViewFlowLayout {
+                layout.isDoubleSpread = newValue
+            }
+        }
+    }
+    
+    
     public var scrollDirection: ForwardDirection
     
     private var _currentPageIndex: VisibleIndex = .single(index: 0)
@@ -206,12 +218,24 @@ open class PagingView: UICollectionView {
                 return .centeredVertically
             }
         }
+        if let layout = collectionViewLayout as? PagingViewFlowLayout {
+            if isDoubleSpread {
+                layout.page = Float(index / 2)
+            }
+            else {
+                layout.page = Float(index)
+            }
+        }
         scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: animated)
     }
     
     public func resizeVisiblePages() {
         collectionViewLayout.invalidateLayout()
-        reloadItems(at: indexPathsForVisibleItems)
+        for cell in visibleCells {
+            if let view = cell as? PageViewProtocol {
+                view.resize()
+            }
+        }
     }
     
     public func changeDirection(_ forwardDirection: ForwardDirection) {
@@ -272,36 +296,60 @@ extension Array {
 
 extension PagingView : UIScrollViewDelegate
 {
+//    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        guard let pagingDelegate = pagingDelegate else {
+//            return
+//        }
+//        var position: CGFloat
+//        if scrollDirection.isHorizontal() {
+//            position = scrollView.contentOffset.x / scrollView.frame.width
+//            let to = Int(position + 0.5)
+//            if previousIndex != to {
+//                pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: to)
+//            }
+//            pagingDelegate.pagingView(pagingView: self, didScrollToPosition: position)
+//            _currentPageIndex = to.convert(double: isDoubleSpread)
+//
+//            if previousIndex != to {
+//                previousIndex = to
+//            }
+//        }
+//        else {
+//            pagingDelegate.pagingView(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
+//            if let index = indexPathsForVisibleItems.sorted().middle {
+//                let to = index.row
+//                if previousIndex != to {
+//                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: to)
+//                }
+//                _currentPageIndex = to.convert(double: isDoubleSpread)
+//
+//                if previousIndex != to {
+//                    previousIndex = to
+//                }
+//            }
+//        }
+//    }
+    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let pagingDelegate = pagingDelegate else {
             return
         }
-        var position: CGFloat
+        let position = scrollView.contentOffset.x / scrollView.frame.width
         if scrollDirection.isHorizontal() {
-            position = scrollView.contentOffset.x / scrollView.frame.width
-            let to = Int(position + 0.5)
-            if previousIndex != to {
-                pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: to)
-            }
             pagingDelegate.pagingView(pagingView: self, didScrollToPosition: position)
-            _currentPageIndex = to.convert(double: isDoubleSpread)
-            
-            if previousIndex != to {
-                previousIndex = to
+            if isDoubleSpread {
+                _currentPageIndex = .double(indexes: visiblePageIndexes)
+            }
+            else {
+                let to = Int(position + 0.5)
+                _currentPageIndex = to.single()
             }
         }
         else {
             pagingDelegate.pagingView(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
             if let index = indexPathsForVisibleItems.sorted().middle {
                 let to = index.row
-                if previousIndex != to {
-                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: to)
-                }
                 _currentPageIndex = to.convert(double: isDoubleSpread)
-                
-                if previousIndex != to {
-                    previousIndex = to
-                }
             }
         }
     }
@@ -388,6 +436,14 @@ extension PagingView : UICollectionViewDataSource
         }
         
         return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let pagingDelegate = pagingDelegate else {
+            return
+        }
+        
+        pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: indexPath.row)
     }
     
     public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

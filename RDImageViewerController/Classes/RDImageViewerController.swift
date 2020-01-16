@@ -111,7 +111,7 @@ open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehav
             return
         }
         if case let .double(indexes) = pagingView.currentPageIndex, indexes.count > 0 {
-            let index = indexes.first!
+            let index = indexes.sorted().first!
             let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 1)
             slider.setTrueSliderValue(value:value, pagingView: pagingView)
         }
@@ -202,6 +202,7 @@ open class RDImageViewerController: UIViewController {
             }
             interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
             interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
+            pagingView.currentPageIndex = newValue
         }
         get {
             return pagingView.currentPageIndex
@@ -294,17 +295,18 @@ open class RDImageViewerController: UIViewController {
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         didRotate = true
-        
-        guard let flowLayout = pagingView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
+        if let flowLayout = pagingView.collectionViewLayout as? PagingViewFlowLayout {
+            if case let .double(indexes) = currentPageIndex,
+                let index = indexes.sorted().first {
+                flowLayout.page = Float(index)
+            }
+            else if case let .single(index) = currentPageIndex {
+                flowLayout.page = Float(index)
+            }
         }
         
-        let visiblePageIndex = pagingView.visiblePageIndexes.sorted().first!
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
-            flowLayout.invalidateLayout()
             self.pagingView.isDoubleSpread = self.isDoubleSpread
-            self.pagingView.resizeVisiblePages()
-            self.pagingView.scrollTo(index: visiblePageIndex)
             UIView.animate(withDuration: context.transitionDuration) {
                 self.updateHudPosition()
             }
@@ -415,16 +417,13 @@ open class RDImageViewerController: UIViewController {
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
         if didRotate {
             // update cell size
             pagingView.resizeVisiblePages()
-            
+
             if viewIsDisappeared == false {
                 // restore page index when rotate
-                let offset = pagingView.contentOffset
-                let width = pagingView.bounds.size.width
-                let index = Int(round(offset.x / width))
-                currentPageIndex = (numberOfPages - index - 1).convert(double: isDoubleSpread)
                 interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
             }
             else if pagingView.scrollDirection.isHorizontal() {
@@ -432,7 +431,7 @@ open class RDImageViewerController: UIViewController {
                 interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
                 interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
             }
-            
+
             // update slider position
             switch pagingView.currentPageIndex {
             case let .double(indexes):
@@ -443,10 +442,10 @@ open class RDImageViewerController: UIViewController {
                 interfaceBehaviour.updatePageIndex(index, pagingView: pagingView)
             }
             interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
-            
+
             didRotate = false
         }
-        
+
         if viewIsDisappeared {
             viewIsDisappeared = false
         }

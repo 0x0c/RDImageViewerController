@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PagingViewVerticalFlowLayout: UICollectionViewFlowLayout {
+class PagingViewVerticalFlowLayout: PagingViewFlowLayout {
     override init() {
         super.init()
         self.scrollDirection = .vertical

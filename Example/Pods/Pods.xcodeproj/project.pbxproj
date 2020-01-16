@@ -37,6 +37,8 @@
 		E907AE3F225D18B100615D72 /* PagingViewRightToLeftFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C0C225C87FC00EA76BA /* PagingViewRightToLeftFlowLayout.swift */; };
 		E907AE40225D18B100615D72 /* PagingViewHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C20225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift */; };
 		E907AE41225D18B100615D72 /* PagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C1F225CDD3800EA76BA /* PagingViewVerticalFlowLayout.swift */; };
+		E937265823CF6910001A3490 /* PagingViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */; };
+		E937265923CF6917001A3490 /* PagingViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */; };
 		E949DA8F23CC5B18004F39A0 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949DA8E23CC5B18004F39A0 /* PageHud.swift */; };
 		E949DA9023CC5CA4004F39A0 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949DA8E23CC5B18004F39A0 /* PageHud.swift */; };
 		E94FF6A92268E5DB00C0CB21 /* UIView+PageIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */; };
@@ -104,6 +106,7 @@
 		E9066C11225C920500EA76BA /* PagingViewBottomToTopLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewBottomToTopLayout.swift; path = RDImageViewerController/Classes/PagingViewBottomToTopLayout.swift; sourceTree = "<group>"; };
 		E9066C1F225CDD3800EA76BA /* PagingViewVerticalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewVerticalFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewVerticalFlowLayout.swift; sourceTree = "<group>"; };
 		E9066C20225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewHorizontalFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewHorizontalFlowLayout.swift; sourceTree = "<group>"; };
+		E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PagingViewFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewFlowLayout.swift; sourceTree = "<group>"; };
 		E949DA8E23CC5B18004F39A0 /* PageHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageHud.swift; path = RDImageViewerController/Classes/PageHud.swift; sourceTree = "<group>"; };
 		E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+PageIndex.swift"; path = "RDImageViewerController/Classes/UIView+PageIndex.swift"; sourceTree = "<group>"; };
 		E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteImageScrollView.swift; path = RDImageViewerController/Classes/RemoteImageScrollView.swift; sourceTree = "<group>"; };
@@ -245,6 +248,7 @@
 				566956B463483645D2DA826B9E16BDAF /* PageContent.swift */,
 				E949DA8E23CC5B18004F39A0 /* PageHud.swift */,
 				2596B47787510671B7994791021BBD8B /* PagingView.swift */,
+				E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */,
 				E9066C11225C920500EA76BA /* PagingViewBottomToTopLayout.swift */,
 				E9066C20225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift */,
 				E9066C0C225C87FC00EA76BA /* PagingViewRightToLeftFlowLayout.swift */,
@@ -450,6 +454,7 @@
 				E9066C21225CDD3900EA76BA /* PagingViewVerticalFlowLayout.swift in Sources */,
 				E9066C0E225C884E00EA76BA /* PagingViewRightToLeftFlowLayout.swift in Sources */,
 				E9066C13225C920A00EA76BA /* PagingViewBottomToTopLayout.swift in Sources */,
+				E937265923CF6917001A3490 /* PagingViewFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +475,7 @@
 				E907AE3E225D18B100615D72 /* PagingViewBottomToTopLayout.swift in Sources */,
 				E907AE3F225D18B100615D72 /* PagingViewRightToLeftFlowLayout.swift in Sources */,
 				E907AE40225D18B100615D72 /* PagingViewHorizontalFlowLayout.swift in Sources */,
+				E937265823CF6910001A3490 /* PagingViewFlowLayout.swift in Sources */,
 				E907AE41225D18B100615D72 /* PagingViewVerticalFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
