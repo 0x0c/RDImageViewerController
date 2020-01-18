@@ -135,6 +135,14 @@ open class PagingView: UICollectionView {
     public var numberOfPages = 0
     public var preloadCount: Int = 3
     
+    private var _isRotating: Bool = false
+    public func beginRotate() {
+        _isRotating = true
+    }
+    public func endRotate() {
+        _isRotating = false
+    }
+    
     private var _isDoubleSpread: Bool = false
     public var isDoubleSpread: Bool {
         get {
@@ -146,6 +154,12 @@ open class PagingView: UICollectionView {
             if let layout = collectionViewLayout as? PagingViewFlowLayout {
                 layout.isDoubleSpread = newValue
             }
+        }
+    }
+    
+    func setLayoutIndex(_ index: VisibleIndex) {
+        if let flowLayout = collectionViewLayout as? PagingViewFlowLayout {
+            flowLayout.currentPageIndex = index
         }
     }
     
@@ -311,6 +325,9 @@ extension Array {
 extension PagingView : UIScrollViewDelegate
 {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if _isRotating {
+            return
+        }
         guard let pagingDelegate = pagingDelegate else {
             return
         }
@@ -332,6 +349,7 @@ extension PagingView : UIScrollViewDelegate
                 _currentPageIndex = to.convert(double: isDoubleSpread)
             }
         }
+        setLayoutIndex(_currentPageIndex)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

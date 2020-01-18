@@ -32,8 +32,7 @@ class PagingViewFlowLayout: UICollectionViewFlowLayout {
             xPosition = CGFloat(index) * width
         case let .double(indexes):
             if let index = indexes.sorted().first {
-                let trueIndex = index
-                xPosition = CGFloat(trueIndex) * width
+                xPosition = CGFloat(index) * width
             }
         }
         if collectionView.contentOffset.x <= xPosition, isDoubleSpread {

@@ -300,12 +300,13 @@ open class RDImageViewerController: UIViewController {
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         didRotate = true
+        
         if let flowLayout = pagingView.collectionViewLayout as? PagingViewFlowLayout {
             flowLayout.invalidateLayout()
-            flowLayout.currentPageIndex = currentPageIndex
         }
         
         let previousPageIndex = currentPageIndex
+        pagingView.beginRotate()
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
             self.pagingView.isDoubleSpread = self.isDoubleSpread
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -318,6 +319,7 @@ open class RDImageViewerController: UIViewController {
                 self.updateHudPosition()
             }
         }) { [unowned self] (context) in
+            self.pagingView.endRotate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // update page index
                 self.interfaceBehaviour.updateLabel(label: self.pageHud.label, pagingView: self.pagingView, denominator: self.numberOfPages)
