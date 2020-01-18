@@ -108,6 +108,25 @@ open class PagingView: UICollectionView {
                 return true
             }
         }
+        
+        func convert(double: Bool) -> VisibleIndex {
+            switch self {
+            case let .single(index):
+                if double {
+                    return .double(indexes: [index])
+                }
+                return self
+            case let .double(indexes):
+                if double {
+                    return self
+                }
+                
+                if let index = indexes.sorted().first {
+                    return .single(index: index)
+                }
+                return .single(index: 0)
+            }
+        }
     }
     
     public weak var pagingDataSource: (PagingViewDataSource & UICollectionViewDataSource)?
@@ -123,12 +142,12 @@ open class PagingView: UICollectionView {
         }
         set {
             _isDoubleSpread = newValue
+            currentPageIndex = currentPageIndex.convert(double: newValue)
             if let layout = collectionViewLayout as? PagingViewFlowLayout {
                 layout.isDoubleSpread = newValue
             }
         }
     }
-    
     
     public var scrollDirection: ForwardDirection
     
@@ -140,8 +159,8 @@ open class PagingView: UICollectionView {
             case let .single(index):
                 scrollTo(index: index)
             case let .double(indexes):
-                if indexes.count > 0 {
-                    scrollTo(index: indexes.first!)
+                if let index = indexes.sorted().first {
+                    scrollTo(index: index)
                 }
             }
         }
@@ -219,7 +238,7 @@ open class PagingView: UICollectionView {
             }
         }
         if let layout = collectionViewLayout as? PagingViewFlowLayout {
-            layout.currentPageIndex = index
+            layout.currentPageIndex = currentPageIndex
         }
         scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: animated)
     }

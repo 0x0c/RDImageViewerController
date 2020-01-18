@@ -155,9 +155,7 @@ open class RDImageViewerController: UIViewController {
 
     static let pageHudLabelFontSize: CGFloat = 17
     
-    var tempPageIndex: PagingView.VisibleIndex = .single(index: 0)
     var previousPageIndex: PagingView.VisibleIndex = .single(index: 0)
-    var viewIsDisappeared = false
     var feedbackGenerator = UISelectionFeedbackGenerator()
     var didRotate: Bool = false
     var pageHud: PageHud
@@ -304,23 +302,24 @@ open class RDImageViewerController: UIViewController {
         didRotate = true
         if let flowLayout = pagingView.collectionViewLayout as? PagingViewFlowLayout {
             flowLayout.invalidateLayout()
-            if case let .double(indexes) = currentPageIndex,
-                let index = indexes.sorted().first {
-                flowLayout.currentPageIndex = index
-            }
-            else if case let .single(index) = currentPageIndex {
-                flowLayout.currentPageIndex = index
-            }
+            flowLayout.currentPageIndex = currentPageIndex
         }
         
+        let previousPageIndex = currentPageIndex
         coordinator.animate(alongsideTransition: { [unowned self] (context) in
             self.pagingView.isDoubleSpread = self.isDoubleSpread
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                // restore page index
+                self.pagingView.currentPageIndex = previousPageIndex
+            }
+            
             UIView.animate(withDuration: context.transitionDuration) {
                 self.pagingView.resizeVisiblePages()
                 self.updateHudPosition()
             }
         }) { [unowned self] (context) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                // update page index
                 self.interfaceBehaviour.updateLabel(label: self.pageHud.label, pagingView: self.pagingView, denominator: self.numberOfPages)
             }
         }
@@ -408,51 +407,18 @@ open class RDImageViewerController: UIViewController {
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cancelAutoBarHidden()
-        tempPageIndex = currentPageIndex
-        viewIsDisappeared = true
-    }
-    
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        if viewIsDisappeared {
-            // update slider position
-            pageSlider.frame = CGRect(x: pageSlider.frame.minX, y: pageSlider.frame.minY, width: view.frame.width - 30, height: 31)
-            
-            // update hud position
-            updateHudPosition()
-            
-            if pagingView.scrollDirection.isHorizontal() {
-                // restore page index
-                currentPageIndex = tempPageIndex
-            }
-        }
     }
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
         if didRotate {
             // update cell size
             pagingView.resizeVisiblePages()
-
-            if viewIsDisappeared == false {
-                // restore page index when rotate
-                interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
-            }
-            else if pagingView.scrollDirection.isHorizontal() {
-                currentPageIndex = pagingView.currentPageIndex
-                interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
-                interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
-            }
 
             // update slider position
             interfaceBehaviour.snapSliderPosition(slider: pageSlider, pagingView: pagingView)
             
             didRotate = false
-        }
-
-        if viewIsDisappeared {
-            viewIsDisappeared = false
         }
     }
     
@@ -704,10 +670,6 @@ extension RDImageViewerController: PagingViewDelegate
             }
         }
     }
-    
-//    public func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
-//        print(index)
-//    }
     
     @objc func scrollDidEnd() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)

@@ -18,52 +18,27 @@ extension Array where Element: Equatable {
 class PagingViewFlowLayout: UICollectionViewFlowLayout {
     
     private var previousSizs: CGSize = CGSize.zero
-    var _currentPageIndex: Int = 0
-    var currentPageIndex: Int {
-        get {
-            return _currentPageIndex
-        }
-        set {
-            _currentPageIndex = newValue
-        }
-    }
-    
+    var currentPageIndex: PagingView.VisibleIndex = .single(index: 0)
     var isDoubleSpread: Bool = false
-    
-//    override func prepare() {
-//        super.prepare()
-//
-//        guard let collectionView = collectionView, collectionView.frame.width > 0 else {
-//            return
-//        }
-//
-//        print(collectionView.contentOffset.x / collectionView.frame.width)
-//        currentPageIndex = Int(collectionView.contentOffset.x / collectionView.frame.width)
-//        if isDoubleSpread == true {
-//            currentPageIndex = currentPageIndex - (currentPageIndex % 2)
-//        }
-////        print("prepare \(collectionView.contentOffset) - \(collectionView.frame.size) -> \(currentPageIndex) double: \(isDoubleSpread)")
-//    }
-    
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        guard let collectionView = collectionView else {
-            return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
-        }
-        currentPageIndex = Int(ceil(proposedContentOffset.x / collectionView.frame.width))
-        return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
-    }
     
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
         guard let collectionView = collectionView else {
             return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
         }
-//        let index = Int(collectionView.contentOffset.x / collectionView.frame.width)
-//        print("current \(index)")
-//        if isDoubleSpread {
-//            let truePageIndex = currentPageIndex
-//            print("\(truePageIndex) - \(CGPoint(x: CGFloat(truePageIndex) * collectionView.frame.width, y: 0)) - \(collectionView.frame.width)")
-//        }
-        
-        return CGPoint(x: CGFloat(currentPageIndex) * collectionView.frame.width, y: 0)
+        var xPosition: CGFloat = 0
+        let width = collectionView.frame.width
+        switch currentPageIndex {
+        case let .single(index):
+            xPosition = CGFloat(index) * width
+        case let .double(indexes):
+            if let index = indexes.sorted().first {
+                let trueIndex = index
+                xPosition = CGFloat(trueIndex) * width
+            }
+        }
+        if collectionView.contentOffset.x <= xPosition, isDoubleSpread {
+            xPosition = collectionView.contentOffset.x
+        }
+        return CGPoint(x: xPosition, y: 0)
     }
 }
