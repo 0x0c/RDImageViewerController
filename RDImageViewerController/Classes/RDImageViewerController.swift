@@ -41,9 +41,7 @@ open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
     public init() {}
     
     open func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
-        if case let .single(index) = pagingView.currentPageIndex {
-            label.text = "\(index + 1)/\(denominator)"
-        }
+        label.text = "\(pagingView.currentPageIndex.primaryIndex() + 1)/\(denominator)"
     }
     
     open func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
@@ -59,10 +57,8 @@ open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
         if pagingView.scrollDirection.isVertical() {
             return
         }
-        if case let .single(index) = pagingView.currentPageIndex {
-            let value = Float(index) / Float(pagingView.numberOfPages - 1)
-            slider.setTrueSliderValue(value:value, pagingView: pagingView)
-        }
+        let value = Float(pagingView.currentPageIndex.primaryIndex()) / Float(pagingView.numberOfPages - 1)
+        slider.setTrueSliderValue(value:value, pagingView: pagingView)
     }
     
     open func updatePageIndex(_ index: Int, pagingView: PagingView) {
@@ -322,6 +318,7 @@ open class RDImageViewerController: UIViewController {
             self.pagingView.endRotate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // update page index
+                self.interfaceBehaviour.snapSliderPosition(slider: self.pageSlider, pagingView: self.pagingView)
                 self.interfaceBehaviour.updateLabel(label: self.pageHud.label, pagingView: self.pagingView, denominator: self.numberOfPages)
             }
         }
