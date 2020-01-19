@@ -629,6 +629,29 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 // MARK: - PagingViewDelegate
 extension RDImageViewerController: PagingViewDelegate
 {
+    open func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
+        let data = contents[index]
+        if data.isPreloadable(), data.isPreloading() {
+            data.stopPreload()
+        }
+    }
+
+    open func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView]) {
+        
+    }
+    
+    open func pagingViewDidEndDragging(pagingView: PagingView, willDecelerate decelerate: Bool) {
+        
+    }
+    
+    open func pagingViewWillBeginDecelerating(pagingView: PagingView) {
+        
+    }
+    
+    open func pagingViewDidEndScrollingAnimation(pagingView: PagingView) {
+        
+    }
+    
     open func pagingView(pagingView: PagingView, didChangeIndexTo index: Int) {
         if pagingView.scrollDirection.isVertical() {
             interfaceBehaviour.updateLabel(label: pageHud.label, numerator: index + 1, denominator: numberOfPages)
@@ -669,14 +692,8 @@ extension RDImageViewerController: PagingViewDelegate
             }
         }
     }
-    
-    @objc func scrollDidEnd() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
-        interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
-    }
 }
 
-// MARK: - PagingViewDataSource
 extension RDImageViewerController: PagingViewDataSource
 {
     open func pagingView(pagingView: PagingView, preloadItemAt index: Int) {
@@ -687,10 +704,15 @@ extension RDImageViewerController: PagingViewDataSource
     }
     
     open func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {
-        let data = contents[index]
-        if data.isPreloadable(), data.isPreloading() {
-            data.stopPreload()
-        }
+        
+    }
+}
+
+extension RDImageViewerController
+{
+    @objc func scrollDidEnd() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
     }
 }
 

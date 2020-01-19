@@ -12,11 +12,6 @@ public protocol PagingViewDataSource {
     func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int)
 }
 
-extension PagingViewDataSource {
-    public func pagingView(pagingView: PagingView, preloadItemAt index: Int) {}
-    public func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {}
-}
-
 public protocol PagingViewDelegate {
     func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
     func pagingView(pagingView: PagingView, willChangeIndexTo index: Int)
@@ -28,19 +23,6 @@ public protocol PagingViewDelegate {
     func pagingViewWillBeginDecelerating(pagingView: PagingView)
     func pagingViewDidEndDecelerating(pagingView: PagingView)
     func pagingViewDidEndScrollingAnimation(pagingView: PagingView)
-}
-
-extension PagingViewDelegate {
-    public func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView]) {}
-    public func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {}
-    public func pagingView(pagingView: PagingView, didsChangeIndexTo index: Int) {}
-    public func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat) {}
-    public func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int) {}
-    public func pagingViewWillBeginDragging(pagingView: PagingView) {}
-    public func pagingViewDidEndDragging(pagingView: PagingView, willDecelerate decelerate: Bool) {}
-    public func pagingViewWillBeginDecelerating(pagingView: PagingView) {}
-    public func pagingViewDidEndDecelerating(pagingView: PagingView) {}
-    public func pagingViewDidEndScrollingAnimation(pagingView: PagingView) {}
 }
 
 public extension Int {
