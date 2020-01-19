@@ -87,7 +87,7 @@ open class PagingView: UICollectionView {
         case single(index: Int)
         case double(indexes: [Int])
         
-        static func ==(a: VisibleIndex, b: VisibleIndex) -> Bool {
+        public static func ==(a: VisibleIndex, b: VisibleIndex) -> Bool {
             switch (a, b) {
             case let (.single(index1), .single(index2)):
                 return index1 == index2
@@ -98,7 +98,7 @@ open class PagingView: UICollectionView {
             }
         }
         
-        static func !=(a: VisibleIndex, b: VisibleIndex) -> Bool {
+        public static func !=(a: VisibleIndex, b: VisibleIndex) -> Bool {
             switch (a, b) {
             case let (.single(index1), .single(index2)):
                 return !(index1 == index2)
@@ -109,7 +109,7 @@ open class PagingView: UICollectionView {
             }
         }
         
-        func convert(double: Bool) -> VisibleIndex {
+        public func convert(double: Bool) -> VisibleIndex {
             switch self {
             case let .single(index):
                 if double {
@@ -128,7 +128,7 @@ open class PagingView: UICollectionView {
             }
         }
         
-        func primaryIndex() -> Int {
+        public func primaryIndex() -> Int {
             switch self {
             case let .single(index):
                 return index
