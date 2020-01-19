@@ -14,7 +14,7 @@ public protocol PagingViewDataSource {
 
 public protocol PagingViewDelegate {
     func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
-    func pagingView(pagingView: PagingView, willChangeIndexTo index: Int)
+    func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex)
     func pagingView(pagingView: PagingView, didChangeIndexTo index: Int)
     func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat)
     func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int)
@@ -322,11 +322,19 @@ extension PagingView : UIScrollViewDelegate
         if scrollDirection.isHorizontal() {
             pagingDelegate.pagingView(pagingView: self, didScrollToPosition: position)
             if isDoubleSpread {
-                _currentPageIndex = .double(indexes: visiblePageIndexes)
+                let newIndex: VisibleIndex = .double(indexes: visiblePageIndexes)
+                if _currentPageIndex != newIndex {
+                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex)
+                }
+                _currentPageIndex = newIndex
             }
             else {
                 let to = Int(position + 0.5)
-                _currentPageIndex = to.single()
+                let newIndex: VisibleIndex = to.single()
+                if _currentPageIndex != newIndex {
+                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex)
+                }
+                _currentPageIndex = newIndex
             }
         }
         else {
@@ -421,14 +429,6 @@ extension PagingView : UICollectionViewDataSource
         }
         
         return cell
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let pagingDelegate = pagingDelegate else {
-            return
-        }
-        
-        pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: indexPath.row)
     }
     
     public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

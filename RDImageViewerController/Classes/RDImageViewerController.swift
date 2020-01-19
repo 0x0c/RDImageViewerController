@@ -629,10 +629,20 @@ extension RDImageViewerController : UICollectionViewDelegateFlowLayout
 // MARK: - PagingViewDelegate
 extension RDImageViewerController: PagingViewDelegate
 {
-    open func pagingView(pagingView: PagingView, willChangeIndexTo index: Int) {
-        let data = contents[index]
-        if data.isPreloadable(), data.isPreloading() {
-            data.stopPreload()
+    open func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex) {
+        switch index {
+        case let .single(index):
+            let data = contents[index]
+            if data.isPreloadable(), data.isPreloading() {
+                data.stopPreload()
+            }
+        case let .double(indexes):
+            for i in indexes {
+                let data = contents[i]
+                if data.isPreloadable(), data.isPreloading() {
+                    data.stopPreload()
+                }
+            }
         }
     }
 
