@@ -142,7 +142,7 @@ open class DoubleSpreadConfiguration {
 }
 
 @objcMembers
-open class RDImageViewerController: UIViewController {
+open class RDImageViewerController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, PagingViewDelegate, PagingViewDataSource {
 
     enum ViewTag : Int {
         case mainScrollView = 1
@@ -591,11 +591,11 @@ open class RDImageViewerController: UIViewController {
             pagingView.isPagingEnabled = false
         }
     }
-}
-
-// MARK: - UICollectionViewDataSource
-extension RDImageViewerController : UICollectionViewDataSource
-{
+//}
+//
+//// MARK: - UICollectionViewDataSource
+//extension RDImageViewerController : UICollectionViewDataSource
+//{
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfPages
     }
@@ -615,20 +615,20 @@ extension RDImageViewerController : UICollectionViewDataSource
         
         return cell
     }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension RDImageViewerController : UICollectionViewDelegateFlowLayout
-{
+//}
+//
+//// MARK: - UICollectionViewDelegateFlowLayout
+//extension RDImageViewerController : UICollectionViewDelegateFlowLayout
+//{
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = contents[indexPath.row]
         return data.size(inRect: collectionView.bounds, direction: pagingView.scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
     }
-}
-
-// MARK: - PagingViewDelegate
-extension RDImageViewerController: PagingViewDelegate
-{
+//}
+//
+//// MARK: - PagingViewDelegate
+//extension RDImageViewerController: PagingViewDelegate
+//{
     open func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex) {
         switch index {
         case let .single(index):
@@ -702,10 +702,10 @@ extension RDImageViewerController: PagingViewDelegate
             }
         }
     }
-}
-
-extension RDImageViewerController: PagingViewDataSource
-{
+//}
+//
+//extension RDImageViewerController: PagingViewDataSource
+//{
     open func pagingView(pagingView: PagingView, preloadItemAt index: Int) {
         let data = contents[index]
         if data.isPreloadable() && !data.isPreloading() {
@@ -716,19 +716,19 @@ extension RDImageViewerController: PagingViewDataSource
     open func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {
         
     }
-}
-
-extension RDImageViewerController
-{
+//}
+//
+//extension RDImageViewerController
+//{
     @objc func scrollDidEnd() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
     }
-}
-
-// MARK: - ViewController
-extension RDImageViewerController
-{
+//}
+//
+//// MARK: - ViewController
+//extension RDImageViewerController
+//{
     override open var prefersStatusBarHidden: Bool {
         return statusBarHidden
     }
