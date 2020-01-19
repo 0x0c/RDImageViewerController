@@ -127,6 +127,18 @@ open class PagingView: UICollectionView {
                 return .single(index: 0)
             }
         }
+        
+        func primaryIndex() -> Int {
+            switch self {
+            case let .single(index):
+                return index
+            case let .double(indexes):
+                if let index = indexes.sorted().first {
+                    return index
+                }
+                return -1
+            }
+        }
     }
     
     public weak var pagingDataSource: (PagingViewDataSource & UICollectionViewDataSource)?
@@ -169,14 +181,7 @@ open class PagingView: UICollectionView {
     public var currentPageIndex: VisibleIndex {
         set {
             _currentPageIndex = newValue
-            switch newValue {
-            case let .single(index):
-                scrollTo(index: index)
-            case let .double(indexes):
-                if let index = indexes.sorted().first {
-                    scrollTo(index: index)
-                }
-            }
+            scrollTo(index: newValue.primaryIndex())
         }
         get {
             if isDoubleSpread {

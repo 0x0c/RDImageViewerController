@@ -25,16 +25,8 @@ class PagingViewFlowLayout: UICollectionViewFlowLayout {
         guard let collectionView = collectionView else {
             return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
         }
-        var xPosition: CGFloat = 0
         let width = collectionView.frame.width
-        switch currentPageIndex {
-        case let .single(index):
-            xPosition = CGFloat(index) * width
-        case let .double(indexes):
-            if let index = indexes.sorted().first {
-                xPosition = CGFloat(index) * width
-            }
-        }
+        var xPosition = CGFloat(currentPageIndex.primaryIndex()) * width
         if collectionView.contentOffset.x <= xPosition, isDoubleSpread {
             xPosition = collectionView.contentOffset.x
         }
