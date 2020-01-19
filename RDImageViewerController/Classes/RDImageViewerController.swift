@@ -436,7 +436,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         if currentPageIndex != truePageIndex.single() {
             feedbackGenerator.selectionChanged()
         }
-        currentPageIndex = truePageIndex.convert(double: isDoubleSpread)
+        let newIndex = truePageIndex.convert(double: isDoubleSpread)
+        if currentPageIndex != newIndex {
+            pagingView(pagingView: pagingView, willChangeIndexTo: newIndex)
+        }
+        currentPageIndex = newIndex
     }
     
     @objc func sliderDidTouchUpInside(slider: UISlider) {
