@@ -137,6 +137,18 @@ open class PagingView: UICollectionView {
         _isRotating = false
     }
     
+    public func beginChangingBarState() {
+        if let layout = collectionViewLayout as? PagingViewFlowLayout {
+            layout.ignoreTargetContentOffset = true
+        }
+    }
+    
+    public func endChangingBarState() {
+        if let layout = collectionViewLayout as? PagingViewFlowLayout {
+            layout.ignoreTargetContentOffset = false
+        }
+    }
+    
     private var _isDoubleSpread: Bool = false
     public var isDoubleSpread: Bool {
         get {

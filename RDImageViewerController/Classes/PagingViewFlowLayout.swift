@@ -16,12 +16,15 @@ extension Array where Element: Equatable {
 }
 
 class PagingViewFlowLayout: UICollectionViewFlowLayout {
-    
     private var previousSizs: CGSize = CGSize.zero
     var currentPageIndex: PagingView.VisibleIndex = .single(index: 0)
     var isDoubleSpread: Bool = false
+    var ignoreTargetContentOffset = false
     
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        if ignoreTargetContentOffset {
+            return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
+        }
         guard let collectionView = collectionView else {
             return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
         }

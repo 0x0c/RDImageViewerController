@@ -477,10 +477,12 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
     
     open func setBarsHidden(hidden: Bool, animated: Bool) {
+        pagingView.beginChangingBarState()
         setToolBarHidden(hidden: hidden, animated: animated)
         setNavigationBarHidden(hidden: hidden, animated: animated)
         setHudHidden(hidden: hidden, animated: animated)
         statusBarHidden = hidden
+        pagingView.endChangingBarState()
     }
     
     open func cancelAutoBarHidden() {
@@ -488,7 +490,6 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
     
     // MARK: - hud
-    
     func updateHudPosition() {
         var toolbarPosition = view.frame.height
         if isSliderEnabled, showSlider, let toolbarItems = toolbarItems, toolbarItems.count > 0 {
@@ -519,6 +520,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             self.pageHud.alpha = hidden == true ? 0 : 1.0
             self.updateHudPosition()
         })
+    }
+    
+    @objc func scrollDidEnd() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
     }
         
     // MARK: - appearance
@@ -591,11 +597,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             pagingView.isPagingEnabled = false
         }
     }
-//}
-//
-//// MARK: - UICollectionViewDataSource
-//extension RDImageViewerController : UICollectionViewDataSource
-//{
+
+    // MARK: - UICollectionViewDataSource
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfPages
     }
@@ -615,20 +618,14 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         
         return cell
     }
-//}
-//
-//// MARK: - UICollectionViewDelegateFlowLayout
-//extension RDImageViewerController : UICollectionViewDelegateFlowLayout
-//{
+
+    // MARK: - UICollectionViewDelegateFlowLayout
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let data = contents[indexPath.row]
         return data.size(inRect: collectionView.bounds, direction: pagingView.scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
     }
-//}
-//
-//// MARK: - PagingViewDelegate
-//extension RDImageViewerController: PagingViewDelegate
-//{
+
+    // MARK: - PagingViewDelegate
     open func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex) {
         switch index {
         case let .single(index):
@@ -702,10 +699,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             }
         }
     }
-//}
-//
-//extension RDImageViewerController: PagingViewDataSource
-//{
+
     open func pagingView(pagingView: PagingView, preloadItemAt index: Int) {
         let data = contents[index]
         if data.isPreloadable() && !data.isPreloading() {
@@ -716,19 +710,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     open func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {
         
     }
-//}
-//
-//extension RDImageViewerController
-//{
-    @objc func scrollDidEnd() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
-        interfaceBehaviour.updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
-    }
-//}
-//
-//// MARK: - ViewController
-//extension RDImageViewerController
-//{
+    
+    // MARK: - ViewController
     override open var prefersStatusBarHidden: Bool {
         return statusBarHidden
     }
