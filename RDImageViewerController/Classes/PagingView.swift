@@ -91,6 +91,26 @@ open class PagingView: UICollectionView {
             }
         }
         
+        public func contains(_ index: VisibleIndex) -> Bool {
+            switch (self, index) {
+            case let (.single(index1), .single(index2)):
+                return (index1 == index2)
+            case let (.single(index1), .double(index2)):
+                if index2.count == 1, let index = index2.first {
+                    return index1 == index
+                }
+                return false
+            case let (.double(index1), .single(index2)):
+                return index1.contains(index2)
+            case let (.double(indexes1), .double(indexes2)):
+                var result = true
+                for i in indexes2 {
+                    result = result && indexes1.contains(i)
+                }
+                return result
+            }
+        }
+        
         public func convert(double: Bool) -> VisibleIndex {
             switch self {
             case let .single(index):

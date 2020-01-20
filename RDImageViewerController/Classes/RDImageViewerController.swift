@@ -427,16 +427,16 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
     
     // MARK: - slider
+    private var previousSliderValue: Float = 0
     @objc func sliderValueDidChange(slider: UISlider) {
         cancelAutoBarHidden()
         let position = pageSlider.trueSliderValue(value: slider.value, pagingView: pagingView)
         let pageIndex = position * Float(numberOfPages - 1)
         let truePageIndex = Int(pageIndex + 0.5)
-        if currentPageIndex != truePageIndex.single() {
-            feedbackGenerator.selectionChanged()
-        }
         let newIndex = truePageIndex.convert(double: isDoubleSpread)
-        if currentPageIndex != newIndex {
+        if currentPageIndex.contains(newIndex) == false, previousSliderValue != slider.value {
+            previousSliderValue = slider.value
+            feedbackGenerator.selectionChanged()
             pagingView(pagingView: pagingView, willChangeIndexTo: newIndex)
         }
         currentPageIndex = newIndex
