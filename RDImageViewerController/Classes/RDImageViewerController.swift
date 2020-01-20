@@ -156,13 +156,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     var didRotate: Bool = false
     var pageHud: PageHud
     
-    private var _doubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: false)
-    open var doubleSpreadConfiguration: DoubleSpreadConfiguration {
-        get {
-            return _doubleSpreadConfiguration
-        }
-        set {
-            _doubleSpreadConfiguration = newValue
+    open var doubleSpreadConfiguration: DoubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: false){
+        didSet {
             pagingView.isDoubleSpread = isDoubleSpread
         }
     }
@@ -259,36 +254,21 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
     
-    private var _statusBarHidden: Bool = false
-    open var statusBarHidden: Bool {
-        set {
-            _statusBarHidden = newValue
+    open var statusBarHidden: Bool = false {
+        didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
-        get {
-            return _statusBarHidden
-        }
     }
     
-    private var _pageSliderMaximumTrackTintColor: UIColor?
     open var pageSliderMaximumTrackTintColor: UIColor? {
-        set {
-            _pageSliderMaximumTrackTintColor = newValue
+        didSet {
             applySliderTintColor()
-        }
-        get {
-            return _pageSliderMaximumTrackTintColor
         }
     }
     
-    private var _pageSliderMinimumTrackTintColor: UIColor?
     open var pageSliderMinimumTrackTintColor: UIColor? {
-        set {
-            _pageSliderMinimumTrackTintColor = newValue
+        didSet {
             applySliderTintColor()
-        }
-        get {
-            return _pageSliderMinimumTrackTintColor
         }
     }
     

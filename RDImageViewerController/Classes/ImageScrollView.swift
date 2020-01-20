@@ -17,25 +17,15 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
     open var scrollView: UIScrollView
     public let zoomRect = CGSize(width: 100, height: 100)
     
-    private var _alignment: ImageAlignment = ImageAlignment(horizontal: .center, vertical: .center)
-    open var alignment: ImageAlignment {
-        get {
-            return _alignment
-        }
-        set {
-            _alignment = newValue
+    open var alignment: ImageAlignment = ImageAlignment(horizontal: .center, vertical: .center) {
+        didSet {
             fixImageViewPosition()
         }
     }
     
-    var _mode: LandscapeMode = .aspectFit
-    open var mode: LandscapeMode {
-        set {
-            _mode = newValue
+    open var mode: LandscapeMode = .aspectFit {
+        didSet {
             adjustContentAspect()
-        }
-        get {
-            return _mode
         }
     }
     
@@ -131,7 +121,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
     }
     
     private func fixImageViewPosition() {
-        switch _alignment.horizontal {
+        switch alignment.horizontal {
         case .left:
             imageView.frame.origin.x = 0
         case .right:
@@ -140,7 +130,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
             imageView.center.x = scrollView.center.x
         }
         
-        switch _alignment.vertical {
+        switch alignment.vertical {
         case .top:
             imageView.frame.origin.y = 0
         case .bottom:

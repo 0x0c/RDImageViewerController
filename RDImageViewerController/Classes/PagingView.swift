@@ -169,16 +169,11 @@ open class PagingView: UICollectionView {
         }
     }
     
-    private var _isDoubleSpread: Bool = false
-    public var isDoubleSpread: Bool {
-        get {
-            return _isDoubleSpread
-        }
-        set {
-            _isDoubleSpread = newValue
-            currentPageIndex = currentPageIndex.convert(double: newValue)
+    public var isDoubleSpread: Bool = false {
+        didSet {
+            currentPageIndex = currentPageIndex.convert(double: isDoubleSpread)
             if let layout = collectionViewLayout as? PagingViewFlowLayout {
-                layout.isDoubleSpread = newValue
+                layout.isDoubleSpread = isDoubleSpread
             }
         }
     }
