@@ -43,8 +43,8 @@
 		E949DA9023CC5CA4004F39A0 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949DA8E23CC5B18004F39A0 /* PageHud.swift */; };
 		E94FF6A92268E5DB00C0CB21 /* UIView+PageIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */; };
 		E94FF6AA2268E5DB00C0CB21 /* UIView+PageIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */; };
-		E9A6679423D775280010D040 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6679223D775250010D040 /* UITraitCollection+Orientation.swift */; };
-		E9A6679523D7752B0010D040 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6679223D775250010D040 /* UITraitCollection+Orientation.swift */; };
+		E9A6679723D776D00010D040 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */; };
+		E9A6679823D776DB0010D040 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */; };
 		E9BE4C92225BA6DF00FD031D /* RemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */; };
 /* End PBXBuildFile section */
 
@@ -111,7 +111,7 @@
 		E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PagingViewFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewFlowLayout.swift; sourceTree = "<group>"; };
 		E949DA8E23CC5B18004F39A0 /* PageHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageHud.swift; path = RDImageViewerController/Classes/PageHud.swift; sourceTree = "<group>"; };
 		E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+PageIndex.swift"; path = "RDImageViewerController/Classes/UIView+PageIndex.swift"; sourceTree = "<group>"; };
-		E9A6679223D775250010D040 /* UITraitCollection+Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITraitCollection+Orientation.swift"; sourceTree = "<group>"; };
+		E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITraitCollection+Orientation.swift"; path = "RDImageViewerController/Classes/UITraitCollection+Orientation.swift"; sourceTree = "<group>"; };
 		E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteImageScrollView.swift; path = RDImageViewerController/Classes/RemoteImageScrollView.swift; sourceTree = "<group>"; };
 		F20055BF70B762A3A319D58473545EBD /* RDImageViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RDImageViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39303BE14FE782222E15AEC0804C378 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = RDImageViewerController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -246,8 +246,8 @@
 			children = (
 				E7166E81D25BAF45D1AA5AADA55DB23B /* Pod */,
 				86D4353664230C1DD9E438D4B21F1969 /* Support Files */,
-				E9A6679223D775250010D040 /* UITraitCollection+Orientation.swift */,
 				5807348D5A24DA675CFEAFD43DFDE661 /* ImageContent.swift */,
+				E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */,
 				18F4DE8EDF4E90E0C329042B8361BF5B /* ImageScrollView.swift */,
 				566956B463483645D2DA826B9E16BDAF /* PageContent.swift */,
 				E949DA8E23CC5B18004F39A0 /* PageHud.swift */,
@@ -458,7 +458,7 @@
 				E9066C21225CDD3900EA76BA /* PagingViewVerticalFlowLayout.swift in Sources */,
 				E9066C0E225C884E00EA76BA /* PagingViewRightToLeftFlowLayout.swift in Sources */,
 				E9066C13225C920A00EA76BA /* PagingViewBottomToTopLayout.swift in Sources */,
-				E9A6679423D775280010D040 /* UITraitCollection+Orientation.swift in Sources */,
+				E9A6679823D776DB0010D040 /* UITraitCollection+Orientation.swift in Sources */,
 				E937265923CF6917001A3490 /* PagingViewFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,7 +481,7 @@
 				E907AE3F225D18B100615D72 /* PagingViewRightToLeftFlowLayout.swift in Sources */,
 				E907AE40225D18B100615D72 /* PagingViewHorizontalFlowLayout.swift in Sources */,
 				E937265823CF6910001A3490 /* PagingViewFlowLayout.swift in Sources */,
-				E9A6679523D7752B0010D040 /* UITraitCollection+Orientation.swift in Sources */,
+				E9A6679723D776D00010D040 /* UITraitCollection+Orientation.swift in Sources */,
 				E907AE41225D18B100615D72 /* PagingViewVerticalFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
