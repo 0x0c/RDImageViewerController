@@ -62,6 +62,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
                 indicatorView.stopAnimating()
             }
             adjustContentAspect()
+            fixImageViewPosition()
         }
         get {
             return imageView.image
