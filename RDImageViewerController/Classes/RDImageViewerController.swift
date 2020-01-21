@@ -580,6 +580,18 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             pagingView.isPagingEnabled = false
         }
     }
+    
+    open func configureView(_ view: PageViewProtocol & UICollectionViewCell, data: PageContentProtocol, indexPath: IndexPath) {
+        view.configure(data: data, pageIndex: indexPath.row, scrollDirection: pagingView.scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+        view.resize()
+        if let imageScrollView = view as? ImageScrollView {
+            pagingView.gestureRecognizers?.forEach({ (gesture) in
+                if gesture is UITapGestureRecognizer {
+                    imageScrollView.addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: gesture)
+                }
+            })
+        }
+    }
 
     // MARK: - UICollectionViewDataSource
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -589,15 +601,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = contents[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! PageViewProtocol & UICollectionViewCell
-        cell.configure(data: data, pageIndex: indexPath.row, scrollDirection: pagingView.scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
-        cell.resize()
-        if let imageScrollView = cell as? ImageScrollView {
-            pagingView.gestureRecognizers?.forEach({ (gesture) in
-                if gesture is UITapGestureRecognizer {
-                    imageScrollView.addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: gesture)
-                }
-            })
-        }
+        configureView(cell, data: data, indexPath: indexPath)
         
         return cell
     }
