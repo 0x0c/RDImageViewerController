@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setToolbarHidden(true, animated: true)
+        URLCache.shared.removeAllCachedResponses()
     }
     
     func commonSetup(viewController: RDImageViewerController) {
