@@ -15,7 +15,7 @@ public protocol PagingViewDataSource {
 public protocol PagingViewDelegate {
     func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
     func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex)
-    func pagingView(pagingView: PagingView, didChangeIndexTo index: Int)
+    func pagingView(pagingView: PagingView, didChangeIndexTo index: PagingView.VisibleIndex)
     func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat)
     func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int)
     func pagingViewWillBeginDragging(pagingView: PagingView)
@@ -386,6 +386,9 @@ extension PagingView : UIScrollViewDelegate
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndDragging(pagingView: self, willDecelerate: decelerate)
+            if decelerate == false {
+                pagingDelegate.pagingView(pagingView: self, didChangeIndexTo: currentPageIndex)
+            }
         }
     }
     
@@ -398,6 +401,7 @@ extension PagingView : UIScrollViewDelegate
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndDecelerating(pagingView: self)
+            pagingDelegate.pagingView(pagingView: self, didChangeIndexTo: currentPageIndex)
         }
     }
     

@@ -9,8 +9,7 @@ import UIKit
 
 public protocol HudBehaviour
 {
-    func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int)
-    func updateLabel(label: UILabel, numerator: Int, denominator: Int)
+    func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int)
 }
 
 public protocol PagingBehaviour
@@ -40,14 +39,17 @@ open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour
 {
     public init() {}
     
-    open func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
-        label.text = "\(pagingView.currentPageIndex.primaryIndex() + 1)/\(denominator)"
+    open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {
+        switch numerator {
+        case let .single(index):
+            label.text = "\(index + 1)/\(denominator)"
+        case let .double(indexes):
+            if let index = indexes.min() {
+               label.text = "\(index + 1)/\(denominator)"
+            }
+        }
     }
-    
-    open func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
-        label.text = "\(numerator)/\(denominator)"
-    }
-    
+
     open func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
         let position = value / Float(pagingView.numberOfPages - 1)
         slider.setTrueSliderValue(value: Float(position), pagingView: pagingView)
@@ -70,18 +72,19 @@ open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehav
 {
     public init() {}
     
-    open func updateLabel(label: UILabel, pagingView: PagingView, denominator: Int) {
-        var pageString = pagingView.visiblePageIndexes.sorted().map({ (index) -> String in
-            return String(index + 1)
-            }).joined(separator: " - ")
-        if pagingView.visiblePageIndexes.count > 1 {
-            pageString = "[" + pageString + "]"
+    open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {
+        switch numerator {
+        case let .double(indexes):
+            var pageString = indexes.sorted().map({ (index) -> String in
+                return String(index + 1)
+                }).joined(separator: " - ")
+            if indexes.count > 1 {
+                pageString = "[" + pageString + "]"
+            }
+            label.text = "\(pageString)/\(denominator)"
+        default:
+            break
         }
-        label.text = "\(pageString)/\(denominator)"
-    }
-    
-    open func updateLabel(label: UILabel, numerator: Int, denominator: Int) {
-        // do nothing
     }
     
     open func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
@@ -195,7 +198,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             case let .single(index):
                 interfaceBehaviour().updatePageIndex(index, pagingView: pagingView)
             }
-            interfaceBehaviour().updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
+            interfaceBehaviour().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
             interfaceBehaviour().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
             pagingView.currentPageIndex = newValue
         }
@@ -298,7 +301,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // update page index
                 self.interfaceBehaviour().snapSliderPosition(slider: self.pageSlider, pagingView: self.pagingView)
-                self.interfaceBehaviour().updateLabel(label: self.pageHud.label, pagingView: self.pagingView, denominator: self.numberOfPages)
+                self.interfaceBehaviour().updateLabel(label: self.pageHud.label, numerator: self.pagingView.currentPageIndex, denominator: self.numberOfPages)
             }
         }
     }
@@ -379,7 +382,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             perform(#selector(hideBars), with: self, afterDelay: automaticBarsHiddenDuration)
             automaticBarsHiddenDuration = 0
         }
-        interfaceBehaviour().updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
+        interfaceBehaviour().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
     }
     
     override open func viewWillDisappear(_ animated: Bool) {
@@ -507,7 +510,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     
     @objc func scrollDidEnd() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        interfaceBehaviour().updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
+        interfaceBehaviour().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
     }
         
     // MARK: - appearance
@@ -549,7 +552,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         pagingView.reloadData()
         updateHudPosition()
         interfaceBehaviour().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
-        interfaceBehaviour().updateLabel(label: pageHud.label, pagingView: pagingView, denominator: numberOfPages)
+        interfaceBehaviour().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
     }
     
     open func update(contents newContents: [PageContent]) {
@@ -646,9 +649,9 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         
     }
     
-    open func pagingView(pagingView: PagingView, didChangeIndexTo index: Int) {
+    open func pagingView(pagingView: PagingView, didChangeIndexTo index: PagingView.VisibleIndex) {
         if pagingView.scrollDirection.isVertical() {
-            interfaceBehaviour().updateLabel(label: pageHud.label, numerator: index + 1, denominator: numberOfPages)
+            interfaceBehaviour().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
         }
     }
     
@@ -661,7 +664,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             }
             
             let to = Int(position + 0.5)
-            interfaceBehaviour().updateLabel(label: pageHud.label, numerator: to + 1, denominator: numberOfPages)
+            interfaceBehaviour().updateLabel(label: pageHud.label, numerator: .single(index: to), denominator: numberOfPages)
         }
     }
 
