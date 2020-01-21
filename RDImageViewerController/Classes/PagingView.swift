@@ -251,6 +251,9 @@ open class PagingView: UICollectionView {
     }
     
     public func scrollTo(index: Int, animated: Bool = false) {
+        if index > numberOfPages - 1 {
+            return
+        }
         var position: UICollectionView.ScrollPosition {
             if scrollDirection.isHorizontal() {
                 if isDoubleSpread {
