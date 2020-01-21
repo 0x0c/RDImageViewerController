@@ -90,13 +90,15 @@ open class DoubleSpreadPageBehaviour: HudBehaviour, SliderBehaviour, PagingBehav
     open func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
         let snapPosition = (value - 0.5) * 2
         if pagingView.numberOfPages % 2 == 1 {
-            if snapPosition > Float(pagingView.numberOfPages - 4) {
-                let position = value * 2 / Float(pagingView.numberOfPages - 2)
-                slider.setTrueSliderValue(value: position, pagingView: pagingView, animated: true)
-            }
-            else {
-                let position = value * 2 / Float(pagingView.numberOfPages - 1)
-                slider.setTrueSliderValue(value: Float(position), pagingView: pagingView, animated: true)
+            UIView.animate(withDuration: 0.1) {
+                if snapPosition > Float(pagingView.numberOfPages - 4) {
+                    let position = value * 2 / Float(pagingView.numberOfPages - 2)
+                    slider.setTrueSliderValue(value: position, pagingView: pagingView, animated: true)
+                }
+                else {
+                    let position = value * 2 / Float(pagingView.numberOfPages - 1)
+                    slider.setTrueSliderValue(value: Float(position), pagingView: pagingView, animated: true)
+                }
             }
         }
         else {
