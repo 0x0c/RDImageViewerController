@@ -10,7 +10,7 @@ import UIKit
 import RDImageViewerController
 
 class TextLabelView: UICollectionViewCell, PageViewProtocol {
-    
+
     @IBOutlet weak var label: UILabel!
     
     func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
@@ -18,6 +18,11 @@ class TextLabelView: UICollectionViewCell, PageViewProtocol {
             return
         }
         label.text = data.text
+    }
+    
+    
+    func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+        
     }
     
     func resize() {

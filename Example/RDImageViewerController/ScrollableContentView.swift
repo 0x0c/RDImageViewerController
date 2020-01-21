@@ -26,6 +26,10 @@ class ScrollableContentView: UICollectionViewCell, PageViewProtocol {
         view!.backgroundColor = data.color
     }
     
+    func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+        
+    }
+    
     func resize() {
         
     }

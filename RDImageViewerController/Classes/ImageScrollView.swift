@@ -227,9 +227,31 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         addGestureRecognizer(gesture)
     }
     
-    // RDPageContentDataView
+    // MARK: RDPageContentDataView
     open func resize() {
         adjustContentAspect()
+    }
+    
+    public func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+        if pageIndex % 2 == 0 {
+            var horizontalAlignment: ImageHorizontalAlignment {
+                if scrollDirection == .right {
+                    return .right
+                }
+                return .left
+            }
+            alignment = ImageAlignment(horizontal: horizontalAlignment, vertical: .center)
+        }
+        else {
+            var horizontalAlignment: ImageHorizontalAlignment {
+                if scrollDirection == .right {
+                    return .left
+                }
+                return .right
+            }
+            alignment = ImageAlignment(horizontal: horizontalAlignment, vertical: .center)
+        }
+        resize()
     }
     
     public func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
@@ -240,24 +262,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         mode = data.landscapeMode
         scrollView.setZoomScale(1.0, animated: false)
         if traitCollection.isLandscape(), isDoubleSpread {
-            if pageIndex % 2 == 0 {
-                var horizontalAlignment: ImageHorizontalAlignment {
-                    if scrollDirection == .right {
-                        return .right
-                    }
-                    return .left
-                }
-                alignment = ImageAlignment(horizontal: horizontalAlignment, vertical: .center)
-            }
-            else {
-                var horizontalAlignment: ImageHorizontalAlignment {
-                    if scrollDirection == .right {
-                        return .left
-                    }
-                    return .right
-                }
-                alignment = ImageAlignment(horizontal: horizontalAlignment, vertical: .center)
-            }
+            resize(pageIndex: pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
         }
         image = data.image
     }

@@ -276,9 +276,9 @@ open class PagingView: UICollectionView {
     
     public func resizeVisiblePages() {
         collectionViewLayout.invalidateLayout()
-        for cell in visibleCells {
+        for (index, cell) in visibleCells.enumerated() {
             if let view = cell as? PageViewProtocol {
-                view.resize()
+                view.resize(pageIndex: index, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
             }
         }
     }

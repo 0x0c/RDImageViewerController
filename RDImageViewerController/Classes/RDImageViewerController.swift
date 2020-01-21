@@ -156,7 +156,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     var didRotate: Bool = false
     var pageHud: PageHud
     
-    open var doubleSpreadConfiguration: DoubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: false){
+    open var doubleSpreadConfiguration: DoubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: false) {
         didSet {
             pagingView.isDoubleSpread = isDoubleSpread
         }
@@ -566,7 +566,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
     
     public func refreshView(at index: Int) {
-        if numberOfPages > index {
+        if numberOfPages > index, index >= 0 {
             pagingView.reloadItems(at: [IndexPath(row: index, section: 0)])
         }
     }
