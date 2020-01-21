@@ -421,6 +421,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             previousSliderValue = slider.value
             feedbackGenerator.selectionChanged()
             pagingView(pagingView: pagingView, willChangeIndexTo: newIndex, currentIndex: currentPageIndex)
+            pagingView(pagingView: pagingView, didChangeIndexTo: newIndex)
         }
         currentPageIndex = newIndex
     }
