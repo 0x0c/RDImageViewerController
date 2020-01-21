@@ -41,8 +41,6 @@
 		E937265923CF6917001A3490 /* PagingViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */; };
 		E949DA8F23CC5B18004F39A0 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949DA8E23CC5B18004F39A0 /* PageHud.swift */; };
 		E949DA9023CC5CA4004F39A0 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949DA8E23CC5B18004F39A0 /* PageHud.swift */; };
-		E94FF6A92268E5DB00C0CB21 /* UIView+PageIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */; };
-		E94FF6AA2268E5DB00C0CB21 /* UIView+PageIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */; };
 		E9A6679723D776D00010D040 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */; };
 		E9A6679823D776DB0010D040 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */; };
 		E9BE4C92225BA6DF00FD031D /* RemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */; };
@@ -110,7 +108,6 @@
 		E9066C20225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewHorizontalFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewHorizontalFlowLayout.swift; sourceTree = "<group>"; };
 		E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PagingViewFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewFlowLayout.swift; sourceTree = "<group>"; };
 		E949DA8E23CC5B18004F39A0 /* PageHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageHud.swift; path = RDImageViewerController/Classes/PageHud.swift; sourceTree = "<group>"; };
-		E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+PageIndex.swift"; path = "RDImageViewerController/Classes/UIView+PageIndex.swift"; sourceTree = "<group>"; };
 		E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITraitCollection+Orientation.swift"; path = "RDImageViewerController/Classes/UITraitCollection+Orientation.swift"; sourceTree = "<group>"; };
 		E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteImageScrollView.swift; path = RDImageViewerController/Classes/RemoteImageScrollView.swift; sourceTree = "<group>"; };
 		F20055BF70B762A3A319D58473545EBD /* RDImageViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RDImageViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -260,7 +257,6 @@
 				82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */,
 				D8E43C1C4726CFFE602DD265F0D69812 /* RemoteImageContent.swift */,
 				E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */,
-				E94FF6A82268E5DB00C0CB21 /* UIView+PageIndex.swift */,
 			);
 			name = RDImageViewerController;
 			path = ../..;
@@ -445,7 +441,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9BE4C92225BA6DF00FD031D /* RemoteImageScrollView.swift in Sources */,
-				E94FF6AA2268E5DB00C0CB21 /* UIView+PageIndex.swift in Sources */,
 				32B1CF043B82C6EF1F883C81674A2E23 /* ImageContent.swift in Sources */,
 				4D60DA0F3D15448769FF113698524E49 /* ImageScrollView.swift in Sources */,
 				ADB8A28C7E7A0F29EA56951E4EFB50E1 /* RDImageViewerController-dummy.m in Sources */,
@@ -472,7 +467,6 @@
 				E907AE38225D18B100615D72 /* ImageScrollView.swift in Sources */,
 				E907AE39225D18B100615D72 /* RDImageViewerController.swift in Sources */,
 				E907AE3A225D18B100615D72 /* PageContent.swift in Sources */,
-				E94FF6A92268E5DB00C0CB21 /* UIView+PageIndex.swift in Sources */,
 				E949DA8F23CC5B18004F39A0 /* PageHud.swift in Sources */,
 				E907AE3B225D18B100615D72 /* PagingView.swift in Sources */,
 				E907AE3C225D18B100615D72 /* RemoteImageContent.swift in Sources */,

@@ -7,6 +7,31 @@
 
 import UIKit
 
+extension UIView
+{
+    static var pageIndexKey: UInt8 = 0
+    fileprivate var _pageIndex: Int {
+        get {
+            guard let associatedObject = objc_getAssociatedObject(self, &UIView.pageIndexKey) as? NSNumber else {
+                let associatedObject = NSNumber(value: Int(0))
+                objc_setAssociatedObject(self, &UIView.pageIndexKey, associatedObject, .OBJC_ASSOCIATION_RETAIN)
+                return Int(associatedObject.intValue)
+            }
+            return Int(associatedObject.intValue)
+        }
+        
+        set {
+            objc_setAssociatedObject(self, &UIView.pageIndexKey, NSNumber(value: Int(newValue)), .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    
+    public var pageIndex: Int {
+        get {
+            return _pageIndex
+        }
+    }
+}
+
 public protocol PagingViewDataSource {
     func pagingView(pagingView: PagingView, preloadItemAt index: Int)
     func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int)
@@ -276,9 +301,9 @@ open class PagingView: UICollectionView {
     
     public func resizeVisiblePages() {
         collectionViewLayout.invalidateLayout()
-        for (index, cell) in visibleCells.enumerated() {
+        for cell in visibleCells {
             if let view = cell as? PageViewProtocol {
-                view.resize(pageIndex: index, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+                view.resize(pageIndex: cell.pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
             }
         }
     }
@@ -440,7 +465,7 @@ extension PagingView : UICollectionViewDataSource
             return UICollectionViewCell(frame: CGRect.zero)
         }
         let cell = pagingDataSource.collectionView(collectionView, cellForItemAt: indexPath)
-        cell.pageIndex = indexPath.row
+        cell._pageIndex = indexPath.row
         if isLegacyLayoutSystem {
             cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }
