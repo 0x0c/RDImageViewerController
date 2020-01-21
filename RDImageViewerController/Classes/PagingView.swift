@@ -251,7 +251,7 @@ open class PagingView: UICollectionView {
     }
     
     public func scrollTo(index: Int, animated: Bool = false) {
-        if index > numberOfPages - 1 {
+        if index > numberOfPages - 1 || index < 0 {
             return
         }
         var position: UICollectionView.ScrollPosition {
