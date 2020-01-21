@@ -20,24 +20,13 @@ extension UIApplication {
 
 extension UITraitCollection {
     public func isLandscape() -> Bool {
-        if userInterfaceIdiom == .phone {
-            let portrait = UITraitCollection(traitsFrom: [
-                UITraitCollection(horizontalSizeClass: .compact),
-                UITraitCollection(verticalSizeClass: .regular)])
-            if containsTraits(in: portrait) {
-                return false
+        if #available(iOS 13, *)  {
+            if let window = UIApplication.shared.currentWindow(),
+                let windowScene = window.windowScene {
+                return windowScene.interfaceOrientation.isLandscape
             }
-            return true
+            return false
         }
-        else {
-            if #available(iOS 13, *)  {
-                if let window = UIApplication.shared.currentWindow(),
-                    let windowScene = window.windowScene {
-                    return windowScene.interfaceOrientation.isLandscape
-                }
-                return false
-            }
-            return UIApplication.shared.statusBarOrientation.isLandscape
-        }
+        return UIApplication.shared.statusBarOrientation.isLandscape
     }
 }
