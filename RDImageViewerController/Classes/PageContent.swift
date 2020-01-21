@@ -7,18 +7,6 @@
 
 import UIKit
 
-extension UITraitCollection {
-    public func isLandscape() -> Bool {
-        let portrait = UITraitCollection(traitsFrom: [
-            UITraitCollection(horizontalSizeClass: .compact),
-            UITraitCollection(verticalSizeClass: .regular)])
-        if containsTraits(in: portrait) {
-            return false
-        }
-        return true
-    }
-}
-
 public enum ImageHorizontalAlignment {
     case left
     case right
