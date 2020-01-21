@@ -420,7 +420,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         if currentPageIndex.contains(newIndex) == false, previousSliderValue != slider.value {
             previousSliderValue = slider.value
             feedbackGenerator.selectionChanged()
-            pagingView(pagingView: pagingView, willChangeIndexTo: newIndex)
+            pagingView(pagingView: pagingView, willChangeIndexTo: newIndex, currentIndex: currentPageIndex)
         }
         currentPageIndex = newIndex
     }
@@ -616,7 +616,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
 
     // MARK: - PagingViewDelegate
-    open func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex) {
+    open func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex, currentIndex: PagingView.VisibleIndex) {
         switch index {
         case let .single(index):
             let data = contents[index]

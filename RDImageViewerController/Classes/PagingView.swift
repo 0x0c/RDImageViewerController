@@ -39,7 +39,7 @@ public protocol PagingViewDataSource {
 
 public protocol PagingViewDelegate {
     func pagingView(pagingView: PagingView, willChangeViewSize size: CGSize, duration: TimeInterval, visibleViews: [UIView])
-    func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex)
+    func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex, currentIndex: PagingView.VisibleIndex)
     func pagingView(pagingView: PagingView, didChangeIndexTo index: PagingView.VisibleIndex)
     func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat)
     func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int)
@@ -379,7 +379,7 @@ extension PagingView : UIScrollViewDelegate
             if isDoubleSpread {
                 let newIndex: VisibleIndex = .double(indexes: visiblePageIndexes)
                 if _currentPageIndex != newIndex {
-                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex)
+                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex, currentIndex: _currentPageIndex)
                 }
                 _currentPageIndex = newIndex
             }
@@ -387,7 +387,7 @@ extension PagingView : UIScrollViewDelegate
                 let to = Int(position + 0.5)
                 let newIndex: VisibleIndex = to.single()
                 if _currentPageIndex != newIndex {
-                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex)
+                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex, currentIndex: _currentPageIndex)
                 }
                 _currentPageIndex = newIndex
             }
