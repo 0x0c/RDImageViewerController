@@ -221,7 +221,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     open var isDoubleSpread: Bool {
         get {
-            if UIDevice.current.orientation.isLandscape {
+            if traitCollection.isLandscape() {
                 return doubleSpreadConfiguration.landscape
             }
             return doubleSpreadConfiguration.portrait
