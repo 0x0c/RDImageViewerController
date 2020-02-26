@@ -236,12 +236,14 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     private var _showSlider: Bool = false
     open var showSlider: Bool {
         set {
+            pagingView.beginChangingBarState()
             if pagingView.scrollDirection.isHorizontal() {
                 setToolBarHidden(hidden: !newValue, animated: true)
             }
             else {
                 setToolBarHidden(hidden: true, animated: true)
             }
+            pagingView.endChangingBarState()
             applySliderTintColor()
         }
         get {
@@ -372,9 +374,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         super.viewWillAppear(animated)
         view.setNeedsLayout()
         if restoreBarState == true {
+            pagingView.beginChangingBarState()
             setNavigationBarHidden(hidden: navigationController?.isNavigationBarHidden ?? false, animated: true)
             setToolBarHidden(hidden: !showSlider, animated: true)
             setHudHidden(hidden: !showPageNumberHud, animated: false)
+            pagingView.endChangingBarState()
         }
     }
     
