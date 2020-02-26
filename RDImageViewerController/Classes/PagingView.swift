@@ -332,7 +332,7 @@ open class PagingView: UICollectionView {
             }
         }
         
-        reloadItems(at: indexPathsForVisibleItems)
+        reloadData()
     }
     
     open override func reloadData() {
