@@ -396,7 +396,11 @@ extension PagingView : UIScrollViewDelegate
             pagingDelegate.pagingView(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
             if let index = indexPathsForVisibleItems.sorted().middle {
                 let to = index.row
-                _currentPageIndex = to.convert(double: isDoubleSpread)
+                let newIndex: VisibleIndex = to.convert(double: isDoubleSpread)
+                if _currentPageIndex != newIndex {
+                    pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex, currentIndex: _currentPageIndex)
+                }
+                _currentPageIndex = newIndex
             }
         }
         setLayoutIndex(_currentPageIndex)
