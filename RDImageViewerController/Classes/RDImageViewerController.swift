@@ -625,21 +625,12 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     // MARK: - PagingViewDelegate
     open func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex, currentIndex: PagingView.VisibleIndex) {
         switch index {
-        case let .single(to):
-            let data = contents[to]
-            if data.isPreloadable(), data.isPreloading() {
-                data.stopPreload()
-            }
+        case .single(_):
             if pagingView.scrollDirection.isVertical() {
                 interfaceBehaviour().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
             }
-        case let .double(indexes):
-            for i in indexes {
-                let data = contents[i]
-                if data.isPreloadable(), data.isPreloading() {
-                    data.stopPreload()
-                }
-            }
+        case .double(let _):
+            break
         }
     }
 
@@ -708,7 +699,10 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
     
     open func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {
-        
+        let data = contents[index]
+        if data.isPreloadable() && data.isPreloading() {
+            data.stopPreload()
+        }
     }
     
     // MARK: - ViewController
