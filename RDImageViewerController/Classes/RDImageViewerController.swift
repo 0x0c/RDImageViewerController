@@ -568,17 +568,19 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
     
     public func reloadView(at index: Int) {
-        if numberOfPages > index {
-            let data = contents[index]
-            data.reload()
-            refreshView(at: index)
+        if index < 0 || (numberOfPages - 1) < index {
+            return
         }
+        let data = contents[index]
+        data.reload()
+        refreshView(at: index)
     }
     
     public func refreshView(at index: Int) {
-        if numberOfPages > index, index >= 0 {
-            pagingView.reloadItems(at: [IndexPath(row: index, section: 0)])
+        if index < 0 || (numberOfPages - 1) < index {
+            return
         }
+        pagingView.reloadItems(at: [IndexPath(row: index, section: 0)])
     }
     
     open func changeDirection(_ forwardDirection: PagingView.ForwardDirection) {
@@ -692,6 +694,9 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
 
     open func pagingView(pagingView: PagingView, preloadItemAt index: Int) {
+        if index < 0 || contents.count - 1 < index {
+            return;
+        }
         let data = contents[index]
         if data.isPreloadable() && !data.isPreloading() {
             data.preload()
@@ -699,6 +704,9 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
     
     open func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {
+        if index < 0 || contents.count - 1 < index {
+            return;
+        }
         let data = contents[index]
         if data.isPreloadable() && data.isPreloading() {
             data.stopPreload()
