@@ -692,6 +692,9 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
 
     open func pagingView(pagingView: PagingView, preloadItemAt index: Int) {
+        if index < 0 || contents.count - 1 < index {
+            return;
+        }
         let data = contents[index]
         if data.isPreloadable() && !data.isPreloading() {
             data.preload()
@@ -699,6 +702,9 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
     
     open func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int) {
+        if index < 0 || contents.count - 1 < index {
+            return;
+        }
         let data = contents[index]
         if data.isPreloadable() && data.isPreloading() {
             data.stopPreload()
