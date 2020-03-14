@@ -171,7 +171,14 @@ open class PagingView: UICollectionView {
     public weak var pagingDataSource: (PagingViewDataSource & UICollectionViewDataSource)?
     public weak var pagingDelegate: (PagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
         
-    public var numberOfPages = 0
+    public var numberOfPages: Int {
+        get {
+            guard let pagingDataSource = pagingDataSource else {
+                return 0
+            }
+            return pagingDataSource.collectionView(self, numberOfItemsInSection: 0)
+        }
+    }
     public var preloadCount: Int = 3
     
     private var _isRotating: Bool = false
@@ -336,10 +343,7 @@ open class PagingView: UICollectionView {
     }
     
     open override func reloadData() {
-        guard let pagingDataSource = pagingDataSource else {
-            return
-        }
-        numberOfPages = pagingDataSource.collectionView(self, numberOfItemsInSection: 0)
+        self.collectionViewLayout.invalidateLayout()
         super.reloadData()
     }
     
@@ -457,11 +461,9 @@ extension PagingView : UICollectionViewDataSource
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let pagingDataSource = pagingDataSource else {
-            numberOfPages = 0
-            return numberOfPages
+            return 0
         }
-        numberOfPages = pagingDataSource.collectionView(collectionView, numberOfItemsInSection: section)
-        return numberOfPages
+        return pagingDataSource.collectionView(collectionView, numberOfItemsInSection: section)
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
