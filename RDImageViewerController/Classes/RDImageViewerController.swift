@@ -629,7 +629,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             if pagingView.scrollDirection.isVertical() {
                 interfaceBehaviour().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
             }
-        case .double(let _):
+        case .double(_):
             break
         }
     }
