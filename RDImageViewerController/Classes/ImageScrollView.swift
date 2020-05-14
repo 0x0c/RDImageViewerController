@@ -254,7 +254,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         resize()
     }
     
-    public func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    open func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? ImageContent else {
             return
         }
