@@ -24,6 +24,6 @@ let package = Package(
             .target(
                     name: "RDImageViewerController",
                     dependencies: [],
-                    path: "RDImageViewerController"),
+                    path: "RDImageViewerController/Classes"),
         ]
 )
