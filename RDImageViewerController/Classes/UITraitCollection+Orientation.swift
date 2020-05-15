@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIApplication {
     public func currentWindow() -> UIWindow? {
