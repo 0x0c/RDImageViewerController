@@ -484,14 +484,17 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     
     // MARK: - hud
     func updateHudPosition() {
-        var toolbarPosition = view.frame.height
+        var toolbarXPosition = view.frame.height
         if isSliderEnabled, showSlider, let toolbarItems = toolbarItems, toolbarItems.count > 0 {
-            toolbarPosition = navigationController?.toolbar.frame.minY ?? view.frame.height
+            toolbarXPosition = navigationController?.toolbar.frame.minY ?? view.frame.height
         }
         else if #available(iOS 11.0, *) {
-            toolbarPosition = toolbarPosition - bottomLayoutGuide.length
+            toolbarXPosition = toolbarXPosition - view.safeAreaInsets.bottom
         }
-        updateHudVerticalPosition(position: toolbarPosition)
+        else if #available(iOS 10.0, *) {
+            toolbarXPosition = toolbarXPosition - bottomLayoutGuide.length
+        }
+        updateHudVerticalPosition(position: toolbarXPosition)
     }
 
     func updateHudVerticalPosition(position: CGFloat) {
