@@ -491,7 +491,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         else if #available(iOS 11.0, *) {
             toolbarXPosition = toolbarXPosition - view.safeAreaInsets.bottom
         }
-        else if #available(iOS 10.0, *) {
+        else {
             toolbarXPosition = toolbarXPosition - bottomLayoutGuide.length
         }
         updateHudVerticalPosition(position: toolbarXPosition)
