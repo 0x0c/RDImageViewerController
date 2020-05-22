@@ -6,30 +6,22 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import UIKit
 import RDImageViewerController
+import UIKit
 
 class ScrollableContent: PageContent {
     let color: UIColor
-    
+
     init(color: UIColor) {
         self.color = color
         super.init(type: .nib(UINib(nibName: "ScrollContentView", bundle: nil), ScrollableContentView.self))
     }
-    
-    open override func preload() {
-        
-    }
-    
-    open override func preload(completion: ((PageContent) -> Void)?) {
-        
-    }
-    
-    open override func stopPreload() {
-        
-    }
-    
-    open override func reload() {
-        
-    }
+
+    override open func preload() {}
+
+    override open func preload(completion: ((PageContent) -> Void)?) {}
+
+    override open func stopPreload() {}
+
+    override open func reload() {}
 }

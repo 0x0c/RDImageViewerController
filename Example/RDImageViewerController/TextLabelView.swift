@@ -6,29 +6,23 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import UIKit
 import RDImageViewerController
+import UIKit
 
 class TextLabelView: UICollectionViewCell, PageViewProtocol {
+    @IBOutlet var label: UILabel!
 
-    @IBOutlet weak var label: UILabel!
-    
     func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? TextContent else {
             return
         }
         label.text = data.text
     }
-    
-    
-    func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
-        
-    }
-    
-    func resize() {
-        
-    }
-    
+
+    func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {}
+
+    func resize() {}
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -36,5 +30,4 @@ class TextLabelView: UICollectionViewCell, PageViewProtocol {
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.darkGray.cgColor
     }
-    
 }

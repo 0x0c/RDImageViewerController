@@ -6,39 +6,31 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import UIKit
 import RDImageViewerController
+import UIKit
 
 class TextContent: PageContent {
     let text: String
     var forceFullscreenSize: Bool = false
-    
+
     init(text: String) {
         self.text = text
         super.init(type: .nib(UINib(nibName: "TextLabelView", bundle: nil), TextLabelView.self))
     }
-    
-    open override func preload() {
 
-    }
-    
-    open override func preload(completion: ((PageContent) -> Void)?) {
+    override open func preload() {}
 
-    }
-    
-    open override func stopPreload() {
+    override open func preload(completion: ((PageContent) -> Void)?) {}
 
-    }
-    
-    open override func reload() {
+    override open func stopPreload() {}
 
-    }
-    
-    open override func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
+    override open func reload() {}
+
+    override open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
         if traitCollection.isLandscape(), isDoubleSpread, forceFullscreenSize == false {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }
-        
+
         return rect.size
     }
 }

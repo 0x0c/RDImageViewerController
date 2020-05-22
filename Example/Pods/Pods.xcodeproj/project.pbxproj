@@ -6,419 +6,637 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		1CD0618C486973D5588EF20D2E8C0AEA /* SwiftFormat */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6B2B7DF197DF6A7CA487150557230A41 /* Build configuration list for PBXAggregateTarget "SwiftFormat" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = SwiftFormat;
+		};
+		52B60EC2A583F24ACBB69C113F5488B9 /* SwiftLint */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AE7B4FB01588B9E6DF09CB79FC7CE7BD /* Build configuration list for PBXAggregateTarget "SwiftLint" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = SwiftLint;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		064824C8096BA58C4EEDC71ACCFDB5CD /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
-		13CE962B8C7972BE77E9753C63DD411C /* RDImageViewerController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F048B42350105E2D9A23E8E30DFC684 /* RDImageViewerController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2BD38F2255FFD7EA7155C20B5831EDDF /* Pods-RDImageViewerController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 685D5C6641728F875EF78942E7295C97 /* Pods-RDImageViewerController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		32B1CF043B82C6EF1F883C81674A2E23 /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* ImageContent.swift */; };
-		4D60DA0F3D15448769FF113698524E49 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* ImageScrollView.swift */; };
-		66A908C94896C47D70AA179020B8B479 /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* PageContent.swift */; };
-		71F98BC5C006E8B7154E705B9644B9C2 /* Pods-RDImageViewerController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B43D6A165B2FF00F9404D57FF53D0968 /* Pods-RDImageViewerController_Example-dummy.m */; };
-		7F7965CF9CFF1F28D43893737A6C7928 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* PagingView.swift */; };
-		8595292DEB2DA98C85D036A5EC7E0597 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		995E6C886692DD22364EA02C4E550346 /* Pods-RDImageViewerController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0797A0346425B7D5926317FD162A4D2A /* Pods-RDImageViewerController_Tests-dummy.m */; };
-		ADB8A28C7E7A0F29EA56951E4EFB50E1 /* RDImageViewerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D825DA6F6B6339B0C76AD2A87A7EE12 /* RDImageViewerController-dummy.m */; };
-		CCF812C2321EB32023B8CF4EC5BC45C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		D35C17F9105BD52B2D4358BD11C2E9CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		D42F4C9B0AD6C325CEBD274EAE859EDF /* RemoteImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RemoteImageContent.swift */; };
-		DDAA0C8D0E9FB71EE1E5F76A9EB5BDE6 /* Pods-RDImageViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCDEBE1DFAC168629FDBE88D3942B84 /* Pods-RDImageViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E9066C0E225C884E00EA76BA /* PagingViewRightToLeftFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C0C225C87FC00EA76BA /* PagingViewRightToLeftFlowLayout.swift */; };
-		E9066C13225C920A00EA76BA /* PagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C11225C920500EA76BA /* PagingViewBottomToTopLayout.swift */; };
-		E9066C21225CDD3900EA76BA /* PagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C1F225CDD3800EA76BA /* PagingViewVerticalFlowLayout.swift */; };
-		E9066C22225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C20225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift */; };
-		E907AE37225D18B100615D72 /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5807348D5A24DA675CFEAFD43DFDE661 /* ImageContent.swift */; };
-		E907AE38225D18B100615D72 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4DE8EDF4E90E0C329042B8361BF5B /* ImageScrollView.swift */; };
-		E907AE39225D18B100615D72 /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */; };
-		E907AE3A225D18B100615D72 /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566956B463483645D2DA826B9E16BDAF /* PageContent.swift */; };
-		E907AE3B225D18B100615D72 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2596B47787510671B7994791021BBD8B /* PagingView.swift */; };
-		E907AE3C225D18B100615D72 /* RemoteImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43C1C4726CFFE602DD265F0D69812 /* RemoteImageContent.swift */; };
-		E907AE3D225D18B100615D72 /* RemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */; };
-		E907AE3E225D18B100615D72 /* PagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C11225C920500EA76BA /* PagingViewBottomToTopLayout.swift */; };
-		E907AE3F225D18B100615D72 /* PagingViewRightToLeftFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C0C225C87FC00EA76BA /* PagingViewRightToLeftFlowLayout.swift */; };
-		E907AE40225D18B100615D72 /* PagingViewHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C20225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift */; };
-		E907AE41225D18B100615D72 /* PagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9066C1F225CDD3800EA76BA /* PagingViewVerticalFlowLayout.swift */; };
-		E937265823CF6910001A3490 /* PagingViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */; };
-		E937265923CF6917001A3490 /* PagingViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */; };
-		E949DA8F23CC5B18004F39A0 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949DA8E23CC5B18004F39A0 /* PageHud.swift */; };
-		E949DA9023CC5CA4004F39A0 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949DA8E23CC5B18004F39A0 /* PageHud.swift */; };
-		E9A6679723D776D00010D040 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */; };
-		E9A6679823D776DB0010D040 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */; };
-		E9BE4C92225BA6DF00FD031D /* RemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */; };
+		0D49AAC04A3137F9919A1E5990A0299A /* RDImageViewerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE72FF4826DA4FC85AB3CFF7268585 /* RDImageViewerController-dummy.m */; };
+		0D6C8ED3B1C5A51CFAFBFEBD5700FD9D /* DoubleSpreadConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA3D4115BDF2FACCD93CF2EFB2FC9F /* DoubleSpreadConfiguration.swift */; };
+		1E1BDB40DF4CEECA28794DF1D4B12C1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E1C8ECFE9284F04F4D4F2A875AA4C1 /* Foundation.framework */; };
+		25CA902BA4F7A3175A01E0BF48870787 /* DoubleSpreadPageBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPageBehaviour.swift */; };
+		29F477B426E97AC81C2D867965814EE7 /* PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 3481D0A7F2ACE3B7EFE15B4034178A11 /* PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D024FAD7B27E1D8C748930A0E67DCAB /* Pods-RDImageViewerController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A8E318F42655E0F072CAB3AA5C1E7 /* Pods-RDImageViewerController_Tests-dummy.m */; };
+		2FE186CC53B03E7543E7E8C05DCFA05E /* HudBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749032011E26CCE5672F71403CEE35A /* HudBehaviour.swift */; };
+		313F81AEC709295C569BAD4817A16D52 /* PagingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DF1B128AF9B6A94B017E431F2FC69 /* PagingBehaviour.swift */; };
+		3A3EDB1DA2E81D738BA1BC50F9920E8E /* SinglePageBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D21B03DAE669D9D5F4E332142BE32 /* SinglePageBehaviour.swift */; };
+		3C41E061AD6C5265DCDCCC5638E34BF8 /* PagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F65AB2787ECAFF8D2E9410D52569426 /* PagingViewBottomToTopLayout.swift */; };
+		3FEA79AB938D263EDD0576109321847D /* NSArray+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 53CDDB14293196B39D8D5F328F9881B1 /* NSArray+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43D4E103252A938B9075F18B7626FD22 /* Pods-RDImageViewerController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1949F8AE2A1ABF4B1490006F9F40BC /* Pods-RDImageViewerController_Example-dummy.m */; };
+		47C4C0405D15562F54BB871EF4C2729F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E1C8ECFE9284F04F4D4F2A875AA4C1 /* Foundation.framework */; };
+		4ACE29C32E8001AE3F45462877668FC1 /* SliderBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = F127CD72723405FC1B09645D4D9271AF /* SliderBehaviour.swift */; };
+		516464DB7004848131A1A280E725BB30 /* NSLayoutConstraint+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AE59B752E0E4A9876060AD425FF1C1B /* NSLayoutConstraint+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		556EDFD8EBCFD02D61DA9F67671B9153 /* Pods-RDImageViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EE94C24F1B6DE777C9AFB51ECF4C1F70 /* Pods-RDImageViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58E0263E8F9D10512FA8B2339A689D5B /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13780D208CA39779EEB546AAC96B14A0 /* ImageContent.swift */; };
+		5E9A0EA8A67C8B442E58610A0D43E1A9 /* RDImageViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25DC2C3B23F01572C9B217932FBA76A /* RDImageViewerController.swift */; };
+		71AB0388F848434B2F1E3338DC5DD5FF /* PagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F8AB2CE573EFFF2DDD4E1F6B14C89E /* PagingViewVerticalFlowLayout.swift */; };
+		728B2A0799A8A82EBB1AE8600B1FEE33 /* PagingViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCD152A7F8F093D27F1DDFB581FABE /* PagingViewFlowLayout.swift */; };
+		72FB0FB0559BD93D44832B1CCEE8C3D2 /* UITraitCollection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F8F32D97EB96118EDB4526AE943025 /* UITraitCollection+Orientation.swift */; };
+		7C1A7AA077DA3084CA7E2D22A1601524 /* PagingViewRightToLeftFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B2699E2B7BA1209E5BB63DEB930376 /* PagingViewRightToLeftFlowLayout.swift */; };
+		90E11860B6F9BDC73E00A1AF0116A0BA /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B73BCBBD2B525A56EE2B71E8496884 /* ALView+PureLayout.m */; };
+		93AD1810EE6A69434E707685C1ED1C64 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E9EB6BB3A8D7B4BC427BC42D2E933A /* PagingView.swift */; };
+		AE028A669BDCC596930B9CD7B34C231D /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 99CD47A5ACA8DCE4A40C98CD8AA499BF /* NSArray+PureLayout.m */; };
+		AE3E43025FC32DFB35A91FCDD4893BF9 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B9DAEABA968259DB72917679E802D1 /* ImageScrollView.swift */; };
+		B27500A5D6E2C08E775FBCC6C5924FE9 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167F14D39D39C9FD8D616818BF83C713 /* PageHud.swift */; };
+		B45733DF72B8F6519ED2C771C8E252EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E1C8ECFE9284F04F4D4F2A875AA4C1 /* Foundation.framework */; };
+		B8CBBBA94817719DC1F15A4E398B7463 /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD406284E61D9D902CDBBEE1C05C07D /* PageContent.swift */; };
+		C083E0C1A52728A974A958C249DFBFCC /* PureLayout+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = BDD897B92E7918F58D8ADFC7644B72C9 /* PureLayout+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CAEF5A694258EA759B5AC90CBEB72CCC /* PureLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E20280C75BD33603770C7D440CCA60 /* PureLayout-dummy.m */; };
+		CE4A4613E048E61DCDEB6B4C6AA5487E /* PureLayoutDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 1613A14C99F948EC4F1C9D16E0B8BEF6 /* PureLayoutDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4CC772FE1C93BE1CE457F7B06D9A7E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E1C8ECFE9284F04F4D4F2A875AA4C1 /* Foundation.framework */; };
+		D64335AFA176E95D8A1892337EDB9819 /* PureLayout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A8E2161DF974394EB3599FC2B393A0D5 /* PureLayout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DBF45D59546F58E4F8118B65DBC9B0F4 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 328EDE774578B7E9C40683444FC0D9D0 /* NSLayoutConstraint+PureLayout.m */; };
+		DC0FE6974DCF849E17B090A0C1A34CCA /* PagingViewHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC40395DA8762456E966F19EF631436 /* PagingViewHorizontalFlowLayout.swift */; };
+		E3D78F86315EC9B1105A8D662ABC52C9 /* RemoteImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770A0FFD09D50CD6C4EADC3520738C8 /* RemoteImageContent.swift */; };
+		E4F39B308AB99B19A1BBBF56A81A6A4F /* Pods-RDImageViewerController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 678D7780344B13E0CDA2B1F261A52514 /* Pods-RDImageViewerController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE3903AC92477CAE5D7295E0C04082C0 /* ALView+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 28ACB1C407CBE1172AB5D250FEFCECB3 /* ALView+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0CBA015D7A6385A642F284C0A7931F2 /* RDImageViewerController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 99B8426F4120E843BA65FD82C7B44213 /* RDImageViewerController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F56CDF52B5675EF34C904FAE0FE95705 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06AA4C08CD7F731602FF781270AE453 /* PureLayout.framework */; };
+		F6CCC6B84F227A3FE8AD3EA0B82BE0F1 /* UISlider+Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8426C70C47F1883776CCD566A89EE135 /* UISlider+Position.swift */; };
+		FB6E5C42F1FEC8EC3B81BAB74B8609B2 /* RemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930C69B91D0B2C666CB33CB592341331 /* RemoteImageScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		16B44FE9BA454E62627318E45C6F654B /* PBXContainerItemProxy */ = {
+		0F77927FD3674E9D2C3F12130B9FE205 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 43B09F5CFB0626E52225097B69005692;
+			remoteGlobalIDString = A081B24E1CABC24E50F1EDA482D48FA5;
+			remoteInfo = RDImageViewerController;
+		};
+		17FAEB80270B479FFF3D90CD784F9E03 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 06F5CDD6235E25837519792853B145A1;
+			remoteInfo = PureLayout;
+		};
+		23E37C2CDF3487AFC5F1928840654E48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 06F5CDD6235E25837519792853B145A1;
+			remoteInfo = PureLayout;
+		};
+		314B64A3E2CFF8E9E1ACB38A07743A63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7620E3AD6CE1400AC9BD146201342D80;
 			remoteInfo = "Pods-RDImageViewerController_Example";
 		};
-		C70DA54A256BDA8645BACB440CD2BB33 /* PBXContainerItemProxy */ = {
+		F596EEF60A1777A5D45CA3B01618E595 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C76F8262472D8477CABB5E3680EC0EBE;
-			remoteInfo = RDImageViewerController;
+			remoteGlobalIDString = 1CD0618C486973D5588EF20D2E8C0AEA;
+			remoteInfo = SwiftFormat;
+		};
+		FEDB461FF40086228F7664C23BB18423 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52B60EC2A583F24ACBB69C113F5488B9;
+			remoteInfo = SwiftLint;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0797A0346425B7D5926317FD162A4D2A /* Pods-RDImageViewerController_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RDImageViewerController_Tests-dummy.m"; sourceTree = "<group>"; };
-		083CEE947633BB84DA83524BDAFCCAF8 /* Pods-RDImageViewerController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		18F4DE8EDF4E90E0C329042B8361BF5B /* ImageScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageScrollView.swift; path = RDImageViewerController/Classes/ImageScrollView.swift; sourceTree = "<group>"; };
-		1F048B42350105E2D9A23E8E30DFC684 /* RDImageViewerController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RDImageViewerController-umbrella.h"; sourceTree = "<group>"; };
-		205B5A6897C687BE3BBE2112A7000388 /* Pods-RDImageViewerController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		23B1E5A535C3AC6317ACD630AE5B10B6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		24AE7954BEE250D1C66522D0D1970812 /* Pods-RDImageViewerController_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RDImageViewerController_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2596B47787510671B7994791021BBD8B /* PagingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingView.swift; path = RDImageViewerController/Classes/PagingView.swift; sourceTree = "<group>"; };
-		3C6EBDC80B439CDB9DB1CE2567D01223 /* Pods_RDImageViewerController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F8E33FE439AE99E6D9FEC58928D7BF6 /* Pods-RDImageViewerController_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RDImageViewerController_Example.modulemap"; sourceTree = "<group>"; };
-		566956B463483645D2DA826B9E16BDAF /* PageContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PageContent.swift; path = RDImageViewerController/Classes/PageContent.swift; sourceTree = "<group>"; };
-		5807348D5A24DA675CFEAFD43DFDE661 /* ImageContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageContent.swift; path = RDImageViewerController/Classes/ImageContent.swift; sourceTree = "<group>"; };
-		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		680756B665CBF105B9B08F85117B4605 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		685D5C6641728F875EF78942E7295C97 /* Pods-RDImageViewerController_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Tests-umbrella.h"; sourceTree = "<group>"; };
-		6A03AA9644B563707FE60A2350765424 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		7D825DA6F6B6339B0C76AD2A87A7EE12 /* RDImageViewerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RDImageViewerController-dummy.m"; sourceTree = "<group>"; };
-		82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDImageViewerController.swift; path = RDImageViewerController/Classes/RDImageViewerController.swift; sourceTree = "<group>"; };
-		8CB155CE434488AC9D9B02C7794FA7F8 /* Pods-RDImageViewerController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		8D20F81F296FC82C3B466186BDE88F19 /* Pods-RDImageViewerController_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Tests-resources.sh"; sourceTree = "<group>"; };
-		8FC353157A653D46F1AFC57383751650 /* RDImageViewerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RDImageViewerController-prefix.pch"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9D7F2DFBF41A1EB38E490462E7EC0039 /* Pods-RDImageViewerController_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RDImageViewerController_Tests.modulemap"; sourceTree = "<group>"; };
-		A7355A6920CDA2CBEB6E5B6695C26A48 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A904FEAFCBE7DB4122D65E600CF38526 /* Pods-RDImageViewerController_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RDImageViewerController_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		AFFB0F1E47E1B573BC233299DE70F9F0 /* Pods-RDImageViewerController_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Example-frameworks.sh"; sourceTree = "<group>"; };
-		B24FE0893FECB015F210CCEC1E2D94DA /* Pods-RDImageViewerController_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Example-resources.sh"; sourceTree = "<group>"; };
-		B2B2E1A258CC5D43A35EA552061694D8 /* Pods-RDImageViewerController_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RDImageViewerController_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		B43D6A165B2FF00F9404D57FF53D0968 /* Pods-RDImageViewerController_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RDImageViewerController_Example-dummy.m"; sourceTree = "<group>"; };
-		B57243995256C8577D8B828F8B9ED2A2 /* RDImageViewerController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = RDImageViewerController.modulemap; sourceTree = "<group>"; };
-		B77D07363970CFC809F97F23183E6E53 /* Pods-RDImageViewerController_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RDImageViewerController_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		C02AC045DA9E1409180237EA9B9310A6 /* RDImageViewerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RDImageViewerController.xcconfig; sourceTree = "<group>"; };
-		CDCDEBE1DFAC168629FDBE88D3942B84 /* Pods-RDImageViewerController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Example-umbrella.h"; sourceTree = "<group>"; };
-		D7395D2FDA6455ECAECEA681302176F8 /* Pods_RDImageViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D83A4636BEEB8FCEC6AA10930219F76E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D8402227CF0E2CD718BAAF371B15CFC8 /* Pods-RDImageViewerController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Example.release.xcconfig"; sourceTree = "<group>"; };
-		D8E43C1C4726CFFE602DD265F0D69812 /* RemoteImageContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RemoteImageContent.swift; path = RDImageViewerController/Classes/RemoteImageContent.swift; sourceTree = "<group>"; };
-		E8B79A0AE42EA3FCE3CF24CBA1C0EEEE /* Pods-RDImageViewerController_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		E9066C0C225C87FC00EA76BA /* PagingViewRightToLeftFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewRightToLeftFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewRightToLeftFlowLayout.swift; sourceTree = "<group>"; };
-		E9066C11225C920500EA76BA /* PagingViewBottomToTopLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewBottomToTopLayout.swift; path = RDImageViewerController/Classes/PagingViewBottomToTopLayout.swift; sourceTree = "<group>"; };
-		E9066C1F225CDD3800EA76BA /* PagingViewVerticalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewVerticalFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewVerticalFlowLayout.swift; sourceTree = "<group>"; };
-		E9066C20225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewHorizontalFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewHorizontalFlowLayout.swift; sourceTree = "<group>"; };
-		E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PagingViewFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewFlowLayout.swift; sourceTree = "<group>"; };
-		E949DA8E23CC5B18004F39A0 /* PageHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageHud.swift; path = RDImageViewerController/Classes/PageHud.swift; sourceTree = "<group>"; };
-		E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITraitCollection+Orientation.swift"; path = "RDImageViewerController/Classes/UITraitCollection+Orientation.swift"; sourceTree = "<group>"; };
-		E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteImageScrollView.swift; path = RDImageViewerController/Classes/RemoteImageScrollView.swift; sourceTree = "<group>"; };
-		F20055BF70B762A3A319D58473545EBD /* RDImageViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RDImageViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F39303BE14FE782222E15AEC0804C378 /* RDImageViewerController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = RDImageViewerController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		02E1C8ECFE9284F04F4D4F2A875AA4C1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		044767EA090835B1F8A65B3A5CBE7497 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		07378B454DFE786831F7EF098615AACE /* SwiftFormat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftFormat.debug.xcconfig; sourceTree = "<group>"; };
+		07B59158DC7905C951BE2EA4AFA88DE6 /* RDImageViewerController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = RDImageViewerController.modulemap; sourceTree = "<group>"; };
+		13780D208CA39779EEB546AAC96B14A0 /* ImageContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageContent.swift; path = RDImageViewerController/Classes/ImageContent.swift; sourceTree = "<group>"; };
+		1613A14C99F948EC4F1C9D16E0B8BEF6 /* PureLayoutDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayoutDefines.h; path = PureLayout/PureLayout/PureLayoutDefines.h; sourceTree = "<group>"; };
+		167F14D39D39C9FD8D616818BF83C713 /* PageHud.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PageHud.swift; path = RDImageViewerController/Classes/PageHud.swift; sourceTree = "<group>"; };
+		1ACA3D4115BDF2FACCD93CF2EFB2FC9F /* DoubleSpreadConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DoubleSpreadConfiguration.swift; path = RDImageViewerController/Classes/DoubleSpreadConfiguration.swift; sourceTree = "<group>"; };
+		1AE59B752E0E4A9876060AD425FF1C1B /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+PureLayout.h"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		224A8E318F42655E0F072CAB3AA5C1E7 /* Pods-RDImageViewerController_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RDImageViewerController_Tests-dummy.m"; sourceTree = "<group>"; };
+		28ACB1C407CBE1172AB5D250FEFCECB3 /* ALView+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ALView+PureLayout.h"; path = "PureLayout/PureLayout/ALView+PureLayout.h"; sourceTree = "<group>"; };
+		2CE3ADADB65B63DB190AB0D765A84402 /* Pods-RDImageViewerController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		2D52797F22153A7C539D175009A70FEB /* RDImageViewerController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = RDImageViewerController.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPageBehaviour.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DoubleSpreadPageBehaviour.swift; path = RDImageViewerController/Classes/DoubleSpreadPageBehaviour.swift; sourceTree = "<group>"; };
+		328EDE774578B7E9C40683444FC0D9D0 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+PureLayout.m"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
+		3481D0A7F2ACE3B7EFE15B4034178A11 /* PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout.h; sourceTree = "<group>"; };
+		39F2EFACE7D48346C0807058CC94F905 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		3A60B1292DFFF6BBD1B33B365D09E5EF /* RDImageViewerController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "RDImageViewerController-Info.plist"; sourceTree = "<group>"; };
+		3AACDB55F39BFE1BCF5621F74CEB39BA /* Pods-RDImageViewerController_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RDImageViewerController_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		3B2B1670C9FE1CE1A3EE78A571368A0B /* Pods-RDImageViewerController_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RDImageViewerController_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		3F6084D2A498F6B3CB092B089B96F9CC /* Pods-RDImageViewerController_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RDImageViewerController_Tests-Info.plist"; sourceTree = "<group>"; };
+		3F65AB2787ECAFF8D2E9410D52569426 /* PagingViewBottomToTopLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingViewBottomToTopLayout.swift; path = RDImageViewerController/Classes/PagingViewBottomToTopLayout.swift; sourceTree = "<group>"; };
+		45F8AB2CE573EFFF2DDD4E1F6B14C89E /* PagingViewVerticalFlowLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingViewVerticalFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewVerticalFlowLayout.swift; sourceTree = "<group>"; };
+		53CDDB14293196B39D8D5F328F9881B1 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+PureLayout.h"; path = "PureLayout/PureLayout/NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		56E3B54C111E732A7B0BCA7CB981DAF4 /* PureLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PureLayout-prefix.pch"; sourceTree = "<group>"; };
+		5EBE11606FBE2D292A848F3B6754C0A1 /* SwiftLint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.release.xcconfig; sourceTree = "<group>"; };
+		664467C5911E53A867D177FCDDAA3CDD /* Pods-RDImageViewerController_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RDImageViewerController_Tests.modulemap"; sourceTree = "<group>"; };
+		667DF1B128AF9B6A94B017E431F2FC69 /* PagingBehaviour.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingBehaviour.swift; path = RDImageViewerController/Classes/PagingBehaviour.swift; sourceTree = "<group>"; };
+		678D7780344B13E0CDA2B1F261A52514 /* Pods-RDImageViewerController_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Tests-umbrella.h"; sourceTree = "<group>"; };
+		6BCEC28B9C8BC95A4D082BBA948355ED /* PureLayout-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "PureLayout-Info.plist"; sourceTree = "<group>"; };
+		74ABC4CF287BA1B79E423C20341CE1F1 /* Pods-RDImageViewerController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		77D22413154872AF10A0787FDD60ACD9 /* SwiftFormat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftFormat.release.xcconfig; sourceTree = "<group>"; };
+		8426C70C47F1883776CCD566A89EE135 /* UISlider+Position.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UISlider+Position.swift"; path = "RDImageViewerController/Classes/UISlider+Position.swift"; sourceTree = "<group>"; };
+		8AD406284E61D9D902CDBBEE1C05C07D /* PageContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PageContent.swift; path = RDImageViewerController/Classes/PageContent.swift; sourceTree = "<group>"; };
+		8E27E063A1FE3948C768034522D0C1A7 /* Pods-RDImageViewerController_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RDImageViewerController_Example.modulemap"; sourceTree = "<group>"; };
+		930C69B91D0B2C666CB33CB592341331 /* RemoteImageScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RemoteImageScrollView.swift; path = RDImageViewerController/Classes/RemoteImageScrollView.swift; sourceTree = "<group>"; };
+		9749032011E26CCE5672F71403CEE35A /* HudBehaviour.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HudBehaviour.swift; path = RDImageViewerController/Classes/HudBehaviour.swift; sourceTree = "<group>"; };
+		99B8426F4120E843BA65FD82C7B44213 /* RDImageViewerController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RDImageViewerController-umbrella.h"; sourceTree = "<group>"; };
+		99CD47A5ACA8DCE4A40C98CD8AA499BF /* NSArray+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PureLayout.m"; path = "PureLayout/PureLayout/NSArray+PureLayout.m"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9E400FC814E4D1CAAA67F1162D1740A6 /* SwiftLint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.debug.xcconfig; sourceTree = "<group>"; };
+		9EDE72FF4826DA4FC85AB3CFF7268585 /* RDImageViewerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RDImageViewerController-dummy.m"; sourceTree = "<group>"; };
+		A2B89F7890DD3DF8346509CEF0CA977C /* Pods-RDImageViewerController_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RDImageViewerController_Example-frameworks.sh"; sourceTree = "<group>"; };
+		A39359AD451BC05A1F45EB2F4D79033F /* RDImageViewerController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RDImageViewerController.debug.xcconfig; sourceTree = "<group>"; };
+		A8E2161DF974394EB3599FC2B393A0D5 /* PureLayout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PureLayout-umbrella.h"; sourceTree = "<group>"; };
+		A9B4C718D2E156925853BF165E154F7F /* Pods-RDImageViewerController_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RDImageViewerController_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A9BCD152A7F8F093D27F1DDFB581FABE /* PagingViewFlowLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingViewFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewFlowLayout.swift; sourceTree = "<group>"; };
+		B06AA4C08CD7F731602FF781270AE453 /* PureLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PureLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4AB454C130D14B3CC1142A8FA522686 /* RDImageViewerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RDImageViewerController.release.xcconfig; sourceTree = "<group>"; };
+		BA3F4C0309343CF55CE3236A895114C9 /* Pods-RDImageViewerController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Example.release.xcconfig"; sourceTree = "<group>"; };
+		BDD897B92E7918F58D8ADFC7644B72C9 /* PureLayout+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PureLayout+Internal.h"; path = "PureLayout/PureLayout/PureLayout+Internal.h"; sourceTree = "<group>"; };
+		C0E20280C75BD33603770C7D440CCA60 /* PureLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PureLayout-dummy.m"; sourceTree = "<group>"; };
+		C5D6B4F714AFCB9F48E17E3577A413E4 /* RDImageViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RDImageViewerController.framework; path = RDImageViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6A83D0B2AAD4FE2CDA4E0B3C44EE061 /* PureLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.debug.xcconfig; sourceTree = "<group>"; };
+		C755B449F4D38DFC93796CCB52D13845 /* Pods-RDImageViewerController_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RDImageViewerController_Example-Info.plist"; sourceTree = "<group>"; };
+		C7F8F32D97EB96118EDB4526AE943025 /* UITraitCollection+Orientation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UITraitCollection+Orientation.swift"; path = "RDImageViewerController/Classes/UITraitCollection+Orientation.swift"; sourceTree = "<group>"; };
+		C8B9DAEABA968259DB72917679E802D1 /* ImageScrollView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageScrollView.swift; path = RDImageViewerController/Classes/ImageScrollView.swift; sourceTree = "<group>"; };
+		C974675619FC5A80C65EC6A713408A42 /* Pods-RDImageViewerController_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RDImageViewerController_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D25DC2C3B23F01572C9B217932FBA76A /* RDImageViewerController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RDImageViewerController.swift; path = RDImageViewerController/Classes/RDImageViewerController.swift; sourceTree = "<group>"; };
+		D2C2BEC233CA5BB8FE5A29FDD044A814 /* Pods_RDImageViewerController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RDImageViewerController_Tests.framework; path = "Pods-RDImageViewerController_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2FC982DA01C8CD00937EB0A3973C995 /* Pods-RDImageViewerController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		D636ED519F274A52E1DEE30FB354894F /* RDImageViewerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RDImageViewerController-prefix.pch"; sourceTree = "<group>"; };
+		D770A0FFD09D50CD6C4EADC3520738C8 /* RemoteImageContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RemoteImageContent.swift; path = RDImageViewerController/Classes/RemoteImageContent.swift; sourceTree = "<group>"; };
+		D7E9EB6BB3A8D7B4BC427BC42D2E933A /* PagingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingView.swift; path = RDImageViewerController/Classes/PagingView.swift; sourceTree = "<group>"; };
+		DA1949F8AE2A1ABF4B1490006F9F40BC /* Pods-RDImageViewerController_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RDImageViewerController_Example-dummy.m"; sourceTree = "<group>"; };
+		DA5AF4B43FDBDCD4865E042ED2708FED /* PureLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PureLayout.modulemap; sourceTree = "<group>"; };
+		DBC40395DA8762456E966F19EF631436 /* PagingViewHorizontalFlowLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingViewHorizontalFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewHorizontalFlowLayout.swift; sourceTree = "<group>"; };
+		E4E7B3DD46ABB0DBBB56BD5AE90E4911 /* PureLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PureLayout.framework; path = PureLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5B2699E2B7BA1209E5BB63DEB930376 /* PagingViewRightToLeftFlowLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagingViewRightToLeftFlowLayout.swift; path = RDImageViewerController/Classes/PagingViewRightToLeftFlowLayout.swift; sourceTree = "<group>"; };
+		E8B73BCBBD2B525A56EE2B71E8496884 /* ALView+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ALView+PureLayout.m"; path = "PureLayout/PureLayout/ALView+PureLayout.m"; sourceTree = "<group>"; };
+		ED4B1CAAE3730662264844D810AC1568 /* PureLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.release.xcconfig; sourceTree = "<group>"; };
+		EE94C24F1B6DE777C9AFB51ECF4C1F70 /* Pods-RDImageViewerController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Example-umbrella.h"; sourceTree = "<group>"; };
+		F127CD72723405FC1B09645D4D9271AF /* SliderBehaviour.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SliderBehaviour.swift; path = RDImageViewerController/Classes/SliderBehaviour.swift; sourceTree = "<group>"; };
+		F12D21B03DAE669D9D5F4E332142BE32 /* SinglePageBehaviour.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SinglePageBehaviour.swift; path = RDImageViewerController/Classes/SinglePageBehaviour.swift; sourceTree = "<group>"; };
+		F1BCE4E283DE5107C0A2D349D1EAE51A /* Pods_RDImageViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RDImageViewerController_Example.framework; path = "Pods-RDImageViewerController_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		253551D3DDA4EAAB7B4AFB48D1369A79 /* Frameworks */ = {
+		02FBE0A93C9F733CCFF1D4ADE9FD1FBA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D35C17F9105BD52B2D4358BD11C2E9CA /* Foundation.framework in Frameworks */,
+				47C4C0405D15562F54BB871EF4C2729F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6D697D2BC00ED796058EC175D86C2A1F /* Frameworks */ = {
+		0D428E24A60F2BB44F1E7F156C585784 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8595292DEB2DA98C85D036A5EC7E0597 /* Foundation.framework in Frameworks */,
+				B45733DF72B8F6519ED2C771C8E252EE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C71D31EEC280DFC02A9FB6335EC80C9 /* Frameworks */ = {
+		1E03A795465F040C324834238EBA0287 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCF812C2321EB32023B8CF4EC5BC45C1 /* Foundation.framework in Frameworks */,
+				D4CC772FE1C93BE1CE457F7B06D9A7E9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F04B8772B0C488FCAB1D8F0FA96715B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E1BDB40DF4CEECA28794DF1D4B12C1F /* Foundation.framework in Frameworks */,
+				F56CDF52B5675EF34C904FAE0FE95705 /* PureLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1839C0664417775258D0DB578F94B502 /* Targets Support Files */ = {
+		13BAEF332C40797335FA8926A53D4B26 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F4A790EE2EB0A7139B7FAA12FC2CD5DC /* Pods-RDImageViewerController_Example */,
-				88A92A6FDBEC5FD7315B6302FE9D480D /* Pods-RDImageViewerController_Tests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		5E0D919E635D23B70123790B8308F8EF /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */,
+				02E1C8ECFE9284F04F4D4F2A875AA4C1 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		7DB346D0F39D3F0E887471402A8071AB = {
+		45792A5E8704A849AE52F935D3FE1502 /* Pods-RDImageViewerController_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				B5EB4EE84D2D6371F92712E4D0BCDCEE /* Development Pods */,
-				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				B4F5C26F463FCA6333F5A6D2BBB96B11 /* Products */,
-				1839C0664417775258D0DB578F94B502 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		86D4353664230C1DD9E438D4B21F1969 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A7355A6920CDA2CBEB6E5B6695C26A48 /* Info.plist */,
-				B57243995256C8577D8B828F8B9ED2A2 /* RDImageViewerController.modulemap */,
-				C02AC045DA9E1409180237EA9B9310A6 /* RDImageViewerController.xcconfig */,
-				7D825DA6F6B6339B0C76AD2A87A7EE12 /* RDImageViewerController-dummy.m */,
-				8FC353157A653D46F1AFC57383751650 /* RDImageViewerController-prefix.pch */,
-				1F048B42350105E2D9A23E8E30DFC684 /* RDImageViewerController-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/RDImageViewerController";
-			sourceTree = "<group>";
-		};
-		88A92A6FDBEC5FD7315B6302FE9D480D /* Pods-RDImageViewerController_Tests */ = {
-			isa = PBXGroup;
-			children = (
-				23B1E5A535C3AC6317ACD630AE5B10B6 /* Info.plist */,
-				9D7F2DFBF41A1EB38E490462E7EC0039 /* Pods-RDImageViewerController_Tests.modulemap */,
-				24AE7954BEE250D1C66522D0D1970812 /* Pods-RDImageViewerController_Tests-acknowledgements.markdown */,
-				B77D07363970CFC809F97F23183E6E53 /* Pods-RDImageViewerController_Tests-acknowledgements.plist */,
-				0797A0346425B7D5926317FD162A4D2A /* Pods-RDImageViewerController_Tests-dummy.m */,
-				E8B79A0AE42EA3FCE3CF24CBA1C0EEEE /* Pods-RDImageViewerController_Tests-frameworks.sh */,
-				8D20F81F296FC82C3B466186BDE88F19 /* Pods-RDImageViewerController_Tests-resources.sh */,
-				685D5C6641728F875EF78942E7295C97 /* Pods-RDImageViewerController_Tests-umbrella.h */,
-				8CB155CE434488AC9D9B02C7794FA7F8 /* Pods-RDImageViewerController_Tests.debug.xcconfig */,
-				205B5A6897C687BE3BBE2112A7000388 /* Pods-RDImageViewerController_Tests.release.xcconfig */,
+				664467C5911E53A867D177FCDDAA3CDD /* Pods-RDImageViewerController_Tests.modulemap */,
+				C974675619FC5A80C65EC6A713408A42 /* Pods-RDImageViewerController_Tests-acknowledgements.markdown */,
+				3AACDB55F39BFE1BCF5621F74CEB39BA /* Pods-RDImageViewerController_Tests-acknowledgements.plist */,
+				224A8E318F42655E0F072CAB3AA5C1E7 /* Pods-RDImageViewerController_Tests-dummy.m */,
+				3F6084D2A498F6B3CB092B089B96F9CC /* Pods-RDImageViewerController_Tests-Info.plist */,
+				678D7780344B13E0CDA2B1F261A52514 /* Pods-RDImageViewerController_Tests-umbrella.h */,
+				2CE3ADADB65B63DB190AB0D765A84402 /* Pods-RDImageViewerController_Tests.debug.xcconfig */,
+				74ABC4CF287BA1B79E423C20341CE1F1 /* Pods-RDImageViewerController_Tests.release.xcconfig */,
 			);
 			name = "Pods-RDImageViewerController_Tests";
 			path = "Target Support Files/Pods-RDImageViewerController_Tests";
 			sourceTree = "<group>";
 		};
-		B4F5C26F463FCA6333F5A6D2BBB96B11 /* Products */ = {
+		4E8888DCB95329273E07721B0A255574 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D7395D2FDA6455ECAECEA681302176F8 /* Pods_RDImageViewerController_Example.framework */,
-				3C6EBDC80B439CDB9DB1CE2567D01223 /* Pods_RDImageViewerController_Tests.framework */,
-				F20055BF70B762A3A319D58473545EBD /* RDImageViewerController.framework */,
+				F1BCE4E283DE5107C0A2D349D1EAE51A /* Pods_RDImageViewerController_Example.framework */,
+				D2C2BEC233CA5BB8FE5A29FDD044A814 /* Pods_RDImageViewerController_Tests.framework */,
+				E4E7B3DD46ABB0DBBB56BD5AE90E4911 /* PureLayout.framework */,
+				C5D6B4F714AFCB9F48E17E3577A413E4 /* RDImageViewerController.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B5EB4EE84D2D6371F92712E4D0BCDCEE /* Development Pods */ = {
+		5BE4540350509F7B19EE1F9EA94809B0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				ED0A0735B3945613E0AD152162E449AF /* RDImageViewerController */,
+				DA5AF4B43FDBDCD4865E042ED2708FED /* PureLayout.modulemap */,
+				C0E20280C75BD33603770C7D440CCA60 /* PureLayout-dummy.m */,
+				6BCEC28B9C8BC95A4D082BBA948355ED /* PureLayout-Info.plist */,
+				56E3B54C111E732A7B0BCA7CB981DAF4 /* PureLayout-prefix.pch */,
+				A8E2161DF974394EB3599FC2B393A0D5 /* PureLayout-umbrella.h */,
+				C6A83D0B2AAD4FE2CDA4E0B3C44EE061 /* PureLayout.debug.xcconfig */,
+				ED4B1CAAE3730662264844D810AC1568 /* PureLayout.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PureLayout";
+			sourceTree = "<group>";
+		};
+		641D314669425E51B14AFFE3ED7C5A8A /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B2780FBE16C47A997BBE58A39B3D213F /* RDImageViewerController */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+		721F7078381F91F3F4F262AE96B1C22B /* SwiftLint */ = {
 			isa = PBXGroup;
 			children = (
-				5E0D919E635D23B70123790B8308F8EF /* iOS */,
+				C1649C4F153E07FDEB8DE4281B3D5D9A /* Support Files */,
 			);
-			name = Frameworks;
+			name = SwiftLint;
+			path = SwiftLint;
 			sourceTree = "<group>";
 		};
-		E7166E81D25BAF45D1AA5AADA55DB23B /* Pod */ = {
+		7F48D2C9D11ACE1D16D023179D52EBF3 /* Pods-RDImageViewerController_Example */ = {
 			isa = PBXGroup;
 			children = (
-				6A03AA9644B563707FE60A2350765424 /* LICENSE */,
-				F39303BE14FE782222E15AEC0804C378 /* RDImageViewerController.podspec */,
-				680756B665CBF105B9B08F85117B4605 /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		ED0A0735B3945613E0AD152162E449AF /* RDImageViewerController */ = {
-			isa = PBXGroup;
-			children = (
-				E7166E81D25BAF45D1AA5AADA55DB23B /* Pod */,
-				86D4353664230C1DD9E438D4B21F1969 /* Support Files */,
-				5807348D5A24DA675CFEAFD43DFDE661 /* ImageContent.swift */,
-				E9A6679623D776D00010D040 /* UITraitCollection+Orientation.swift */,
-				18F4DE8EDF4E90E0C329042B8361BF5B /* ImageScrollView.swift */,
-				566956B463483645D2DA826B9E16BDAF /* PageContent.swift */,
-				E949DA8E23CC5B18004F39A0 /* PageHud.swift */,
-				2596B47787510671B7994791021BBD8B /* PagingView.swift */,
-				E937265723CF6910001A3490 /* PagingViewFlowLayout.swift */,
-				E9066C11225C920500EA76BA /* PagingViewBottomToTopLayout.swift */,
-				E9066C20225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift */,
-				E9066C0C225C87FC00EA76BA /* PagingViewRightToLeftFlowLayout.swift */,
-				E9066C1F225CDD3800EA76BA /* PagingViewVerticalFlowLayout.swift */,
-				82B79CCAA5008654549B26C65360323C /* RDImageViewerController.swift */,
-				D8E43C1C4726CFFE602DD265F0D69812 /* RemoteImageContent.swift */,
-				E9BE4C90225BA6B600FD031D /* RemoteImageScrollView.swift */,
-			);
-			name = RDImageViewerController;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		F4A790EE2EB0A7139B7FAA12FC2CD5DC /* Pods-RDImageViewerController_Example */ = {
-			isa = PBXGroup;
-			children = (
-				D83A4636BEEB8FCEC6AA10930219F76E /* Info.plist */,
-				3F8E33FE439AE99E6D9FEC58928D7BF6 /* Pods-RDImageViewerController_Example.modulemap */,
-				A904FEAFCBE7DB4122D65E600CF38526 /* Pods-RDImageViewerController_Example-acknowledgements.markdown */,
-				B2B2E1A258CC5D43A35EA552061694D8 /* Pods-RDImageViewerController_Example-acknowledgements.plist */,
-				B43D6A165B2FF00F9404D57FF53D0968 /* Pods-RDImageViewerController_Example-dummy.m */,
-				AFFB0F1E47E1B573BC233299DE70F9F0 /* Pods-RDImageViewerController_Example-frameworks.sh */,
-				B24FE0893FECB015F210CCEC1E2D94DA /* Pods-RDImageViewerController_Example-resources.sh */,
-				CDCDEBE1DFAC168629FDBE88D3942B84 /* Pods-RDImageViewerController_Example-umbrella.h */,
-				083CEE947633BB84DA83524BDAFCCAF8 /* Pods-RDImageViewerController_Example.debug.xcconfig */,
-				D8402227CF0E2CD718BAAF371B15CFC8 /* Pods-RDImageViewerController_Example.release.xcconfig */,
+				8E27E063A1FE3948C768034522D0C1A7 /* Pods-RDImageViewerController_Example.modulemap */,
+				A9B4C718D2E156925853BF165E154F7F /* Pods-RDImageViewerController_Example-acknowledgements.markdown */,
+				3B2B1670C9FE1CE1A3EE78A571368A0B /* Pods-RDImageViewerController_Example-acknowledgements.plist */,
+				DA1949F8AE2A1ABF4B1490006F9F40BC /* Pods-RDImageViewerController_Example-dummy.m */,
+				A2B89F7890DD3DF8346509CEF0CA977C /* Pods-RDImageViewerController_Example-frameworks.sh */,
+				C755B449F4D38DFC93796CCB52D13845 /* Pods-RDImageViewerController_Example-Info.plist */,
+				EE94C24F1B6DE777C9AFB51ECF4C1F70 /* Pods-RDImageViewerController_Example-umbrella.h */,
+				D2FC982DA01C8CD00937EB0A3973C995 /* Pods-RDImageViewerController_Example.debug.xcconfig */,
+				BA3F4C0309343CF55CE3236A895114C9 /* Pods-RDImageViewerController_Example.release.xcconfig */,
 			);
 			name = "Pods-RDImageViewerController_Example";
 			path = "Target Support Files/Pods-RDImageViewerController_Example";
 			sourceTree = "<group>";
 		};
+		8286CE82A4D698745372EA379D556624 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9D7BC8FBD8EB38F7D971D6649AA7CF75 /* PureLayout */,
+				DAD78E40C82C90E652DCB786EF8EABDD /* SwiftFormat */,
+				721F7078381F91F3F4F262AE96B1C22B /* SwiftLint */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		92A87B1CD19F552BE19BD9A82DE15CBB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B06AA4C08CD7F731602FF781270AE453 /* PureLayout.framework */,
+				13BAEF332C40797335FA8926A53D4B26 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9D7BC8FBD8EB38F7D971D6649AA7CF75 /* PureLayout */ = {
+			isa = PBXGroup;
+			children = (
+				28ACB1C407CBE1172AB5D250FEFCECB3 /* ALView+PureLayout.h */,
+				E8B73BCBBD2B525A56EE2B71E8496884 /* ALView+PureLayout.m */,
+				53CDDB14293196B39D8D5F328F9881B1 /* NSArray+PureLayout.h */,
+				99CD47A5ACA8DCE4A40C98CD8AA499BF /* NSArray+PureLayout.m */,
+				1AE59B752E0E4A9876060AD425FF1C1B /* NSLayoutConstraint+PureLayout.h */,
+				328EDE774578B7E9C40683444FC0D9D0 /* NSLayoutConstraint+PureLayout.m */,
+				3481D0A7F2ACE3B7EFE15B4034178A11 /* PureLayout.h */,
+				BDD897B92E7918F58D8ADFC7644B72C9 /* PureLayout+Internal.h */,
+				1613A14C99F948EC4F1C9D16E0B8BEF6 /* PureLayoutDefines.h */,
+				5BE4540350509F7B19EE1F9EA94809B0 /* Support Files */,
+			);
+			name = PureLayout;
+			path = PureLayout;
+			sourceTree = "<group>";
+		};
+		B2780FBE16C47A997BBE58A39B3D213F /* RDImageViewerController */ = {
+			isa = PBXGroup;
+			children = (
+				1ACA3D4115BDF2FACCD93CF2EFB2FC9F /* DoubleSpreadConfiguration.swift */,
+				2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPageBehaviour.swift */,
+				9749032011E26CCE5672F71403CEE35A /* HudBehaviour.swift */,
+				13780D208CA39779EEB546AAC96B14A0 /* ImageContent.swift */,
+				C8B9DAEABA968259DB72917679E802D1 /* ImageScrollView.swift */,
+				8AD406284E61D9D902CDBBEE1C05C07D /* PageContent.swift */,
+				167F14D39D39C9FD8D616818BF83C713 /* PageHud.swift */,
+				667DF1B128AF9B6A94B017E431F2FC69 /* PagingBehaviour.swift */,
+				D7E9EB6BB3A8D7B4BC427BC42D2E933A /* PagingView.swift */,
+				3F65AB2787ECAFF8D2E9410D52569426 /* PagingViewBottomToTopLayout.swift */,
+				A9BCD152A7F8F093D27F1DDFB581FABE /* PagingViewFlowLayout.swift */,
+				DBC40395DA8762456E966F19EF631436 /* PagingViewHorizontalFlowLayout.swift */,
+				E5B2699E2B7BA1209E5BB63DEB930376 /* PagingViewRightToLeftFlowLayout.swift */,
+				45F8AB2CE573EFFF2DDD4E1F6B14C89E /* PagingViewVerticalFlowLayout.swift */,
+				D25DC2C3B23F01572C9B217932FBA76A /* RDImageViewerController.swift */,
+				D770A0FFD09D50CD6C4EADC3520738C8 /* RemoteImageContent.swift */,
+				930C69B91D0B2C666CB33CB592341331 /* RemoteImageScrollView.swift */,
+				F12D21B03DAE669D9D5F4E332142BE32 /* SinglePageBehaviour.swift */,
+				F127CD72723405FC1B09645D4D9271AF /* SliderBehaviour.swift */,
+				8426C70C47F1883776CCD566A89EE135 /* UISlider+Position.swift */,
+				C7F8F32D97EB96118EDB4526AE943025 /* UITraitCollection+Orientation.swift */,
+				F666B8FB48294CFAF6C07B6F90C7AF32 /* Pod */,
+				FE09EF3FA1F425F286FB7A65105D8358 /* Support Files */,
+			);
+			name = RDImageViewerController;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		BBC05AAE7E17F8FB28D2D8BDCF9E971A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				07378B454DFE786831F7EF098615AACE /* SwiftFormat.debug.xcconfig */,
+				77D22413154872AF10A0787FDD60ACD9 /* SwiftFormat.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftFormat";
+			sourceTree = "<group>";
+		};
+		C1649C4F153E07FDEB8DE4281B3D5D9A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9E400FC814E4D1CAAA67F1162D1740A6 /* SwiftLint.debug.xcconfig */,
+				5EBE11606FBE2D292A848F3B6754C0A1 /* SwiftLint.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftLint";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				641D314669425E51B14AFFE3ED7C5A8A /* Development Pods */,
+				92A87B1CD19F552BE19BD9A82DE15CBB /* Frameworks */,
+				8286CE82A4D698745372EA379D556624 /* Pods */,
+				4E8888DCB95329273E07721B0A255574 /* Products */,
+				D2E4291BF26596CD249F8721BA8F4C2B /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D2E4291BF26596CD249F8721BA8F4C2B /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7F48D2C9D11ACE1D16D023179D52EBF3 /* Pods-RDImageViewerController_Example */,
+				45792A5E8704A849AE52F935D3FE1502 /* Pods-RDImageViewerController_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		DAD78E40C82C90E652DCB786EF8EABDD /* SwiftFormat */ = {
+			isa = PBXGroup;
+			children = (
+				BBC05AAE7E17F8FB28D2D8BDCF9E971A /* Support Files */,
+			);
+			name = SwiftFormat;
+			path = SwiftFormat;
+			sourceTree = "<group>";
+		};
+		F666B8FB48294CFAF6C07B6F90C7AF32 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				39F2EFACE7D48346C0807058CC94F905 /* LICENSE */,
+				2D52797F22153A7C539D175009A70FEB /* RDImageViewerController.podspec */,
+				044767EA090835B1F8A65B3A5CBE7497 /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		FE09EF3FA1F425F286FB7A65105D8358 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				07B59158DC7905C951BE2EA4AFA88DE6 /* RDImageViewerController.modulemap */,
+				9EDE72FF4826DA4FC85AB3CFF7268585 /* RDImageViewerController-dummy.m */,
+				3A60B1292DFFF6BBD1B33B365D09E5EF /* RDImageViewerController-Info.plist */,
+				D636ED519F274A52E1DEE30FB354894F /* RDImageViewerController-prefix.pch */,
+				99B8426F4120E843BA65FD82C7B44213 /* RDImageViewerController-umbrella.h */,
+				A39359AD451BC05A1F45EB2F4D79033F /* RDImageViewerController.debug.xcconfig */,
+				B4AB454C130D14B3CC1142A8FA522686 /* RDImageViewerController.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/RDImageViewerController";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		70AB4A7562C392D164400897F6193869 /* Headers */ = {
+		3313614337BD2573E038A5AE0C432EC0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDAA0C8D0E9FB71EE1E5F76A9EB5BDE6 /* Pods-RDImageViewerController_Example-umbrella.h in Headers */,
+				F0CBA015D7A6385A642F284C0A7931F2 /* RDImageViewerController-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BFCA3F9A5EE77D0EA8689E40ED7714AF /* Headers */ = {
+		544CC0B67376CD04A76B55FA8974F38B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BD38F2255FFD7EA7155C20B5831EDDF /* Pods-RDImageViewerController_Tests-umbrella.h in Headers */,
+				EE3903AC92477CAE5D7295E0C04082C0 /* ALView+PureLayout.h in Headers */,
+				3FEA79AB938D263EDD0576109321847D /* NSArray+PureLayout.h in Headers */,
+				516464DB7004848131A1A280E725BB30 /* NSLayoutConstraint+PureLayout.h in Headers */,
+				C083E0C1A52728A974A958C249DFBFCC /* PureLayout+Internal.h in Headers */,
+				D64335AFA176E95D8A1892337EDB9819 /* PureLayout-umbrella.h in Headers */,
+				29F477B426E97AC81C2D867965814EE7 /* PureLayout.h in Headers */,
+				CE4A4613E048E61DCDEB6B4C6AA5487E /* PureLayoutDefines.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C326DFACFE5B2097B8C3F3B36380CB74 /* Headers */ = {
+		D0A27A951212C143034369376B648109 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13CE962B8C7972BE77E9753C63DD411C /* RDImageViewerController-umbrella.h in Headers */,
+				E4F39B308AB99B19A1BBBF56A81A6A4F /* Pods-RDImageViewerController_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA455E47B30CC06A9E19240A54C62498 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				556EDFD8EBCFD02D61DA9F67671B9153 /* Pods-RDImageViewerController_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		43B09F5CFB0626E52225097B69005692 /* Pods-RDImageViewerController_Example */ = {
+		06F5CDD6235E25837519792853B145A1 /* PureLayout */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 566821C0AD9E424B1B6DC35C16674893 /* Build configuration list for PBXNativeTarget "Pods-RDImageViewerController_Example" */;
+			buildConfigurationList = 97C7148CC41A8E2AE2997FBA410BDDCE /* Build configuration list for PBXNativeTarget "PureLayout" */;
 			buildPhases = (
-				70AB4A7562C392D164400897F6193869 /* Headers */,
-				C7E048F4F8AF0CB7502F61A938D65F4A /* Sources */,
-				7C71D31EEC280DFC02A9FB6335EC80C9 /* Frameworks */,
-				E8FF5E170981A3D1424AE363F8D8D64C /* Resources */,
+				544CC0B67376CD04A76B55FA8974F38B /* Headers */,
+				D40A35B0FE6C420CD6BD3A6FD6C3DE47 /* Sources */,
+				0D428E24A60F2BB44F1E7F156C585784 /* Frameworks */,
+				693D6118C8EA30DA148B4891A30AFD5E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D6478514017CD40A7D7F054748874672 /* PBXTargetDependency */,
 			);
-			name = "Pods-RDImageViewerController_Example";
-			productName = "Pods-RDImageViewerController_Example";
-			productReference = D7395D2FDA6455ECAECEA681302176F8 /* Pods_RDImageViewerController_Example.framework */;
+			name = PureLayout;
+			productName = PureLayout;
+			productReference = E4E7B3DD46ABB0DBBB56BD5AE90E4911 /* PureLayout.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		5258935EB5B987823F829693E11BB4BF /* Pods-RDImageViewerController_Tests */ = {
+		7414391A9FFCE5B29FFBAD7AFA1C8C4C /* Pods-RDImageViewerController_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C862CCFF0F992C34D57F5418D4005748 /* Build configuration list for PBXNativeTarget "Pods-RDImageViewerController_Tests" */;
+			buildConfigurationList = E48CD670B5BDA0444A2BE3D2D93699C0 /* Build configuration list for PBXNativeTarget "Pods-RDImageViewerController_Tests" */;
 			buildPhases = (
-				BFCA3F9A5EE77D0EA8689E40ED7714AF /* Headers */,
-				0B0F454E8DD6938B4C30DFD50E4429A6 /* Sources */,
-				6D697D2BC00ED796058EC175D86C2A1F /* Frameworks */,
-				C4142691D80F7F990724B0D0BD060768 /* Resources */,
+				D0A27A951212C143034369376B648109 /* Headers */,
+				4CB1EE4AD2830714C1931115FA6D9BBD /* Sources */,
+				1E03A795465F040C324834238EBA0287 /* Frameworks */,
+				8F84D0DCC7EB4DEB4DD9DC141B1BE411 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				330C9AACE6C6D2702C131C23E0EB4F6F /* PBXTargetDependency */,
+				8CEDC69AA391A5C5E6B41C3F2CF3E297 /* PBXTargetDependency */,
 			);
 			name = "Pods-RDImageViewerController_Tests";
 			productName = "Pods-RDImageViewerController_Tests";
-			productReference = 3C6EBDC80B439CDB9DB1CE2567D01223 /* Pods_RDImageViewerController_Tests.framework */;
+			productReference = D2C2BEC233CA5BB8FE5A29FDD044A814 /* Pods_RDImageViewerController_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C76F8262472D8477CABB5E3680EC0EBE /* RDImageViewerController */ = {
+		7620E3AD6CE1400AC9BD146201342D80 /* Pods-RDImageViewerController_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B70F2787A9C5B8987385E5372AE70D70 /* Build configuration list for PBXNativeTarget "RDImageViewerController" */;
+			buildConfigurationList = F6215058B1C508C8C69758AE85285C2E /* Build configuration list for PBXNativeTarget "Pods-RDImageViewerController_Example" */;
 			buildPhases = (
-				C326DFACFE5B2097B8C3F3B36380CB74 /* Headers */,
-				834B74C3BBAEA63226CC2E25B3C6A053 /* Sources */,
-				253551D3DDA4EAAB7B4AFB48D1369A79 /* Frameworks */,
-				1836303F82714C5D0B2E526D8B44C9A5 /* Resources */,
+				DA455E47B30CC06A9E19240A54C62498 /* Headers */,
+				B433A1A5CA99FA333DA212B8656DDD67 /* Sources */,
+				02FBE0A93C9F733CCFF1D4ADE9FD1FBA /* Frameworks */,
+				A4DF2DD0C6C7AD90109BD78972276965 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				32C7B0A239F0026048B1D9103BB2C37A /* PBXTargetDependency */,
+				E82292BD0B6842B5FAE10CCAF42E3EBF /* PBXTargetDependency */,
+				81747FE828E79F535010DFA03DEC0B31 /* PBXTargetDependency */,
+				A53CACF3DE7041C9D421BCDD3A2ABD32 /* PBXTargetDependency */,
+			);
+			name = "Pods-RDImageViewerController_Example";
+			productName = "Pods-RDImageViewerController_Example";
+			productReference = F1BCE4E283DE5107C0A2D349D1EAE51A /* Pods_RDImageViewerController_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A081B24E1CABC24E50F1EDA482D48FA5 /* RDImageViewerController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9505929820A35D56B6ABA2E4B9B8AEF /* Build configuration list for PBXNativeTarget "RDImageViewerController" */;
+			buildPhases = (
+				3313614337BD2573E038A5AE0C432EC0 /* Headers */,
+				7D9E3BFC41115C6892BB7979378A9820 /* Sources */,
+				F04B8772B0C488FCAB1D8F0FA96715B5 /* Frameworks */,
+				9AE45675875910C922D2D56BA884A562 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4FFD95DA7C674D8BFC896670EFE52470 /* PBXTargetDependency */,
 			);
 			name = RDImageViewerController;
 			productName = RDImageViewerController;
-			productReference = F20055BF70B762A3A319D58473545EBD /* RDImageViewerController.framework */;
+			productReference = C5D6B4F714AFCB9F48E17E3577A413E4 /* RDImageViewerController.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 1020;
-				TargetAttributes = {
-					43B09F5CFB0626E52225097B69005692 = {
-						LastSwiftMigration = 1020;
-					};
-					5258935EB5B987823F829693E11BB4BF = {
-						LastSwiftMigration = 1020;
-					};
-				};
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
 			};
-			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
-			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = B4F5C26F463FCA6333F5A6D2BBB96B11 /* Products */;
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 4E8888DCB95329273E07721B0A255574 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				43B09F5CFB0626E52225097B69005692 /* Pods-RDImageViewerController_Example */,
-				5258935EB5B987823F829693E11BB4BF /* Pods-RDImageViewerController_Tests */,
-				C76F8262472D8477CABB5E3680EC0EBE /* RDImageViewerController */,
+				7620E3AD6CE1400AC9BD146201342D80 /* Pods-RDImageViewerController_Example */,
+				7414391A9FFCE5B29FFBAD7AFA1C8C4C /* Pods-RDImageViewerController_Tests */,
+				06F5CDD6235E25837519792853B145A1 /* PureLayout */,
+				A081B24E1CABC24E50F1EDA482D48FA5 /* RDImageViewerController */,
+				1CD0618C486973D5588EF20D2E8C0AEA /* SwiftFormat */,
+				52B60EC2A583F24ACBB69C113F5488B9 /* SwiftLint */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1836303F82714C5D0B2E526D8B44C9A5 /* Resources */ = {
+		693D6118C8EA30DA148B4891A30AFD5E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C4142691D80F7F990724B0D0BD060768 /* Resources */ = {
+		8F84D0DCC7EB4DEB4DD9DC141B1BE411 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E8FF5E170981A3D1424AE363F8D8D64C /* Resources */ = {
+		9AE45675875910C922D2D56BA884A562 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4DF2DD0C6C7AD90109BD78972276965 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -428,82 +646,109 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0B0F454E8DD6938B4C30DFD50E4429A6 /* Sources */ = {
+		4CB1EE4AD2830714C1931115FA6D9BBD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				995E6C886692DD22364EA02C4E550346 /* Pods-RDImageViewerController_Tests-dummy.m in Sources */,
+				2D024FAD7B27E1D8C748930A0E67DCAB /* Pods-RDImageViewerController_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		834B74C3BBAEA63226CC2E25B3C6A053 /* Sources */ = {
+		7D9E3BFC41115C6892BB7979378A9820 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9BE4C92225BA6DF00FD031D /* RemoteImageScrollView.swift in Sources */,
-				32B1CF043B82C6EF1F883C81674A2E23 /* ImageContent.swift in Sources */,
-				4D60DA0F3D15448769FF113698524E49 /* ImageScrollView.swift in Sources */,
-				ADB8A28C7E7A0F29EA56951E4EFB50E1 /* RDImageViewerController-dummy.m in Sources */,
-				064824C8096BA58C4EEDC71ACCFDB5CD /* RDImageViewerController.swift in Sources */,
-				66A908C94896C47D70AA179020B8B479 /* PageContent.swift in Sources */,
-				E949DA9023CC5CA4004F39A0 /* PageHud.swift in Sources */,
-				7F7965CF9CFF1F28D43893737A6C7928 /* PagingView.swift in Sources */,
-				D42F4C9B0AD6C325CEBD274EAE859EDF /* RemoteImageContent.swift in Sources */,
-				E9066C22225CDD3900EA76BA /* PagingViewHorizontalFlowLayout.swift in Sources */,
-				E9066C21225CDD3900EA76BA /* PagingViewVerticalFlowLayout.swift in Sources */,
-				E9066C0E225C884E00EA76BA /* PagingViewRightToLeftFlowLayout.swift in Sources */,
-				E9066C13225C920A00EA76BA /* PagingViewBottomToTopLayout.swift in Sources */,
-				E9A6679823D776DB0010D040 /* UITraitCollection+Orientation.swift in Sources */,
-				E937265923CF6917001A3490 /* PagingViewFlowLayout.swift in Sources */,
+				0D6C8ED3B1C5A51CFAFBFEBD5700FD9D /* DoubleSpreadConfiguration.swift in Sources */,
+				25CA902BA4F7A3175A01E0BF48870787 /* DoubleSpreadPageBehaviour.swift in Sources */,
+				2FE186CC53B03E7543E7E8C05DCFA05E /* HudBehaviour.swift in Sources */,
+				58E0263E8F9D10512FA8B2339A689D5B /* ImageContent.swift in Sources */,
+				AE3E43025FC32DFB35A91FCDD4893BF9 /* ImageScrollView.swift in Sources */,
+				B8CBBBA94817719DC1F15A4E398B7463 /* PageContent.swift in Sources */,
+				B27500A5D6E2C08E775FBCC6C5924FE9 /* PageHud.swift in Sources */,
+				313F81AEC709295C569BAD4817A16D52 /* PagingBehaviour.swift in Sources */,
+				93AD1810EE6A69434E707685C1ED1C64 /* PagingView.swift in Sources */,
+				3C41E061AD6C5265DCDCCC5638E34BF8 /* PagingViewBottomToTopLayout.swift in Sources */,
+				728B2A0799A8A82EBB1AE8600B1FEE33 /* PagingViewFlowLayout.swift in Sources */,
+				DC0FE6974DCF849E17B090A0C1A34CCA /* PagingViewHorizontalFlowLayout.swift in Sources */,
+				7C1A7AA077DA3084CA7E2D22A1601524 /* PagingViewRightToLeftFlowLayout.swift in Sources */,
+				71AB0388F848434B2F1E3338DC5DD5FF /* PagingViewVerticalFlowLayout.swift in Sources */,
+				0D49AAC04A3137F9919A1E5990A0299A /* RDImageViewerController-dummy.m in Sources */,
+				5E9A0EA8A67C8B442E58610A0D43E1A9 /* RDImageViewerController.swift in Sources */,
+				E3D78F86315EC9B1105A8D662ABC52C9 /* RemoteImageContent.swift in Sources */,
+				FB6E5C42F1FEC8EC3B81BAB74B8609B2 /* RemoteImageScrollView.swift in Sources */,
+				3A3EDB1DA2E81D738BA1BC50F9920E8E /* SinglePageBehaviour.swift in Sources */,
+				4ACE29C32E8001AE3F45462877668FC1 /* SliderBehaviour.swift in Sources */,
+				F6CCC6B84F227A3FE8AD3EA0B82BE0F1 /* UISlider+Position.swift in Sources */,
+				72FB0FB0559BD93D44832B1CCEE8C3D2 /* UITraitCollection+Orientation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C7E048F4F8AF0CB7502F61A938D65F4A /* Sources */ = {
+		B433A1A5CA99FA333DA212B8656DDD67 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71F98BC5C006E8B7154E705B9644B9C2 /* Pods-RDImageViewerController_Example-dummy.m in Sources */,
-				E907AE37225D18B100615D72 /* ImageContent.swift in Sources */,
-				E907AE38225D18B100615D72 /* ImageScrollView.swift in Sources */,
-				E907AE39225D18B100615D72 /* RDImageViewerController.swift in Sources */,
-				E907AE3A225D18B100615D72 /* PageContent.swift in Sources */,
-				E949DA8F23CC5B18004F39A0 /* PageHud.swift in Sources */,
-				E907AE3B225D18B100615D72 /* PagingView.swift in Sources */,
-				E907AE3C225D18B100615D72 /* RemoteImageContent.swift in Sources */,
-				E907AE3D225D18B100615D72 /* RemoteImageScrollView.swift in Sources */,
-				E907AE3E225D18B100615D72 /* PagingViewBottomToTopLayout.swift in Sources */,
-				E907AE3F225D18B100615D72 /* PagingViewRightToLeftFlowLayout.swift in Sources */,
-				E907AE40225D18B100615D72 /* PagingViewHorizontalFlowLayout.swift in Sources */,
-				E937265823CF6910001A3490 /* PagingViewFlowLayout.swift in Sources */,
-				E9A6679723D776D00010D040 /* UITraitCollection+Orientation.swift in Sources */,
-				E907AE41225D18B100615D72 /* PagingViewVerticalFlowLayout.swift in Sources */,
+				43D4E103252A938B9075F18B7626FD22 /* Pods-RDImageViewerController_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D40A35B0FE6C420CD6BD3A6FD6C3DE47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90E11860B6F9BDC73E00A1AF0116A0BA /* ALView+PureLayout.m in Sources */,
+				AE028A669BDCC596930B9CD7B34C231D /* NSArray+PureLayout.m in Sources */,
+				DBF45D59546F58E4F8118B65DBC9B0F4 /* NSLayoutConstraint+PureLayout.m in Sources */,
+				CAEF5A694258EA759B5AC90CBEB72CCC /* PureLayout-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		330C9AACE6C6D2702C131C23E0EB4F6F /* PBXTargetDependency */ = {
+		32C7B0A239F0026048B1D9103BB2C37A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PureLayout;
+			target = 06F5CDD6235E25837519792853B145A1 /* PureLayout */;
+			targetProxy = 17FAEB80270B479FFF3D90CD784F9E03 /* PBXContainerItemProxy */;
+		};
+		4FFD95DA7C674D8BFC896670EFE52470 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PureLayout;
+			target = 06F5CDD6235E25837519792853B145A1 /* PureLayout */;
+			targetProxy = 23E37C2CDF3487AFC5F1928840654E48 /* PBXContainerItemProxy */;
+		};
+		81747FE828E79F535010DFA03DEC0B31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftFormat;
+			target = 1CD0618C486973D5588EF20D2E8C0AEA /* SwiftFormat */;
+			targetProxy = F596EEF60A1777A5D45CA3B01618E595 /* PBXContainerItemProxy */;
+		};
+		8CEDC69AA391A5C5E6B41C3F2CF3E297 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-RDImageViewerController_Example";
-			target = 43B09F5CFB0626E52225097B69005692 /* Pods-RDImageViewerController_Example */;
-			targetProxy = 16B44FE9BA454E62627318E45C6F654B /* PBXContainerItemProxy */;
+			target = 7620E3AD6CE1400AC9BD146201342D80 /* Pods-RDImageViewerController_Example */;
+			targetProxy = 314B64A3E2CFF8E9E1ACB38A07743A63 /* PBXContainerItemProxy */;
 		};
-		D6478514017CD40A7D7F054748874672 /* PBXTargetDependency */ = {
+		A53CACF3DE7041C9D421BCDD3A2ABD32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftLint;
+			target = 52B60EC2A583F24ACBB69C113F5488B9 /* SwiftLint */;
+			targetProxy = FEDB461FF40086228F7664C23BB18423 /* PBXContainerItemProxy */;
+		};
+		E82292BD0B6842B5FAE10CCAF42E3EBF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RDImageViewerController;
-			target = C76F8262472D8477CABB5E3680EC0EBE /* RDImageViewerController */;
-			targetProxy = C70DA54A256BDA8645BACB440CD2BB33 /* PBXContainerItemProxy */;
+			target = A081B24E1CABC24E50F1EDA482D48FA5 /* RDImageViewerController */;
+			targetProxy = 0F77927FD3674E9D2C3F12130B9FE205 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		2013A354E41164A280EB21155B5E7771 /* Release */ = {
+		01C78DE8CAC4CBC7438E2E48CE8EAA10 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 205B5A6897C687BE3BBE2112A7000388 /* Pods-RDImageViewerController_Tests.release.xcconfig */;
+			baseConfigurationReference = BA3F4C0309343CF55CE3236A895114C9 /* Pods-RDImageViewerController_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -514,44 +759,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-RDImageViewerController_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-RDImageViewerController_Tests/Pods-RDImageViewerController_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		24C7447FC52626A5257A2F5AA02A019B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 083CEE947633BB84DA83524BDAFCCAF8 /* Pods-RDImageViewerController_Example.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-RDImageViewerController_Example/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -564,21 +772,18 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		27253EB2B523AA39CC96C41D0E609921 /* Release */ = {
+		1593F3C8C821D12FB31FD28AB0D5DD6A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8402227CF0E2CD718BAAF371B15CFC8 /* Pods-RDImageViewerController_Example.release.xcconfig */;
+			baseConfigurationReference = D2FC982DA01C8CD00937EB0A3973C995 /* Pods-RDImageViewerController_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -589,7 +794,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-RDImageViewerController_Example/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -602,124 +807,16 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		2B1930224F74BC777C88C632C74C49F0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C02AC045DA9E1409180237EA9B9310A6 /* RDImageViewerController.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/RDImageViewerController/RDImageViewerController-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/RDImageViewerController/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/RDImageViewerController/RDImageViewerController.modulemap";
-				PRODUCT_MODULE_NAME = RDImageViewerController;
-				PRODUCT_NAME = RDImageViewerController;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		3EE53A77F81CA27C468D52833027E03D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CB155CE434488AC9D9B02C7794FA7F8 /* Pods-RDImageViewerController_Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-RDImageViewerController_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-RDImageViewerController_Tests/Pods-RDImageViewerController_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		C295788EBD4636591BC69186A7456A61 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C02AC045DA9E1409180237EA9B9310A6 /* RDImageViewerController.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/RDImageViewerController/RDImageViewerController-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/RDImageViewerController/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/RDImageViewerController/RDImageViewerController.modulemap";
-				PRODUCT_MODULE_NAME = RDImageViewerController;
-				PRODUCT_NAME = RDImageViewerController;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		C92782E717C52E3633C9A5F211E7987A /* Debug */ = {
+		196DFA3E4A09A28224918543529A1885 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -748,8 +845,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -776,15 +871,200 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		EA8C7AF90938697605468604B2A17B9F /* Release */ = {
+		1DB798CA4A76BE0F7561B1F197481D42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07378B454DFE786831F7EF098615AACE /* SwiftFormat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		26673A68E866758E420E4ABBE0C64201 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C6A83D0B2AAD4FE2CDA4E0B3C44EE061 /* PureLayout.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/PureLayout/PureLayout-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PureLayout/PureLayout-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PureLayout/PureLayout.modulemap";
+				PRODUCT_MODULE_NAME = PureLayout;
+				PRODUCT_NAME = PureLayout;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		46EECD2DED30D7C5FE141C0B267C2D3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E400FC814E4D1CAAA67F1162D1740A6 /* SwiftLint.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		55DD740115BE746C8DBB7753806D85D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EBE11606FBE2D292A848F3B6754C0A1 /* SwiftLint.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5FC5F7B0423644C8674EA29F5651FEB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4AB454C130D14B3CC1142A8FA522686 /* RDImageViewerController.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/RDImageViewerController/RDImageViewerController-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/RDImageViewerController/RDImageViewerController-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/RDImageViewerController/RDImageViewerController.modulemap";
+				PRODUCT_MODULE_NAME = RDImageViewerController;
+				PRODUCT_NAME = RDImageViewerController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		684562FE9230A5925BCF5ACAF0342496 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77D22413154872AF10A0787FDD60ACD9 /* SwiftFormat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9F73034645737313E5E2164085F46490 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2CE3ADADB65B63DB190AB0D765A84402 /* Pods-RDImageViewerController_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RDImageViewerController_Tests/Pods-RDImageViewerController_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RDImageViewerController_Tests/Pods-RDImageViewerController_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AA4B5BBE3AD85E855F7CEDDE99D2D138 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A39359AD451BC05A1F45EB2F4D79033F /* RDImageViewerController.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/RDImageViewerController/RDImageViewerController-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/RDImageViewerController/RDImageViewerController-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/RDImageViewerController/RDImageViewerController.modulemap";
+				PRODUCT_MODULE_NAME = RDImageViewerController;
+				PRODUCT_NAME = RDImageViewerController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -813,8 +1093,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -837,50 +1115,146 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		BCEC51E161B4794A2B0B40E7E08E3249 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74ABC4CF287BA1B79E423C20341CE1F1 /* Pods-RDImageViewerController_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RDImageViewerController_Tests/Pods-RDImageViewerController_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RDImageViewerController_Tests/Pods-RDImageViewerController_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DB37407EDA5BD15F2FFB2705DAC56101 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED4B1CAAE3730662264844D810AC1568 /* PureLayout.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/PureLayout/PureLayout-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PureLayout/PureLayout-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PureLayout/PureLayout.modulemap";
+				PRODUCT_MODULE_NAME = PureLayout;
+				PRODUCT_NAME = PureLayout;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C92782E717C52E3633C9A5F211E7987A /* Debug */,
-				EA8C7AF90938697605468604B2A17B9F /* Release */,
+				196DFA3E4A09A28224918543529A1885 /* Debug */,
+				B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		566821C0AD9E424B1B6DC35C16674893 /* Build configuration list for PBXNativeTarget "Pods-RDImageViewerController_Example" */ = {
+		6B2B7DF197DF6A7CA487150557230A41 /* Build configuration list for PBXAggregateTarget "SwiftFormat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				24C7447FC52626A5257A2F5AA02A019B /* Debug */,
-				27253EB2B523AA39CC96C41D0E609921 /* Release */,
+				1DB798CA4A76BE0F7561B1F197481D42 /* Debug */,
+				684562FE9230A5925BCF5ACAF0342496 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B70F2787A9C5B8987385E5372AE70D70 /* Build configuration list for PBXNativeTarget "RDImageViewerController" */ = {
+		97C7148CC41A8E2AE2997FBA410BDDCE /* Build configuration list for PBXNativeTarget "PureLayout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C295788EBD4636591BC69186A7456A61 /* Debug */,
-				2B1930224F74BC777C88C632C74C49F0 /* Release */,
+				26673A68E866758E420E4ABBE0C64201 /* Debug */,
+				DB37407EDA5BD15F2FFB2705DAC56101 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C862CCFF0F992C34D57F5418D4005748 /* Build configuration list for PBXNativeTarget "Pods-RDImageViewerController_Tests" */ = {
+		AE7B4FB01588B9E6DF09CB79FC7CE7BD /* Build configuration list for PBXAggregateTarget "SwiftLint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3EE53A77F81CA27C468D52833027E03D /* Debug */,
-				2013A354E41164A280EB21155B5E7771 /* Release */,
+				46EECD2DED30D7C5FE141C0B267C2D3F /* Debug */,
+				55DD740115BE746C8DBB7753806D85D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9505929820A35D56B6ABA2E4B9B8AEF /* Build configuration list for PBXNativeTarget "RDImageViewerController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA4B5BBE3AD85E855F7CEDDE99D2D138 /* Debug */,
+				5FC5F7B0423644C8674EA29F5651FEB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E48CD670B5BDA0444A2BE3D2D93699C0 /* Build configuration list for PBXNativeTarget "Pods-RDImageViewerController_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F73034645737313E5E2164085F46490 /* Debug */,
+				BCEC51E161B4794A2B0B40E7E08E3249 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6215058B1C508C8C69758AE85285C2E /* Build configuration list for PBXNativeTarget "Pods-RDImageViewerController_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1593F3C8C821D12FB31FD28AB0D5DD6A /* Debug */,
+				01C78DE8CAC4CBC7438E2E48CE8EAA10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 }

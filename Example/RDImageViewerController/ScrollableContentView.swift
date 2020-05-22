@@ -6,15 +6,14 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import UIKit
 import RDImageViewerController
+import UIKit
 
 class ScrollableContentView: UICollectionViewCell, PageViewProtocol {
-        
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var scrollView: UIScrollView!
     var view: UIView?
-    
-        func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+
+    func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? ScrollableContent else {
             return
         }
@@ -25,18 +24,13 @@ class ScrollableContentView: UICollectionViewCell, PageViewProtocol {
         }
         view!.backgroundColor = data.color
     }
-    
-    func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
-        
-    }
-    
-    func resize() {
-        
-    }
+
+    func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {}
+
+    func resize() {}
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
 }
