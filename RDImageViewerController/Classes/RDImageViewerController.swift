@@ -187,15 +187,10 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
 
         view.addSubview(pagingView)
-        pagingView.translatesAutoresizingMaskIntoConstraints = false
-        pagingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        pagingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        pagingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        pagingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        pagingView.autoPinEdgesToSuperviewEdges()
 
         pagingView.backgroundColor = UIColor.black
         pagingView.isDirectionalLockEnabled = true
-        pagingView.tag = ViewTag.pageScrollView.rawValue
         pagingView.showsHorizontalScrollIndicator = false
         pagingView.showsVerticalScrollIndicator = false
         pagingView.isDoubleSpread = isDoubleSpread
@@ -211,6 +206,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
         view.addSubview(pageHud)
         pageHud.autoAlignAxis(toSuperviewAxis: .vertical)
+        pageHud.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 10)
 
         pageSlider.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 31)
         pageSlider.autoresizingMask = [.flexibleWidth]
