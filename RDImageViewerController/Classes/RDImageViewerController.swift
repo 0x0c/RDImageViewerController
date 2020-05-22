@@ -10,11 +10,6 @@ import UIKit
 
 @objcMembers
 open class RDImageViewerController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, PagingViewDelegate, PagingViewDataSource {
-    enum ViewTag: Int {
-        case mainScrollView = 1
-        case pageScrollView = 2
-    }
-
     static let pageHudLabelFontSize: CGFloat = 17
 
     var previousPageIndex: PagingView.VisibleIndex = .single(index: 0)
