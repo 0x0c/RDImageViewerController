@@ -331,7 +331,9 @@ open class PagingView: UICollectionView {
     }
 
     override open func layoutSubviews() {
+        beginChangingBarState()
         super.layoutSubviews()
+        endChangingBarState()
         if isLegacyLayoutSystem {
             for cell in visibleCells {
                 cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
