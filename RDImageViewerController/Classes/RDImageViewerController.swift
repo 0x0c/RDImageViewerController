@@ -210,10 +210,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
 
         view.addSubview(pageHud)
-        pageHud.autoAlignAxis(toSuperviewAxis: .horizontal)
-        if let navigationController = navigationController, let toolbar = navigationController.toolbar {
-            pageHud.autoPinEdge(.bottom, to: .top, of: toolbar, withOffset: 10)
-        }
+        pageHud.autoAlignAxis(toSuperviewAxis: .vertical)
+        pageHud.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 10)
 
         pageSlider.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 31)
         pageSlider.autoresizingMask = [.flexibleWidth]
@@ -310,7 +308,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         if isSliderEnabled == false {
             return
         }
-        if let toolbarItems = toolbarItems, toolbarItems.count > 0 {
+        if let toolbarItems = toolbarItems, toolbarItems.isEmpty == false {
             navigationController?.setToolbarHidden(hidden, animated: animated)
         }
     }
