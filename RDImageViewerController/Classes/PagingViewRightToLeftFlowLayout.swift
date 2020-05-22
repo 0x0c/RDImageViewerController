@@ -8,13 +8,11 @@
 import UIKit
 
 class PagingViewRightToLeftFlowLayout: PagingViewHorizontalFlowLayout {
-    
     override var flipsHorizontallyInOppositeLayoutDirection: Bool {
         return true
     }
-    
+
     override var developmentLayoutDirection: UIUserInterfaceLayoutDirection {
         return .rightToLeft
     }
-
 }

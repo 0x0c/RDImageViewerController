@@ -10,12 +10,12 @@ import UIKit
 class PagingViewVerticalFlowLayout: PagingViewFlowLayout {
     override init() {
         super.init()
-        self.scrollDirection = .vertical
-        self.minimumLineSpacing = 0
-        self.minimumInteritemSpacing = 0
+        scrollDirection = .vertical
+        minimumLineSpacing = 0
+        minimumInteritemSpacing = 0
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

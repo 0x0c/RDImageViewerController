@@ -43,26 +43,24 @@ public protocol PageViewProtocol {
 }
 
 open class PageContent: NSObject, PageContentProtocol {
-    
     public enum PresentationType {
         case `class`(AnyClass)
         case nib(UINib, AnyClass)
     }
-    
+
     private var _type: PresentationType
     public var type: PresentationType {
-        get {
-            return _type
-        }
+        return _type
     }
+
     public init(type: PresentationType) {
-        self._type = type
+        _type = type
     }
-        
+
     @objc open func isPreloadable() -> Bool {
         return false
     }
-    
+
     @objc open func isPreloading() -> Bool {
         return false
     }
@@ -70,23 +68,23 @@ open class PageContent: NSObject, PageContentProtocol {
     @objc open func preload() {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
-    
-    @objc open func preload(completion: ((PageContent) -> Void)?) {
+
+    @objc open func preload(completion _: ((PageContent) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
-    
+
     @objc open func stopPreload() {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
-    
+
     @objc open func reload() {
         reload(completion: nil)
     }
-    
-    @objc open func reload(completion: ((PageContent) -> Void)?) {
+
+    @objc open func reload(completion _: ((PageContent) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
-    
+
     @objc open func reuseIdentifier() -> String {
         switch type {
         case let .class(cellClass):
@@ -95,13 +93,12 @@ open class PageContent: NSObject, PageContentProtocol {
             return "\(cellClass.self)"
         }
     }
-    
-    open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
+
+    open func size(inRect rect: CGRect, direction _: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
         if traitCollection.isLandscape(), isDoubleSpread {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }
-        
+
         return rect.size
     }
-
 }

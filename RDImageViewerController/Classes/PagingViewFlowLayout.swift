@@ -12,7 +12,7 @@ class PagingViewFlowLayout: UICollectionViewFlowLayout {
     var currentPageIndex: PagingView.VisibleIndex = .single(index: 0)
     var isDoubleSpread: Bool = false
     var ignoreTargetContentOffset = false
-    
+
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
         if ignoreTargetContentOffset {
             return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)

@@ -11,9 +11,8 @@ import UIKit
 extension UIApplication {
     public func currentWindow() -> UIWindow? {
         if #available(iOS 13.0, *) {
-            return connectedScenes.filter({$0.activationState == .foregroundActive}).map({$0 as? UIWindowScene}).compactMap({$0}).first?.windows.filter({$0.isKeyWindow}).first
-        }
-        else {
+            return connectedScenes.filter { $0.activationState == .foregroundActive }.map { $0 as? UIWindowScene }.compactMap { $0 }.first?.windows.filter { $0.isKeyWindow }.first
+        } else {
             return UIApplication.shared.keyWindow
         }
     }
@@ -21,7 +20,7 @@ extension UIApplication {
 
 extension UITraitCollection {
     public func isLandscape() -> Bool {
-        if #available(iOS 13, *)  {
+        if #available(iOS 13, *) {
             if let window = UIApplication.shared.currentWindow(),
                 let windowScene = window.windowScene {
                 return windowScene.interfaceOrientation.isLandscape
