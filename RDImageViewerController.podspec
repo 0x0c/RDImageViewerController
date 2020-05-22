@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RDImageViewerController'
-  s.version          = '6.2.9'
+  s.version          = '6.2.10'
   s.summary          = 'Simple but powerful image viewer.'
   s.homepage         = 'https://github.com/0x0c/RDImageViewerController'
 # This description is used to generate tags and improve search results.
