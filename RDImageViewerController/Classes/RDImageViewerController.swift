@@ -89,13 +89,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     private var _showSlider: Bool = false
     open var showSlider: Bool {
         set {
-            pagingView.beginChangingBarState()
             if pagingView.scrollDirection.isHorizontal() {
                 setToolBarHidden(hidden: !newValue, animated: true)
             } else {
                 setToolBarHidden(hidden: true, animated: true)
             }
-            pagingView.endChangingBarState()
             applySliderTintColor()
         }
         get {
