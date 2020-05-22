@@ -211,7 +211,6 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
         view.addSubview(pageHud)
         pageHud.autoAlignAxis(toSuperviewAxis: .vertical)
-        pageHud.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 10)
 
         pageSlider.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 31)
         pageSlider.autoresizingMask = [.flexibleWidth]
