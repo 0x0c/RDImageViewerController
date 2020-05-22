@@ -372,21 +372,19 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/RDImageViewerController/RDImageViewerController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RDImageViewerController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RDImageViewerController_Example/Pods-RDImageViewerController_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F7B2260781CD8D312F19B5BC /* [CP] Check Pods Manifest.lock */ = {

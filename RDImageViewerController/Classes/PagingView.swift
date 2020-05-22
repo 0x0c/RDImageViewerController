@@ -7,8 +7,7 @@
 
 import UIKit
 
-extension UIView
-{
+extension UIView {
     static var pageIndexKey: UInt8 = 0
     fileprivate var _pageIndex: Int {
         get {
@@ -19,16 +18,14 @@ extension UIView
             }
             return Int(associatedObject.intValue)
         }
-        
+
         set {
             objc_setAssociatedObject(self, &UIView.pageIndexKey, NSNumber(value: Int(newValue)), .OBJC_ASSOCIATION_RETAIN)
         }
     }
-    
+
     public var pageIndex: Int {
-        get {
-            return _pageIndex
-        }
+        return _pageIndex
     }
 }
 
@@ -57,44 +54,43 @@ public extension Int {
         }
         return .single(index: self)
     }
-    
+
     func single() -> PagingView.VisibleIndex {
         return .single(index: self)
     }
-    
+
     func doubleSpread() -> PagingView.VisibleIndex {
         return .double(indexes: [self])
     }
 }
 
 open class PagingView: UICollectionView {
-    
     public enum ForwardDirection {
         case right
         case left
         case up
         case down
-        
+
         public func isHorizontal() -> Bool {
             return self == .left || self == .right
         }
-        
+
         public func isVertical() -> Bool {
             return self == .up || self == .down
         }
     }
-    
+
     public enum MovingDirection {
         case forward
         case backward
         case unknown
     }
-    
+
     public enum VisibleIndex {
         case single(index: Int)
         case double(indexes: [Int])
-        
-        public static func ==(a: VisibleIndex, b: VisibleIndex) -> Bool {
+
+        public static func == (a: VisibleIndex, b: VisibleIndex) -> Bool {
             switch (a, b) {
             case let (.single(index1), .single(index2)):
                 return index1 == index2
@@ -104,8 +100,8 @@ open class PagingView: UICollectionView {
                 return false
             }
         }
-        
-        public static func !=(a: VisibleIndex, b: VisibleIndex) -> Bool {
+
+        public static func != (a: VisibleIndex, b: VisibleIndex) -> Bool {
             switch (a, b) {
             case let (.single(index1), .single(index2)):
                 return !(index1 == index2)
@@ -115,7 +111,7 @@ open class PagingView: UICollectionView {
                 return true
             }
         }
-        
+
         public func contains(_ index: VisibleIndex) -> Bool {
             switch (self, index) {
             case let (.single(index1), .single(index2)):
@@ -135,7 +131,7 @@ open class PagingView: UICollectionView {
                 return result
             }
         }
-        
+
         public func convert(double: Bool) -> VisibleIndex {
             switch self {
             case let .single(index):
@@ -147,14 +143,14 @@ open class PagingView: UICollectionView {
                 if double {
                     return self
                 }
-                
+
                 if let index = indexes.sorted().first {
                     return .single(index: index)
                 }
                 return .single(index: 0)
             }
         }
-        
+
         public func primaryIndex() -> Int {
             switch self {
             case let .single(index):
@@ -167,40 +163,40 @@ open class PagingView: UICollectionView {
             }
         }
     }
-    
+
     public weak var pagingDataSource: (PagingViewDataSource & UICollectionViewDataSource)?
     public weak var pagingDelegate: (PagingViewDelegate & UICollectionViewDelegate & UICollectionViewDelegateFlowLayout)?
-        
+
     public var numberOfPages: Int {
-        get {
-            guard let pagingDataSource = pagingDataSource else {
-                return 0
-            }
-            return pagingDataSource.collectionView(self, numberOfItemsInSection: 0)
+        guard let pagingDataSource = pagingDataSource else {
+            return 0
         }
+        return pagingDataSource.collectionView(self, numberOfItemsInSection: 0)
     }
+
     public var preloadCount: Int = 3
-    
+
     private var _isRotating: Bool = false
     public func beginRotate() {
         _isRotating = true
     }
+
     public func endRotate() {
         _isRotating = false
     }
-    
+
     public func beginChangingBarState() {
         if let layout = collectionViewLayout as? PagingViewFlowLayout {
             layout.ignoreTargetContentOffset = true
         }
     }
-    
+
     public func endChangingBarState() {
         if let layout = collectionViewLayout as? PagingViewFlowLayout {
             layout.ignoreTargetContentOffset = false
         }
     }
-    
+
     public var isDoubleSpread: Bool = false {
         didSet {
             currentPageIndex = currentPageIndex.convert(double: isDoubleSpread)
@@ -209,15 +205,15 @@ open class PagingView: UICollectionView {
             }
         }
     }
-    
+
     func setLayoutIndex(_ index: VisibleIndex) {
         if let flowLayout = collectionViewLayout as? PagingViewFlowLayout {
             flowLayout.currentPageIndex = index
         }
     }
-    
+
     public var scrollDirection: ForwardDirection
-    
+
     private var _currentPageIndex: VisibleIndex = .single(index: 0)
     public var currentPageIndex: VisibleIndex {
         set {
@@ -228,60 +224,52 @@ open class PagingView: UICollectionView {
             if isDoubleSpread {
                 return .double(indexes: visiblePageIndexes)
             }
-            
+
             return _currentPageIndex
         }
     }
-    
+
     public var visiblePageIndexes: [Int] {
-        return indexPathsForVisibleItems.map({ (indexPath) -> Int in
+        return indexPathsForVisibleItems.map { (indexPath) -> Int in
             Int(indexPath.row)
-        })
-    }
-    
-    public var isLegacyLayoutSystem: Bool {
-        get {
-            if #available(iOS 11.0, *) {
-                return false
-            }
-            else if scrollDirection == .left {
-                return true
-            }
-            else {
-                return false
-            }
         }
     }
-    
+
+    public var isLegacyLayoutSystem: Bool {
+        if #available(iOS 11.0, *) {
+            return false
+        } else if scrollDirection == .left {
+            return true
+        } else {
+            return false
+        }
+    }
+
     public init(frame: CGRect, forwardDirection: ForwardDirection) {
-        self.scrollDirection = forwardDirection
+        scrollDirection = forwardDirection
         if forwardDirection == .left {
             super.init(frame: frame, collectionViewLayout: PagingViewRightToLeftFlowLayout())
             if #available(iOS 11.0, *) {
                 self.contentInsetAdjustmentBehavior = .never
-            }
-            else {
+            } else {
                 transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
-        }
-        else if forwardDirection == .right {
+        } else if forwardDirection == .right {
             super.init(frame: frame, collectionViewLayout: PagingViewHorizontalFlowLayout())
-        }
-        else if forwardDirection == .up {
+        } else if forwardDirection == .up {
             super.init(frame: frame, collectionViewLayout: PagingViewBottomToTopLayout())
-        }
-        else { // .down
+        } else { // .down
             super.init(frame: frame, collectionViewLayout: PagingViewVerticalFlowLayout())
         }
-        
-        self.delegate = self
-        self.dataSource = self
+
+        delegate = self
+        dataSource = self
     }
-    
-    required public init?(coder aDecoder: NSCoder) {
+
+    public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     public func scrollTo(index: Int, animated: Bool = false) {
         if index > numberOfPages - 1 || index < 0 {
             return
@@ -295,8 +283,7 @@ open class PagingView: UICollectionView {
                     return .right
                 }
                 return .centeredHorizontally
-            }
-            else {
+            } else {
                 return .centeredVertically
             }
         }
@@ -305,7 +292,7 @@ open class PagingView: UICollectionView {
         }
         scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: animated)
     }
-    
+
     public func resizeVisiblePages() {
         collectionViewLayout.invalidateLayout()
         for cell in visibleCells {
@@ -314,40 +301,36 @@ open class PagingView: UICollectionView {
             }
         }
     }
-    
+
     public func changeDirection(_ forwardDirection: ForwardDirection) {
-        self.scrollDirection = forwardDirection
+        scrollDirection = forwardDirection
         if forwardDirection == .left {
             collectionViewLayout = PagingViewRightToLeftFlowLayout()
             if #available(iOS 11.0, *) {
                 self.contentInsetAdjustmentBehavior = .never
-            }
-            else {
+            } else {
                 transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
-        }
-        else {
+        } else {
             transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             if forwardDirection == .right {
                 collectionViewLayout = PagingViewHorizontalFlowLayout()
-            }
-            else if forwardDirection == .up {
+            } else if forwardDirection == .up {
                 collectionViewLayout = PagingViewBottomToTopLayout()
-            }
-            else { // .down
+            } else { // .down
                 collectionViewLayout = PagingViewVerticalFlowLayout()
             }
         }
-        
+
         reloadData()
     }
-    
-    open override func reloadData() {
-        self.collectionViewLayout.invalidateLayout()
+
+    override open func reloadData() {
+        collectionViewLayout.invalidateLayout()
         super.reloadData()
     }
-    
-    open override func layoutSubviews() {
+
+    override open func layoutSubviews() {
         super.layoutSubviews()
         if isLegacyLayoutSystem {
             for cell in visibleCells {
@@ -358,18 +341,15 @@ open class PagingView: UICollectionView {
 }
 
 extension Array {
-    
     var middle: Element? {
         guard count != 0 else { return nil }
-        
+
         let middleIndex = (count > 1 ? count - 1 : count) / 2
         return self[middleIndex]
     }
-    
 }
 
-extension PagingView : UIScrollViewDelegate
-{
+extension PagingView: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if _isRotating {
             return
@@ -386,8 +366,7 @@ extension PagingView : UIScrollViewDelegate
                     pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex, currentIndex: _currentPageIndex)
                 }
                 _currentPageIndex = newIndex
-            }
-            else {
+            } else {
                 let to = Int(position + 0.5)
                 let newIndex: VisibleIndex = to.single()
                 if _currentPageIndex != newIndex {
@@ -395,8 +374,7 @@ extension PagingView : UIScrollViewDelegate
                 }
                 _currentPageIndex = newIndex
             }
-        }
-        else {
+        } else {
             pagingDelegate.pagingView(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
             if let index = indexPathsForVisibleItems.sorted().middle {
                 let to = index.row
@@ -409,14 +387,14 @@ extension PagingView : UIScrollViewDelegate
         }
         setLayoutIndex(_currentPageIndex)
     }
-    
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+
+    public func scrollViewWillBeginDragging(_: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewWillBeginDragging(pagingView: self)
         }
     }
-    
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+
+    public func scrollViewDidEndDragging(_: UIScrollView, willDecelerate decelerate: Bool) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndDragging(pagingView: self, willDecelerate: decelerate)
             if decelerate == false {
@@ -424,48 +402,44 @@ extension PagingView : UIScrollViewDelegate
             }
         }
     }
-    
-    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+
+    public func scrollViewWillBeginDecelerating(_: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewWillBeginDecelerating(pagingView: self)
         }
     }
-    
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+    public func scrollViewDidEndDecelerating(_: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndDecelerating(pagingView: self)
             pagingDelegate.pagingView(pagingView: self, didChangeIndexTo: currentPageIndex)
         }
     }
-    
-    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+
+    public func scrollViewDidEndScrollingAnimation(_: UIScrollView) {
         if let pagingDelegate = pagingDelegate {
             pagingDelegate.pagingViewDidEndScrollingAnimation(pagingView: self)
         }
     }
 }
 
-extension PagingView : UICollectionViewDelegate
-{
+extension PagingView: UICollectionViewDelegate {}
 
-}
-
-extension PagingView : UICollectionViewDataSource
-{
-    open override func numberOfItems(inSection section: Int) -> Int {
+extension PagingView: UICollectionViewDataSource {
+    override open func numberOfItems(inSection section: Int) -> Int {
         guard let pagingDataSource = pagingDataSource else {
             return 0
         }
         return pagingDataSource.collectionView(self, numberOfItemsInSection: section)
     }
-    
+
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let pagingDataSource = pagingDataSource else {
             return 0
         }
         return pagingDataSource.collectionView(collectionView, numberOfItemsInSection: section)
     }
-    
+
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let pagingDataSource = pagingDataSource else {
             return UICollectionViewCell(frame: CGRect.zero)
@@ -475,38 +449,37 @@ extension PagingView : UICollectionViewDataSource
         if isLegacyLayoutSystem {
             cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }
-        
+
         // prefetch
         let prefetchStartIndex = max(0, indexPath.row - preloadCount)
         let prefetchEndIndex = min(numberOfPages - 1, indexPath.row + preloadCount)
-        for i in (prefetchStartIndex..<prefetchEndIndex) {
+        for i in prefetchStartIndex ..< prefetchEndIndex {
             pagingDataSource.pagingView(pagingView: self, preloadItemAt: i)
         }
-        
+
         // cancel
         let cancelStartIndex = min(max(0, indexPath.row - preloadCount - 1), numberOfPages - 1)
         let cancelEndIndex = max(min(numberOfPages - 1, indexPath.row + preloadCount + 1), 0)
-        for i in cancelStartIndex..<prefetchStartIndex {
+        for i in cancelStartIndex ..< prefetchStartIndex {
             pagingDataSource.pagingView(pagingView: self, cancelPreloadingItemAt: i)
         }
-        for i in prefetchEndIndex..<cancelEndIndex {
+        for i in prefetchEndIndex ..< cancelEndIndex {
             pagingDataSource.pagingView(pagingView: self, cancelPreloadingItemAt: i)
         }
-        
+
         return cell
     }
-    
-    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    public func collectionView(_: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let pagingDelegate = pagingDelegate, let view = cell as? (UIView & PageViewProtocol) else {
             return
         }
-        
+
         pagingDelegate.pagingView(pagingView: self, didEndDisplaying: view, index: indexPath.row)
     }
 }
 
-extension PagingView : UICollectionViewDelegateFlowLayout
-{
+extension PagingView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let pagingDelegate = pagingDelegate else {
             return CGSize.zero

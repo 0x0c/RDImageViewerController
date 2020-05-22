@@ -1,0 +1,1 @@
+./Example/Pods/SwiftFormat/CommandLineTool/swiftformat RDImageViewerController

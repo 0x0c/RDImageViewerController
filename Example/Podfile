@@ -3,9 +3,9 @@ use_frameworks!
 target 'RDImageViewerController_Example' do
   pod 'RDImageViewerController', :path => '../'
 
+  pod 'SwiftFormat/CLI'
+  
   target 'RDImageViewerController_Tests' do
     inherit! :search_paths
-
-    
   end
 end
