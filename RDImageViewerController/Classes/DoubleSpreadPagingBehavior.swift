@@ -30,12 +30,14 @@ open class DoubleSpreadPagingBehavior: HudBehavior, SliderBehavior, PagingBehavi
                 if snapPosition > Float(pagingView.numberOfPages - 4) {
                     let position = value * 2 / Float(pagingView.numberOfPages - 2)
                     slider.setTrueSliderValue(value: position, pagingView: pagingView, animated: true)
-                } else {
+                }
+                else {
                     let position = value * 2 / Float(pagingView.numberOfPages - 1)
                     slider.setTrueSliderValue(value: Float(position), pagingView: pagingView, animated: true)
                 }
             }
-        } else {
+        }
+        else {
             let position = value * 2 / Float(pagingView.numberOfPages - 2)
             slider.setTrueSliderValue(value: Float(position), pagingView: pagingView)
         }
@@ -50,7 +52,8 @@ open class DoubleSpreadPagingBehavior: HudBehavior, SliderBehavior, PagingBehavi
                 let index = indexes.sorted().first!
                 let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 1)
                 slider.setTrueSliderValue(value: value, pagingView: pagingView)
-            } else {
+            }
+            else {
                 let index = indexes.sorted().first!
                 let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 2)
                 slider.setTrueSliderValue(value: value, pagingView: pagingView)
@@ -61,7 +64,8 @@ open class DoubleSpreadPagingBehavior: HudBehavior, SliderBehavior, PagingBehavi
     open func updatePageIndex(_ index: Int, pagingView: PagingView) {
         if index % 2 == 0 {
             pagingView.currentPageIndex = index.doubleSpread()
-        } else {
+        }
+        else {
             pagingView.currentPageIndex = (index - 1).doubleSpread()
         }
     }

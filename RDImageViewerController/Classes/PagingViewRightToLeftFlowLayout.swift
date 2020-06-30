@@ -9,10 +9,10 @@ import UIKit
 
 class PagingViewRightToLeftFlowLayout: PagingViewHorizontalFlowLayout {
     override var flipsHorizontallyInOppositeLayoutDirection: Bool {
-        return true
+        true
     }
 
     override var developmentLayoutDirection: UIUserInterfaceLayoutDirection {
-        return .rightToLeft
+        .rightToLeft
     }
 }

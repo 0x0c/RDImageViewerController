@@ -16,11 +16,6 @@ class ReloadImageViewerController: RDImageViewerController {
         navigationItem.setRightBarButtonItems(items, animated: true)
     }
 
-    @available(*, unavailable)
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     @objc func reload() {
         currentPageIndex = 0.convert(double: isDoubleSpread)
         let contents = ContentsFactory.randomContents()

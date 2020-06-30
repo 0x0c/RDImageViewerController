@@ -50,7 +50,7 @@ open class PageContent: NSObject, PageContentProtocol {
 
     private var _type: PresentationType
     public var type: PresentationType {
-        return _type
+        _type
     }
 
     public init(type: PresentationType) {
@@ -58,11 +58,11 @@ open class PageContent: NSObject, PageContentProtocol {
     }
 
     @objc open func isPreloadable() -> Bool {
-        return false
+        false
     }
 
     @objc open func isPreloading() -> Bool {
-        return false
+        false
     }
 
     @objc open func preload() {

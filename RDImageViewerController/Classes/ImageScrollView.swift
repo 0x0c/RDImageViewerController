@@ -47,7 +47,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
             imageView.layer.borderWidth = newValue
         }
         get {
-            return imageView.layer.borderWidth
+            imageView.layer.borderWidth
         }
     }
 
@@ -56,14 +56,15 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
             imageView.image = newValue
             if imageView.image == nil {
                 indicatorView.startAnimating()
-            } else {
+            }
+            else {
                 indicatorView.stopAnimating()
             }
             adjustContentAspect()
             fixImageViewPosition()
         }
         get {
-            return imageView.image
+            imageView.image
         }
     }
 
@@ -113,7 +114,8 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         let imageView = gesture.view as! ImageScrollView
         if imageView.scrollView.zoomScale > imageView.scrollView.minimumZoomScale {
             imageView.scrollView.setZoomScale(1.0, animated: true)
-        } else if imageView.scrollView.zoomScale < imageView.scrollView.maximumZoomScale {
+        }
+        else if imageView.scrollView.zoomScale < imageView.scrollView.maximumZoomScale {
             let position = gesture.location(in: imageView.scrollView)
             imageView.scrollView.zoom(to: CGRect(x: position.x - zoomRect.width / 2, y: position.y - zoomRect.height / 2, width: zoomRect.width, height: zoomRect.height), animated: true)
         }
@@ -163,28 +165,33 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
                 // landscape image
                 // fit imageWidth to viewWidth
                 scale = viewWidth / imageWidth
-            } else {
+            }
+            else {
                 // portrait image
                 if imageWidth / imageHeight > viewWidth / viewHeight {
                     // fit imageWidth to viewWidth
                     scale = viewWidth / imageWidth
-                } else {
+                }
+                else {
                     // fit imageHeight to viewHeight
                     scale = viewHeight / imageHeight
                 }
             }
-        } else {
+        }
+        else {
             // device landscape
             if image?.isLandspace() ?? false {
                 // image landscape
                 if imageWidth / imageHeight > viewWidth / viewHeight {
                     // fit imageWidth to viewWidth
                     scale = viewWidth / imageWidth
-                } else {
+                }
+                else {
                     // fit imageHeight to viewHeight
                     scale = viewHeight / imageHeight
                 }
-            } else {
+            }
+            else {
                 // image portrait
                 // fit imageHeight to viewHeight
                 scale = viewHeight / imageHeight
@@ -204,7 +211,8 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         if width < height {
             // portrait
             fitToAspect()
-        } else {
+        }
+        else {
             let scale = width > height ? width / max(1, imageView.frame.width) : height / max(1, imageView.frame.height)
             imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width * scale, height: imageView.frame.height * scale)
             if height > imageView.frame.height {
@@ -234,7 +242,8 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
                 return .left
             }
             alignment = ImageAlignment(horizontal: horizontalAlignment, vertical: .center)
-        } else {
+        }
+        else {
             var horizontalAlignment: ImageAlignment.HorizontalAlignment {
                 if scrollDirection == .right {
                     return .left
@@ -262,7 +271,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
 
 extension ImageScrollView: UIScrollViewDelegate {
     public func viewForZooming(in _: UIScrollView) -> UIView? {
-        return imageView
+        imageView
     }
 
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -285,6 +294,6 @@ extension ImageScrollView: UIScrollViewDelegate {
 
 extension UIImage {
     func isLandspace() -> Bool {
-        return size.width > size.height
+        size.width > size.height
     }
 }

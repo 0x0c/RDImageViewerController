@@ -25,7 +25,7 @@ extension UIView {
     }
 
     public var pageIndex: Int {
-        return _pageIndex
+        _pageIndex
     }
 }
 
@@ -56,11 +56,11 @@ public extension Int {
     }
 
     func single() -> PagingView.VisibleIndex {
-        return .single(index: self)
+        .single(index: self)
     }
 
     func doubleSpread() -> PagingView.VisibleIndex {
-        return .double(indexes: [self])
+        .double(indexes: [self])
     }
 }
 
@@ -72,11 +72,11 @@ open class PagingView: UICollectionView {
         case down
 
         public func isHorizontal() -> Bool {
-            return self == .left || self == .right
+            self == .left || self == .right
         }
 
         public func isVertical() -> Bool {
-            return self == .up || self == .down
+            self == .up || self == .down
         }
     }
 
@@ -230,7 +230,7 @@ open class PagingView: UICollectionView {
     }
 
     public var visiblePageIndexes: [Int] {
-        return indexPathsForVisibleItems.map { (indexPath) -> Int in
+        indexPathsForVisibleItems.map { (indexPath) -> Int in
             Int(indexPath.row)
         }
     }
@@ -238,9 +238,11 @@ open class PagingView: UICollectionView {
     public var isLegacyLayoutSystem: Bool {
         if #available(iOS 11.0, *) {
             return false
-        } else if scrollDirection == .left {
+        }
+        else if scrollDirection == .left {
             return true
-        } else {
+        }
+        else {
             return false
         }
     }
@@ -251,14 +253,18 @@ open class PagingView: UICollectionView {
             super.init(frame: frame, collectionViewLayout: PagingViewRightToLeftFlowLayout())
             if #available(iOS 11.0, *) {
                 self.contentInsetAdjustmentBehavior = .never
-            } else {
+            }
+            else {
                 transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
-        } else if forwardDirection == .right {
+        }
+        else if forwardDirection == .right {
             super.init(frame: frame, collectionViewLayout: PagingViewHorizontalFlowLayout())
-        } else if forwardDirection == .up {
+        }
+        else if forwardDirection == .up {
             super.init(frame: frame, collectionViewLayout: PagingViewBottomToTopLayout())
-        } else { // .down
+        }
+        else { // .down
             super.init(frame: frame, collectionViewLayout: PagingViewVerticalFlowLayout())
         }
 
@@ -284,7 +290,8 @@ open class PagingView: UICollectionView {
                     return .right
                 }
                 return .centeredHorizontally
-            } else {
+            }
+            else {
                 return .centeredVertically
             }
         }
@@ -309,16 +316,20 @@ open class PagingView: UICollectionView {
             collectionViewLayout = PagingViewRightToLeftFlowLayout()
             if #available(iOS 11.0, *) {
                 self.contentInsetAdjustmentBehavior = .never
-            } else {
+            }
+            else {
                 transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
-        } else {
+        }
+        else {
             transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             if forwardDirection == .right {
                 collectionViewLayout = PagingViewHorizontalFlowLayout()
-            } else if forwardDirection == .up {
+            }
+            else if forwardDirection == .up {
                 collectionViewLayout = PagingViewBottomToTopLayout()
-            } else { // .down
+            }
+            else { // .down
                 collectionViewLayout = PagingViewVerticalFlowLayout()
             }
         }
@@ -369,7 +380,8 @@ extension PagingView: UIScrollViewDelegate {
                     pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex, currentIndex: _currentPageIndex)
                 }
                 _currentPageIndex = newIndex
-            } else {
+            }
+            else {
                 let to = Int(position + 0.5)
                 let newIndex: VisibleIndex = to.single()
                 if _currentPageIndex != newIndex {
@@ -377,7 +389,8 @@ extension PagingView: UIScrollViewDelegate {
                 }
                 _currentPageIndex = newIndex
             }
-        } else {
+        }
+        else {
             pagingDelegate.pagingView(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
             if let index = indexPathsForVisibleItems.sorted().middle {
                 let to = index.row

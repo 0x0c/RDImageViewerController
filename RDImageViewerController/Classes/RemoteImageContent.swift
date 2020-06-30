@@ -57,7 +57,8 @@ open class RemoteImageContent: ImageContent {
             if let handler = lazyCompletionHandler {
                 handler(self)
             }
-        } else if task == nil {
+        }
+        else if task == nil {
             task = session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
                 guard let weakSelf = self, let data = data else {
                     return
@@ -67,7 +68,8 @@ open class RemoteImageContent: ImageContent {
                 }
                 if let decodeHandler = weakSelf.imageDecodeHandler {
                     weakSelf.image = decodeHandler(data)
-                } else {
+                }
+                else {
                     weakSelf.image = UIImage(data: data)
                 }
                 if let handler = weakSelf.lazyCompletionHandler {

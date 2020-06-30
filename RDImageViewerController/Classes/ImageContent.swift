@@ -46,7 +46,7 @@ open class ImageContent: PageContent {
     }
 
     override open func isPreloadable() -> Bool {
-        return true
+        true
     }
 
     @objc override open func reload(completion: ((PageContent) -> Void)?) {

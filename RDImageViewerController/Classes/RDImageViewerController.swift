@@ -43,7 +43,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             pagingView.preloadCount = newValue
         }
         get {
-            return pagingView.preloadCount
+            pagingView.preloadCount
         }
     }
 
@@ -62,12 +62,12 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             pagingView.currentPageIndex = newValue
         }
         get {
-            return pagingView.currentPageIndex
+            pagingView.currentPageIndex
         }
     }
 
     open var numberOfPages: Int {
-        return contents.count
+        contents.count
     }
 
     open var isPagingEnabled: Bool {
@@ -75,7 +75,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             pagingView.isPagingEnabled = newValue
         }
         get {
-            return pagingView.isPagingEnabled
+            pagingView.isPagingEnabled
         }
     }
 
@@ -91,13 +91,14 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         set {
             if pagingView.scrollDirection.isHorizontal() {
                 setToolBarHidden(hidden: !newValue, animated: true)
-            } else {
+            }
+            else {
                 setToolBarHidden(hidden: true, animated: true)
             }
             applySliderTintColor()
         }
         get {
-            return _showSlider
+            _showSlider
         }
     }
 
@@ -107,7 +108,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             setHudHidden(hidden: !newValue, animated: true)
         }
         get {
-            return _showPageNumberHud
+            _showPageNumberHud
         }
     }
 
@@ -194,7 +195,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
         if #available(iOS 11.0, *) {
             pagingView.contentInsetAdjustmentBehavior = .never
-        } else {
+        }
+        else {
             automaticallyAdjustsScrollViewInsets = false
         }
 
@@ -352,7 +354,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         if pagingView.scrollDirection == .left {
             pageSlider.maximumTrackTintColor = maximumTintColor
             pageSlider.minimumTrackTintColor = minimumTintColor
-        } else {
+        }
+        else {
             pageSlider.maximumTrackTintColor = minimumTintColor
             pageSlider.minimumTrackTintColor = maximumTintColor
         }
@@ -403,7 +406,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         pagingView.changeDirection(forwardDirection)
         if pagingView.scrollDirection.isHorizontal() {
             pagingView.isPagingEnabled = true
-        } else {
+        }
+        else {
             pagingView.isPagingEnabled = false
         }
     }
@@ -423,7 +427,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     // MARK: - UICollectionViewDataSource
 
     public func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return numberOfPages
+        numberOfPages
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -526,22 +530,22 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     // MARK: - ViewController
 
     override open var prefersStatusBarHidden: Bool {
-        return statusBarHidden
+        statusBarHidden
     }
 
     override open var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
+        .fade
     }
 
     override open var shouldAutorotate: Bool {
-        return true
+        true
     }
 
     override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portraitUpsideDown
+        .portraitUpsideDown
     }
 
     override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .portrait
+        .portrait
     }
 }
