@@ -1,11 +1,11 @@
 //
-//  SinglePageBehavior.swift
+//  SinglePagingBehavior.swift
 //  Pods-RDImageViewerController_Example
 //
 //  Created by Akira Matsuda on 2020/05/22.
 //
 
-open class SinglePageBehavior: HudBehavior, SliderBehavior, PagingBehavior {
+open class SinglePagingBehavior: HudBehavior, SliderBehavior, PagingBehavior {
     public init() {}
 
     open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {

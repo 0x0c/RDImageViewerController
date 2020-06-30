@@ -33,9 +33,9 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     open func interfaceBehavior() -> HudBehavior & SliderBehavior & PagingBehavior {
         if isDoubleSpread {
-            return DoubleSpreadPageBehavior()
+            return DoubleSpreadPagingBehavior()
         }
-        return SinglePageBehavior()
+        return SinglePagingBehavior()
     }
 
     open var preloadCount: Int {

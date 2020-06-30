@@ -33,12 +33,12 @@
 		0D49AAC04A3137F9919A1E5990A0299A /* RDImageViewerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE72FF4826DA4FC85AB3CFF7268585 /* RDImageViewerController-dummy.m */; };
 		0D6C8ED3B1C5A51CFAFBFEBD5700FD9D /* DoubleSpreadConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACA3D4115BDF2FACCD93CF2EFB2FC9F /* DoubleSpreadConfiguration.swift */; };
 		1E1BDB40DF4CEECA28794DF1D4B12C1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E1C8ECFE9284F04F4D4F2A875AA4C1 /* Foundation.framework */; };
-		25CA902BA4F7A3175A01E0BF48870787 /* DoubleSpreadPageBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPageBehavior.swift */; };
+		25CA902BA4F7A3175A01E0BF48870787 /* DoubleSpreadPagingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPagingBehavior.swift */; };
 		29F477B426E97AC81C2D867965814EE7 /* PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 3481D0A7F2ACE3B7EFE15B4034178A11 /* PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2D024FAD7B27E1D8C748930A0E67DCAB /* Pods-RDImageViewerController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 224A8E318F42655E0F072CAB3AA5C1E7 /* Pods-RDImageViewerController_Tests-dummy.m */; };
 		2FE186CC53B03E7543E7E8C05DCFA05E /* HudBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749032011E26CCE5672F71403CEE35A /* HudBehavior.swift */; };
 		313F81AEC709295C569BAD4817A16D52 /* PagingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667DF1B128AF9B6A94B017E431F2FC69 /* PagingBehavior.swift */; };
-		3A3EDB1DA2E81D738BA1BC50F9920E8E /* SinglePageBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D21B03DAE669D9D5F4E332142BE32 /* SinglePageBehavior.swift */; };
+		3A3EDB1DA2E81D738BA1BC50F9920E8E /* SinglePagingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D21B03DAE669D9D5F4E332142BE32 /* SinglePagingBehavior.swift */; };
 		3C41E061AD6C5265DCDCCC5638E34BF8 /* PagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F65AB2787ECAFF8D2E9410D52569426 /* PagingViewBottomToTopLayout.swift */; };
 		3FEA79AB938D263EDD0576109321847D /* NSArray+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 53CDDB14293196B39D8D5F328F9881B1 /* NSArray+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43D4E103252A938B9075F18B7626FD22 /* Pods-RDImageViewerController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1949F8AE2A1ABF4B1490006F9F40BC /* Pods-RDImageViewerController_Example-dummy.m */; };
@@ -134,7 +134,7 @@
 		28ACB1C407CBE1172AB5D250FEFCECB3 /* ALView+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ALView+PureLayout.h"; path = "PureLayout/PureLayout/ALView+PureLayout.h"; sourceTree = "<group>"; };
 		2CE3ADADB65B63DB190AB0D765A84402 /* Pods-RDImageViewerController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RDImageViewerController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D52797F22153A7C539D175009A70FEB /* RDImageViewerController.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = RDImageViewerController.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPageBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DoubleSpreadPageBehavior.swift; path = RDImageViewerController/Classes/DoubleSpreadPageBehavior.swift; sourceTree = "<group>"; };
+		2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPagingBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DoubleSpreadPagingBehavior.swift; path = RDImageViewerController/Classes/DoubleSpreadPagingBehavior.swift; sourceTree = "<group>"; };
 		328EDE774578B7E9C40683444FC0D9D0 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+PureLayout.m"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
 		3481D0A7F2ACE3B7EFE15B4034178A11 /* PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout.h; sourceTree = "<group>"; };
 		39F2EFACE7D48346C0807058CC94F905 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 		ED4B1CAAE3730662264844D810AC1568 /* PureLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.release.xcconfig; sourceTree = "<group>"; };
 		EE94C24F1B6DE777C9AFB51ECF4C1F70 /* Pods-RDImageViewerController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Example-umbrella.h"; sourceTree = "<group>"; };
 		F127CD72723405FC1B09645D4D9271AF /* SliderBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SliderBehavior.swift; path = RDImageViewerController/Classes/SliderBehavior.swift; sourceTree = "<group>"; };
-		F12D21B03DAE669D9D5F4E332142BE32 /* SinglePageBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SinglePageBehavior.swift; path = RDImageViewerController/Classes/SinglePageBehavior.swift; sourceTree = "<group>"; };
+		F12D21B03DAE669D9D5F4E332142BE32 /* SinglePagingBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SinglePagingBehavior.swift; path = RDImageViewerController/Classes/SinglePagingBehavior.swift; sourceTree = "<group>"; };
 		F1BCE4E283DE5107C0A2D349D1EAE51A /* Pods_RDImageViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -358,7 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				1ACA3D4115BDF2FACCD93CF2EFB2FC9F /* DoubleSpreadConfiguration.swift */,
-				2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPageBehavior.swift */,
+				2E7F9611E72AABBDAF7F57CD81D402A5 /* DoubleSpreadPagingBehavior.swift */,
 				9749032011E26CCE5672F71403CEE35A /* HudBehavior.swift */,
 				13780D208CA39779EEB546AAC96B14A0 /* ImageContent.swift */,
 				C8B9DAEABA968259DB72917679E802D1 /* ImageScrollView.swift */,
@@ -374,7 +374,7 @@
 				D25DC2C3B23F01572C9B217932FBA76A /* RDImageViewerController.swift */,
 				D770A0FFD09D50CD6C4EADC3520738C8 /* RemoteImageContent.swift */,
 				930C69B91D0B2C666CB33CB592341331 /* RemoteImageScrollView.swift */,
-				F12D21B03DAE669D9D5F4E332142BE32 /* SinglePageBehavior.swift */,
+				F12D21B03DAE669D9D5F4E332142BE32 /* SinglePagingBehavior.swift */,
 				F127CD72723405FC1B09645D4D9271AF /* SliderBehavior.swift */,
 				8426C70C47F1883776CCD566A89EE135 /* UISlider+Position.swift */,
 				C7F8F32D97EB96118EDB4526AE943025 /* UITraitCollection+Orientation.swift */,
@@ -679,7 +679,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D6C8ED3B1C5A51CFAFBFEBD5700FD9D /* DoubleSpreadConfiguration.swift in Sources */,
-				25CA902BA4F7A3175A01E0BF48870787 /* DoubleSpreadPageBehavior.swift in Sources */,
+				25CA902BA4F7A3175A01E0BF48870787 /* DoubleSpreadPagingBehavior.swift in Sources */,
 				2FE186CC53B03E7543E7E8C05DCFA05E /* HudBehavior.swift in Sources */,
 				58E0263E8F9D10512FA8B2339A689D5B /* ImageContent.swift in Sources */,
 				AE3E43025FC32DFB35A91FCDD4893BF9 /* ImageScrollView.swift in Sources */,
@@ -696,7 +696,7 @@
 				5E9A0EA8A67C8B442E58610A0D43E1A9 /* RDImageViewerController.swift in Sources */,
 				E3D78F86315EC9B1105A8D662ABC52C9 /* RemoteImageContent.swift in Sources */,
 				FB6E5C42F1FEC8EC3B81BAB74B8609B2 /* RemoteImageScrollView.swift in Sources */,
-				3A3EDB1DA2E81D738BA1BC50F9920E8E /* SinglePageBehavior.swift in Sources */,
+				3A3EDB1DA2E81D738BA1BC50F9920E8E /* SinglePagingBehavior.swift in Sources */,
 				4ACE29C32E8001AE3F45462877668FC1 /* SliderBehavior.swift in Sources */,
 				F6CCC6B84F227A3FE8AD3EA0B82BE0F1 /* UISlider+Position.swift in Sources */,
 				72FB0FB0559BD93D44832B1CCEE8C3D2 /* UITraitCollection+Orientation.swift in Sources */,

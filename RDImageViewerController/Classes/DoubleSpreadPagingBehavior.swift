@@ -1,11 +1,11 @@
 //
-//  DoubleSpreadPageBehavior.swift
+//  DoubleSpreadPagingBehavior.swift
 //  Pods-RDImageViewerController_Example
 //
 //  Created by Akira Matsuda on 2020/05/22.
 //
 
-open class DoubleSpreadPageBehavior: HudBehavior, SliderBehavior, PagingBehavior {
+open class DoubleSpreadPagingBehavior: HudBehavior, SliderBehavior, PagingBehavior {
     public init() {}
 
     open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {
