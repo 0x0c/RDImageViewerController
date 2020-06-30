@@ -567,6 +567,7 @@
 			buildConfigurationList = C9505929820A35D56B6ABA2E4B9B8AEF /* Build configuration list for PBXNativeTarget "RDImageViewerController" */;
 			buildPhases = (
 				3313614337BD2573E038A5AE0C432EC0 /* Headers */,
+				E91AB4CA24ABB401008B103C /* ShellScript */,
 				7D9E3BFC41115C6892BB7979378A9820 /* Sources */,
 				F04B8772B0C488FCAB1D8F0FA96715B5 /* Frameworks */,
 				9AE45675875910C922D2D56BA884A562 /* Resources */,
@@ -643,6 +644,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E91AB4CA24ABB401008B103C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4CB1EE4AD2830714C1931115FA6D9BBD /* Sources */ = {
