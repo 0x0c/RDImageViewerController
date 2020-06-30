@@ -7,21 +7,21 @@
 
 import UIKit
 
-public enum ImageHorizontalAlignment {
-    case left
-    case right
-    case center
-}
-
-public enum ImageVerticalAlignment {
-    case top
-    case bottom
-    case center
-}
-
 public struct ImageAlignment {
-    public var horizontal: ImageHorizontalAlignment = .center
-    public var vertical: ImageVerticalAlignment = .center
+    public enum HorizontalAlignment {
+        case left
+        case right
+        case center
+    }
+
+    public enum VerticalAlignment {
+        case top
+        case bottom
+        case center
+    }
+
+    public var horizontal: HorizontalAlignment = .center
+    public var vertical: VerticalAlignment = .center
 }
 
 public protocol PageContentProtocol {
