@@ -7,28 +7,6 @@
 
 import UIKit
 
-extension UIView {
-    static var pageIndexKey: UInt8 = 0
-    fileprivate var _pageIndex: Int {
-        get {
-            guard let associatedObject = objc_getAssociatedObject(self, &UIView.pageIndexKey) as? NSNumber else {
-                let associatedObject = NSNumber(value: Int(0))
-                objc_setAssociatedObject(self, &UIView.pageIndexKey, associatedObject, .OBJC_ASSOCIATION_RETAIN)
-                return Int(associatedObject.intValue)
-            }
-            return Int(associatedObject.intValue)
-        }
-
-        set {
-            objc_setAssociatedObject(self, &UIView.pageIndexKey, NSNumber(value: Int(newValue)), .OBJC_ASSOCIATION_RETAIN)
-        }
-    }
-
-    public var pageIndex: Int {
-        _pageIndex
-    }
-}
-
 public protocol PagingViewDataSource {
     func pagingView(pagingView: PagingView, preloadItemAt index: Int)
     func pagingView(pagingView: PagingView, cancelPreloadingItemAt index: Int)
@@ -47,121 +25,17 @@ public protocol PagingViewDelegate {
     func pagingViewDidEndScrollingAnimation(pagingView: PagingView)
 }
 
-public extension Int {
-    func convert(double: Bool) -> PagingView.VisibleIndex {
-        if double {
-            return .double(indexes: [self])
-        }
-        return .single(index: self)
-    }
-
-    func single() -> PagingView.VisibleIndex {
-        .single(index: self)
-    }
-
-    func doubleSpread() -> PagingView.VisibleIndex {
-        .double(indexes: [self])
-    }
-}
-
 open class PagingView: UICollectionView {
     public enum ForwardDirection {
         case right
         case left
         case up
         case down
-
-        public func isHorizontal() -> Bool {
-            self == .left || self == .right
-        }
-
-        public func isVertical() -> Bool {
-            self == .up || self == .down
-        }
-    }
-
-    public enum MovingDirection {
-        case forward
-        case backward
-        case unknown
     }
 
     public enum VisibleIndex {
         case single(index: Int)
         case double(indexes: [Int])
-
-        public static func == (a: VisibleIndex, b: VisibleIndex) -> Bool {
-            switch (a, b) {
-            case let (.single(index1), .single(index2)):
-                return index1 == index2
-            case let (.double(indexes1), .double(indexes2)):
-                return indexes1 == indexes2
-            default:
-                return false
-            }
-        }
-
-        public static func != (a: VisibleIndex, b: VisibleIndex) -> Bool {
-            switch (a, b) {
-            case let (.single(index1), .single(index2)):
-                return !(index1 == index2)
-            case let (.double(indexes1), .double(indexes2)):
-                return !(indexes1 == indexes2)
-            default:
-                return true
-            }
-        }
-
-        public func contains(_ index: VisibleIndex) -> Bool {
-            switch (self, index) {
-            case let (.single(index1), .single(index2)):
-                return (index1 == index2)
-            case let (.single(index1), .double(index2)):
-                if index2.count == 1, let index = index2.first {
-                    return index1 == index
-                }
-                return false
-            case let (.double(index1), .single(index2)):
-                return index1.contains(index2)
-            case let (.double(indexes1), .double(indexes2)):
-                var result = true
-                for i in indexes2 {
-                    result = result && indexes1.contains(i)
-                }
-                return result
-            }
-        }
-
-        public func convert(double: Bool) -> VisibleIndex {
-            switch self {
-            case let .single(index):
-                if double {
-                    return .double(indexes: [index])
-                }
-                return self
-            case let .double(indexes):
-                if double {
-                    return self
-                }
-
-                if let index = indexes.sorted().first {
-                    return .single(index: index)
-                }
-                return .single(index: 0)
-            }
-        }
-
-        public func primaryIndex() -> Int {
-            switch self {
-            case let .single(index):
-                return index
-            case let .double(indexes):
-                if let index = indexes.sorted().first {
-                    return index
-                }
-                return -1
-            }
-        }
     }
 
     public weak var pagingDataSource: (PagingViewDataSource & UICollectionViewDataSource)?
@@ -351,15 +225,6 @@ open class PagingView: UICollectionView {
                 cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             }
         }
-    }
-}
-
-extension Array {
-    var middle: Element? {
-        guard count != 0 else { return nil }
-
-        let middleIndex = (count > 1 ? count - 1 : count) / 2
-        return self[middleIndex]
     }
 }
 
