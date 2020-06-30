@@ -8,9 +8,9 @@
 import UIKit
 
 open class ImageContent: PageContent {
-    static let DefaultMaximumZoomScale: CGFloat = 2.5
+    static let defaultMaximumZoomScale: CGFloat = 2.5
 
-    open var maximumZoomScale: CGFloat = DefaultMaximumZoomScale
+    open var maximumZoomScale: CGFloat = defaultMaximumZoomScale
     open var landscapeMode: ImageScrollView.LandscapeMode = .aspectFit
     open var image: UIImage?
     open var imageName: String?
