@@ -57,7 +57,7 @@ open class ImageContent: Content {
     override open func stopPreload() {}
 
     override open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
-        if direction.isVertical(), let image = image {
+        if direction.isVertical, let image = image {
             var scale: CGFloat {
                 if isDoubleSpread {
                     return (rect.size.width / 2.0) / image.size.width

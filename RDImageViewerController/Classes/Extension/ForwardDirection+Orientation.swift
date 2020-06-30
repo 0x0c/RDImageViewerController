@@ -6,11 +6,11 @@
 //
 
 extension PagingView.ForwardDirection {
-    public func isHorizontal() -> Bool {
+    public var isHorizontal: Bool {
         self == .left || self == .right
     }
 
-    public func isVertical() -> Bool {
+    public var isVertical: Bool {
         self == .up || self == .down
     }
 }

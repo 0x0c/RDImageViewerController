@@ -25,7 +25,7 @@ open class SinglePagingBehavior: HudBehavior, SliderBehavior, PagingBehavior {
     }
 
     open func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
-        if pagingView.scrollDirection.isVertical() {
+        if pagingView.scrollDirection.isVertical {
             return
         }
         let value = Float(pagingView.currentPageIndex.primaryIndex()) / Float(pagingView.numberOfPages - 1)

@@ -44,7 +44,7 @@ open class DoubleSpreadPagingBehavior: HudBehavior, SliderBehavior, PagingBehavi
     }
 
     open func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
-        if pagingView.scrollDirection.isVertical() {
+        if pagingView.scrollDirection.isVertical {
             return
         }
         if case let .double(indexes) = pagingView.currentPageIndex, indexes.count > 0 {

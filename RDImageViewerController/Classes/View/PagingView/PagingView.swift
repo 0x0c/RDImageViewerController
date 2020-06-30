@@ -156,7 +156,7 @@ open class PagingView: UICollectionView {
             return
         }
         var position: UICollectionView.ScrollPosition {
-            if scrollDirection.isHorizontal() {
+            if scrollDirection.isHorizontal {
                 if isDoubleSpread {
                     if index % 2 == 0 {
                         return .left
@@ -237,7 +237,7 @@ extension PagingView: UIScrollViewDelegate {
             return
         }
         let position = scrollView.contentOffset.x / scrollView.frame.width
-        if scrollDirection.isHorizontal() {
+        if scrollDirection.isHorizontal {
             pagingDelegate.pagingView(pagingView: self, didScrollToPosition: position)
             if isDoubleSpread {
                 let newIndex: VisibleIndex = .double(indexes: visiblePageIndexes)

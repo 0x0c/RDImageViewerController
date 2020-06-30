@@ -16,18 +16,18 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     var feedbackGenerator = UISelectionFeedbackGenerator()
     var didRotate: Bool = false
     var pageHud: PageHud
+    var contents: [Content] = []
 
     open var doubleSpreadConfiguration: DoubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: false) {
         didSet {
             pagingView.isDoubleSpread = isDoubleSpread
         }
     }
-
-    open var isSliderEnabled: Bool = true
+    
     open var automaticBarsHiddenDuration: TimeInterval = 0
+    open var isSliderEnabled: Bool = true
     open var restoreBarState: Bool = true
     open var isPageNumberHudEnabled: Bool = true
-    open var contents: [Content] = []
     open var pagingView: PagingView
     open var pageSlider: UISlider
 
@@ -89,7 +89,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     private var _showSlider: Bool = false
     open var showSlider: Bool {
         set {
-            if pagingView.scrollDirection.isHorizontal() {
+            if pagingView.scrollDirection.isHorizontal {
                 setToolBarHidden(hidden: !newValue, animated: true)
             }
             else {
@@ -189,7 +189,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         pagingView.showsHorizontalScrollIndicator = false
         pagingView.showsVerticalScrollIndicator = false
         pagingView.isDoubleSpread = isDoubleSpread
-        if pagingView.scrollDirection.isHorizontal() {
+        if pagingView.scrollDirection.isHorizontal {
             pagingView.isPagingEnabled = true
         }
 
@@ -404,7 +404,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     open func changeDirection(_ forwardDirection: PagingView.ForwardDirection) {
         pagingView.changeDirection(forwardDirection)
-        if pagingView.scrollDirection.isHorizontal() {
+        if pagingView.scrollDirection.isHorizontal {
             pagingView.isPagingEnabled = true
         }
         else {
@@ -450,7 +450,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     open func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex, currentIndex _: PagingView.VisibleIndex) {
         switch index {
         case .single:
-            if pagingView.scrollDirection.isVertical() {
+            if pagingView.scrollDirection.isVertical {
                 interfaceBehavior().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
             }
         case .double:
@@ -467,7 +467,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     open func pagingViewDidEndScrollingAnimation(pagingView _: PagingView) {}
 
     open func pagingView(pagingView: PagingView, didChangeIndexTo index: PagingView.VisibleIndex) {
-        if pagingView.scrollDirection.isVertical() {
+        if pagingView.scrollDirection.isVertical {
             interfaceBehavior().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
         }
     }
@@ -475,7 +475,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     open func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
 
-        if pagingView.scrollDirection.isHorizontal() {
+        if pagingView.scrollDirection.isHorizontal {
             if pageSlider.state == .normal {
                 interfaceBehavior().updateSliderPosition(slider: pageSlider, value: Float(position), pagingView: pagingView)
             }
