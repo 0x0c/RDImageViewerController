@@ -59,11 +59,6 @@
 		E91AB4E124ABB956008B103C /* Array+MiddleElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4DE24ABB956008B103C /* Array+MiddleElement.swift */; };
 		E91AB4E524ABB9CA008B103C /* VisibleIndex+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4E224ABB9CA008B103C /* VisibleIndex+Convert.swift */; };
 		E91AB4E724ABBA21008B103C /* ForwardDirection+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4E624ABBA21008B103C /* ForwardDirection+Orientation.swift */; };
-		E91AB4F424ABBAFC008B103C /* RemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4EA24ABBAFB008B103C /* RemoteImageScrollView.swift */; };
-		E91AB4F524ABBAFC008B103C /* RemoteImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4EB24ABBAFB008B103C /* RemoteImageContent.swift */; };
-		E91AB4F624ABBAFC008B103C /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4ED24ABBAFB008B103C /* ImageContent.swift */; };
-		E91AB4F724ABBAFC008B103C /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4EE24ABBAFB008B103C /* ImageScrollView.swift */; };
-		E91AB4F824ABBAFC008B103C /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4EF24ABBAFB008B103C /* Content.swift */; };
 		E91AB4F924ABBAFC008B103C /* HudBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4F124ABBAFB008B103C /* HudBehavior.swift */; };
 		E91AB4FA24ABBAFC008B103C /* PagingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4F224ABBAFB008B103C /* PagingBehavior.swift */; };
 		E91AB4FB24ABBAFC008B103C /* SliderBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4F324ABBAFB008B103C /* SliderBehavior.swift */; };
@@ -76,6 +71,12 @@
 		E91AB50D24ABBCF0008B103C /* PagingViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB50624ABBCF0008B103C /* PagingViewFlowLayout.swift */; };
 		E91AB50E24ABBCF0008B103C /* PagingViewRightToLeftFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB50724ABBCF0008B103C /* PagingViewRightToLeftFlowLayout.swift */; };
 		E91AB50F24ABBCF0008B103C /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB50824ABBCF0008B103C /* PageHud.swift */; };
+		E91AB51924ABBDA6008B103C /* RemoteImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB51224ABBDA6008B103C /* RemoteImageScrollView.swift */; };
+		E91AB51A24ABBDA6008B103C /* RemoteImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB51324ABBDA6008B103C /* RemoteImageContent.swift */; };
+		E91AB51B24ABBDA6008B103C /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB51424ABBDA6008B103C /* Content.swift */; };
+		E91AB51C24ABBDA6008B103C /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB51624ABBDA6008B103C /* ImageContent.swift */; };
+		E91AB51D24ABBDA6008B103C /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB51724ABBDA6008B103C /* ImageScrollView.swift */; };
+		E91AB51E24ABBDA6008B103C /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB51824ABBDA6008B103C /* PageContent.swift */; };
 		EE3903AC92477CAE5D7295E0C04082C0 /* ALView+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 28ACB1C407CBE1172AB5D250FEFCECB3 /* ALView+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0CBA015D7A6385A642F284C0A7931F2 /* RDImageViewerController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 99B8426F4120E843BA65FD82C7B44213 /* RDImageViewerController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F56CDF52B5675EF34C904FAE0FE95705 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06AA4C08CD7F731602FF781270AE453 /* PureLayout.framework */; };
@@ -189,11 +190,6 @@
 		E91AB4DE24ABB956008B103C /* Array+MiddleElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+MiddleElement.swift"; sourceTree = "<group>"; };
 		E91AB4E224ABB9CA008B103C /* VisibleIndex+Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisibleIndex+Convert.swift"; sourceTree = "<group>"; };
 		E91AB4E624ABBA21008B103C /* ForwardDirection+Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ForwardDirection+Orientation.swift"; sourceTree = "<group>"; };
-		E91AB4EA24ABBAFB008B103C /* RemoteImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImageScrollView.swift; sourceTree = "<group>"; };
-		E91AB4EB24ABBAFB008B103C /* RemoteImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImageContent.swift; sourceTree = "<group>"; };
-		E91AB4ED24ABBAFB008B103C /* ImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
-		E91AB4EE24ABBAFB008B103C /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
-		E91AB4EF24ABBAFB008B103C /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		E91AB4F124ABBAFB008B103C /* HudBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudBehavior.swift; sourceTree = "<group>"; };
 		E91AB4F224ABBAFB008B103C /* PagingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingBehavior.swift; sourceTree = "<group>"; };
 		E91AB4F324ABBAFB008B103C /* SliderBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderBehavior.swift; sourceTree = "<group>"; };
@@ -206,6 +202,12 @@
 		E91AB50624ABBCF0008B103C /* PagingViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewFlowLayout.swift; sourceTree = "<group>"; };
 		E91AB50724ABBCF0008B103C /* PagingViewRightToLeftFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewRightToLeftFlowLayout.swift; sourceTree = "<group>"; };
 		E91AB50824ABBCF0008B103C /* PageHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHud.swift; sourceTree = "<group>"; };
+		E91AB51224ABBDA6008B103C /* RemoteImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImageScrollView.swift; sourceTree = "<group>"; };
+		E91AB51324ABBDA6008B103C /* RemoteImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImageContent.swift; sourceTree = "<group>"; };
+		E91AB51424ABBDA6008B103C /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		E91AB51624ABBDA6008B103C /* ImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
+		E91AB51724ABBDA6008B103C /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		E91AB51824ABBDA6008B103C /* PageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContent.swift; sourceTree = "<group>"; };
 		ED4B1CAAE3730662264844D810AC1568 /* PureLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.release.xcconfig; sourceTree = "<group>"; };
 		EE94C24F1B6DE777C9AFB51ECF4C1F70 /* Pods-RDImageViewerController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Example-umbrella.h"; sourceTree = "<group>"; };
 		F12D21B03DAE669D9D5F4E332142BE32 /* SinglePagingBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SinglePagingBehavior.swift; path = RDImageViewerController/Classes/SinglePagingBehavior.swift; sourceTree = "<group>"; };
@@ -371,8 +373,8 @@
 		B2780FBE16C47A997BBE58A39B3D213F /* RDImageViewerController */ = {
 			isa = PBXGroup;
 			children = (
+				E91AB51024ABBDA6008B103C /* Model */,
 				E91AB50024ABBCF0008B103C /* View */,
-				E91AB4E824ABBAFB008B103C /* Page */,
 				E91AB4F024ABBAFB008B103C /* Protocol */,
 				E91AB4D524ABB8BA008B103C /* Extension */,
 				1ACA3D4115BDF2FACCD93CF2EFB2FC9F /* DoubleSpreadConfiguration.swift */,
@@ -450,35 +452,6 @@
 			path = RDImageViewerController/Classes/Extension;
 			sourceTree = "<group>";
 		};
-		E91AB4E824ABBAFB008B103C /* Page */ = {
-			isa = PBXGroup;
-			children = (
-				E91AB4E924ABBAFB008B103C /* RemoteImageScrollView */,
-				E91AB4EC24ABBAFB008B103C /* ImageScrollView */,
-				E91AB4EF24ABBAFB008B103C /* Content.swift */,
-			);
-			name = Page;
-			path = RDImageViewerController/Classes/Page;
-			sourceTree = "<group>";
-		};
-		E91AB4E924ABBAFB008B103C /* RemoteImageScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				E91AB4EA24ABBAFB008B103C /* RemoteImageScrollView.swift */,
-				E91AB4EB24ABBAFB008B103C /* RemoteImageContent.swift */,
-			);
-			path = RemoteImageScrollView;
-			sourceTree = "<group>";
-		};
-		E91AB4EC24ABBAFB008B103C /* ImageScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				E91AB4ED24ABBAFB008B103C /* ImageContent.swift */,
-				E91AB4EE24ABBAFB008B103C /* ImageScrollView.swift */,
-			);
-			path = ImageScrollView;
-			sourceTree = "<group>";
-		};
 		E91AB4F024ABBAFB008B103C /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,6 +486,36 @@
 				E91AB50724ABBCF0008B103C /* PagingViewRightToLeftFlowLayout.swift */,
 			);
 			path = PagingView;
+			sourceTree = "<group>";
+		};
+		E91AB51024ABBDA6008B103C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E91AB51124ABBDA6008B103C /* RemoteImageScrollView */,
+				E91AB51424ABBDA6008B103C /* Content.swift */,
+				E91AB51524ABBDA6008B103C /* ImageScrollView */,
+				E91AB51824ABBDA6008B103C /* PageContent.swift */,
+			);
+			name = Model;
+			path = RDImageViewerController/Classes/Model;
+			sourceTree = "<group>";
+		};
+		E91AB51124ABBDA6008B103C /* RemoteImageScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				E91AB51224ABBDA6008B103C /* RemoteImageScrollView.swift */,
+				E91AB51324ABBDA6008B103C /* RemoteImageContent.swift */,
+			);
+			path = RemoteImageScrollView;
+			sourceTree = "<group>";
+		};
+		E91AB51524ABBDA6008B103C /* ImageScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				E91AB51624ABBDA6008B103C /* ImageContent.swift */,
+				E91AB51724ABBDA6008B103C /* ImageScrollView.swift */,
+			);
+			path = ImageScrollView;
 			sourceTree = "<group>";
 		};
 		F666B8FB48294CFAF6C07B6F90C7AF32 /* Pod */ = {
@@ -771,22 +774,23 @@
 				E91AB4E524ABB9CA008B103C /* VisibleIndex+Convert.swift in Sources */,
 				E91AB4E724ABBA21008B103C /* ForwardDirection+Orientation.swift in Sources */,
 				E91AB50924ABBCF0008B103C /* PagingViewVerticalFlowLayout.swift in Sources */,
+				E91AB51E24ABBDA6008B103C /* PageContent.swift in Sources */,
+				E91AB51924ABBDA6008B103C /* RemoteImageScrollView.swift in Sources */,
+				E91AB51B24ABBDA6008B103C /* Content.swift in Sources */,
 				0D6C8ED3B1C5A51CFAFBFEBD5700FD9D /* DoubleSpreadConfiguration.swift in Sources */,
 				E91AB50D24ABBCF0008B103C /* PagingViewFlowLayout.swift in Sources */,
-				E91AB4F824ABBAFC008B103C /* Content.swift in Sources */,
 				E91AB50C24ABBCF0008B103C /* PagingViewHorizontalFlowLayout.swift in Sources */,
 				E91AB4D924ABB8C7008B103C /* UIView+PageIndex.swift in Sources */,
 				E91AB4FF24ABBBF1008B103C /* PageView.swift in Sources */,
-				E91AB4F624ABBAFC008B103C /* ImageContent.swift in Sources */,
 				25CA902BA4F7A3175A01E0BF48870787 /* DoubleSpreadPagingBehavior.swift in Sources */,
 				E91AB4FD24ABBBDF008B103C /* PageContent.swift in Sources */,
 				E91AB4FB24ABBAFC008B103C /* SliderBehavior.swift in Sources */,
 				E91AB50A24ABBCF0008B103C /* PagingView.swift in Sources */,
 				E91AB50E24ABBCF0008B103C /* PagingViewRightToLeftFlowLayout.swift in Sources */,
 				E91AB4F924ABBAFC008B103C /* HudBehavior.swift in Sources */,
-				E91AB4F724ABBAFC008B103C /* ImageScrollView.swift in Sources */,
+				E91AB51D24ABBDA6008B103C /* ImageScrollView.swift in Sources */,
 				0D49AAC04A3137F9919A1E5990A0299A /* RDImageViewerController-dummy.m in Sources */,
-				E91AB4F524ABBAFC008B103C /* RemoteImageContent.swift in Sources */,
+				E91AB51A24ABBDA6008B103C /* RemoteImageContent.swift in Sources */,
 				E91AB4FA24ABBAFC008B103C /* PagingBehavior.swift in Sources */,
 				5E9A0EA8A67C8B442E58610A0D43E1A9 /* RDImageViewerController.swift in Sources */,
 				3A3EDB1DA2E81D738BA1BC50F9920E8E /* SinglePagingBehavior.swift in Sources */,
@@ -795,7 +799,7 @@
 				72FB0FB0559BD93D44832B1CCEE8C3D2 /* UITraitCollection+Orientation.swift in Sources */,
 				E91AB50B24ABBCF0008B103C /* PagingViewBottomToTopLayout.swift in Sources */,
 				E91AB50F24ABBCF0008B103C /* PageHud.swift in Sources */,
-				E91AB4F424ABBAFC008B103C /* RemoteImageScrollView.swift in Sources */,
+				E91AB51C24ABBDA6008B103C /* ImageContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
