@@ -363,8 +363,8 @@ extension PagingView: UICollectionViewDataSource {
 extension PagingView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let pagingDelegate = pagingDelegate else {
-            return CGSize.zero
+            return .zero
         }
-        return pagingDelegate.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? CGSize.zero
+        return pagingDelegate.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
     }
 }

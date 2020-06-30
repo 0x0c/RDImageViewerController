@@ -8,7 +8,7 @@
 import UIKit
 
 class PagingViewFlowLayout: UICollectionViewFlowLayout {
-    private var previousSizs: CGSize = CGSize.zero
+    private var previousSizs: CGSize = .zero
     var currentPageIndex: PagingView.VisibleIndex = .single(index: 0)
     var isDoubleSpread: Bool = false
     var ignoreTargetContentOffset = false
