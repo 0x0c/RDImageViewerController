@@ -10,7 +10,7 @@ import RDImageViewerController
 import UIKit
 
 class ReloadImageViewerController: RDImageViewerController {
-    override init(contents: [PageContent], direction: PagingView.ForwardDirection) {
+    override init(contents: [Content], direction: PagingView.ForwardDirection) {
         super.init(contents: contents, direction: direction)
         let items = [UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reload)), UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(push))]
         navigationItem.setRightBarButtonItems(items, animated: true)

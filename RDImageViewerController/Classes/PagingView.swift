@@ -17,7 +17,7 @@ public protocol PagingViewDelegate {
     func pagingView(pagingView: PagingView, willChangeIndexTo index: PagingView.VisibleIndex, currentIndex: PagingView.VisibleIndex)
     func pagingView(pagingView: PagingView, didChangeIndexTo index: PagingView.VisibleIndex)
     func pagingView(pagingView: PagingView, didScrollToPosition position: CGFloat)
-    func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index: Int)
+    func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageView, index: Int)
     func pagingViewWillBeginDragging(pagingView: PagingView)
     func pagingViewDidEndDragging(pagingView: PagingView, willDecelerate decelerate: Bool)
     func pagingViewWillBeginDecelerating(pagingView: PagingView)
@@ -178,7 +178,7 @@ open class PagingView: UICollectionView {
     public func resizeVisiblePages() {
         collectionViewLayout.invalidateLayout()
         for cell in visibleCells {
-            if let view = cell as? PageViewProtocol {
+            if let view = cell as? PageView {
                 view.resize(pageIndex: cell.pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
             }
         }
@@ -352,7 +352,7 @@ extension PagingView: UICollectionViewDataSource {
     }
 
     public func collectionView(_: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let pagingDelegate = pagingDelegate, let view = cell as? (UIView & PageViewProtocol) else {
+        guard let pagingDelegate = pagingDelegate, let view = cell as? (UIView & PageView) else {
             return
         }
 

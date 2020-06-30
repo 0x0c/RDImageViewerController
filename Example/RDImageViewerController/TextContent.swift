@@ -9,7 +9,7 @@
 import RDImageViewerController
 import UIKit
 
-class TextContent: PageContent {
+class TextContent: Content {
     let text: String
     var forceFullscreenSize: Bool = false
 
@@ -20,7 +20,7 @@ class TextContent: PageContent {
 
     override open func preload() {}
 
-    override open func preload(completion: ((PageContent) -> Void)?) {}
+    override open func preload(completion: ((Content) -> Void)?) {}
 
     override open func stopPreload() {}
 

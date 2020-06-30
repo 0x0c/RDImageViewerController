@@ -5,44 +5,7 @@
 //  Created by Akira Matsuda on 2019/04/07.
 //
 
-import UIKit
-
-public struct ImageAlignment {
-    public enum HorizontalAlignment {
-        case left
-        case right
-        case center
-    }
-
-    public enum VerticalAlignment {
-        case top
-        case bottom
-        case center
-    }
-
-    public var horizontal: HorizontalAlignment = .center
-    public var vertical: VerticalAlignment = .center
-}
-
-public protocol Content {
-    func isPreloadable() -> Bool
-    func isPreloading() -> Bool
-    func preload()
-    func preload(completion: ((_PageContent) -> Void)?)
-    func stopPreload()
-    func reload()
-    func reload(completion: ((_PageContent) -> Void)?)
-    func reuseIdentifier() -> String
-    func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize
-}
-
-public protocol PageView {
-    func configure(data: Content, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool)
-    func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool)
-    func resize()
-}
-
-open class _PageContent: NSObject, Content {
+open class Content: NSObject, PageContent {
     public enum PresentationType {
         case `class`(AnyClass)
         case nib(UINib, AnyClass)
@@ -69,7 +32,7 @@ open class _PageContent: NSObject, Content {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 
-    @objc open func preload(completion _: ((_PageContent) -> Void)?) {
+    @objc open func preload(completion _: ((Content) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 
@@ -81,7 +44,7 @@ open class _PageContent: NSObject, Content {
         reload(completion: nil)
     }
 
-    @objc open func reload(completion _: ((_PageContent) -> Void)?) {
+    @objc open func reload(completion _: ((Content) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 

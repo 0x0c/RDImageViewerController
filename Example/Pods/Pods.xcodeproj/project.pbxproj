@@ -70,10 +70,12 @@
 		E91AB4F524ABBAFC008B103C /* RemoteImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4EB24ABBAFB008B103C /* RemoteImageContent.swift */; };
 		E91AB4F624ABBAFC008B103C /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4ED24ABBAFB008B103C /* ImageContent.swift */; };
 		E91AB4F724ABBAFC008B103C /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4EE24ABBAFB008B103C /* ImageScrollView.swift */; };
-		E91AB4F824ABBAFC008B103C /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4EF24ABBAFB008B103C /* PageContent.swift */; };
+		E91AB4F824ABBAFC008B103C /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4EF24ABBAFB008B103C /* Content.swift */; };
 		E91AB4F924ABBAFC008B103C /* HudBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4F124ABBAFB008B103C /* HudBehavior.swift */; };
 		E91AB4FA24ABBAFC008B103C /* PagingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4F224ABBAFB008B103C /* PagingBehavior.swift */; };
 		E91AB4FB24ABBAFC008B103C /* SliderBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4F324ABBAFB008B103C /* SliderBehavior.swift */; };
+		E91AB4FD24ABBBDF008B103C /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4FC24ABBBDF008B103C /* PageContent.swift */; };
+		E91AB4FF24ABBBF1008B103C /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91AB4FE24ABBBF1008B103C /* PageView.swift */; };
 		EE3903AC92477CAE5D7295E0C04082C0 /* ALView+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 28ACB1C407CBE1172AB5D250FEFCECB3 /* ALView+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0CBA015D7A6385A642F284C0A7931F2 /* RDImageViewerController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 99B8426F4120E843BA65FD82C7B44213 /* RDImageViewerController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F56CDF52B5675EF34C904FAE0FE95705 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06AA4C08CD7F731602FF781270AE453 /* PureLayout.framework */; };
@@ -198,10 +200,12 @@
 		E91AB4EB24ABBAFB008B103C /* RemoteImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImageContent.swift; sourceTree = "<group>"; };
 		E91AB4ED24ABBAFB008B103C /* ImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
 		E91AB4EE24ABBAFB008B103C /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
-		E91AB4EF24ABBAFB008B103C /* PageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContent.swift; sourceTree = "<group>"; };
+		E91AB4EF24ABBAFB008B103C /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		E91AB4F124ABBAFB008B103C /* HudBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudBehavior.swift; sourceTree = "<group>"; };
 		E91AB4F224ABBAFB008B103C /* PagingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingBehavior.swift; sourceTree = "<group>"; };
 		E91AB4F324ABBAFB008B103C /* SliderBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderBehavior.swift; sourceTree = "<group>"; };
+		E91AB4FC24ABBBDF008B103C /* PageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageContent.swift; sourceTree = "<group>"; };
+		E91AB4FE24ABBBF1008B103C /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		ED4B1CAAE3730662264844D810AC1568 /* PureLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.release.xcconfig; sourceTree = "<group>"; };
 		EE94C24F1B6DE777C9AFB51ECF4C1F70 /* Pods-RDImageViewerController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Example-umbrella.h"; sourceTree = "<group>"; };
 		F12D21B03DAE669D9D5F4E332142BE32 /* SinglePagingBehavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SinglePagingBehavior.swift; path = RDImageViewerController/Classes/SinglePagingBehavior.swift; sourceTree = "<group>"; };
@@ -457,7 +461,7 @@
 			children = (
 				E91AB4E924ABBAFB008B103C /* RemoteImageScrollView */,
 				E91AB4EC24ABBAFB008B103C /* ImageScrollView */,
-				E91AB4EF24ABBAFB008B103C /* PageContent.swift */,
+				E91AB4EF24ABBAFB008B103C /* Content.swift */,
 			);
 			name = Page;
 			path = RDImageViewerController/Classes/Page;
@@ -487,6 +491,8 @@
 				E91AB4F124ABBAFB008B103C /* HudBehavior.swift */,
 				E91AB4F224ABBAFB008B103C /* PagingBehavior.swift */,
 				E91AB4F324ABBAFB008B103C /* SliderBehavior.swift */,
+				E91AB4FC24ABBBDF008B103C /* PageContent.swift */,
+				E91AB4FE24ABBBF1008B103C /* PageView.swift */,
 			);
 			name = Protocol;
 			path = RDImageViewerController/Classes/Protocol;
@@ -748,10 +754,12 @@
 				E91AB4E524ABB9CA008B103C /* VisibleIndex+Convert.swift in Sources */,
 				E91AB4E724ABBA21008B103C /* ForwardDirection+Orientation.swift in Sources */,
 				0D6C8ED3B1C5A51CFAFBFEBD5700FD9D /* DoubleSpreadConfiguration.swift in Sources */,
-				E91AB4F824ABBAFC008B103C /* PageContent.swift in Sources */,
+				E91AB4F824ABBAFC008B103C /* Content.swift in Sources */,
 				E91AB4D924ABB8C7008B103C /* UIView+PageIndex.swift in Sources */,
+				E91AB4FF24ABBBF1008B103C /* PageView.swift in Sources */,
 				E91AB4F624ABBAFC008B103C /* ImageContent.swift in Sources */,
 				25CA902BA4F7A3175A01E0BF48870787 /* DoubleSpreadPagingBehavior.swift in Sources */,
+				E91AB4FD24ABBBDF008B103C /* PageContent.swift in Sources */,
 				E91AB4FB24ABBAFC008B103C /* SliderBehavior.swift in Sources */,
 				B27500A5D6E2C08E775FBCC6C5924FE9 /* PageHud.swift in Sources */,
 				93AD1810EE6A69434E707685C1ED1C64 /* PagingView.swift in Sources */,

@@ -13,9 +13,9 @@ open class RemoteImageContent: ImageContent {
     public let session: URLSession
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?
-    public var lazyCompletionHandler: ((PageContent) -> Void)?
+    public var lazyCompletionHandler: ((Content) -> Void)?
 
-    public init(type: PageContent.PresentationType, request: URLRequest, session: URLSession) {
+    public init(type: Content.PresentationType, request: URLRequest, session: URLSession) {
         self.session = session
         self.request = request
         super.init(type: type)
@@ -32,7 +32,7 @@ open class RemoteImageContent: ImageContent {
         }
     }
 
-    @objc override open func reload(completion: ((PageContent) -> Void)?) {
+    @objc override open func reload(completion: ((Content) -> Void)?) {
         image = nil
         preload(completion: completion)
     }
@@ -48,7 +48,7 @@ open class RemoteImageContent: ImageContent {
         return false
     }
 
-    override open func preload(completion: ((PageContent) -> Void)?) {
+    override open func preload(completion: ((Content) -> Void)?) {
         if completion != nil {
             lazyCompletionHandler = completion
         }

@@ -27,7 +27,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     open var automaticBarsHiddenDuration: TimeInterval = 0
     open var restoreBarState: Bool = true
     open var isPageNumberHudEnabled: Bool = true
-    open var contents: [PageContent] = []
+    open var contents: [Content] = []
     open var pagingView: PagingView
     open var pageSlider: UISlider
 
@@ -160,7 +160,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
 
-    public init(contents: [PageContent], direction: PagingView.ForwardDirection) {
+    public init(contents: [Content], direction: PagingView.ForwardDirection) {
         pageHud = PageHud(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         feedbackGenerator.prepare()
         self.contents = contents
@@ -381,7 +381,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
     }
 
-    open func update(contents newContents: [PageContent]) {
+    open func update(contents newContents: [Content]) {
         contents = newContents
         reloadData()
     }
@@ -412,7 +412,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
 
-    open func configureView(_ view: PageViewProtocol & UICollectionViewCell, data: PageContentProtocol, indexPath: IndexPath) {
+    open func configureView(_ view: PageView & UICollectionViewCell, data: PageContent, indexPath: IndexPath) {
         view.configure(data: data, pageIndex: indexPath.row, scrollDirection: pagingView.scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
         view.resize()
         if let imageScrollView = view as? ImageScrollView {
@@ -432,7 +432,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = contents[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! PageViewProtocol & UICollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.reuseIdentifier(), for: indexPath) as! PageView & UICollectionViewCell
         configureView(cell, data: data, indexPath: indexPath)
 
         return cell
@@ -497,7 +497,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
 
-    open func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageViewProtocol, index _: Int) {
+    open func pagingView(pagingView: PagingView, didEndDisplaying view: UIView & PageView, index _: Int) {
         for v in view.subviews {
             if let scrollView = v as? UIScrollView {
                 if pagingView.isPagingEnabled {

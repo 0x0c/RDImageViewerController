@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class ImageContent: PageContent {
+open class ImageContent: Content {
     static let defaultMaximumZoomScale: CGFloat = 2.5
 
     open var maximumZoomScale: CGFloat = defaultMaximumZoomScale
@@ -32,7 +32,7 @@ open class ImageContent: PageContent {
         }
     }
 
-    override open func preload(completion: ((PageContent) -> Void)?) {
+    override open func preload(completion: ((Content) -> Void)?) {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
             if let handler = completion {
@@ -49,7 +49,7 @@ open class ImageContent: PageContent {
         true
     }
 
-    @objc override open func reload(completion: ((PageContent) -> Void)?) {
+    @objc override open func reload(completion: ((Content) -> Void)?) {
         image = nil
         preload(completion: completion)
     }

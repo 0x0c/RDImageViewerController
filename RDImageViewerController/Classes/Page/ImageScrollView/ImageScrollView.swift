@@ -7,7 +7,24 @@
 
 import UIKit
 
-open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
+open class ImageScrollView: UICollectionViewCell, PageView {
+    public struct ImageAlignment {
+        public enum HorizontalAlignment {
+            case left
+            case right
+            case center
+        }
+
+        public enum VerticalAlignment {
+            case top
+            case bottom
+            case center
+        }
+
+        public var horizontal: HorizontalAlignment = .center
+        public var vertical: VerticalAlignment = .center
+    }
+
     public enum LandscapeMode {
         case aspectFit
         case displayFit
@@ -255,7 +272,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         resize()
     }
 
-    open func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    open func configure(data: PageContent, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? ImageContent else {
             return
         }
