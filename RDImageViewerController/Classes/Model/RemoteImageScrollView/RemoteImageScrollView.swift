@@ -8,20 +8,20 @@
 import UIKit
 
 open class RemoteImageScrollView: ImageScrollView {
-    var contentData: RemoteImageContent?
+    var content: RemoteImageContent?
 
     override open func configure(data: PageContent, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? RemoteImageContent else {
             return
         }
         super.configure(data: data, pageIndex: pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
-        contentData = data
+        content = data
         if data.image == nil {
             data.stopPreload()
             data.preload { [weak self] content in
                 if let weakSelf = self, let cnt = content as? RemoteImageContent {
                     DispatchQueue.main.async {
-                        if weakSelf.contentData == cnt {
+                        if weakSelf.content == cnt {
                             weakSelf.image = cnt.image
                         }
                     }

@@ -7,7 +7,14 @@
 
 import UIKit
 
-open class RemoteImageContent: ImageContent {
+open class RemoteImageContent: ImageContent, Equatable {
+    public static func == (lhs: RemoteImageContent, rhs: RemoteImageContent) -> Bool {
+        guard let leftUrl = lhs.request.url, let rightUrl = rhs.request.url else {
+            return false
+        }
+        return leftUrl == rightUrl
+    }
+
     public var task: URLSessionTask?
     public let request: URLRequest
     public let session: URLSession
@@ -32,23 +39,23 @@ open class RemoteImageContent: ImageContent {
         }
     }
 
-    @objc override open func reload(completion: ((Content) -> Void)?) {
+    override open func reload(completion: ((PageContent) -> Void)?) {
         image = nil
         preload(completion: completion)
     }
 
-    @objc override open func preload() {
+    override open func preload() {
         preload(completion: nil)
     }
 
-    @objc override open func isPreloading() -> Bool {
+    override open func isPreloading() -> Bool {
         if task != nil {
             return true
         }
         return false
     }
 
-    override open func preload(completion: ((Content) -> Void)?) {
+    override open func preload(completion: ((PageContent) -> Void)?) {
         if completion != nil {
             lazyCompletionHandler = completion
         }

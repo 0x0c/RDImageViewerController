@@ -5,7 +5,7 @@
 //  Created by Akira Matsuda on 2019/04/07.
 //
 
-open class Content: NSObject, PageContent {
+open class Content: PageContent {
     public enum PresentationType {
         case `class`(AnyClass)
         case nib(UINib, AnyClass)
@@ -20,35 +20,35 @@ open class Content: NSObject, PageContent {
         _type = type
     }
 
-    @objc open func isPreloadable() -> Bool {
+    open func isPreloadable() -> Bool {
         false
     }
 
-    @objc open func isPreloading() -> Bool {
+    open func isPreloading() -> Bool {
         false
     }
 
-    @objc open func preload() {
+    open func preload() {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 
-    @objc open func preload(completion _: ((Content) -> Void)?) {
+    open func preload(completion _: ((PageContent) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 
-    @objc open func stopPreload() {
+    open func stopPreload() {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 
-    @objc open func reload() {
+    open func reload() {
         reload(completion: nil)
     }
 
-    @objc open func reload(completion _: ((Content) -> Void)?) {
+    open func reload(completion _: ((PageContent) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 
-    @objc open func reuseIdentifier() -> String {
+    open func reuseIdentifier() -> String {
         switch type {
         case let .class(cellClass):
             return "\(cellClass.self)"

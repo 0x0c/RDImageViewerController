@@ -20,7 +20,7 @@ class TextContent: Content {
 
     override open func preload() {}
 
-    override open func preload(completion: ((Content) -> Void)?) {}
+    override open func preload(completion: ((PageContent) -> Void)?) {}
 
     override open func stopPreload() {}
 

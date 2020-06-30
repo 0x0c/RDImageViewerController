@@ -8,7 +8,7 @@
 import UIKit
 
 open class ImageContent: Content {
-    static let defaultMaximumZoomScale: CGFloat = 2.5
+    private static let defaultMaximumZoomScale: CGFloat = 2.5
 
     open var maximumZoomScale: CGFloat = defaultMaximumZoomScale
     open var landscapeMode: ImageScrollView.LandscapeMode = .aspectFit
@@ -32,7 +32,7 @@ open class ImageContent: Content {
         }
     }
 
-    override open func preload(completion: ((Content) -> Void)?) {
+    override open func preload(completion: ((PageContent) -> Void)?) {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
             if let handler = completion {
@@ -49,7 +49,7 @@ open class ImageContent: Content {
         true
     }
 
-    @objc override open func reload(completion: ((Content) -> Void)?) {
+    override open func reload(completion: ((PageContent) -> Void)?) {
         image = nil
         preload(completion: completion)
     }
