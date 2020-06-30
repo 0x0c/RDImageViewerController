@@ -104,6 +104,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
         addGestureRecognizer(zoomGesture)
     }
 
+    @available(*, unavailable)
     public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -158,7 +159,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
 
         if viewWidth < viewHeight {
             // device portrait
-            if image?.isLandspaceImage() ?? false {
+            if image?.isLandspace() ?? false {
                 // landscape image
                 // fit imageWidth to viewWidth
                 scale = viewWidth / imageWidth
@@ -174,7 +175,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
             }
         } else {
             // device landscape
-            if image?.isLandspaceImage() ?? false {
+            if image?.isLandspace() ?? false {
                 // image landscape
                 if imageWidth / imageHeight > viewWidth / viewHeight {
                     // fit imageWidth to viewWidth
@@ -226,7 +227,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
 
     public func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection _: UITraitCollection, isDoubleSpread _: Bool) {
         if pageIndex % 2 == 0 {
-            var horizontalAlignment: ImageHorizontalAlignment {
+            var horizontalAlignment: ImageAlignment.HorizontalAlignment {
                 if scrollDirection == .right {
                     return .right
                 }
@@ -234,7 +235,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewProtocol {
             }
             alignment = ImageAlignment(horizontal: horizontalAlignment, vertical: .center)
         } else {
-            var horizontalAlignment: ImageHorizontalAlignment {
+            var horizontalAlignment: ImageAlignment.HorizontalAlignment {
                 if scrollDirection == .right {
                     return .left
                 }
@@ -283,7 +284,7 @@ extension ImageScrollView: UIScrollViewDelegate {
 }
 
 extension UIImage {
-    func isLandspaceImage() -> Bool {
+    func isLandspace() -> Bool {
         return size.width > size.height
     }
 }
