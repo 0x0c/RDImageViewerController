@@ -31,11 +31,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     open var pagingView: PagingView
     open var pageSlider: UISlider
 
-    open func interfaceBehaviour() -> HudBehaviour & SliderBehaviour & PagingBehaviour {
+    open func interfaceBehavior() -> HudBehavior & SliderBehavior & PagingBehavior {
         if isDoubleSpread {
-            return DoubleSpreadPageBehaviour()
+            return DoubleSpreadPageBehavior()
         }
-        return SinglePageBehaviour()
+        return SinglePageBehavior()
     }
 
     open var preloadCount: Int {
@@ -52,13 +52,13 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             switch newValue {
             case let .double(indexes):
                 if indexes.isEmpty == false {
-                    interfaceBehaviour().updatePageIndex(indexes.first!, pagingView: pagingView)
+                    interfaceBehavior().updatePageIndex(indexes.first!, pagingView: pagingView)
                 }
             case let .single(index):
-                interfaceBehaviour().updatePageIndex(index, pagingView: pagingView)
+                interfaceBehavior().updatePageIndex(index, pagingView: pagingView)
             }
-            interfaceBehaviour().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
-            interfaceBehaviour().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
+            interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
+            interfaceBehavior().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
             pagingView.currentPageIndex = newValue
         }
         get {
@@ -153,8 +153,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             self.pagingView.endRotate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // update page index
-                self.interfaceBehaviour().snapSliderPosition(slider: self.pageSlider, pagingView: self.pagingView)
-                self.interfaceBehaviour().updateLabel(label: self.pageHud.label, numerator: self.pagingView.currentPageIndex, denominator: self.numberOfPages)
+                self.interfaceBehavior().snapSliderPosition(slider: self.pageSlider, pagingView: self.pagingView)
+                self.interfaceBehavior().updateLabel(label: self.pageHud.label, numerator: self.pagingView.currentPageIndex, denominator: self.numberOfPages)
             }
         }
     }
@@ -211,7 +211,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         currentPageIndex = .single(index: 0)
         registerContents()
         applySliderTintColor()
-        interfaceBehaviour().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
+        interfaceBehavior().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
     }
 
     override open func viewWillAppear(_ animated: Bool) {
@@ -232,7 +232,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             perform(#selector(hideBars), with: self, afterDelay: automaticBarsHiddenDuration)
             automaticBarsHiddenDuration = 0
         }
-        interfaceBehaviour().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
+        interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
@@ -247,7 +247,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             pagingView.resizeVisiblePages()
 
             // update slider position
-            interfaceBehaviour().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
+            interfaceBehavior().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
 
             didRotate = false
         }
@@ -273,7 +273,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     func sliderDidTouchUpInside(slider: UISlider) {
         // snap
-        interfaceBehaviour().snapSliderPosition(slider: slider, pagingView: pagingView)
+        interfaceBehavior().snapSliderPosition(slider: slider, pagingView: pagingView)
     }
 
     // MARK: - bars
@@ -332,7 +332,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     func scrollDidEnd() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        interfaceBehaviour().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
+        interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
     }
 
     // MARK: - appearance
@@ -373,8 +373,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     open func reloadData() {
         registerContents()
         pagingView.reloadData()
-        interfaceBehaviour().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
-        interfaceBehaviour().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
+        interfaceBehavior().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
+        interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
     }
 
     open func update(contents newContents: [PageContent]) {
@@ -446,7 +446,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         switch index {
         case .single:
             if pagingView.scrollDirection.isVertical() {
-                interfaceBehaviour().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
+                interfaceBehavior().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
             }
         case .double:
             break
@@ -463,7 +463,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     open func pagingView(pagingView: PagingView, didChangeIndexTo index: PagingView.VisibleIndex) {
         if pagingView.scrollDirection.isVertical() {
-            interfaceBehaviour().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
+            interfaceBehavior().updateLabel(label: pageHud.label, numerator: index, denominator: numberOfPages)
         }
     }
 
@@ -472,11 +472,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
         if pagingView.scrollDirection.isHorizontal() {
             if pageSlider.state == .normal {
-                interfaceBehaviour().updateSliderPosition(slider: pageSlider, value: Float(position), pagingView: pagingView)
+                interfaceBehavior().updateSliderPosition(slider: pageSlider, value: Float(position), pagingView: pagingView)
             }
 
             let to = Int(position + 0.5)
-            interfaceBehaviour().updateLabel(label: pageHud.label, numerator: .single(index: to), denominator: numberOfPages)
+            interfaceBehavior().updateLabel(label: pageHud.label, numerator: .single(index: to), denominator: numberOfPages)
         }
     }
 
