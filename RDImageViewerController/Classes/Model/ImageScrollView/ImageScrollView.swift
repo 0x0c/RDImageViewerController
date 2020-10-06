@@ -279,7 +279,7 @@ open class ImageScrollView: UICollectionViewCell, PageView {
         scrollView.maximumZoomScale = data.maximumZoomScale
         mode = data.landscapeMode
         scrollView.setZoomScale(1.0, animated: false)
-        if traitCollection.isLandscape(), isDoubleSpread {
+        if traitCollection.rd_isLandscape(), isDoubleSpread {
             resize(pageIndex: pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
         }
         image = data.image

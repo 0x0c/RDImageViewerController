@@ -21,7 +21,7 @@ open class SinglePagingBehavior: HudBehavior, SliderBehavior, PagingBehavior {
 
     open func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
         let position = value / Float(pagingView.numberOfPages - 1)
-        slider.setTrueSliderValue(value: Float(position), pagingView: pagingView)
+        slider.rd_setTrueSliderValue(value: Float(position), pagingView: pagingView)
     }
 
     open func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
@@ -29,10 +29,10 @@ open class SinglePagingBehavior: HudBehavior, SliderBehavior, PagingBehavior {
             return
         }
         let value = Float(pagingView.currentPageIndex.primaryIndex()) / Float(pagingView.numberOfPages - 1)
-        slider.setTrueSliderValue(value: value, pagingView: pagingView)
+        slider.rd_setTrueSliderValue(value: value, pagingView: pagingView)
     }
 
     open func updatePageIndex(_ index: Int, pagingView: PagingView) {
-        pagingView.currentPageIndex = index.single()
+        pagingView.currentPageIndex = index.rd_single()
     }
 }

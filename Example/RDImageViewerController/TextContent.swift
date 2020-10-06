@@ -27,7 +27,7 @@ class TextContent: Content {
     override open func reload() {}
 
     override open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
-        if traitCollection.isLandscape(), isDoubleSpread, forceFullscreenSize == false {
+        if traitCollection.rd_isLandscape(), isDoubleSpread, forceFullscreenSize == false {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }
 

@@ -58,7 +58,7 @@ open class Content: PageContent {
     }
 
     open func size(inRect rect: CGRect, direction _: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
-        if traitCollection.isLandscape(), isDoubleSpread {
+        if traitCollection.rd_isLandscape(), isDoubleSpread {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }
 

@@ -6,7 +6,7 @@
 //
 
 extension Array {
-    var middle: Element? {
+    var rd_middle: Element? {
         guard count != 0 else { return nil }
 
         let middleIndex = (count > 1 ? count - 1 : count) / 2

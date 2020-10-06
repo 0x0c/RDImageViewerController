@@ -6,12 +6,12 @@
 //
 
 extension UISlider {
-    public func trueSliderValue(value: Float, pagingView: PagingView) -> Float {
+    public func rd_trueSliderValue(value: Float, pagingView: PagingView) -> Float {
         pagingView.scrollDirection == .right ? value : 1 - value
     }
 
-    public func setTrueSliderValue(value: Float, pagingView: PagingView, animated: Bool = false) {
-        let position = trueSliderValue(value: value, pagingView: pagingView)
+    public func rd_setTrueSliderValue(value: Float, pagingView: PagingView, animated: Bool = false) {
+        let position = rd_trueSliderValue(value: value, pagingView: pagingView)
         setValue(position, animated: animated)
     }
 }

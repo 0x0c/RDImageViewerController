@@ -179,7 +179,7 @@ open class PagingView: UICollectionView {
         collectionViewLayout.invalidateLayout()
         for cell in visibleCells {
             if let view = cell as? PageView {
-                view.resize(pageIndex: cell.pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+                view.resize(pageIndex: cell.rd_pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
             }
         }
     }
@@ -248,7 +248,7 @@ extension PagingView: UIScrollViewDelegate {
             }
             else {
                 let to = Int(position + 0.5)
-                let newIndex: VisibleIndex = to.single()
+                let newIndex: VisibleIndex = to.rd_single()
                 if _currentPageIndex != newIndex {
                     pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex, currentIndex: _currentPageIndex)
                 }
@@ -257,9 +257,9 @@ extension PagingView: UIScrollViewDelegate {
         }
         else {
             pagingDelegate.pagingView(pagingView: self, didScrollToPosition: scrollView.contentOffset.y)
-            if let index = indexPathsForVisibleItems.sorted().middle {
+            if let index = indexPathsForVisibleItems.sorted().rd_middle {
                 let to = index.row
-                let newIndex: VisibleIndex = to.convert(double: isDoubleSpread)
+                let newIndex: VisibleIndex = to.rd_convert(double: isDoubleSpread)
                 if _currentPageIndex != newIndex {
                     pagingDelegate.pagingView(pagingView: self, willChangeIndexTo: newIndex, currentIndex: _currentPageIndex)
                 }
@@ -326,7 +326,7 @@ extension PagingView: UICollectionViewDataSource {
             return UICollectionViewCell(frame: CGRect.zero)
         }
         let cell = pagingDataSource.collectionView(collectionView, cellForItemAt: indexPath)
-        cell._pageIndex = indexPath.row
+        cell._rd_pageIndex = indexPath.row
         if isLegacyLayoutSystem {
             cell.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }

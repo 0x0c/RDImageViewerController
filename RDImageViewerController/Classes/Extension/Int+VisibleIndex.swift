@@ -6,18 +6,18 @@
 //
 
 public extension Int {
-    func convert(double: Bool) -> PagingView.VisibleIndex {
+    func rd_convert(double: Bool) -> PagingView.VisibleIndex {
         if double {
             return .double(indexes: [self])
         }
         return .single(index: self)
     }
 
-    func single() -> PagingView.VisibleIndex {
+    func rd_single() -> PagingView.VisibleIndex {
         .single(index: self)
     }
 
-    func doubleSpread() -> PagingView.VisibleIndex {
+    func rd_doubleSpread() -> PagingView.VisibleIndex {
         .double(indexes: [self])
     }
 }

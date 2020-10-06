@@ -29,17 +29,17 @@ open class DoubleSpreadPagingBehavior: HudBehavior, SliderBehavior, PagingBehavi
             UIView.animate(withDuration: 0.1) {
                 if snapPosition > Float(pagingView.numberOfPages - 4) {
                     let position = value * 2 / Float(pagingView.numberOfPages - 2)
-                    slider.setTrueSliderValue(value: position, pagingView: pagingView, animated: true)
+                    slider.rd_setTrueSliderValue(value: position, pagingView: pagingView, animated: true)
                 }
                 else {
                     let position = value * 2 / Float(pagingView.numberOfPages - 1)
-                    slider.setTrueSliderValue(value: Float(position), pagingView: pagingView, animated: true)
+                    slider.rd_setTrueSliderValue(value: Float(position), pagingView: pagingView, animated: true)
                 }
             }
         }
         else {
             let position = value * 2 / Float(pagingView.numberOfPages - 2)
-            slider.setTrueSliderValue(value: Float(position), pagingView: pagingView)
+            slider.rd_setTrueSliderValue(value: Float(position), pagingView: pagingView)
         }
     }
 
@@ -51,22 +51,22 @@ open class DoubleSpreadPagingBehavior: HudBehavior, SliderBehavior, PagingBehavi
             if pagingView.numberOfPages % 2 == 1 {
                 let index = indexes.sorted().first!
                 let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 1)
-                slider.setTrueSliderValue(value: value, pagingView: pagingView)
+                slider.rd_setTrueSliderValue(value: value, pagingView: pagingView)
             }
             else {
                 let index = indexes.sorted().first!
                 let value = Float(index + index % 2) / Float(pagingView.numberOfPages - 2)
-                slider.setTrueSliderValue(value: value, pagingView: pagingView)
+                slider.rd_setTrueSliderValue(value: value, pagingView: pagingView)
             }
         }
     }
 
     open func updatePageIndex(_ index: Int, pagingView: PagingView) {
         if index % 2 == 0 {
-            pagingView.currentPageIndex = index.doubleSpread()
+            pagingView.currentPageIndex = index.rd_doubleSpread()
         }
         else {
-            pagingView.currentPageIndex = (index - 1).doubleSpread()
+            pagingView.currentPageIndex = (index - 1).rd_doubleSpread()
         }
     }
 }
