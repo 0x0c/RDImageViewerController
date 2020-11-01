@@ -16,7 +16,7 @@ public protocol Configuration {
 open class DoubleSpreadConfiguration: Configuration {
     public var portrait: Bool = false
     public var landscape: Bool = false
-    
+
     open var hasDifferentContentsForOrientation: Bool {
         false
     }
@@ -25,7 +25,7 @@ open class DoubleSpreadConfiguration: Configuration {
         self.portrait = portrait
         self.landscape = landscape
     }
-    
+
     open func interfaceBehavior(isDoubleSpread: Bool) -> InterfaceBehavior {
         if isDoubleSpread {
             return DoubleSpreadPagingBehavior()

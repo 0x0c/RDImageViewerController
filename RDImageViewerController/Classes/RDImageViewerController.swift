@@ -26,7 +26,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             pagingView.isDoubleSpread = isDoubleSpread
         }
     }
-    
+
     open var automaticBarsHiddenDuration: TimeInterval = 0
     open var isSliderEnabled: Bool = true
     open var restoreBarState: Bool = true
@@ -396,7 +396,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         contents = configuration.filter(originalContents, isLandscape: isLandscape)
         reloadData()
     }
-    
+
     open func update(contents newContents: [Content]) {
         update(contents: newContents, isLandscape: RDImageViewerController.rd_isLandscape())
     }

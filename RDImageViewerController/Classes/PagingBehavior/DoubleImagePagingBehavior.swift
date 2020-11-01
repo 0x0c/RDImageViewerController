@@ -8,7 +8,7 @@
 import Foundation
 
 open class DoubleImagePagingBehavior: SinglePagingBehavior {
-    open override func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {
+    override open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {
         switch numerator {
         case let .single(index):
             label.text = "[\(index + 1)-\(index + 2)]/\(denominator * 2)"

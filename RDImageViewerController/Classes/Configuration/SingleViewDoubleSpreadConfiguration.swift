@@ -7,11 +7,11 @@
 //
 
 open class SingleViewDoubleSpreadConfiguration: DoubleSpreadConfiguration {
-    open override var hasDifferentContentsForOrientation: Bool {
+    override open var hasDifferentContentsForOrientation: Bool {
         true
     }
 
-    open override func filter(_ originalContents: [Content], isLandscape: Bool) -> [Content] {
+    override open func filter(_ originalContents: [Content], isLandscape: Bool) -> [Content] {
         if isLandscape == false {
             return originalContents
         }
@@ -32,8 +32,8 @@ open class SingleViewDoubleSpreadConfiguration: DoubleSpreadConfiguration {
         }
         return newContents
     }
-    
-    open override func interfaceBehavior(isDoubleSpread: Bool) -> InterfaceBehavior {
+
+    override open func interfaceBehavior(isDoubleSpread: Bool) -> InterfaceBehavior {
         if isDoubleSpread {
             return DoubleImagePagingBehavior()
         }

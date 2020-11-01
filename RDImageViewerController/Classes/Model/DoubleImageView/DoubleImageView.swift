@@ -147,8 +147,7 @@ open class DoubleImageView: UICollectionViewCell, PageView {
         scrollView.setContentOffset(.init(x: 0, y: 0), animated: false)
     }
 
-    public func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
-    }
+    public func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {}
 
     public func resize() {}
 }
