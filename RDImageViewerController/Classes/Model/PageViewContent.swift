@@ -6,14 +6,14 @@
 //
 
 open class PageViewContent: PagingViewLoadable {
-    public enum PresentationType {
+    public enum PageViewRepresentation {
         case `class`(AnyClass)
         case nib(UINib, AnyClass)
     }
 
-    public private(set) var type: PresentationType
+    public private(set) var type: PageViewRepresentation
 
-    public init(type: PresentationType) {
+    public init(type: PageViewRepresentation) {
         self.type = type
     }
 

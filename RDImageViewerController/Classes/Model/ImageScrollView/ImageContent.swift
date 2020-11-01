@@ -15,7 +15,7 @@ open class ImageContent: PageViewContent {
     open var image: UIImage?
     open var imageName: String?
 
-    override public init(type: PresentationType) {
+    override public init(type: PageViewRepresentation) {
         super.init(type: type)
     }
 
