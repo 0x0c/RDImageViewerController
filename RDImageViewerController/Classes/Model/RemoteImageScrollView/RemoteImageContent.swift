@@ -20,9 +20,9 @@ open class RemoteImageContent: ImageContent, Equatable {
     public let session: URLSession
     public var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
     public var imageDecodeHandler: ((Data) -> UIImage?)?
-    public var lazyCompletionHandler: ((Content) -> Void)?
+    public var lazyCompletionHandler: ((PageViewContent) -> Void)?
 
-    public init(type: Content.PresentationType, request: URLRequest, session: URLSession) {
+    public init(type: PageViewContent.PresentationType, request: URLRequest, session: URLSession) {
         self.session = session
         self.request = request
         super.init(type: type)

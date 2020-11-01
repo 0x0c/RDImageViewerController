@@ -9,7 +9,7 @@
 import RDImageViewerController
 import UIKit
 
-class TextContent: Content {
+class TextContent: PageViewContent {
     let text: String
     var forceFullscreenSize: Bool = false
 

@@ -18,8 +18,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     var feedbackGenerator = UISelectionFeedbackGenerator()
     var didRotate: Bool = false
     var pageHud: PageHud
-    var contents: [Content] = []
-    var originalContents: [Content] = []
+    var contents: [PageViewContent] = []
+    var originalContents: [PageViewContent] = []
 
     open var configuration: Configuration = DoubleSpreadConfiguration(
         portrait: false,
@@ -192,7 +192,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
 
-    public init(contents: [Content], direction: PagingView.ForwardDirection) {
+    public init(contents: [PageViewContent], direction: PagingView.ForwardDirection) {
         pageHud = PageHud(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         feedbackGenerator.prepare()
         pagingView = PagingView(frame: CGRect.zero, forwardDirection: direction)
@@ -449,13 +449,13 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         )
     }
 
-    private func update(contents newContents: [Content], isLandscape: Bool) {
+    private func update(contents newContents: [PageViewContent], isLandscape: Bool) {
         originalContents = newContents
         contents = configuration.filter(originalContents, isLandscape: isLandscape)
         reloadData()
     }
 
-    open func update(contents newContents: [Content]) {
+    open func update(contents newContents: [PageViewContent]) {
         update(contents: newContents, isLandscape: RDImageViewerController.rd_isLandscape())
     }
 

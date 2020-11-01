@@ -51,8 +51,8 @@ class ContentsFactory {
         return contents
     }
 
-    static func imageContents() -> [Content] {
-        var contents = [Content]()
+    static func imageContents() -> [PageViewContent] {
+        var contents = [PageViewContent]()
         for i in 1 ... 12 {
             let data = ImageContent(imageName: "\(i).JPG")
             data.landscapeMode = .displayFit
@@ -62,8 +62,8 @@ class ContentsFactory {
         return contents
     }
 
-    static func aspectFitContents() -> [Content] {
-        var contents = [Content]()
+    static func aspectFitContents() -> [PageViewContent] {
+        var contents = [PageViewContent]()
         for i in 1 ... 12 {
             let data = ImageContent(imageName: "\(i).JPG")
             data.landscapeMode = .aspectFit
@@ -73,8 +73,8 @@ class ContentsFactory {
         return contents
     }
 
-    static func viewAndImageContents() -> [Content] {
-        var contents = [Content]()
+    static func viewAndImageContents() -> [PageViewContent] {
+        var contents = [PageViewContent]()
         for i in 1 ... 12 {
             if i % 2 == 0 {
                 let data = ImageContent(imageName: "\(i).JPG")
@@ -90,8 +90,8 @@ class ContentsFactory {
         return contents
     }
 
-    static func multipleSizeViewContents() -> [Content] {
-        var contents = [Content]()
+    static func multipleSizeViewContents() -> [PageViewContent] {
+        var contents = [PageViewContent]()
         for i in 1 ... 11 {
             let data = TextContent(text: "\(i)")
             contents.append(data)
@@ -104,9 +104,9 @@ class ContentsFactory {
         return contents
     }
 
-    static func randomContents() -> [Content] {
+    static func randomContents() -> [PageViewContent] {
         let numberOfPages = Int(arc4random() % 20 + 1)
-        var contents = [Content]()
+        var contents = [PageViewContent]()
         for i in 0 ..< numberOfPages {
             contents.append(ContentsFactory.randomContent(seed: i))
         }
@@ -114,7 +114,7 @@ class ContentsFactory {
         return contents
     }
 
-    static func randomContent(seed: Int) -> Content {
+    static func randomContent(seed: Int) -> PageViewContent {
         let rand = arc4random() % 4
         switch rand {
         case 0:

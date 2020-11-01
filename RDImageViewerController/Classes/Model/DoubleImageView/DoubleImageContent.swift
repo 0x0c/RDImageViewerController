@@ -6,7 +6,7 @@
 //  Copyright © 2020 CocoaPods. All rights reserved.
 //
 
-open class DoubleImageContent: Content {
+open class DoubleImageContent: PageViewContent {
     var right: ImageContent?
     var left: ImageContent?
 

@@ -11,12 +11,12 @@ open class SingleViewDoubleSpreadConfiguration: DoubleSpreadConfiguration {
         true
     }
 
-    override open func filter(_ originalContents: [Content], isLandscape: Bool) -> [Content] {
+    override open func filter(_ originalContents: [PageViewContent], isLandscape: Bool) -> [PageViewContent] {
         if isLandscape == false {
             return originalContents
         }
 
-        var newContents = [Content]()
+        var newContents = [PageViewContent]()
         let chunkedContents = originalContents.rd_chunked(into: 2)
         for contents in chunkedContents {
             if contents.count == 2,

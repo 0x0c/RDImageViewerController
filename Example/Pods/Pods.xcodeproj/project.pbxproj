@@ -64,7 +64,7 @@
 		E94A63EB254F1FFE00B3A5D0 /* RemoteImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C6254F1FFE00B3A5D0 /* RemoteImageContent.swift */; };
 		E94A63EC254F1FFE00B3A5D0 /* DoubleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C8254F1FFE00B3A5D0 /* DoubleImageView.swift */; };
 		E94A63ED254F1FFE00B3A5D0 /* DoubleImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C9254F1FFE00B3A5D0 /* DoubleImageContent.swift */; };
-		E94A63EE254F1FFE00B3A5D0 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63CA254F1FFE00B3A5D0 /* Content.swift */; };
+		E94A63EE254F1FFE00B3A5D0 /* PageViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63CA254F1FFE00B3A5D0 /* PageViewContent.swift */; };
 		E94A63EF254F1FFE00B3A5D0 /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63CC254F1FFE00B3A5D0 /* ImageContent.swift */; };
 		E94A63F0254F1FFE00B3A5D0 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63CD254F1FFE00B3A5D0 /* ImageScrollView.swift */; };
 		E94A63F1254F1FFE00B3A5D0 /* SingleViewDoubleSpreadConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63CF254F1FFE00B3A5D0 /* SingleViewDoubleSpreadConfiguration.swift */; };
@@ -200,7 +200,7 @@
 		E94A63C6254F1FFE00B3A5D0 /* RemoteImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImageContent.swift; sourceTree = "<group>"; };
 		E94A63C8254F1FFE00B3A5D0 /* DoubleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleImageView.swift; sourceTree = "<group>"; };
 		E94A63C9254F1FFE00B3A5D0 /* DoubleImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleImageContent.swift; sourceTree = "<group>"; };
-		E94A63CA254F1FFE00B3A5D0 /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
+		E94A63CA254F1FFE00B3A5D0 /* PageViewContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewContent.swift; sourceTree = "<group>"; };
 		E94A63CC254F1FFE00B3A5D0 /* ImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
 		E94A63CD254F1FFE00B3A5D0 /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		E94A63CF254F1FFE00B3A5D0 /* SingleViewDoubleSpreadConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleViewDoubleSpreadConfiguration.swift; sourceTree = "<group>"; };
@@ -477,7 +477,7 @@
 		E94A63C3254F1FFE00B3A5D0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E94A63CA254F1FFE00B3A5D0 /* Content.swift */,
+				E94A63CA254F1FFE00B3A5D0 /* PageViewContent.swift */,
 				E94A63C4254F1FFE00B3A5D0 /* RemoteImageScrollView */,
 				E94A63C7254F1FFE00B3A5D0 /* DoubleImageView */,
 				E94A63CB254F1FFE00B3A5D0 /* ImageScrollView */,
@@ -843,7 +843,7 @@
 				E94A63E7254F1FFE00B3A5D0 /* UIImageView+SizeFitting.swift in Sources */,
 				E94A63F9254F1FFE00B3A5D0 /* PagingView.swift in Sources */,
 				E94A63EC254F1FFE00B3A5D0 /* DoubleImageView.swift in Sources */,
-				E94A63EE254F1FFE00B3A5D0 /* Content.swift in Sources */,
+				E94A63EE254F1FFE00B3A5D0 /* PageViewContent.swift in Sources */,
 				E94A63FA254F1FFE00B3A5D0 /* PagingViewBottomToTopLayout.swift in Sources */,
 				E94A63E9254F1FFE00B3A5D0 /* VisibleIndex+Convert.swift in Sources */,
 			);

@@ -7,7 +7,7 @@
 
 public protocol Configuration {
     func interfaceBehavior(isDoubleSpread: Bool) -> InterfaceBehavior
-    func filter(_ originalContents: [Content], isLandscape: Bool) -> [Content]
+    func filter(_ originalContents: [PageViewContent], isLandscape: Bool) -> [PageViewContent]
     var hasDifferentContentsForOrientation: Bool { get }
     var portrait: Bool { get set }
     var landscape: Bool { get set }
@@ -33,7 +33,7 @@ open class DoubleSpreadConfiguration: Configuration {
         return SinglePagingBehavior()
     }
 
-    open func filter(_ originalContents: [Content], isLandscape: Bool) -> [Content] {
+    open func filter(_ originalContents: [PageViewContent], isLandscape: Bool) -> [PageViewContent] {
         return originalContents
     }
 }

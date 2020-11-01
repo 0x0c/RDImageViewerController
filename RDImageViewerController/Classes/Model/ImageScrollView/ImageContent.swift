@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class ImageContent: Content {
+open class ImageContent: PageViewContent {
     private static let defaultMaximumZoomScale: CGFloat = 2.5
 
     open var maximumZoomScale: CGFloat = defaultMaximumZoomScale

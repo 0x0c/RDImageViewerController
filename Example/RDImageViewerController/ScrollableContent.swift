@@ -9,7 +9,7 @@
 import RDImageViewerController
 import UIKit
 
-class ScrollableContent: Content {
+class ScrollableContent: PageViewContent {
     let color: UIColor
 
     init(color: UIColor) {
