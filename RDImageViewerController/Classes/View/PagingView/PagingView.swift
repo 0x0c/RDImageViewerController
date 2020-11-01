@@ -365,6 +365,10 @@ extension PagingView: UICollectionViewDelegateFlowLayout {
         guard let pagingDelegate = pagingDelegate else {
             return .zero
         }
-        return pagingDelegate.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+        return pagingDelegate.collectionView?(
+            collectionView,
+            layout: collectionViewLayout,
+            sizeForItemAt: indexPath
+        ) ?? .zero
     }
 }

@@ -102,7 +102,13 @@ open class DoubleImageView: UICollectionViewCell, PageView {
         }
     }
 
-    public func configure(data: PageContent, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    public func configure(
+        data: PageContent,
+        pageIndex: Int,
+        scrollDirection: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    ) {
         guard let data = data as? DoubleImageContent else {
             return
         }
@@ -147,7 +153,12 @@ open class DoubleImageView: UICollectionViewCell, PageView {
         scrollView.setContentOffset(.init(x: 0, y: 0), animated: false)
     }
 
-    public func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {}
+    public func resize(
+        pageIndex: Int,
+        scrollDirection: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    ) {}
 
     public func resize() {}
 }
@@ -159,9 +170,19 @@ extension DoubleImageView: UIScrollViewDelegate {
 
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         if let subView = scrollView.subviews.first {
-            let offsetX = scrollView.bounds.width > scrollView.contentSize.width ? (scrollView.bounds.width - scrollView.contentSize.width) * 0.5 : 0
+            var offsetX: CGFloat {
+                if scrollView.bounds.width > scrollView.contentSize.width {
+                    return (scrollView.bounds.width - scrollView.contentSize.width) * 0.5
+                }
+                return 0
+            }
             let x = scrollView.contentSize.width * 0.5 + offsetX
-            let offsetY = scrollView.bounds.height > scrollView.contentSize.height ? (scrollView.bounds.height - scrollView.contentSize.height) * 0.5 : 0
+            var offsetY: CGFloat {
+                if scrollView.bounds.height > scrollView.contentSize.height {
+                    return (scrollView.bounds.height - scrollView.contentSize.height) * 0.5
+                }
+                return 0
+            }
             let y = scrollView.contentSize.height * 0.5 + offsetY
             subView.center = CGPoint(x: x, y: y)
         }

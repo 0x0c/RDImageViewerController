@@ -134,7 +134,15 @@ open class ImageScrollView: UICollectionViewCell, PageView {
         }
         else if imageView.scrollView.zoomScale < imageView.scrollView.maximumZoomScale {
             let position = gesture.location(in: imageView.scrollView)
-            imageView.scrollView.zoom(to: CGRect(x: position.x - zoomRect.width / 2, y: position.y - zoomRect.height / 2, width: zoomRect.width, height: zoomRect.height), animated: true)
+            imageView.scrollView.zoom(
+                to: .init(
+                    x: position.x - zoomRect.width / 2,
+                    y: position.y - zoomRect.height / 2,
+                    width: zoomRect.width,
+                    height: zoomRect.height
+                ),
+                animated: true
+            )
         }
     }
 
@@ -187,7 +195,12 @@ open class ImageScrollView: UICollectionViewCell, PageView {
         adjustContentAspect()
     }
 
-    public func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    public func resize(
+        pageIndex: Int,
+        scrollDirection: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    ) {
         if pageIndex % 2 == 0 {
             var horizontalAlignment: ImageAlignment.HorizontalAlignment {
                 if isDoubleSpread == false {
@@ -215,7 +228,13 @@ open class ImageScrollView: UICollectionViewCell, PageView {
         resize()
     }
 
-    open func configure(data: PageContent, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    open func configure(
+        data: PageContent,
+        pageIndex: Int,
+        scrollDirection: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    ) {
         guard let data = data as? ImageContent else {
             return
         }
@@ -240,11 +259,21 @@ extension ImageScrollView: UIScrollViewDelegate {
             var y = subView.center.y
 
             if alignment.horizontal == .center {
-                let offsetX = scrollView.bounds.width > scrollView.contentSize.width ? (scrollView.bounds.width - scrollView.contentSize.width) * 0.5 : 0
+                var offsetX: CGFloat {
+                    if scrollView.bounds.width > scrollView.contentSize.width {
+                        return (scrollView.bounds.width - scrollView.contentSize.width) * 0.5
+                    }
+                    return 0
+                }
                 x = scrollView.contentSize.width * 0.5 + offsetX
             }
             if alignment.vertical == .center {
-                let offsetY = scrollView.bounds.height > scrollView.contentSize.height ? (scrollView.bounds.height - scrollView.contentSize.height) * 0.5 : 0
+                var offsetY: CGFloat {
+                    if scrollView.bounds.height > scrollView.contentSize.height {
+                        return (scrollView.bounds.height - scrollView.contentSize.height) * 0.5
+                    }
+                    return 0
+                }
                 y = scrollView.contentSize.height * 0.5 + offsetY
             }
             subView.center = CGPoint(x: x, y: y)

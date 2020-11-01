@@ -21,7 +21,10 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     var contents: [Content] = []
     var originalContents: [Content] = []
 
-    open var configuration: Configuration = DoubleSpreadConfiguration(portrait: false, landscape: false) {
+    open var configuration: Configuration = DoubleSpreadConfiguration(
+        portrait: false,
+        landscape: false
+    ) {
         didSet {
             pagingView.isDoubleSpread = isDoubleSpread
         }
@@ -52,13 +55,26 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             switch newValue {
             case let .double(indexes):
                 if indexes.isEmpty == false {
-                    interfaceBehavior().updatePageIndex(indexes.first!, pagingView: pagingView)
+                    interfaceBehavior().updatePageIndex(
+                        indexes.first!,
+                        pagingView: pagingView
+                    )
                 }
             case let .single(index):
-                interfaceBehavior().updatePageIndex(index, pagingView: pagingView)
+                interfaceBehavior().updatePageIndex(
+                    index,
+                    pagingView: pagingView
+                )
             }
-            interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
-            interfaceBehavior().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
+            interfaceBehavior().updateLabel(
+                label: pageHud.label,
+                numerator: pagingView.currentPageIndex,
+                denominator: numberOfPages
+            )
+            interfaceBehavior().snapSliderPosition(
+                slider: pageSlider,
+                pagingView: pagingView
+            )
             pagingView.currentPageIndex = newValue
         }
         get {
@@ -130,10 +146,16 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
 
-    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override open func viewWillTransition(
+        to size: CGSize,
+        with coordinator: UIViewControllerTransitionCoordinator
+    ) {
         super.viewWillTransition(to: size, with: coordinator)
         if configuration.hasDifferentContentsForOrientation {
-            update(contents: originalContents, isLandscape: size.width > size.height)
+            update(
+                contents: originalContents,
+                isLandscape: size.width > size.height
+            )
         }
         didRotate = true
 
@@ -189,7 +211,12 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     override open func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(setBarHiddenByTapGesture)))
+        view.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(setBarHiddenByTapGesture)
+            )
+        )
 
         view.addSubview(pagingView)
         pagingView.autoPinEdgesToSuperviewEdges()
@@ -216,8 +243,16 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
         pageSlider.frame = CGRect(x: 0, y: 0, width: view.frame.width - 30, height: 31)
         pageSlider.autoresizingMask = [.flexibleWidth]
-        pageSlider.addTarget(self, action: #selector(sliderValueDidChange(slider:)), for: .valueChanged)
-        pageSlider.addTarget(self, action: #selector(sliderDidTouchUpInside(slider:)), for: .touchUpInside)
+        pageSlider.addTarget(
+            self,
+            action: #selector(sliderValueDidChange(slider:)),
+            for: .valueChanged
+        )
+        pageSlider.addTarget(
+            self,
+            action: #selector(sliderDidTouchUpInside(slider:)),
+            for: .touchUpInside
+        )
         let sliderItem = UIBarButtonItem(customView: pageSlider)
         toolbarItems = [sliderItem]
 
@@ -232,7 +267,10 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         view.setNeedsLayout()
         if restoreBarState == true {
             pagingView.beginChangingBarState()
-            setNavigationBarHidden(hidden: navigationController?.isNavigationBarHidden ?? false, animated: true)
+            setNavigationBarHidden(
+                hidden: navigationController?.isNavigationBarHidden ?? false,
+                animated: true
+            )
             setToolBarHidden(hidden: !showSlider, animated: true)
             setHudHidden(hidden: !showPageNumberHud, animated: false)
             pagingView.endChangingBarState()
@@ -245,7 +283,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             perform(#selector(hideBars), with: self, afterDelay: automaticBarsHiddenDuration)
             automaticBarsHiddenDuration = 0
         }
-        interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
+        interfaceBehavior().updateLabel(
+            label: pageHud.label,
+            numerator: pagingView.currentPageIndex,
+            denominator: numberOfPages
+        )
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
@@ -278,7 +320,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         if currentPageIndex.contains(newIndex) == false, previousSliderValue != slider.value {
             previousSliderValue = slider.value
             feedbackGenerator.selectionChanged()
-            pagingView(pagingView: pagingView, willChangeIndexTo: newIndex, currentIndex: currentPageIndex)
+            pagingView(
+                pagingView: pagingView,
+                willChangeIndexTo: newIndex,
+                currentIndex: currentPageIndex
+            )
             pagingView(pagingView: pagingView, didChangeIndexTo: newIndex)
         }
         currentPageIndex = newIndex
@@ -324,7 +370,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
 
     open func cancelAutoBarHidden() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideBars), object: self)
+        NSObject.cancelPreviousPerformRequests(
+            withTarget: self,
+            selector: #selector(hideBars),
+            object: self
+        )
     }
 
     // MARK: - hud
@@ -345,7 +395,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     func scrollDidEnd() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
+        interfaceBehavior().updateLabel(
+            label: pageHud.label,
+            numerator: pagingView.currentPageIndex,
+            denominator: numberOfPages
+        )
     }
 
     // MARK: - appearance
@@ -388,7 +442,11 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         registerContents()
         pagingView.reloadData()
         interfaceBehavior().snapSliderPosition(slider: pageSlider, pagingView: pagingView)
-        interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
+        interfaceBehavior().updateLabel(
+            label: pageHud.label,
+            numerator: pagingView.currentPageIndex,
+            denominator: numberOfPages
+        )
     }
 
     private func update(contents newContents: [Content], isLandscape: Bool) {
@@ -428,7 +486,13 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
 
     open func configureView(_ view: PageView & UICollectionViewCell, data: PageContent, indexPath: IndexPath) {
-        view.configure(data: data, pageIndex: indexPath.row, scrollDirection: pagingView.scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+        view.configure(
+            data: data,
+            pageIndex: indexPath.row,
+            scrollDirection: pagingView.scrollDirection,
+            traitCollection: traitCollection,
+            isDoubleSpread: isDoubleSpread
+        )
         view.resize()
         if let imageScrollView = view as? ImageScrollView {
             pagingView.gestureRecognizers?.forEach { gesture in
@@ -492,11 +556,19 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
         if pagingView.scrollDirection.isHorizontal {
             if pageSlider.state == .normal {
-                interfaceBehavior().updateSliderPosition(slider: pageSlider, value: Float(position), pagingView: pagingView)
+                interfaceBehavior().updateSliderPosition(
+                    slider: pageSlider,
+                    value: Float(position),
+                    pagingView: pagingView
+                )
             }
 
             let to = Int(position + 0.5)
-            interfaceBehavior().updateLabel(label: pageHud.label, numerator: .single(index: to), denominator: numberOfPages)
+            interfaceBehavior().updateLabel(
+                label: pageHud.label,
+                numerator: .single(index: to),
+                denominator: numberOfPages
+            )
         }
     }
 

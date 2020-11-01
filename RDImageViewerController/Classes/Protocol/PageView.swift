@@ -6,7 +6,18 @@
 //
 
 public protocol PageView {
-    func configure(data: PageContent, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool)
-    func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool)
+    func configure(
+        data: PageContent,
+        pageIndex: Int,
+        scrollDirection: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    )
+    func resize(
+        pageIndex: Int,
+        scrollDirection: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    )
     func resize()
 }

@@ -14,5 +14,10 @@ public protocol PageContent {
     func reload()
     func reload(completion: ((PageContent) -> Void)?)
     func reuseIdentifier() -> String
-    func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize
+    func size(
+        inRect rect: CGRect,
+        direction: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    ) -> CGSize
 }
