@@ -8,6 +8,8 @@
 import PureLayout
 import UIKit
 
+public typealias InterfaceBehavior = HudBehavior & SliderBehavior & PagingBehavior
+
 @objcMembers
 open class RDImageViewerController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, PagingViewDelegate, PagingViewDataSource {
     static let pageHudLabelFontSize: CGFloat = 17
@@ -17,8 +19,9 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     var didRotate: Bool = false
     var pageHud: PageHud
     var contents: [Content] = []
+    var originalContents: [Content] = []
 
-    open var doubleSpreadConfiguration: DoubleSpreadConfiguration = DoubleSpreadConfiguration(portrait: false, landscape: false) {
+    open var configuration: Configuration = DoubleSpreadConfiguration(portrait: false, landscape: false) {
         didSet {
             pagingView.isDoubleSpread = isDoubleSpread
         }
@@ -31,11 +34,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     open var pagingView: PagingView
     open var pageSlider: UISlider
 
-    open func interfaceBehavior() -> HudBehavior & SliderBehavior & PagingBehavior {
-        if isDoubleSpread {
-            return DoubleSpreadPagingBehavior()
-        }
-        return SinglePagingBehavior()
+    open func interfaceBehavior() -> InterfaceBehavior {
+        configuration.interfaceBehavior(isDoubleSpread: isDoubleSpread)
     }
 
     open var preloadCount: Int {
@@ -80,10 +80,10 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     }
 
     open var isDoubleSpread: Bool {
-        if traitCollection.isLandscape() {
-            return doubleSpreadConfiguration.landscape
+        if RDImageViewerController.rd_isLandscape() {
+            return configuration.landscape
         }
-        return doubleSpreadConfiguration.portrait
+        return configuration.portrait
     }
 
     private var _showSlider: Bool = false
@@ -132,6 +132,9 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        if configuration.hasDifferentContentsForOrientation {
+            update(contents: originalContents, isLandscape: size.width > size.height)
+        }
         didRotate = true
 
         if let flowLayout = pagingView.collectionViewLayout as? PagingViewFlowLayout {
@@ -154,8 +157,15 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
             self.pagingView.endRotate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // update page index
-                self.interfaceBehavior().snapSliderPosition(slider: self.pageSlider, pagingView: self.pagingView)
-                self.interfaceBehavior().updateLabel(label: self.pageHud.label, numerator: self.pagingView.currentPageIndex, denominator: self.numberOfPages)
+                self.interfaceBehavior().snapSliderPosition(
+                    slider: self.pageSlider,
+                    pagingView: self.pagingView
+                )
+                self.interfaceBehavior().updateLabel(
+                    label: self.pageHud.label,
+                    numerator: self.pagingView.currentPageIndex,
+                    denominator: self.numberOfPages
+                )
             }
         }
     }
@@ -163,12 +173,12 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     public init(contents: [Content], direction: PagingView.ForwardDirection) {
         pageHud = PageHud(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         feedbackGenerator.prepare()
-        self.contents = contents
         pagingView = PagingView(frame: CGRect.zero, forwardDirection: direction)
         pageSlider = UISlider(frame: CGRect.zero)
         super.init(nibName: nil, bundle: nil)
         pagingView.pagingDataSource = self
         pagingView.pagingDelegate = self
+        update(contents: contents, isLandscape: RDImageViewerController.rd_isLandscape())
     }
 
     @available(*, unavailable)
@@ -261,10 +271,10 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     private var previousSliderValue: Float = 0
     func sliderValueDidChange(slider: UISlider) {
         cancelAutoBarHidden()
-        let position = pageSlider.trueSliderValue(value: slider.value, pagingView: pagingView)
+        let position = pageSlider.rd_trueSliderValue(value: slider.value, pagingView: pagingView)
         let pageIndex = position * Float(numberOfPages - 1)
         let truePageIndex = Int(pageIndex + 0.5)
-        let newIndex = truePageIndex.convert(double: isDoubleSpread)
+        let newIndex = truePageIndex.rd_convert(double: isDoubleSpread)
         if currentPageIndex.contains(newIndex) == false, previousSliderValue != slider.value {
             previousSliderValue = slider.value
             feedbackGenerator.selectionChanged()
@@ -381,9 +391,14 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         interfaceBehavior().updateLabel(label: pageHud.label, numerator: pagingView.currentPageIndex, denominator: numberOfPages)
     }
 
-    open func update(contents newContents: [Content]) {
-        contents = newContents
+    private func update(contents newContents: [Content], isLandscape: Bool) {
+        originalContents = newContents
+        contents = configuration.filter(originalContents, isLandscape: isLandscape)
         reloadData()
+    }
+    
+    open func update(contents newContents: [Content]) {
+        update(contents: newContents, isLandscape: RDImageViewerController.rd_isLandscape())
     }
 
     public func reloadView(at index: Int) {

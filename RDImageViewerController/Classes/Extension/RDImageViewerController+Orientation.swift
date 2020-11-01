@@ -19,8 +19,8 @@ extension UIApplication {
     }
 }
 
-extension UITraitCollection {
-    public func rd_isLandscape() -> Bool {
+extension RDImageViewerController {
+    public static func rd_isLandscape() -> Bool {
         if #available(iOS 13, *) {
             if let window = UIApplication.shared.rd_currentWindow(),
                 let windowScene = window.windowScene {

@@ -5,7 +5,7 @@
 //  Created by Akira Matsuda on 2020/05/22.
 //
 
-open class SinglePagingBehavior: HudBehavior, SliderBehavior, PagingBehavior {
+open class SinglePagingBehavior: InterfaceBehavior {
     public init() {}
 
     open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {

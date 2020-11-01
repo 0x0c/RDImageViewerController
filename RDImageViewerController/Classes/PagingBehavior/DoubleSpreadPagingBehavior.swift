@@ -5,7 +5,7 @@
 //  Created by Akira Matsuda on 2020/05/22.
 //
 
-open class DoubleSpreadPagingBehavior: HudBehavior, SliderBehavior, PagingBehavior {
+open class DoubleSpreadPagingBehavior: InterfaceBehavior {
     public init() {}
 
     open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {

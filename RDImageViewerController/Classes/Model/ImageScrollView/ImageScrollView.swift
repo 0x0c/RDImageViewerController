@@ -161,82 +161,19 @@ open class ImageScrollView: UICollectionViewCell, PageView {
     open func adjustContentAspect() {
         switch mode {
         case .aspectFit:
-            fitToAspect()
-        case .displayFit:
-            fitToDisplay()
-        }
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-    }
-
-    open func fitToAspect() {
-        imageView.sizeToFit()
-        let viewHeight = frame.height
-        let viewWidth = frame.width
-        let imageHeight = max(1, imageView.frame.height)
-        let imageWidth = max(1, imageView.frame.width)
-        var scale: CGFloat = 1.0
-
-        if viewWidth < viewHeight {
-            // device portrait
-            if image?.isLandspace() ?? false {
-                // landscape image
-                // fit imageWidth to viewWidth
-                scale = viewWidth / imageWidth
-            }
-            else {
-                // portrait image
-                if imageWidth / imageHeight > viewWidth / viewHeight {
-                    // fit imageWidth to viewWidth
-                    scale = viewWidth / imageWidth
-                }
-                else {
-                    // fit imageHeight to viewHeight
-                    scale = viewHeight / imageHeight
-                }
-            }
-        }
-        else {
-            // device landscape
-            if image?.isLandspace() ?? false {
-                // image landscape
-                if imageWidth / imageHeight > viewWidth / viewHeight {
-                    // fit imageWidth to viewWidth
-                    scale = viewWidth / imageWidth
-                }
-                else {
-                    // fit imageHeight to viewHeight
-                    scale = viewHeight / imageHeight
-                }
-            }
-            else {
-                // image portrait
-                // fit imageHeight to viewHeight
-                scale = viewHeight / imageHeight
-            }
-        }
-
-        imageView.frame = CGRect(x: 0, y: 0, width: imageWidth * scale, height: imageHeight * scale)
-        fixImageViewPosition()
-        scrollView.contentSize = imageView.frame.size
-        scrollView.setZoomScale(1.0, animated: false)
-    }
-
-    open func fitToDisplay() {
-        imageView.sizeToFit()
-        let height = frame.height
-        let width = frame.width
-        if width < height {
-            // portrait
-            fitToAspect()
-        }
-        else {
-            let scale = width > height ? width / max(1, imageView.frame.width) : height / max(1, imageView.frame.height)
-            imageView.frame = CGRect(x: 0, y: 0, width: imageView.frame.width * scale, height: imageView.frame.height * scale)
-            if height > imageView.frame.height {
-                imageView.center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
-            }
+            imageView.fitToAspect(containerSize: frame.size)
+            scrollView.contentSize = imageView.frame.size
             scrollView.setZoomScale(1.0, animated: false)
+        case .displayFit:
+            imageView.fitToDisplay(containerSize: frame.size)
+            let height = frame.height
+            let width = frame.width
+            if width > height {
+                scrollView.setZoomScale(1.0, animated: false)
+            }
         }
+        fixImageViewPosition()
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
 
     public func addGestureRecognizerPriorityHigherThanZoomGestureRecogniser(gesture: UIGestureRecognizer) {
@@ -250,9 +187,12 @@ open class ImageScrollView: UICollectionViewCell, PageView {
         adjustContentAspect()
     }
 
-    public func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection _: UITraitCollection, isDoubleSpread _: Bool) {
+    public func resize(pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         if pageIndex % 2 == 0 {
             var horizontalAlignment: ImageAlignment.HorizontalAlignment {
+                if isDoubleSpread == false {
+                    return .center
+                }
                 if scrollDirection == .right {
                     return .right
                 }
@@ -262,6 +202,9 @@ open class ImageScrollView: UICollectionViewCell, PageView {
         }
         else {
             var horizontalAlignment: ImageAlignment.HorizontalAlignment {
+                if isDoubleSpread == false {
+                    return .center
+                }
                 if scrollDirection == .right {
                     return .left
                 }
@@ -279,7 +222,7 @@ open class ImageScrollView: UICollectionViewCell, PageView {
         scrollView.maximumZoomScale = data.maximumZoomScale
         mode = data.landscapeMode
         scrollView.setZoomScale(1.0, animated: false)
-        if traitCollection.rd_isLandscape(), isDoubleSpread {
+        if RDImageViewerController.rd_isLandscape(), isDoubleSpread {
             resize(pageIndex: pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
         }
         image = data.image
