@@ -11,13 +11,10 @@ open class Content: PagingViewLoadable {
         case nib(UINib, AnyClass)
     }
 
-    private var _type: PresentationType
-    public var type: PresentationType {
-        _type
-    }
+    public private(set) var type: PresentationType
 
     public init(type: PresentationType) {
-        _type = type
+        self.type = type
     }
 
     open func isPreloadable() -> Bool {

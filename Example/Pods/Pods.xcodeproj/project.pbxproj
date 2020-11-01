@@ -460,15 +460,15 @@
 		E94A63BA254F1FFE00B3A5D0 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				E94A63BB254F1FFE00B3A5D0 /* ForwardDirection+Orientation.swift */,
-				E94A63BC254F1FFE00B3A5D0 /* Array+MiddleElement.swift */,
-				E94A63BD254F1FFE00B3A5D0 /* UISlider+Position.swift */,
-				E94A63BE254F1FFE00B3A5D0 /* RDImageViewerController+Orientation.swift */,
-				E94A63BF254F1FFE00B3A5D0 /* UIView+PageIndex.swift */,
-				E94A63C0254F1FFE00B3A5D0 /* UIImageView+SizeFitting.swift */,
-				E94A63C1254F1FFE00B3A5D0 /* Int+VisibleIndex.swift */,
-				E94A63C2254F1FFE00B3A5D0 /* VisibleIndex+Convert.swift */,
 				E94A6413254F22D700B3A5D0 /* Array+Chunked.swift */,
+				E94A63BC254F1FFE00B3A5D0 /* Array+MiddleElement.swift */,
+				E94A63BB254F1FFE00B3A5D0 /* ForwardDirection+Orientation.swift */,
+				E94A63C1254F1FFE00B3A5D0 /* Int+VisibleIndex.swift */,
+				E94A63BE254F1FFE00B3A5D0 /* RDImageViewerController+Orientation.swift */,
+				E94A63C0254F1FFE00B3A5D0 /* UIImageView+SizeFitting.swift */,
+				E94A63BD254F1FFE00B3A5D0 /* UISlider+Position.swift */,
+				E94A63BF254F1FFE00B3A5D0 /* UIView+PageIndex.swift */,
+				E94A63C2254F1FFE00B3A5D0 /* VisibleIndex+Convert.swift */,
 			);
 			name = Extension;
 			path = RDImageViewerController/Classes/Extension;
