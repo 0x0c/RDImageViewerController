@@ -280,9 +280,3 @@ extension ImageScrollView: UIScrollViewDelegate {
         }
     }
 }
-
-extension UIImage {
-    func isLandspace() -> Bool {
-        size.width > size.height
-    }
-}

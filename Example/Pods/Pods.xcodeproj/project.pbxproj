@@ -83,6 +83,7 @@
 		E94A63FE254F1FFE00B3A5D0 /* PageHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63DF254F1FFE00B3A5D0 /* PageHud.swift */; };
 		E94A6414254F22D700B3A5D0 /* Array+Chunked.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6413254F22D700B3A5D0 /* Array+Chunked.swift */; };
 		E94A641C254F234300B3A5D0 /* DoubleImagePagingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A641B254F234300B3A5D0 /* DoubleImagePagingBehavior.swift */; };
+		E94A643C254F2BE800B3A5D0 /* UIImage+Landscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A643B254F2BE800B3A5D0 /* UIImage+Landscape.swift */; };
 		EE3903AC92477CAE5D7295E0C04082C0 /* ALView+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 28ACB1C407CBE1172AB5D250FEFCECB3 /* ALView+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0CBA015D7A6385A642F284C0A7931F2 /* RDImageViewerController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 99B8426F4120E843BA65FD82C7B44213 /* RDImageViewerController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F56CDF52B5675EF34C904FAE0FE95705 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06AA4C08CD7F731602FF781270AE453 /* PureLayout.framework */; };
@@ -219,6 +220,7 @@
 		E94A63DF254F1FFE00B3A5D0 /* PageHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHud.swift; sourceTree = "<group>"; };
 		E94A6413254F22D700B3A5D0 /* Array+Chunked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Chunked.swift"; sourceTree = "<group>"; };
 		E94A641B254F234300B3A5D0 /* DoubleImagePagingBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleImagePagingBehavior.swift; sourceTree = "<group>"; };
+		E94A643B254F2BE800B3A5D0 /* UIImage+Landscape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Landscape.swift"; sourceTree = "<group>"; };
 		ED4B1CAAE3730662264844D810AC1568 /* PureLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.release.xcconfig; sourceTree = "<group>"; };
 		EE94C24F1B6DE777C9AFB51ECF4C1F70 /* Pods-RDImageViewerController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RDImageViewerController_Example-umbrella.h"; sourceTree = "<group>"; };
 		F1BCE4E283DE5107C0A2D349D1EAE51A /* Pods_RDImageViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RDImageViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -469,6 +471,7 @@
 				E94A63BD254F1FFE00B3A5D0 /* UISlider+Position.swift */,
 				E94A63BF254F1FFE00B3A5D0 /* UIView+PageIndex.swift */,
 				E94A63C2254F1FFE00B3A5D0 /* VisibleIndex+Convert.swift */,
+				E94A643B254F2BE800B3A5D0 /* UIImage+Landscape.swift */,
 			);
 			name = Extension;
 			path = RDImageViewerController/Classes/Extension;
@@ -828,6 +831,7 @@
 				E94A63E2254F1FFE00B3A5D0 /* ForwardDirection+Orientation.swift in Sources */,
 				E94A63FB254F1FFE00B3A5D0 /* PagingViewHorizontalFlowLayout.swift in Sources */,
 				E94A63E8254F1FFE00B3A5D0 /* Int+VisibleIndex.swift in Sources */,
+				E94A643C254F2BE800B3A5D0 /* UIImage+Landscape.swift in Sources */,
 				E94A63F2254F1FFE00B3A5D0 /* DoubleSpreadConfiguration.swift in Sources */,
 				E94A63E6254F1FFE00B3A5D0 /* UIView+PageIndex.swift in Sources */,
 				E94A63F6254F1FFE00B3A5D0 /* SliderBehavior.swift in Sources */,

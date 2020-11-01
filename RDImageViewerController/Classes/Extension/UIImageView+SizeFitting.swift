@@ -36,7 +36,7 @@ extension UIImageView {
 
         if width < height {
             // device portrait
-            if image?.isLandspace() ?? false {
+            if image?.rd_isLandspace() ?? false {
                 // landscape image
                 // fit imageWidth to viewWidth
                 scale = width / imageWidth
@@ -55,7 +55,7 @@ extension UIImageView {
         }
         else {
             // device landscape
-            if image?.isLandspace() ?? false {
+            if image?.rd_isLandspace() ?? false {
                 // image landscape
                 if imageWidth / imageHeight > width / height {
                     // fit imageWidth to viewWidth
