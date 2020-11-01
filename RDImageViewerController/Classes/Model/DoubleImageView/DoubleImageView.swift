@@ -6,7 +6,7 @@
 //  Copyright © 2020 CocoaPods. All rights reserved.
 //
 
-open class DoubleImageView: UICollectionViewCell, PageView {
+open class DoubleImageView: UICollectionViewCell, PageViewRepresentation {
     private let zoomRect = CGSize(width: 100, height: 100)
     private var scrollView: UIScrollView
     private var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)

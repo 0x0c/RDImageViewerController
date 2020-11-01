@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class ImageScrollView: UICollectionViewCell, PageView {
+open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
     public struct ImageAlignment {
         public enum HorizontalAlignment {
             case left

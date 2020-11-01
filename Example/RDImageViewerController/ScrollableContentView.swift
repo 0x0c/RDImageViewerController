@@ -9,7 +9,7 @@
 import RDImageViewerController
 import UIKit
 
-class ScrollableContentView: UICollectionViewCell, PageView {
+class ScrollableContentView: UICollectionViewCell, PageViewRepresentation {
     @IBOutlet var scrollView: UIScrollView!
     var view: UIView?
 

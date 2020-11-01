@@ -73,7 +73,7 @@
 		E94A63F4254F1FFE00B3A5D0 /* PagingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D3254F1FFE00B3A5D0 /* PagingBehavior.swift */; };
 		E94A63F5254F1FFE00B3A5D0 /* PagingViewLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D4254F1FFE00B3A5D0 /* PagingViewLoadable.swift */; };
 		E94A63F6254F1FFE00B3A5D0 /* SliderBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D5254F1FFE00B3A5D0 /* SliderBehavior.swift */; };
-		E94A63F7254F1FFE00B3A5D0 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D6254F1FFE00B3A5D0 /* PageView.swift */; };
+		E94A63F7254F1FFE00B3A5D0 /* PageViewRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D6254F1FFE00B3A5D0 /* PageViewRepresentation.swift */; };
 		E94A63F8254F1FFE00B3A5D0 /* PagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D9254F1FFE00B3A5D0 /* PagingViewVerticalFlowLayout.swift */; };
 		E94A63F9254F1FFE00B3A5D0 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63DA254F1FFE00B3A5D0 /* PagingView.swift */; };
 		E94A63FA254F1FFE00B3A5D0 /* PagingViewBottomToTopLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63DB254F1FFE00B3A5D0 /* PagingViewBottomToTopLayout.swift */; };
@@ -209,7 +209,7 @@
 		E94A63D3254F1FFE00B3A5D0 /* PagingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingBehavior.swift; sourceTree = "<group>"; };
 		E94A63D4254F1FFE00B3A5D0 /* PagingViewLoadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewLoadable.swift; sourceTree = "<group>"; };
 		E94A63D5254F1FFE00B3A5D0 /* SliderBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderBehavior.swift; sourceTree = "<group>"; };
-		E94A63D6254F1FFE00B3A5D0 /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		E94A63D6254F1FFE00B3A5D0 /* PageViewRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewRepresentation.swift; sourceTree = "<group>"; };
 		E94A63D9254F1FFE00B3A5D0 /* PagingViewVerticalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewVerticalFlowLayout.swift; sourceTree = "<group>"; };
 		E94A63DA254F1FFE00B3A5D0 /* PagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
 		E94A63DB254F1FFE00B3A5D0 /* PagingViewBottomToTopLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewBottomToTopLayout.swift; sourceTree = "<group>"; };
@@ -530,7 +530,7 @@
 				E94A63D3254F1FFE00B3A5D0 /* PagingBehavior.swift */,
 				E94A63D4254F1FFE00B3A5D0 /* PagingViewLoadable.swift */,
 				E94A63D5254F1FFE00B3A5D0 /* SliderBehavior.swift */,
-				E94A63D6254F1FFE00B3A5D0 /* PageView.swift */,
+				E94A63D6254F1FFE00B3A5D0 /* PageViewRepresentation.swift */,
 			);
 			name = Protocol;
 			path = RDImageViewerController/Classes/Protocol;
@@ -834,7 +834,7 @@
 				E94A63E3254F1FFE00B3A5D0 /* Array+MiddleElement.swift in Sources */,
 				E94A63F8254F1FFE00B3A5D0 /* PagingViewVerticalFlowLayout.swift in Sources */,
 				E94A63FD254F1FFE00B3A5D0 /* PagingViewRightToLeftFlowLayout.swift in Sources */,
-				E94A63F7254F1FFE00B3A5D0 /* PageView.swift in Sources */,
+				E94A63F7254F1FFE00B3A5D0 /* PageViewRepresentation.swift in Sources */,
 				E94A63F4254F1FFE00B3A5D0 /* PagingBehavior.swift in Sources */,
 				E94A63ED254F1FFE00B3A5D0 /* DoubleImageContent.swift in Sources */,
 				E94A63EF254F1FFE00B3A5D0 /* ImageContent.swift in Sources */,

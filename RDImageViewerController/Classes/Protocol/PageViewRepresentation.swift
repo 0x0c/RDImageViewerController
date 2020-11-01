@@ -1,11 +1,11 @@
 //
-//  PageView.swift
+//  PageViewRepresentation.swift
 //  RDImageViewerController
 //
 //  Created by Akira Matsuda on 2020/07/01.
 //
 
-public protocol PageView {
+public protocol PageViewRepresentation {
     func configure(
         data: PagingViewLoadable,
         pageIndex: Int,
