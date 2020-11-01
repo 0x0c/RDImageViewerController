@@ -39,7 +39,7 @@ open class RemoteImageContent: ImageContent, Equatable {
         }
     }
 
-    override open func reload(completion: ((PageContent) -> Void)?) {
+    override open func reload(completion: ((PagingViewLoadable) -> Void)?) {
         image = nil
         preload(completion: completion)
     }
@@ -55,7 +55,7 @@ open class RemoteImageContent: ImageContent, Equatable {
         return false
     }
 
-    override open func preload(completion: ((PageContent) -> Void)?) {
+    override open func preload(completion: ((PagingViewLoadable) -> Void)?) {
         if completion != nil {
             lazyCompletionHandler = completion
         }

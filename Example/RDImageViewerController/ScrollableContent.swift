@@ -19,7 +19,7 @@ class ScrollableContent: Content {
 
     override open func preload() {}
 
-    override open func preload(completion: ((PageContent) -> Void)?) {}
+    override open func preload(completion: ((PagingViewLoadable) -> Void)?) {}
 
     override open func stopPreload() {}
 

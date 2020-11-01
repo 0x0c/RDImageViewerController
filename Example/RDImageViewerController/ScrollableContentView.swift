@@ -13,7 +13,7 @@ class ScrollableContentView: UICollectionViewCell, PageView {
     @IBOutlet var scrollView: UIScrollView!
     var view: UIView?
 
-    func configure(data: PageContent, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    func configure(data: PagingViewLoadable, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? ScrollableContent else {
             return
         }

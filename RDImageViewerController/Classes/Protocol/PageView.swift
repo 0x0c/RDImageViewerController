@@ -7,7 +7,7 @@
 
 public protocol PageView {
     func configure(
-        data: PageContent,
+        data: PagingViewLoadable,
         pageIndex: Int,
         scrollDirection: PagingView.ForwardDirection,
         traitCollection: UITraitCollection,

@@ -5,7 +5,7 @@
 //  Created by Akira Matsuda on 2019/04/07.
 //
 
-open class Content: PageContent {
+open class Content: PagingViewLoadable {
     public enum PresentationType {
         case `class`(AnyClass)
         case nib(UINib, AnyClass)
@@ -32,7 +32,7 @@ open class Content: PageContent {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 
-    open func preload(completion _: ((PageContent) -> Void)?) {
+    open func preload(completion _: ((PagingViewLoadable) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 
@@ -44,7 +44,7 @@ open class Content: PageContent {
         reload(completion: nil)
     }
 
-    open func reload(completion _: ((PageContent) -> Void)?) {
+    open func reload(completion _: ((PagingViewLoadable) -> Void)?) {
         NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
     }
 

@@ -32,7 +32,7 @@ open class ImageContent: Content {
         }
     }
 
-    override open func preload(completion: ((PageContent) -> Void)?) {
+    override open func preload(completion: ((PagingViewLoadable) -> Void)?) {
         if image == nil, let imageName = imageName {
             image = UIImage(named: imageName)
             if let handler = completion {
@@ -49,7 +49,7 @@ open class ImageContent: Content {
         true
     }
 
-    override open func reload(completion: ((PageContent) -> Void)?) {
+    override open func reload(completion: ((PagingViewLoadable) -> Void)?) {
         image = nil
         preload(completion: completion)
     }

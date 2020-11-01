@@ -485,7 +485,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
 
-    open func configureView(_ view: PageView & UICollectionViewCell, data: PageContent, indexPath: IndexPath) {
+    open func configureView(_ view: PageView & UICollectionViewCell, data: PagingViewLoadable, indexPath: IndexPath) {
         view.configure(
             data: data,
             pageIndex: indexPath.row,

@@ -12,7 +12,7 @@ import UIKit
 class TextLabelView: UICollectionViewCell, PageView {
     @IBOutlet var label: UILabel!
 
-    func configure(data: PageContent, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    func configure(data: PagingViewLoadable, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? TextContent else {
             return
         }

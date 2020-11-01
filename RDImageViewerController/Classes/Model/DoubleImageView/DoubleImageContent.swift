@@ -19,7 +19,7 @@ open class DoubleImageContent: Content {
         super.init(type: .class(DoubleImageView.self))
     }
 
-    override open func preload(completion: ((PageContent) -> Void)?) {
+    override open func preload(completion: ((PagingViewLoadable) -> Void)?) {
         var callHandler: Bool {
             var result = false
             if let right = right {
@@ -53,7 +53,7 @@ open class DoubleImageContent: Content {
         true
     }
 
-    override open func reload(completion: ((PageContent) -> Void)?) {
+    override open func reload(completion: ((PagingViewLoadable) -> Void)?) {
         if let right = right {
             right.reload()
         }

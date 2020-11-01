@@ -229,7 +229,7 @@ open class ImageScrollView: UICollectionViewCell, PageView {
     }
 
     open func configure(
-        data: PageContent,
+        data: PagingViewLoadable,
         pageIndex: Int,
         scrollDirection: PagingView.ForwardDirection,
         traitCollection: UITraitCollection,

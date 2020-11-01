@@ -71,7 +71,7 @@
 		E94A63F2254F1FFE00B3A5D0 /* DoubleSpreadConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D0254F1FFE00B3A5D0 /* DoubleSpreadConfiguration.swift */; };
 		E94A63F3254F1FFE00B3A5D0 /* HudBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D2254F1FFE00B3A5D0 /* HudBehavior.swift */; };
 		E94A63F4254F1FFE00B3A5D0 /* PagingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D3254F1FFE00B3A5D0 /* PagingBehavior.swift */; };
-		E94A63F5254F1FFE00B3A5D0 /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D4254F1FFE00B3A5D0 /* PageContent.swift */; };
+		E94A63F5254F1FFE00B3A5D0 /* PagingViewLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D4254F1FFE00B3A5D0 /* PagingViewLoadable.swift */; };
 		E94A63F6254F1FFE00B3A5D0 /* SliderBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D5254F1FFE00B3A5D0 /* SliderBehavior.swift */; };
 		E94A63F7254F1FFE00B3A5D0 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D6254F1FFE00B3A5D0 /* PageView.swift */; };
 		E94A63F8254F1FFE00B3A5D0 /* PagingViewVerticalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63D9254F1FFE00B3A5D0 /* PagingViewVerticalFlowLayout.swift */; };
@@ -207,7 +207,7 @@
 		E94A63D0254F1FFE00B3A5D0 /* DoubleSpreadConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleSpreadConfiguration.swift; sourceTree = "<group>"; };
 		E94A63D2254F1FFE00B3A5D0 /* HudBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudBehavior.swift; sourceTree = "<group>"; };
 		E94A63D3254F1FFE00B3A5D0 /* PagingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingBehavior.swift; sourceTree = "<group>"; };
-		E94A63D4254F1FFE00B3A5D0 /* PageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContent.swift; sourceTree = "<group>"; };
+		E94A63D4254F1FFE00B3A5D0 /* PagingViewLoadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewLoadable.swift; sourceTree = "<group>"; };
 		E94A63D5254F1FFE00B3A5D0 /* SliderBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderBehavior.swift; sourceTree = "<group>"; };
 		E94A63D6254F1FFE00B3A5D0 /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		E94A63D9254F1FFE00B3A5D0 /* PagingViewVerticalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewVerticalFlowLayout.swift; sourceTree = "<group>"; };
@@ -528,7 +528,7 @@
 			children = (
 				E94A63D2254F1FFE00B3A5D0 /* HudBehavior.swift */,
 				E94A63D3254F1FFE00B3A5D0 /* PagingBehavior.swift */,
-				E94A63D4254F1FFE00B3A5D0 /* PageContent.swift */,
+				E94A63D4254F1FFE00B3A5D0 /* PagingViewLoadable.swift */,
 				E94A63D5254F1FFE00B3A5D0 /* SliderBehavior.swift */,
 				E94A63D6254F1FFE00B3A5D0 /* PageView.swift */,
 			);
@@ -815,7 +815,7 @@
 				E94A63E4254F1FFE00B3A5D0 /* UISlider+Position.swift in Sources */,
 				0D49AAC04A3137F9919A1E5990A0299A /* RDImageViewerController-dummy.m in Sources */,
 				E94A63F3254F1FFE00B3A5D0 /* HudBehavior.swift in Sources */,
-				E94A63F5254F1FFE00B3A5D0 /* PageContent.swift in Sources */,
+				E94A63F5254F1FFE00B3A5D0 /* PagingViewLoadable.swift in Sources */,
 				E94A641C254F234300B3A5D0 /* DoubleImagePagingBehavior.swift in Sources */,
 				E94A63F0254F1FFE00B3A5D0 /* ImageScrollView.swift in Sources */,
 				E94A63FE254F1FFE00B3A5D0 /* PageHud.swift in Sources */,

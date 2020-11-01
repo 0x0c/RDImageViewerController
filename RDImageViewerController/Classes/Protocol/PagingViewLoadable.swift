@@ -1,18 +1,18 @@
 //
-//  PageContent.swift
+//  PagingViewLoadable.swift
 //  RDImageViewerController
 //
 //  Created by Akira Matsuda on 2020/07/01.
 //
 
-public protocol PageContent {
+public protocol PagingViewLoadable {
     func isPreloadable() -> Bool
     func isPreloading() -> Bool
     func preload()
-    func preload(completion: ((PageContent) -> Void)?)
+    func preload(completion: ((PagingViewLoadable) -> Void)?)
     func stopPreload()
     func reload()
-    func reload(completion: ((PageContent) -> Void)?)
+    func reload(completion: ((PagingViewLoadable) -> Void)?)
     func reuseIdentifier() -> String
     func size(
         inRect rect: CGRect,
