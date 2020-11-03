@@ -297,9 +297,8 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
             data.stopPreload()
             data.preload { [weak self] content in
                 if let weakSelf = self,
-                   let cnt1 = weakSelf.content,
-                   let cnt2 = content as? T
-                {
+                    let cnt1 = weakSelf.content,
+                    let cnt2 = content as? T {
                     DispatchQueue.main.async {
                         if cnt1 == cnt2 {
                             weakSelf.image = cnt2.image

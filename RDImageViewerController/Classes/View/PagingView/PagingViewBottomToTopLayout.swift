@@ -12,8 +12,8 @@ class PagingViewBottomToTopLayout: PagingViewVerticalFlowLayout {
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         if let collectionView = collectionView,
-           expandContentSizeToBounds == true,
-           fabsf(Float(collectionView.bounds.height - newBounds.height)) > .ulpOfOne {
+            expandContentSizeToBounds == true,
+            fabsf(Float(collectionView.bounds.height - newBounds.height)) > .ulpOfOne {
             return true
         }
 
