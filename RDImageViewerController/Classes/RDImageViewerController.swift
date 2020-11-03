@@ -429,7 +429,7 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
 
     open func registerContents() {
         for data in contents {
-            switch data.type {
+            switch data.representation {
             case let .class(cellClass):
                 pagingView.register(cellClass, forCellWithReuseIdentifier: data.reuseIdentifier())
             case let .nib(cellNib, _):

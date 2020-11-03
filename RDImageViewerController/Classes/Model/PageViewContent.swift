@@ -11,10 +11,10 @@ open class PageViewContent: PagingViewLoadable {
         case nib(UINib, AnyClass)
     }
 
-    public private(set) var type: PageViewRepresentation
+    public private(set) var representation: PageViewRepresentation
 
-    public init(type: PageViewRepresentation) {
-        self.type = type
+    public init(representation: PageViewRepresentation) {
+        self.representation = representation
     }
 
     open func isPreloadable() -> Bool {
@@ -26,15 +26,27 @@ open class PageViewContent: PagingViewLoadable {
     }
 
     open func preload() {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
+        NSException(
+            name:NSExceptionName(rawValue: "RDPageContentData"),
+            reason: "You have to override this method. \(#function)",
+            userInfo: nil
+        ).raise()
     }
 
     open func preload(completion _: ((PagingViewLoadable) -> Void)?) {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
+        NSException(
+            name: NSExceptionName(rawValue: "RDPageContentData"),
+            reason: "You have to override this method. \(#function)",
+            userInfo: nil
+        ).raise()
     }
 
     open func stopPreload() {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
+        NSException(
+            name: NSExceptionName(rawValue: "RDPageContentData"),
+            reason: "You have to override this method. \(#function)",
+            userInfo: nil
+        ).raise()
     }
 
     open func reload() {
@@ -42,11 +54,15 @@ open class PageViewContent: PagingViewLoadable {
     }
 
     open func reload(completion _: ((PagingViewLoadable) -> Void)?) {
-        NSException(name: NSExceptionName(rawValue: "RDPageContentData"), reason: "You have to override this method. \(#function)", userInfo: nil).raise()
+        NSException(
+            name: NSExceptionName(rawValue: "RDPageContentData"),
+            reason: "You have to override this method. \(#function)",
+            userInfo: nil
+        ).raise()
     }
 
     open func reuseIdentifier() -> String {
-        switch type {
+        switch representation {
         case let .class(cellClass):
             return "\(cellClass.self)"
         case let .nib(_, cellClass):
@@ -54,7 +70,12 @@ open class PageViewContent: PagingViewLoadable {
         }
     }
 
-    open func size(inRect rect: CGRect, direction _: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
+    open func size(
+        inRect rect: CGRect,
+        direction _: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    ) -> CGSize {
         if RDImageViewerController.rd_isLandscape(), isDoubleSpread {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }

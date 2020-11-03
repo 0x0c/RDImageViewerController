@@ -14,7 +14,15 @@ class ScrollableContent: PageViewContent {
 
     init(color: UIColor) {
         self.color = color
-        super.init(type: .nib(UINib(nibName: "ScrollContentView", bundle: nil), ScrollableContentView.self))
+        super.init(
+            representation: .nib(
+                UINib(
+                    nibName: "ScrollContentView",
+                    bundle: nil
+                ),
+                ScrollableContentView.self
+            )
+        )
     }
 
     override open func preload() {}

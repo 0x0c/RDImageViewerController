@@ -7,36 +7,77 @@
 
 import UIKit
 
-open class ImageContent: PageViewContent {
+open class ImageContent: PageViewContent, Equatable {
+    public enum ContentType: Equatable {
+        case name(_ string: String)
+        case url(_ url: URL, imageDecodeHandler: ((Data) -> UIImage?)? = nil)
+        
+        public static func ==(lhs: ContentType, rhs: ContentType) -> Bool {
+            switch (lhs, rhs) {
+            case let (.name(left), .name(right)):
+                return left == right
+            case let (.url(left, _), .url(right, _)):
+                return left == right
+            default:
+                return false
+            }
+        }
+    }
+
+    public enum LandscapeMode {
+        case aspectFit
+        case displayFit
+    }
+
+    public static func == (lhs: ImageContent, rhs: ImageContent) -> Bool {
+        lhs.contentType == rhs.contentType
+    }
+
     private static let defaultMaximumZoomScale: CGFloat = 2.5
 
     open var maximumZoomScale: CGFloat = defaultMaximumZoomScale
-    open var landscapeMode: ImageScrollView.LandscapeMode = .aspectFit
+    open var landscapeMode: ImageContent.LandscapeMode = .aspectFit
     open var image: UIImage?
-    open var imageName: String?
+    open var contentType: ContentType
 
-    override public init(type: PageViewRepresentation) {
-        super.init(type: type)
+    public init(representation: PageViewRepresentation, type: ContentType = .name("")) {
+        self.contentType = type
+        super.init(representation: representation)
     }
 
     public convenience init(image: UIImage) {
-        self.init(type: .class(ImageScrollView.self))
+        self.init(representation: .class(ImageScrollView.self))
         self.image = image
     }
 
     public convenience init(imageName: String, lazyLoad: Bool = false) {
-        self.init(type: .class(ImageScrollView.self))
-        self.imageName = imageName
+        self.init(representation: .class(ImageScrollView.self), type: .name(imageName))
         if lazyLoad == false {
             preload()
         }
     }
 
     override open func preload(completion: ((PagingViewLoadable) -> Void)?) {
-        if image == nil, let imageName = imageName {
+        switch contentType {
+        case let .name(imageName):
             image = UIImage(named: imageName)
             if let handler = completion {
                 handler(self)
+            }
+        case let .url(url, decodeHandler):
+            URLSession(configuration: .default).dataTask(with: url) { [weak self] data, response, error in
+                guard let weakSelf = self, let data = data else {
+                    return
+                }
+                if let decodeHandler = decodeHandler {
+                    weakSelf.image = decodeHandler(data)
+                }
+                else {
+                    weakSelf.image = UIImage(data: data)
+                }
+                if let handler = completion {
+                    handler(weakSelf)
+                }
             }
         }
     }
@@ -56,7 +97,12 @@ open class ImageContent: PageViewContent {
 
     override open func stopPreload() {}
 
-    override open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
+    override open func size(
+        inRect rect: CGRect,
+        direction: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    ) -> CGSize {
         if direction.isVertical, let image = image {
             var scale: CGFloat {
                 if isDoubleSpread {
@@ -70,6 +116,11 @@ open class ImageContent: PageViewContent {
             return CGSize(width: width, height: height)
         }
 
-        return super.size(inRect: rect, direction: direction, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+        return super.size(
+            inRect: rect,
+            direction: direction,
+            traitCollection: traitCollection,
+            isDoubleSpread: isDoubleSpread
+        )
     }
 }

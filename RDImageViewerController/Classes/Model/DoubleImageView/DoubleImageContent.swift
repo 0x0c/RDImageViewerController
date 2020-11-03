@@ -16,7 +16,7 @@ open class DoubleImageContent: PageViewContent {
     init(right: ImageContent?, left: ImageContent?) {
         self.right = right
         self.left = left
-        super.init(type: .class(DoubleImageView.self))
+        super.init(representation: .class(DoubleImageView.self))
     }
 
     override open func preload(completion: ((PagingViewLoadable) -> Void)?) {

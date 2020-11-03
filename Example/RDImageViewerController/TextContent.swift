@@ -15,7 +15,15 @@ class TextContent: PageViewContent {
 
     init(text: String) {
         self.text = text
-        super.init(type: .nib(UINib(nibName: "TextLabelView", bundle: nil), TextLabelView.self))
+        super.init(
+            representation:
+                .nib(UINib(
+                    nibName: "TextLabelView",
+                    bundle: nil
+                ),
+                TextLabelView.self
+            )
+        )
     }
 
     override open func preload() {}
@@ -26,7 +34,12 @@ class TextContent: PageViewContent {
 
     override open func reload() {}
 
-    override open func size(inRect rect: CGRect, direction: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) -> CGSize {
+    override open func size(
+        inRect rect: CGRect,
+        direction: PagingView.ForwardDirection,
+        traitCollection: UITraitCollection,
+        isDoubleSpread: Bool
+    ) -> CGSize {
         if RDImageViewerController.rd_isLandscape(), isDoubleSpread, forceFullscreenSize == false {
             return CGSize(width: rect.width / 2.0, height: rect.height)
         }
