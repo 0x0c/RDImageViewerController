@@ -60,7 +60,6 @@
 		E94A63E7254F1FFE00B3A5D0 /* UIImageView+SizeFitting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C0254F1FFE00B3A5D0 /* UIImageView+SizeFitting.swift */; };
 		E94A63E8254F1FFE00B3A5D0 /* Int+VisibleIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C1254F1FFE00B3A5D0 /* Int+VisibleIndex.swift */; };
 		E94A63E9254F1FFE00B3A5D0 /* VisibleIndex+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C2254F1FFE00B3A5D0 /* VisibleIndex+Convert.swift */; };
-		E94A63EB254F1FFE00B3A5D0 /* RemoteImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C6254F1FFE00B3A5D0 /* RemoteImageContent.swift */; };
 		E94A63EC254F1FFE00B3A5D0 /* DoubleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C8254F1FFE00B3A5D0 /* DoubleImageView.swift */; };
 		E94A63ED254F1FFE00B3A5D0 /* DoubleImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63C9254F1FFE00B3A5D0 /* DoubleImageContent.swift */; };
 		E94A63EE254F1FFE00B3A5D0 /* PageViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A63CA254F1FFE00B3A5D0 /* PageViewContent.swift */; };
@@ -196,7 +195,6 @@
 		E94A63C0254F1FFE00B3A5D0 /* UIImageView+SizeFitting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+SizeFitting.swift"; sourceTree = "<group>"; };
 		E94A63C1254F1FFE00B3A5D0 /* Int+VisibleIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+VisibleIndex.swift"; sourceTree = "<group>"; };
 		E94A63C2254F1FFE00B3A5D0 /* VisibleIndex+Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VisibleIndex+Convert.swift"; sourceTree = "<group>"; };
-		E94A63C6254F1FFE00B3A5D0 /* RemoteImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImageContent.swift; sourceTree = "<group>"; };
 		E94A63C8254F1FFE00B3A5D0 /* DoubleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleImageView.swift; sourceTree = "<group>"; };
 		E94A63C9254F1FFE00B3A5D0 /* DoubleImageContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleImageContent.swift; sourceTree = "<group>"; };
 		E94A63CA254F1FFE00B3A5D0 /* PageViewContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewContent.swift; sourceTree = "<group>"; };
@@ -479,20 +477,11 @@
 			isa = PBXGroup;
 			children = (
 				E94A63CA254F1FFE00B3A5D0 /* PageViewContent.swift */,
-				E94A63C4254F1FFE00B3A5D0 /* RemoteImageScrollView */,
 				E94A63C7254F1FFE00B3A5D0 /* DoubleImageView */,
 				E94A63CB254F1FFE00B3A5D0 /* ImageScrollView */,
 			);
 			name = Model;
 			path = RDImageViewerController/Classes/Model;
-			sourceTree = "<group>";
-		};
-		E94A63C4254F1FFE00B3A5D0 /* RemoteImageScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				E94A63C6254F1FFE00B3A5D0 /* RemoteImageContent.swift */,
-			);
-			path = RemoteImageScrollView;
 			sourceTree = "<group>";
 		};
 		E94A63C7254F1FFE00B3A5D0 /* DoubleImageView */ = {
@@ -823,7 +812,6 @@
 				E94A63E0254F1FFE00B3A5D0 /* DoubleSpreadPagingBehavior.swift in Sources */,
 				E94A6414254F22D700B3A5D0 /* Array+Chunked.swift in Sources */,
 				5E9A0EA8A67C8B442E58610A0D43E1A9 /* RDImageViewerController.swift in Sources */,
-				E94A63EB254F1FFE00B3A5D0 /* RemoteImageContent.swift in Sources */,
 				E94A63E2254F1FFE00B3A5D0 /* ForwardDirection+Orientation.swift in Sources */,
 				E94A63FB254F1FFE00B3A5D0 /* PagingViewHorizontalFlowLayout.swift in Sources */,
 				E94A63E8254F1FFE00B3A5D0 /* Int+VisibleIndex.swift in Sources */,

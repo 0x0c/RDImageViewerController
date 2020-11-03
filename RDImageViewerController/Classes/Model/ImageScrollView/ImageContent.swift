@@ -34,6 +34,7 @@ open class ImageContent: PageViewContent, Equatable {
     }
 
     private static let defaultMaximumZoomScale: CGFloat = 2.5
+    private var task: URLSessionTask?
 
     open var maximumZoomScale: CGFloat = defaultMaximumZoomScale
     open var landscapeMode: ImageContent.LandscapeMode = .aspectFit
@@ -65,7 +66,7 @@ open class ImageContent: PageViewContent, Equatable {
                 handler(self)
             }
         case let .url(url, decodeHandler):
-            URLSession(configuration: .default).dataTask(with: url) { [weak self] data, response, error in
+            task = URLSession(configuration: .default).dataTask(with: url) { [weak self] data, response, error in
                 guard let weakSelf = self, let data = data else {
                     return
                 }
@@ -79,6 +80,7 @@ open class ImageContent: PageViewContent, Equatable {
                     handler(weakSelf)
                 }
             }
+            task?.resume()
         }
     }
 
@@ -95,7 +97,11 @@ open class ImageContent: PageViewContent, Equatable {
         preload(completion: completion)
     }
 
-    override open func stopPreload() {}
+    override open func stopPreload() {
+        if let task = task {
+            task.cancel()
+        }
+    }
 
     override open func size(
         inRect rect: CGRect,
