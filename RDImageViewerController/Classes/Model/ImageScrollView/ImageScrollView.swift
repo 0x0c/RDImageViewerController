@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
+open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewDelegate, PageViewRepresentation {
     public struct ImageAlignment {
         public enum HorizontalAlignment {
             case left
@@ -25,11 +25,6 @@ open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
         public var vertical: VerticalAlignment = .center
     }
 
-    public enum LandscapeMode {
-        case aspectFit
-        case displayFit
-    }
-
     open var scrollView: UIScrollView
     public let zoomRect = CGSize(width: 100, height: 100)
 
@@ -39,7 +34,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
         }
     }
 
-    open var mode: LandscapeMode = .aspectFit {
+    open var mode: ImageContent.LandscapeMode = .aspectFit {
         didSet {
             adjustContentAspect()
         }
@@ -88,6 +83,7 @@ open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
     public var imageView = UIImageView()
     var indicatorView = UIActivityIndicatorView(style: .white)
     var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
+    var content: T?
 
     override public init(frame: CGRect) {
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
@@ -112,7 +108,12 @@ open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
         scrollView.addSubview(imageView)
 
         indicatorView.center = imageView.center
-        indicatorView.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
+        indicatorView.autoresizingMask = [
+            .flexibleTopMargin,
+            .flexibleLeftMargin,
+            .flexibleBottomMargin,
+            .flexibleRightMargin
+        ]
         indicatorView.startAnimating()
         addSubview(indicatorView)
 
@@ -167,20 +168,27 @@ open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
     }
 
     open func adjustContentAspect() {
-        switch mode {
-        case .aspectFit:
+        let fitToAspect = { [unowned self] in
             imageView.fitToAspect(containerSize: frame.size)
+            fixImageViewPosition()
             scrollView.contentSize = imageView.frame.size
             scrollView.setZoomScale(1.0, animated: false)
+        }
+        switch mode {
+        case .aspectFit:
+            fitToAspect()
         case .displayFit:
-            imageView.fitToDisplay(containerSize: frame.size)
-            let height = frame.height
-            let width = frame.width
-            if width > height {
-                scrollView.setZoomScale(1.0, animated: false)
+            if imageView.fitToDisplay(containerSize: frame.size) {
+                let height = frame.height
+                let width = frame.width
+                if width > height {
+                    scrollView.setZoomScale(1.0, animated: false)
+                }
+            }
+            else {
+                fitToAspect()
             }
         }
-        fixImageViewPosition()
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
 
@@ -189,7 +197,40 @@ open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
         addGestureRecognizer(gesture)
     }
 
-    // MARK: RDPageContentDataView
+    // MARK: UIScrollViewDelegate
+
+    public func viewForZooming(in _: UIScrollView) -> UIView? {
+        imageView
+    }
+
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        if let subView = scrollView.subviews.first {
+            var x = subView.center.x
+            var y = subView.center.y
+
+            if alignment.horizontal == .center {
+                var offsetX: CGFloat {
+                    if scrollView.bounds.width > scrollView.contentSize.width {
+                        return (scrollView.bounds.width - scrollView.contentSize.width) * 0.5
+                    }
+                    return 0
+                }
+                x = scrollView.contentSize.width * 0.5 + offsetX
+            }
+            if alignment.vertical == .center {
+                var offsetY: CGFloat {
+                    if scrollView.bounds.height > scrollView.contentSize.height {
+                        return (scrollView.bounds.height - scrollView.contentSize.height) * 0.5
+                    }
+                    return 0
+                }
+                y = scrollView.contentSize.height * 0.5 + offsetY
+            }
+            subView.center = CGPoint(x: x, y: y)
+        }
+    }
+
+    // MARK: PageViewRepresentation
 
     open func resize() {
         adjustContentAspect()
@@ -235,48 +276,40 @@ open class ImageScrollView: UICollectionViewCell, PageViewRepresentation {
         traitCollection: UITraitCollection,
         isDoubleSpread: Bool
     ) {
-        guard let data = data as? ImageContent else {
+        image = nil
+        content = nil
+        guard let data = data as? T else {
             return
         }
+        content = data
         scrollView.maximumZoomScale = data.maximumZoomScale
         mode = data.landscapeMode
         scrollView.setZoomScale(1.0, animated: false)
         if RDImageViewerController.rd_isLandscape(), isDoubleSpread {
-            resize(pageIndex: pageIndex, scrollDirection: scrollDirection, traitCollection: traitCollection, isDoubleSpread: isDoubleSpread)
+            resize(
+                pageIndex: pageIndex,
+                scrollDirection: scrollDirection,
+                traitCollection: traitCollection,
+                isDoubleSpread: isDoubleSpread
+            )
         }
-        image = data.image
-    }
-}
-
-extension ImageScrollView: UIScrollViewDelegate {
-    public func viewForZooming(in _: UIScrollView) -> UIView? {
-        imageView
-    }
-
-    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        if let subView = scrollView.subviews.first {
-            var x = subView.center.x
-            var y = subView.center.y
-
-            if alignment.horizontal == .center {
-                var offsetX: CGFloat {
-                    if scrollView.bounds.width > scrollView.contentSize.width {
-                        return (scrollView.bounds.width - scrollView.contentSize.width) * 0.5
+        if data.image == nil {
+            data.stopPreload()
+            data.preload { [weak self] content in
+                if let weakSelf = self,
+                   let cnt1 = weakSelf.content,
+                   let cnt2 = content as? T
+                {
+                    DispatchQueue.main.async {
+                        if cnt1 == cnt2 {
+                            weakSelf.image = cnt2.image
+                        }
                     }
-                    return 0
                 }
-                x = scrollView.contentSize.width * 0.5 + offsetX
             }
-            if alignment.vertical == .center {
-                var offsetY: CGFloat {
-                    if scrollView.bounds.height > scrollView.contentSize.height {
-                        return (scrollView.bounds.height - scrollView.contentSize.height) * 0.5
-                    }
-                    return 0
-                }
-                y = scrollView.contentSize.height * 0.5 + offsetY
-            }
-            subView.center = CGPoint(x: x, y: y)
+        }
+        else {
+            image = data.image
         }
     }
 }

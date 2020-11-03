@@ -19,11 +19,15 @@ class ContentsFactory {
         return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1)
     }
 
-    static func remoteContents() -> [RemoteImageContent] {
-        var contents = [RemoteImageContent]()
+    static func remoteContents() -> [ImageContent] {
+        var contents = [ImageContent]()
         for i in 1 ... 12 {
-            let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(i).JPG")!)
-            let data = RemoteImageContent(request: request, session: URLSession.shared)
+            let data = ImageContent(
+                representation: .class(ImageScrollView.self),
+                type: .url(
+                    URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(i).JPG")!
+                )
+            )
             data.landscapeMode = .displayFit
             contents.append(data)
         }
@@ -120,8 +124,12 @@ class ContentsFactory {
         case 0:
             return ImageContent(imageName: "\(seed % 12 + 1).JPG")
         case 1:
-            let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(seed % 12 + 1).JPG")!)
-            return RemoteImageContent(request: request, session: URLSession.shared)
+            return ImageContent(
+                representation: .class(ImageScrollView.self),
+                type: .url(
+                    URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(seed % 12 + 1).JPG")!
+                )
+            )
         case 2:
             return TextContent(text: "\(seed)")
         case 3:

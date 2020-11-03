@@ -81,13 +81,14 @@ extension UIImageView {
         )
     }
 
-    open func fitToDisplay(containerSize: CGSize) {
+    open func fitToDisplay(containerSize: CGSize) -> Bool {
         sizeToFit()
         let height = containerSize.height
         let width = containerSize.width
         if width < height {
             // portrait
             fitToAspect(containerSize: containerSize)
+            return false
         }
         else {
             var scale: CGFloat {
@@ -104,8 +105,9 @@ extension UIImageView {
                 height: frame.height * scale
             )
             if height > frame.height {
-                center = CGPoint(x: width / 2.0, y: height / 2.0)
+                center = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
             }
+            return true
         }
     }
 }
