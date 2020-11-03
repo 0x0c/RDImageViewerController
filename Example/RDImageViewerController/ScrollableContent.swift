@@ -9,17 +9,25 @@
 import RDImageViewerController
 import UIKit
 
-class ScrollableContent: PageContent {
+class ScrollableContent: PageViewContent {
     let color: UIColor
 
     init(color: UIColor) {
         self.color = color
-        super.init(type: .nib(UINib(nibName: "ScrollContentView", bundle: nil), ScrollableContentView.self))
+        super.init(
+            representation: .nib(
+                UINib(
+                    nibName: "ScrollContentView",
+                    bundle: nil
+                ),
+                ScrollableContentView.self
+            )
+        )
     }
 
     override open func preload() {}
 
-    override open func preload(completion: ((PageContent) -> Void)?) {}
+    override open func preload(completion: ((PagingViewLoadable) -> Void)?) {}
 
     override open func stopPreload() {}
 

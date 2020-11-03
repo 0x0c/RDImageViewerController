@@ -18,6 +18,7 @@ open class PageHud: UIView {
         configureViews()
     }
 
+    @available(*, unavailable)
     public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

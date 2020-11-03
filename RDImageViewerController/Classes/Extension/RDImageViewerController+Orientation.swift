@@ -9,19 +9,20 @@ import Foundation
 import UIKit
 
 extension UIApplication {
-    public func currentWindow() -> UIWindow? {
+    public func rd_currentWindow() -> UIWindow? {
         if #available(iOS 13.0, *) {
             return connectedScenes.filter { $0.activationState == .foregroundActive }.map { $0 as? UIWindowScene }.compactMap { $0 }.first?.windows.filter { $0.isKeyWindow }.first
-        } else {
+        }
+        else {
             return UIApplication.shared.keyWindow
         }
     }
 }
 
-extension UITraitCollection {
-    public func isLandscape() -> Bool {
+extension RDImageViewerController {
+    public static func rd_isLandscape() -> Bool {
         if #available(iOS 13, *) {
-            if let window = UIApplication.shared.currentWindow(),
+            if let window = UIApplication.shared.rd_currentWindow(),
                 let windowScene = window.windowScene {
                 return windowScene.interfaceOrientation.isLandscape
             }

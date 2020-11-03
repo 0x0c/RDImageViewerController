@@ -11,7 +11,9 @@ class PagingViewBottomToTopLayout: PagingViewVerticalFlowLayout {
     open var expandContentSizeToBounds: Bool = true
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        if let collectionView = collectionView, expandContentSizeToBounds == true, fabsf(Float(collectionView.bounds.height - newBounds.height)) > .ulpOfOne {
+        if let collectionView = collectionView,
+            expandContentSizeToBounds == true,
+            fabsf(Float(collectionView.bounds.height - newBounds.height)) > .ulpOfOne {
             return true
         }
 
@@ -64,7 +66,7 @@ class PagingViewBottomToTopLayout: PagingViewVerticalFlowLayout {
             super.scrollDirection = newValue
         }
         get {
-            return super.scrollDirection
+            super.scrollDirection
         }
     }
 
@@ -77,22 +79,22 @@ class PagingViewBottomToTopLayout: PagingViewVerticalFlowLayout {
     }
 
     func normalRect(forReversedRect rect: CGRect) -> CGRect {
-        return reversedRect(forNormalRect: rect)
+        reversedRect(forNormalRect: rect)
     }
 
     func reversedPoint(forNormalPoint normalPoint: CGPoint) -> CGPoint {
-        return CGPoint(x: normalPoint.x, y: reversedY(forNormalY: normalPoint.y))
+        CGPoint(x: normalPoint.x, y: reversedY(forNormalY: normalPoint.y))
     }
 
     func normalPoint(forReversedPoint point: CGPoint) -> CGPoint {
-        return reversedPoint(forNormalPoint: point)
+        reversedPoint(forNormalPoint: point)
     }
 
     func reversedY(forNormalY normalY: CGFloat) -> CGFloat {
-        return CGFloat(collectionViewContentSize.height - normalY)
+        CGFloat(collectionViewContentSize.height - normalY)
     }
 
     func normalY(forReversedY y: CGFloat) -> CFloat {
-        return CFloat(reversedY(forNormalY: y))
+        CFloat(reversedY(forNormalY: y))
     }
 }

@@ -19,11 +19,15 @@ class ContentsFactory {
         return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1)
     }
 
-    static func remoteContents() -> [RemoteImageContent] {
-        var contents = [RemoteImageContent]()
+    static func remoteContents() -> [ImageContent] {
+        var contents = [ImageContent]()
         for i in 1 ... 12 {
-            let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(i).JPG")!)
-            let data = RemoteImageContent(request: request, session: URLSession.shared)
+            let data = ImageContent(
+                representation: .class(ImageScrollView.self),
+                type: .url(
+                    URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(i).JPG")!
+                )
+            )
             data.landscapeMode = .displayFit
             contents.append(data)
         }
@@ -51,8 +55,8 @@ class ContentsFactory {
         return contents
     }
 
-    static func imageContents() -> [PageContent] {
-        var contents = [PageContent]()
+    static func imageContents() -> [PageViewContent] {
+        var contents = [PageViewContent]()
         for i in 1 ... 12 {
             let data = ImageContent(imageName: "\(i).JPG")
             data.landscapeMode = .displayFit
@@ -62,8 +66,8 @@ class ContentsFactory {
         return contents
     }
 
-    static func aspectFitContents() -> [PageContent] {
-        var contents = [PageContent]()
+    static func aspectFitContents() -> [PageViewContent] {
+        var contents = [PageViewContent]()
         for i in 1 ... 12 {
             let data = ImageContent(imageName: "\(i).JPG")
             data.landscapeMode = .aspectFit
@@ -73,8 +77,8 @@ class ContentsFactory {
         return contents
     }
 
-    static func viewAndImageContents() -> [PageContent] {
-        var contents = [PageContent]()
+    static func viewAndImageContents() -> [PageViewContent] {
+        var contents = [PageViewContent]()
         for i in 1 ... 12 {
             if i % 2 == 0 {
                 let data = ImageContent(imageName: "\(i).JPG")
@@ -90,8 +94,8 @@ class ContentsFactory {
         return contents
     }
 
-    static func multipleSizeViewContents() -> [PageContent] {
-        var contents = [PageContent]()
+    static func multipleSizeViewContents() -> [PageViewContent] {
+        var contents = [PageViewContent]()
         for i in 1 ... 11 {
             let data = TextContent(text: "\(i)")
             contents.append(data)
@@ -104,9 +108,9 @@ class ContentsFactory {
         return contents
     }
 
-    static func randomContents() -> [PageContent] {
+    static func randomContents() -> [PageViewContent] {
         let numberOfPages = Int(arc4random() % 20 + 1)
-        var contents = [PageContent]()
+        var contents = [PageViewContent]()
         for i in 0 ..< numberOfPages {
             contents.append(ContentsFactory.randomContent(seed: i))
         }
@@ -114,14 +118,18 @@ class ContentsFactory {
         return contents
     }
 
-    static func randomContent(seed: Int) -> PageContent {
+    static func randomContent(seed: Int) -> PageViewContent {
         let rand = arc4random() % 4
         switch rand {
         case 0:
             return ImageContent(imageName: "\(seed % 12 + 1).JPG")
         case 1:
-            let request = URLRequest(url: URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(seed % 12 + 1).JPG")!)
-            return RemoteImageContent(request: request, session: URLSession.shared)
+            return ImageContent(
+                representation: .class(ImageScrollView.self),
+                type: .url(
+                    URL(string: "https://raw.githubusercontent.com/0x0c/RDImageViewerController/master/Example/Images/\(seed % 12 + 1).JPG")!
+                )
+            )
         case 2:
             return TextContent(text: "\(seed)")
         case 3:

@@ -9,10 +9,10 @@
 import RDImageViewerController
 import UIKit
 
-class TextLabelView: UICollectionViewCell, PageViewProtocol {
+class TextLabelView: UICollectionViewCell, PageViewRepresentation {
     @IBOutlet var label: UILabel!
 
-    func configure(data: PageContentProtocol, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
+    func configure(data: PagingViewLoadable, pageIndex: Int, scrollDirection: PagingView.ForwardDirection, traitCollection: UITraitCollection, isDoubleSpread: Bool) {
         guard let data = data as? TextContent else {
             return
         }

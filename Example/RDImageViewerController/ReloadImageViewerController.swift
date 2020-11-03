@@ -10,18 +10,14 @@ import RDImageViewerController
 import UIKit
 
 class ReloadImageViewerController: RDImageViewerController {
-    override init(contents: [PageContent], direction: PagingView.ForwardDirection) {
+    override init(contents: [PageViewContent], direction: PagingView.ForwardDirection) {
         super.init(contents: contents, direction: direction)
         let items = [UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reload)), UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(push))]
         navigationItem.setRightBarButtonItems(items, animated: true)
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     @objc func reload() {
-        currentPageIndex = 0.convert(double: isDoubleSpread)
+        currentPageIndex = 0.rd_convert(double: isDoubleSpread)
         let contents = ContentsFactory.randomContents()
         print(contents)
         update(contents: contents)

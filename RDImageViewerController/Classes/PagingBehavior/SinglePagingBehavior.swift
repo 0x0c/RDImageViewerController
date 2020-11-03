@@ -1,11 +1,11 @@
 //
-//  SinglePageBehaviour.swift
+//  SinglePagingBehavior.swift
 //  Pods-RDImageViewerController_Example
 //
 //  Created by Akira Matsuda on 2020/05/22.
 //
 
-open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour {
+open class SinglePagingBehavior: InterfaceBehavior {
     public init() {}
 
     open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {
@@ -21,18 +21,18 @@ open class SinglePageBehaviour: HudBehaviour, SliderBehaviour, PagingBehaviour {
 
     open func updateSliderPosition(slider: UISlider, value: Float, pagingView: PagingView) {
         let position = value / Float(pagingView.numberOfPages - 1)
-        slider.setTrueSliderValue(value: Float(position), pagingView: pagingView)
+        slider.rd_setTrueSliderValue(value: Float(position), pagingView: pagingView)
     }
 
     open func snapSliderPosition(slider: UISlider, pagingView: PagingView) {
-        if pagingView.scrollDirection.isVertical() {
+        if pagingView.scrollDirection.isVertical {
             return
         }
         let value = Float(pagingView.currentPageIndex.primaryIndex()) / Float(pagingView.numberOfPages - 1)
-        slider.setTrueSliderValue(value: value, pagingView: pagingView)
+        slider.rd_setTrueSliderValue(value: value, pagingView: pagingView)
     }
 
     open func updatePageIndex(_ index: Int, pagingView: PagingView) {
-        pagingView.currentPageIndex = index.single()
+        pagingView.currentPageIndex = index.rd_single()
     }
 }
