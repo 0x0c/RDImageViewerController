@@ -11,8 +11,8 @@ open class ImageContent: PageViewContent, Equatable {
     public enum ContentType: Equatable {
         case name(_ string: String)
         case url(_ url: URL, imageDecodeHandler: ((Data) -> UIImage?)? = nil)
-        
-        public static func ==(lhs: ContentType, rhs: ContentType) -> Bool {
+
+        public static func == (lhs: ContentType, rhs: ContentType) -> Bool {
             switch (lhs, rhs) {
             case let (.name(left), .name(right)):
                 return left == right
@@ -42,7 +42,7 @@ open class ImageContent: PageViewContent, Equatable {
     open var contentType: ContentType
 
     public init(representation: PageViewRepresentation, type: ContentType = .name("")) {
-        self.contentType = type
+        contentType = type
         super.init(representation: representation)
     }
 
@@ -66,7 +66,7 @@ open class ImageContent: PageViewContent, Equatable {
                 handler(self)
             }
         case let .url(url, decodeHandler):
-            task = URLSession(configuration: .default).dataTask(with: url) { [weak self] data, response, error in
+            task = URLSession(configuration: .default).dataTask(with: url) { [weak self] data, _, _ in
                 guard let weakSelf = self, let data = data else {
                     return
                 }

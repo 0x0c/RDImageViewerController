@@ -27,7 +27,7 @@ open class PageViewContent: PagingViewLoadable {
 
     open func preload() {
         NSException(
-            name:NSExceptionName(rawValue: "RDPageContentData"),
+            name: NSExceptionName(rawValue: "RDPageContentData"),
             reason: "You have to override this method. \(#function)",
             userInfo: nil
         ).raise()
