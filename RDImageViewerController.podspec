@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RDImageViewerController'
-  s.version          = '7.0.0'
+  s.version          = '7.0.1'
   s.summary          = 'Simple but powerful image viewer.'
   s.homepage         = 'https://github.com/0x0c/RDImageViewerController'
 # This description is used to generate tags and improve search results.
@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
   s.source_files = 'RDImageViewerController/Classes/**/*'
+  s.swift_version = '5.2'
   
   # s.resource_bundles = {
   #   'RDImageViewerController' => ['RDImageViewerController/Assets/*.png']
