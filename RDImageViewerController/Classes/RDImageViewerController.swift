@@ -18,8 +18,6 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
     var feedbackGenerator = UISelectionFeedbackGenerator()
     var didRotate: Bool = false
     var pageHud: PageHud
-    var contents: [PageViewContent] = []
-    var originalContents: [PageViewContent] = []
 
     open var configuration: Configuration = DoubleSpreadConfiguration(
         portrait: false,
@@ -30,6 +28,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
 
+    private(set) open var contents: [PageViewContent] = []
+    private(set) open var originalContents: [PageViewContent] = []
     open var automaticBarsHiddenDuration: TimeInterval = 0
     open var isSliderEnabled: Bool = true
     open var restoreBarState: Bool = true
