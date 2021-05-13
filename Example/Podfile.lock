@@ -1,20 +1,17 @@
 PODS:
   - PureLayout (3.1.6)
-  - RDImageViewerController (6.2.9):
+  - RDImageViewerController (7.0.1):
     - PureLayout (~> 3.1.6)
   - SwiftFormat/CLI (0.44.10)
-  - SwiftLint (0.39.2)
 
 DEPENDENCIES:
   - RDImageViewerController (from `../`)
   - SwiftFormat/CLI
-  - SwiftLint
 
 SPEC REPOS:
   trunk:
     - PureLayout
     - SwiftFormat
-    - SwiftLint
 
 EXTERNAL SOURCES:
   RDImageViewerController:
@@ -22,10 +19,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   PureLayout: bd3c4ec3a3819ad387c99ebb72c6b129c3ed4d2d
-  RDImageViewerController: 26c1ce928411ea6cca3710257085713de20171dd
+  RDImageViewerController: 66f159e95fe9dd58ec0f3d807cc3664679a17800
   SwiftFormat: b72e592ea0979aeee53f6052abff291181364933
-  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
 
-PODFILE CHECKSUM: 3c82ec4dcdb92c3e08e44b8ef5dba25ded63a7ab
+PODFILE CHECKSUM: 944bf05864311f468dbcafabbd6be10367bcc109
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.1
