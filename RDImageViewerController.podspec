@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RDImageViewerController'
-  s.version          = '7.0.1'
+  s.version          = '7.0.2'
   s.summary          = 'Simple but powerful image viewer.'
   s.homepage         = 'https://github.com/0x0c/RDImageViewerController'
 # This description is used to generate tags and improve search results.
@@ -34,6 +34,6 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-   s.dependency 'PureLayout', '~> 3.1.6'
+   s.dependency 'PureLayout', '~> 3.1.8'
 end
 
