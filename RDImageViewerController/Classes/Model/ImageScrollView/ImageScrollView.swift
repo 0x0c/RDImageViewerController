@@ -25,7 +25,7 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
         public var vertical: VerticalAlignment = .center
     }
 
-    open var scrollView: UIScrollView
+    open private(set) var scrollView: UIScrollView
     public let zoomRect = CGSize(width: 100, height: 100)
 
     open var alignment: ImageAlignment = ImageAlignment(horizontal: .center, vertical: .center) {
@@ -80,7 +80,7 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
         }
     }
 
-    public var imageView = UIImageView()
+    open private(set) var imageView = UIImageView()
     var indicatorView = UIActivityIndicatorView(style: .white)
     var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
     var content: T?
