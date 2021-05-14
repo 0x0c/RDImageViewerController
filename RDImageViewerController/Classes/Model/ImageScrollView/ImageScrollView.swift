@@ -169,7 +169,7 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
 
     open func adjustContentAspect() {
         let fitToAspect = { [unowned self] in
-            imageView.fitToAspect(containerSize: frame.size)
+            imageView.rd_fitToAspect(containerSize: frame.size)
             fixImageViewPosition()
             scrollView.contentSize = imageView.frame.size
             scrollView.setZoomScale(1.0, animated: false)
@@ -178,7 +178,7 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
         case .aspectFit:
             fitToAspect()
         case .displayFit:
-            if imageView.fitToDisplay(containerSize: frame.size) {
+            if imageView.rd_fitToDisplay(containerSize: frame.size) {
                 let height = frame.height
                 let width = frame.width
                 if width > height {

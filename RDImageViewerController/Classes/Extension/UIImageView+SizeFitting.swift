@@ -6,7 +6,7 @@
 //
 
 extension UIImageView {
-    open var contentClippingRect: CGRect {
+    open var rd_contentClippingRect: CGRect {
         guard let image = image else { return bounds }
         guard contentMode == .scaleAspectFit else { return bounds }
         guard image.size.width > 0, image.size.height > 0 else { return bounds }
@@ -26,7 +26,7 @@ extension UIImageView {
         return CGRect(x: x, y: y, width: size.width, height: size.height)
     }
 
-    open func fitToAspect(containerSize: CGSize) {
+    open func rd_fitToAspect(containerSize: CGSize) {
         sizeToFit()
         let height = containerSize.height
         let width = containerSize.width
@@ -81,13 +81,13 @@ extension UIImageView {
         )
     }
 
-    open func fitToDisplay(containerSize: CGSize) -> Bool {
+    open func rd_fitToDisplay(containerSize: CGSize) -> Bool {
         sizeToFit()
         let height = containerSize.height
         let width = containerSize.width
         if width < height {
             // portrait
-            fitToAspect(containerSize: containerSize)
+            rd_fitToAspect(containerSize: containerSize)
             return false
         }
         else {
