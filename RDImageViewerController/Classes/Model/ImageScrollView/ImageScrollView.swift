@@ -72,8 +72,8 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
             else {
                 indicatorView.stopAnimating()
             }
-            adjustContentAspect()
             fixImageViewPosition()
+            adjustContentAspect()
         }
         get {
             imageView.image
