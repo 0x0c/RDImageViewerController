@@ -124,13 +124,13 @@ open class DoubleImageView: UICollectionViewCell, PageViewRepresentation {
         }
         rightImageView.image = data.right?.image
         leftImageView.image = data.left?.image
-        rightImageView.fitToAspect(
+        rightImageView.rd_fitToAspect(
             containerSize: .init(
                 width: frame.width / 2.0,
                 height: frame.height
             )
         )
-        leftImageView.fitToAspect(
+        leftImageView.rd_fitToAspect(
             containerSize: .init(
                 width: frame.width / 2.0,
                 height: frame.height
@@ -140,12 +140,12 @@ open class DoubleImageView: UICollectionViewCell, PageViewRepresentation {
             x: 0,
             y: 0,
             width: min(
-                ceil(leftImageView.contentClippingRect.width + rightImageView.contentClippingRect.width),
+                ceil(leftImageView.rd_contentClippingRect.width + rightImageView.rd_contentClippingRect.width),
                 frame.width
             ),
             height: max(
-                leftImageView.contentClippingRect.height,
-                rightImageView.contentClippingRect.height
+                leftImageView.rd_contentClippingRect.height,
+                rightImageView.rd_contentClippingRect.height
             )
         )
         scrollView.contentSize = stackView.bounds.size

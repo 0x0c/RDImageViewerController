@@ -25,7 +25,7 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
         public var vertical: VerticalAlignment = .center
     }
 
-    open var scrollView: UIScrollView
+    open private(set) var scrollView: UIScrollView
     public let zoomRect = CGSize(width: 100, height: 100)
 
     open var alignment: ImageAlignment = ImageAlignment(horizontal: .center, vertical: .center) {
@@ -72,15 +72,15 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
             else {
                 indicatorView.stopAnimating()
             }
-            adjustContentAspect()
             fixImageViewPosition()
+            adjustContentAspect()
         }
         get {
             imageView.image
         }
     }
 
-    public var imageView = UIImageView()
+    open private(set) var imageView = UIImageView()
     var indicatorView = UIActivityIndicatorView(style: .white)
     var zoomGesture = UITapGestureRecognizer(target: nil, action: nil)
     var content: T?
@@ -169,7 +169,7 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
 
     open func adjustContentAspect() {
         let fitToAspect = { [unowned self] in
-            imageView.fitToAspect(containerSize: frame.size)
+            imageView.rd_fitToAspect(containerSize: frame.size)
             fixImageViewPosition()
             scrollView.contentSize = imageView.frame.size
             scrollView.setZoomScale(1.0, animated: false)
@@ -178,7 +178,7 @@ open class ImageScrollView<T: ImageContent>: UICollectionViewCell, UIScrollViewD
         case .aspectFit:
             fitToAspect()
         case .displayFit:
-            if imageView.fitToDisplay(containerSize: frame.size) {
+            if imageView.rd_fitToDisplay(containerSize: frame.size) {
                 let height = frame.height
                 let width = frame.width
                 if width > height {
