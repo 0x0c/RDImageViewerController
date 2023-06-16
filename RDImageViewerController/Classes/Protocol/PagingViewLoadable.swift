@@ -5,8 +5,8 @@
 //  Created by Akira Matsuda on 2020/07/01.
 //
 
-import UIKit
 import CoreGraphics
+import UIKit
 
 public protocol PagingViewLoadable {
     func isPreloadable() -> Bool

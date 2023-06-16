@@ -7,6 +7,7 @@
 //
 
 import CoreGraphics
+import UIKit
 
 open class DoubleImageContent: PageViewContent {
     var right: ImageContent?
