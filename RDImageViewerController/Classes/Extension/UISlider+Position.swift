@@ -5,6 +5,8 @@
 //  Created by Akira Matsuda on 2020/05/22.
 //
 
+import UIKit
+
 extension UISlider {
     public func rd_trueSliderValue(value: Float, pagingView: PagingView) -> Float {
         pagingView.scrollDirection == .right ? value : 1 - value

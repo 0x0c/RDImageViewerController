@@ -5,6 +5,8 @@
 //  Created by Akira Matsuda on 2019/04/07.
 //
 
+import UIKit
+
 open class PageViewContent: PagingViewLoadable {
     public enum PageViewRepresentation {
         case `class`(AnyClass)

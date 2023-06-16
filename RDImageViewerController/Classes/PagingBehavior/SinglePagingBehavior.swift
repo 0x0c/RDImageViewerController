@@ -5,6 +5,8 @@
 //  Created by Akira Matsuda on 2020/05/22.
 //
 
+import UIKit
+
 open class SinglePagingBehavior: InterfaceBehavior {
     public init() {}
 
