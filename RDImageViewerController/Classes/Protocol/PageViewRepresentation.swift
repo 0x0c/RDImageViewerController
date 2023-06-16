@@ -5,6 +5,8 @@
 //  Created by Akira Matsuda on 2020/07/01.
 //
 
+import UIKit
+
 public protocol PageViewRepresentation {
     func configure(
         data: PagingViewLoadable,
