@@ -6,6 +6,8 @@
 //  Copyright © 2020 CocoaPods. All rights reserved.
 //
 
+import CoreGraphics
+
 open class DoubleImageContent: PageViewContent {
     var right: ImageContent?
     var left: ImageContent?

@@ -6,6 +6,8 @@
 //  Copyright © 2020 CocoaPods. All rights reserved.
 //
 
+import UIKit
+
 open class DoubleImageView: UICollectionViewCell, PageViewRepresentation {
     private let zoomRect = CGSize(width: 100, height: 100)
     private var scrollView: UIScrollView

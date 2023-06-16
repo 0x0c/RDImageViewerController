@@ -5,6 +5,8 @@
 //  Created by Akira Matsuda on 2020/11/02.
 //
 
+import UIKit
+
 extension UIImageView {
     open var contentClippingRect: CGRect {
         guard let image = image else { return bounds }

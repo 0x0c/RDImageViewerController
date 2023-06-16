@@ -5,6 +5,8 @@
 //  Created by Akira Matsuda on 2020/07/01.
 //
 
+import Foundation
+
 extension Array {
     var rd_middle: Element? {
         guard count != 0 else { return nil }
