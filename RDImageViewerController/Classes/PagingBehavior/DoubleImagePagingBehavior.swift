@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 open class DoubleImagePagingBehavior: SinglePagingBehavior {
     override open func updateLabel(label: UILabel, numerator: PagingView.VisibleIndex, denominator: Int) {

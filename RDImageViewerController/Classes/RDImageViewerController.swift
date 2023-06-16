@@ -28,8 +28,8 @@ open class RDImageViewerController: UIViewController, UICollectionViewDelegateFl
         }
     }
 
-    private(set) open var contents: [PageViewContent] = []
-    private(set) open var originalContents: [PageViewContent] = []
+    open private(set) var contents: [PageViewContent] = []
+    open private(set) var originalContents: [PageViewContent] = []
     open var automaticBarsHiddenDuration: TimeInterval = 0
     open var isSliderEnabled: Bool = true
     open var restoreBarState: Bool = true
